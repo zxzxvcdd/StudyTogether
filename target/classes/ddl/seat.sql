@@ -1,21 +1,20 @@
--- ì§€ì  ì¢Œì„ í…Œì´ë¸” ìƒì„±
+-- ÁöÁ¡ ÁÂ¼® Å×ÀÌºí »ı¼º
 CREATE TABLE seat (
-  seat_id NUMBER PRIMARY KEY,
-  seat_name VARCHAR2(200),
-  branch_office_id NUMBER,
-  user_id VARCHAR2(200),
-  entrance VARCHAR2(2), --ì…ì‹¤ì—¬ë¶€,ìë¦¬ í™œì„± ë¹„í™œì„± ì²´í¬
+  seat_id NUMBER PRIMARY KEY, --ÁÂ¼® ¾ÆÀÌµğ
+  seat_name VARCHAR2(200), --ÁÂ¼®ÀÌ¸§
+  store_id NUMBER, --ÁöÁ¡ ¾ÆÀÌµğ
+  user_id VARCHAR2(200), --È¸¿ø ¾ÆÀÌµğ
+  seat_type VARCHAR2(2), --ÁÂ¼®ÆÇº°(ÀÔ½Ç,Åğ½Ç,ºñÈ°¼º,È°¼º)
   x NUMBER,
   y NUMBER,
-  CONSTRAINT seat_ck CHECK(entrance IN('Y','N','D')), --'Y'ì…ì‹¤, 'N'í‡´ì‹¤, 'D'ë¹„í™œì„±
-  FOREIGN KEY (branchoffice_id) REFERENCES branch_office(branch_office_id),
-  FOREIGN KEY (user_id) REFERENCES member(user_id)
+  CONSTRAINT seat_ck CHECK(seat_type IN('Y','N','D','A')), --'Y'ÀÔ½Ç,'N'Åğ½Ç,'D'ºñÈ°¼º,'A'È°¼º
+  constraint seat_store_fk FOREIGN KEY (store_id) REFERENCES store_table(store_id),
+  constraint seat_user_fk FOREIGN KEY (user_id) REFERENCES member(user_id)
 );
 
-CREATE SEQUENCE seat
+CREATE SEQUENCE seat_seq
        INCREMENT BY 1
        START WITH 1
        MINVALUE 1
        NOCYCLE
-       NOCACHE
-       NOORDER;
+       NOCACHE;

@@ -1,24 +1,21 @@
-
---ì˜ˆì•½ì •ë³´
-CREATE TABLE reservation_data (
-  reservation_id NUMBER PRIMARY KEY, --ì˜ˆì•½ ì•„ì´ë””
-  reservation_day DATE, --ì˜ˆì•½ ë‚ ì§œ
-  branch_office_id NUMBER, --ì§€ì  ì•„ì´ë””
-  utilization_id NUMBER, --ì´ìš©ê¶Œ ì•„ì´ë””
-  user_id VARCHAR2(200), --íšŒì› ì•„ì´ë””
-  seat_id NUMBER, --ì¢Œì„ ì•„ì´ë””
-  useTime NUMBER, --ì‚¬ìš©ì‹œê°„
-  FOREIGN KEY (branch_office_id) REFERENCES branch_office(branch_office_id),
-  FOREIGN KEY ( utilization_id) REFERENCES ì´ìš©ê¶Œ( utilization_id),
-  FOREIGN KEY (user_id) REFERENCES member(user_id),
-  FOREIGN KEY (seat_id) REFERENCES seat(seat_id)
+--¿¹¾àÁ¤º¸
+CREATE TABLE reservation_table (
+  reservation_id NUMBER PRIMARY KEY, --¿¹¾à ¾ÆÀÌµğ
+  reservation_day DATE, --¿¹¾à ³¯Â¥
+  store_id NUMBER, --ÁöÁ¡ ¾ÆÀÌµğ
+  pass_id NUMBER, --ÀÌ¿ë±Ç ¾ÆÀÌµğ
+  user_id VARCHAR2(200), --È¸¿ø ¾ÆÀÌµğ
+  seat_id NUMBER, --ÁÂ¼® ¾ÆÀÌµğ
+  useTime NUMBER, --»ç¿ë½Ã°£
+  constraint reservation_store_fk FOREIGN KEY (store_id) REFERENCES store_table(store_id),
+  constraint reservation_pass_fk FOREIGN KEY (pass_id) REFERENCES pass_table(pass_id),
+  constraint reservation_user_fk FOREIGN KEY (user_id) REFERENCES member(user_id),
+  constraint reservation_seat_fk FOREIGN KEY (seat_id) REFERENCES seat(seat_id)
 );
 
-CREATE SEQUENCE reservation_data
+CREATE SEQUENCE reservation_seq
        INCREMENT BY 1
        START WITH 1
        MINVALUE 1
-
        NOCYCLE
-       NOCACHE
-       NOORDER;
+       NOCACHE;
