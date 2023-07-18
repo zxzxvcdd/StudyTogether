@@ -24,8 +24,8 @@
 		<property name="url"
 			value="jdbc:oracle:thin:@localhost:1521:xe" />
 
-		<property name="username" value="hr" />
-		<property name="password" value="hr" />
+		<property name="username" value="kgstudy" />
+		<property name="password" value="kgstudy" />
 	</bean>
 	
 		
