@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="seatPage.do">[이동]</a>
 </body>
 </html>

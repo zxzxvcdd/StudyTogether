@@ -10,6 +10,11 @@
 		</layout>
 	</appender>
 	
+	
+	 <!-- Application Loggers -->
+    <logger name="com.cristoval.web">
+        <level value="trace" />
+    </logger>
 	<!-- Application Loggers -->
 	<logger name="com.spring.kgstudy">
 		<level value="info" />
