@@ -12,7 +12,7 @@
 
 
 <insert id="insertSeat">
-	INSERT INTO seat VALUES(seat_seq.nextval,#{seatName},#{storeId},#{userId},#{seatType,#{x},#{y})
+	INSERT INTO seat VALUES(seat_seq.nextval,#{seatName},#{storeId},#{userId},#{seatType},#{x},#{y})
 </insert>
 
 
