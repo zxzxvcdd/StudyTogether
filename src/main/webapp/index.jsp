@@ -8,5 +8,7 @@
 </head>
 <body>
 
+		<a href="board/board.do">[이동]</a>
+	
 </body>
 </html>
