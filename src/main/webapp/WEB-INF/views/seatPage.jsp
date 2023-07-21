@@ -161,7 +161,7 @@ div.wrapper {
 					<div class="seatinfo_content">1</div>
 				</div>
 			</div>
-			<div class="seat_wrap">
+			<div class="seat_wrap">  
 			  <div class="seat_check">
 				<ul>
 					<li><span style="background: #669934"></span>

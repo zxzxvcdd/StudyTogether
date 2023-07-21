@@ -12,7 +12,11 @@
 
 
 <insert id="insertSeat">
+<<<<<<< HEAD
 	INSERT INTO seat VALUES(seat_seq.nextval,#{seatName},#{storeId},#{userId},#{seatType},#{x},#{y})
+=======
+	INSERT INTO seat VALUES(seat_seq.nextval,#{seatName},#{storeId},#{userId},#{seatType,#{x},#{y})
+>>>>>>> branch 'syh' of https://github.com/zxzxvcdd/KGStudy.git
 </insert>
 
 
