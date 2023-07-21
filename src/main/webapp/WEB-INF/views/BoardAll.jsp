@@ -13,11 +13,9 @@
 
 <body>
 
-	<h1>게시판 전체 보기</h1>
 	<div class="board_wrap">
 		<div class="board_title">
-			<strong>공지사항</strong>
-			<p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
+			<strong>문의게시판</strong>
 		</div>
 		<div class="board_list_wrap">
 			<div class="board_list">
@@ -31,7 +29,7 @@
 				<div>
 					<div class="num">5</div>
 					<div class="title">
-						<a href="view.html">글 제목이 들어갑니다.</a>
+						<a href="BoardView.do">글 제목이 들어갑니다.</a>
 					</div>
 					<div class="writer">관리자</div>
 					<div class="date">2023.07.20</div>
@@ -40,7 +38,7 @@
 				<div>
 					<div class="num">4</div>
 					<div class="title">
-						<a href="view.html">글 제목이 들어갑니다.</a>
+						<a href="BoardView.do"">글 제목이 들어갑니다.</a>
 					</div>
 					<div class="writer">관리자</div>
 					<div class="date">2023.07.20</div>
@@ -49,7 +47,7 @@
 				<div>
 					<div class="num">3</div>
 					<div class="title">
-						<a href="view.html">글 제목이 들어갑니다.</a>
+						<a href="BoardView.do"">글 제목이 들어갑니다.</a>
 					</div>
 					<div class="writer">관리자</div>
 					<div class="date">2023.07.20</div>
@@ -58,7 +56,7 @@
 				<div>
 					<div class="num">2</div>
 					<div class="title">
-						<a href="view.html">글 제목이 들어갑니다.</a>
+						<a href="BoardView.do"">글 제목이 들어갑니다.</a>
 					</div>
 					<div class="writer">관리자</div>
 					<div class="date">2023.07.20</div>
@@ -67,7 +65,7 @@
 				<div>
 					<div class="num">1</div>
 					<div class="title">
-						<a href="view.html">글 제목이 들어갑니다.</a>
+						<a href="BoardView.do"">글 제목이 들어갑니다.</a>
 					</div>
 					<div class="writer">관리자</div>
 					<div class="date">2023.07.20</div>
@@ -82,7 +80,7 @@
 					href="#" class="bt last">>></a>
 			</div>
 			<div class="bt_wrap">
-				<a href="write.html" class="on">등록</a>
+				<a href="BoardWrite.do" class="on">등록</a>
 				<!--<a href="#">수정</a>-->
 			</div>
 		</div>
