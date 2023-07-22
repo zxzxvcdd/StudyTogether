@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 			<div class="content_hedear_wrap">
 				<div class="content_header">
 					<div class="header_title">
@@ -17,8 +17,5 @@
 				</div>
 			</div>
 	<a href="seat/seat.do?storeId=1">[이동]</a>
-=======
-	<a href="seatPage.do">[이동]</a>
->>>>>>> branch 'syh' of https://github.com/zxzxvcdd/KGStudy.git
 </body>
 </html>

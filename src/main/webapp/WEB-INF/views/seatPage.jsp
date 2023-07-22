@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/seatPage.css">
-
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 body {
 	width: 100%;
@@ -141,6 +142,49 @@ div.wrapper {
 }
 
 
+.seat_list{
+	zoom: 0.9;
+}
+
+.seat_list{
+
+}
+
+.seat_list #box{
+	font-size: 0.75rem;
+    height: 40px;
+    width: 40px;
+    background: #dedede;
+    border: solid 1px white;
+    color: white;
+    border-radius: 5px;
+    cursor: default;
+    text-align: center;
+    display: inline-block;
+  	
+}
+
+.seat_color1{
+	background-color: green;
+	cursor: pointer;
+	
+}
+
+.seat_color2{
+	background-color: red;
+}
+
+.seat_color3{
+	background-color: gray;
+}
+
+.box{
+	
+}
+
+
+
+
 
 </style>
 </head>
@@ -175,6 +219,12 @@ div.wrapper {
 					</li>
 				</ul>
 			  </div>
+			  <div class="seat_list">
+			  	<c:forEach var="vo" items="${seat }" >
+			  	  
+			  		<div id="box" data-id="${vo.seatId}" data-type="${vo.seatType}">${vo.seatName } </div>
+			  	</c:forEach>
+			  </div>
 			</div>
 			<nav class="add_btn"></nav>
 
@@ -192,6 +242,94 @@ div.wrapper {
 		let seat = "${seat}";
 
 		console.log(seat);
+		
+		$("#box").each(function(i,seat){
+			
+			let seatType = seat.data("type");
+			
+			if(seatType==="Y"){
+				$('#box').addClass('seat_color1');	
+			}else if(seatType==="N"){
+				$('#box').addClass('seat_color2');
+			}else if(seatType==="D"){
+				$('#box').addClass('seat_color3');
+			}
+			
+			
+			
+			
+		})
+		
+		
+		function addConfim(){
+			  $("seat_color1").click(function (event) {
+
+		         event.stopPropagation();  
+				
+				if(confirm("좌석을 선택하시겠습니까?")){
+					
+					var seatId = $(this).data("id");
+					
+					var reqUrl = "kgstudy/seat/seatChcke.do?seatId="+seatId;
+					
+					
+					
+					
+					$.ajax({
+						url : reqUrl,
+						type : "GET",
+						data : 'JSON',
+						success : function(data) {
+							
+							
+							let msg = data;
+							if(msg){
+							
+								if(msg==="success"){
+								$(this).removeClass('seat_color1');
+								$('#box').addClass('seat_color2');
+								}
+							
+							
+							}
+						}
+							
+					}
+					
+				}
+				
+				
+					
+					
+				}		         
+		         
+				
+
+
+		      });
+
+		      $(".inner_close").click(function (event) {
+
+		         event.stopPropagation();
+		         event.preventDefault();
+		         var $modal = $(this).parent().parent();
+
+
+
+		         $modal.removeClass("active");
+
+
+		      });
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
 	</Script>
 
 </body>

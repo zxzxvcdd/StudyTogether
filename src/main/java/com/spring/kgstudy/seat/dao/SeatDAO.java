@@ -16,6 +16,8 @@ public interface SeatDAO {
 	int findSeatBySeatId(int seatId);
 	
 	boolean updateSeat(SeatVO vo);
+	
+	String seatCheck(int seatId);
 
 	
 }

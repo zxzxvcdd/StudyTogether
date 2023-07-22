@@ -47,6 +47,36 @@ public class SeatService{
 		
 	
 	}
+	
+	
+	public boolean seatChoise(int seatId, String userId) {
+	
+		
+		String type = sdao.seatCheck(seatId);
+		
+		if(type.equals("Y")) {
+			
+			SeatVO vo = new SeatVO();
+			
+			vo.setSeatType(type);
+			vo.setUserId(userId);
+			
+			sdao.updateSeat(vo);
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+	}
+	
+	
+	
+	
 
 	
 
