@@ -7,7 +7,6 @@ pass_id number constraint pass_id_pk primary key
 , user_id number
 , pass_type varchar2(200)
 , pass_time number
-, pass_used number
 , pass_start date
 , pass_end date
 , pass_price number
@@ -16,6 +15,7 @@ pass_id number constraint pass_id_pk primary key
 , constraint pass_user_fk foreign key (user_id) references meber(user_id)
 , constraint pass_order_fk foreign key (order_id) references order_table(order_id)
 , constraint pass_type_ck check(pass_type in('time','seson')
+, constraint pass_state_ck check(pass_state in('deactive','active','expired')
 ,
 
 )
