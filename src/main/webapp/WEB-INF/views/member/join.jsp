@@ -77,7 +77,7 @@
 	
 	<script>
 		
-	$('.input_id').focusout(function() {
+	/* $('.input_id').focusout(function() {
 		
 		let user_id = $('.input_id').val();
 		
@@ -85,7 +85,6 @@
 			
 			url: "IdCheck.do",
 			type: "post",
-			Content-Type : text/plan/charset=utf-8,
 			data:{user_id: user_id},
 			success: function(result) {
 				
@@ -107,7 +106,7 @@
 			
 		})
 		
-	})
+	}) */
 		
 	</script>
 
