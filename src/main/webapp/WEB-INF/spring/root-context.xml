@@ -17,6 +17,7 @@
 		base-package="com.spring.kgstudy" />
 
 
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
