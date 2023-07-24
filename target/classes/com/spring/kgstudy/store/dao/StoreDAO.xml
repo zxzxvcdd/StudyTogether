@@ -27,10 +27,10 @@ insert into store_table(sotre_id,user_id,store_name,store_address,store_road_add
 <select id="findAllStore">
 
 select * from
-(select * from store_table
+(select *, ROW_NUMBER() rn from store_table
 <include refid="search"/>
 
-) where row
+) where rn between #{page}-1*#{amount}+1 and  #{page}*#{amount}
 
 </select>
 
