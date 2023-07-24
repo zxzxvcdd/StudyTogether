@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.kgstudy.store.dao.StoreDAO">
 
-
 <sql id="search">
         <if test="type == 'name'">WHERE sotre_name LIKE '%'||#{keyword}||'%'</if>
         <if test="type == 'address'">WHERE store_address LIKE '%'||#{keyword}||'%' or store_road_address LIKE '%'||#{keyword}||'%' </if>
@@ -11,6 +10,7 @@
             OR store_address LIKE '%'||#{keyword}||'%' or store_road_address LIKE '%'||#{keyword}||'%'
         </if>
 </sql>
+
 
 <insert id="insertStore">
 
@@ -45,12 +45,12 @@ select * from
 </select>
 
 
-<update id="">
+<update id="updateStore">
 
 </update>
 
 
-<delete id="">
+<delete id="deleteStore">
 
 </delete>
 
