@@ -3,8 +3,19 @@
 <mapper namespace="com.spring.kgstudy.store.dao.StoreDAO">
 
 
-<insert id="">
+<sql id="search">
+        <if test="type == 'name'">WHERE sotre_name LIKE '%'||#{keyword}||'%'</if>
+        <if test="type == 'address'">WHERE store_address LIKE '%'||#{keyword}||'%' or store_road_address LIKE '%'||#{keyword}||'%' </if>
+        <if test="type == 'tc'">
+            WHERE sotre_name LIKE '%'||#{keyword}||'%'
+            OR store_address LIKE '%'||#{keyword}||'%' or store_road_address LIKE '%'||#{keyword}||'%'
+        </if>
+</sql>
 
+<insert id="insertStore">
+
+insert into store_table(sotre_id,user_id,store_name,store_address,store_road_address,store_tel,store_info,store_lat,store_lng)
+				values(store_seq.nextval,#{userId},#{storeName},#{storeAddress},#{storeRoadAddress},#{storeTel},#{storeInfo},#{storeLat},#{storeLng})
 
 </insert>
 
@@ -13,18 +24,23 @@
 
 
 
-<select id="">
+<select id="findAllStore">
+
+select * from store_table
+<include refid="search"/>
+
+order by store_id
 
 
 </select>
 
 
-<select id="">
+<select id="findOneStore">
 
 </select>
 
 
-<select id="">
+<select id="searchCnt">
 
 </select>
 

@@ -27,7 +27,7 @@ public class StoreVO {
 //	
 	
 	private int storeId;
-	private String useriD;
+	private String userId;
 	private String storeName;
 	private String storeAddress;
 	private String storeRoadAddress;
