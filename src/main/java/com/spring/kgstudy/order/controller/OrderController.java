@@ -23,11 +23,12 @@ public class OrderController {
 		
 		model.addAttribute("hi",service.test());
 		
-		
 		return "home";
-		
 	}
 	
 	
 
+	
+	
+	
 }
