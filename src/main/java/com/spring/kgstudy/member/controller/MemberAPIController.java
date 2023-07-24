@@ -16,12 +16,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 public class MemberAPIController {
-	
-	
+
 	private final MemberService service;
-	
-	//아이디 중복 체크
-	
+
+	// 아이디 중복 체크
+
 	/*
 	 * @PostMapping(value="/IdCheck.do",produces = "application/json; charset=utf8")
 	 * public ResponseEntity idCheck(String user_id, ResponseEntity<Integer> res) {
@@ -37,13 +36,13 @@ public class MemberAPIController {
 	 * 
 	 * }
 	 */
+
 	
-	/*
-	 * @RequestMapping(value = "/IdCheck.do", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public int nameCheck(@RequestParam("user_id") String user_id) {
-	 * return testService.nameCheck(sm_name); }
-	 */
-	
+	 @RequestMapping(value = "/IdCheck.do", method = RequestMethod.POST)
+	 @ResponseBody 
+	 public int nameCheck(@RequestParam("user_id") String user_id) {
+		return service.idCheck(user_id); }
+
 
 }
+

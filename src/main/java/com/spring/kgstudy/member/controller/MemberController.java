@@ -1,12 +1,13 @@
 package com.spring.kgstudy.member.controller;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.kgstudy.member.service.MemberService;
 import com.spring.kgstudy.member.vo.MemberVO;
@@ -18,6 +19,11 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService service;
+	
+	/*
+	 * @Bean BCryptPasswordEncoder passwordEncoder() { return new
+	 * BCryptPasswordEncoder(); }
+	 */
 
 	@GetMapping("main.do")
 	public String test(Model model) {
@@ -31,21 +37,21 @@ public class MemberController {
 
 	// 헤더의 로그인 아이콘을 누르면 로그인 페이지로 이동시키기
 	@RequestMapping(value = "/loginPageView.do") // 기본이 GET방식임
-	public String loginForm(@ModelAttribute("MemberVO") MemberVO memberVO, Model model) throws Exception {
+	public String loginForm(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception {
 
 		return "/member/login"; // 바로 View로 보내줌
 	}
 
 	// 회원가입 페이지로 이동시키기
 	@RequestMapping(value = "/joinPageView.do") // 기본이 GET방식임
-	public String joinForm(@ModelAttribute("memberVO") MemberVO memberVO, Model model) throws Exception {
+	public String joinForm(@ModelAttribute("memberVO") MemberVO memberVO) throws Exception {
 
 		return "/member/join"; // 바로 View로 보내줌
 	}
 
 	// 회원가입
 	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public String sawonInsert(@ModelAttribute("memberVO") MemberVO memberVO, Model model) {
+	public String sawonInsert(@ModelAttribute("memberVO") MemberVO memberVO) {
 
 		service.insertUser(memberVO);
 		// service => DAO => Mapper.xml(sql) => DB => return
