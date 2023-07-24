@@ -29,7 +29,7 @@ section {
 
 /* animation 속성 keyframes 사용 */
 @keyframes fadeIn{
-	0%{
+	0% {
 		transform: translateY(-1rem) scale(0); /* 효과 */
 		opacity: 0;
 	}
@@ -65,24 +65,27 @@ section {
 	width: 70rem;
 }
 
-.home .slide .content .con_span {
-	font-size: 2.5rem;
-	display: block;
-	color: #ccc;
-	animation:fadeIn 0.4s cubic-bezier(.54,1.3,.63,1.34) .2s both; /* 애니메이션 효과 */
+
+.home .swiper-slide-active .content .con_span {
+   font-size: 2.5rem;
+   display: block;
+   color: #ccc;
+   animation:fadeIn 0.4s cubic-bezier(.54,1.3,.63,1.34) .2s both; /* 애니메이션 효과 */
 }
 
-.home .slide .content .btn_main {
-	animation:fadeIn 0.4s cubic-bezier(.54,1.3,.63,1.34) .6s both; /* 애니메이션 효과 */
+
+.home .swiper-slide-active .content .btn_main {
+   animation:fadeIn 0.4s cubic-bezier(.54,1.3,.63,1.34) .6s both; /* 애니메이션 효과 */
 }
 
-.home .slide .content .con_h3 {
-	font-size: 7vw;
-	color: #f5f6fa;
-	text-shadow: 0 .5rem 1rem rgba(0,0,0,.7);
-	line-height: 1;
-	padding: 2rem 0;
-	animation:fadeIn 0.4s cubic-bezier(.54,1.3,.63,1.34) .4s both; /* 애니메이션 효과 */
+
+.home .swiper-slide-active .content .con_h3 {
+   font-size: 7vw;
+   color: #f5f6fa;
+   text-shadow: 0 .5rem 1rem rgba(0,0,0,.7);
+   line-height: 1;
+   padding: 2rem 0;
+   animation:fadeIn 0.4s cubic-bezier(.54,1.3,.63,1.34) .4s both; /* 애니메이션 효과 */
 }
 
 .swiper-button-next,
