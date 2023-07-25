@@ -15,7 +15,7 @@
 //    public static final String LOGIN_FROM = "loginMethod";
 //    public static final String LOGIN_COOKIE = "autoLoginCookie";
 //
-//    // 로그인했는지 알려주기~~
+//    // 로그인했는지 알려주기
 //    public static boolean isLogin(HttpSession session) {
 //        return session.getAttribute(LOGIN_FLAG) != null;
 //    }

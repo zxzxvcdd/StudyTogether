@@ -44,7 +44,7 @@ public class KakaoMapService {
 
 		double startX = 126;
 
-		List<StoreVO> resultList = new ArrayList<StoreVO>();
+		Map<Integer,StoreVO> distinctMap= new HashMap<Integer,StoreVO>();
 		for (int i = 0; i < 10; i++) {
 
 			double endX = startX + jumpX;
@@ -76,6 +76,10 @@ public class KakaoMapService {
 				Double storeLng = map.get("y").getAsDouble();
 				
 				
+				storeName = "스터디투게더" + storeName.substring(6);
+				
+				int kakaoMapId = map.get("id").getAsInt();
+				
 				StoreVO vo = new StoreVO();
 				
 				vo.setStoreAddress(storeAddres);
@@ -88,23 +92,14 @@ public class KakaoMapService {
 				
 				
 				
-				resultList.add(vo);
+				distinctMap.put(kakaoMapId, vo);
 
 			}
 			
-			System.out.println("result List size - " + resultList.size());
-			
-			//중복제거
-			Map<Integer,StoreVO> distinctMap= new HashMap<Integer,StoreVO>();
-			for(int i=0; i<resultList.size();i++) {
-				
-				StoreVO vo =resultList.get(i);
-				distinctMap.put(vo.getStoreId(), vo);
-					
-			}
 
-			resultList = new ArrayList<StoreVO>(distinctMap.values());
-			System.out.println("distinct result - "+resultList.size());
+			List<StoreVO> resultList  = new ArrayList<StoreVO>(distinctMap.values());
+			
+	
 			
 			
 			for(StoreVO vo : resultList){
