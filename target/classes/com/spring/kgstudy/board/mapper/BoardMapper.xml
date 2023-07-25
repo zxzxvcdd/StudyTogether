@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.kgstudy.board.mapper.BoardMapper">
+
+	<resultMap type="com.spring.kgstudy.board.vo.BoardVO"
+		id="BoardVO">
+		<result property="boardId" column="board_id" />
+		<result property="userId" column="user_id" />
+		<result property="indate" column="indate" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="writer" column="writer" />
+		<result property="count" column="count" />
+		<!-- <result property="filename" column="filename" /> -->
+		<result property="boardGroup" column="boardGroup" />
+		<result property="boardSequence" column="boardSequence" />
+		<result property="boardLevel" column="boardLevel" />
+		<result property="boardAvailable" column="boardAvailable" />
+	</resultMap>
+
+
+	<select id="getList" resultMap="BoardVO">
+		select * from board order by boardGroup desc, boardSequence asc
+	</select>
+
+	<insert id="insert">
+		<!-- INSERT INTO Board 
+			( board_id, user_id, title, content, writer, indate, count, boardGroup,boardSequence, boardLevel, boardAvailable) 
+			VALUES (board_seq.NEXTVAL, #{user_id}, #{title}, #{content}, #{writer}, SYSDATE, 0, 0, 0, 0, 1 ) -->
+
+			INSERT INTO Board 
+			(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+			SELECT COALESCE(MAX(board_id)+1, 1), #{user_id}, #{title}, #{content},#{writer}, sysdate, 0, 
+				   COALESCE(MAX(boardGroup)+1, 0), 0, 0, 1
+			FROM Board	
+	</insert>
+	
+	<!-- 동적 SQL , insert/insertSelectKey 둘중 아무거나 사용해도 됨 -->
+	<insert id="insertSelectKey" parameterType="BoardVO">
+		<selectKey keyProperty="boardId,boardGroup" resultType="BoardVO" order="BEFORE">
+			SELECT COALESCE(MAX(board_id)+1, 1) as board_id,
+				   COALESCE(MAX(boardGroup)+1, 0) as boardGroup
+			from board
+		</selectKey>
+	
+	INSERT INTO 
+	Board (board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+	values(#{boardId}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, 0, 0, 1)
+	
+	</insert>
+	
+	
+	<insert id="replyInsert" parameterType="BoardVO">
+		<selectKey keyProperty="boardId,boardGroup" resultType="BoardVO" order="BEFORE">
+			SELECT COALESCE(MAX(board_id)+1, 1) as board_id from board
+		</selectKey>
+	
+	INSERT INTO 
+	Board (boardId, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+	values(#{board_id}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, #{boardSequence}, #{boardLevel}, 1)
+		
+	</insert>
+
+	<update id="update">
+		update Board set title=#{title}, content=#{content}
+		where board_id=#{board_id}
+	</update>
+
+	<delete id="delete">
+		<!-- 	delete from Board where board_id=#{board_id} -->
+		update Board set boardAvailable=0 where board_id=#{board_id}
+	</delete>
+
+	<select id="read" resultMap="BoardVO">
+		select * from Board 
+		where board_id=#{board_id}
+	</select>
+	
+	
+	<update id="replySeqUpdate" parameterType="BoardVO">
+		update Board set boardSequence=boardSequence+1
+		where boardGroup=#{boardGroup} and boardSequence > #{boardSequence}
+	</update>
+
+
+
+
+
+
+</mapper>

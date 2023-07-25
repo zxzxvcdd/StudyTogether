@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<script>
+		location.href="board/list.do"
+	</script> 
 
 </body>
 </html>
