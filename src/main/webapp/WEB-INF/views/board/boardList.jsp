@@ -10,12 +10,9 @@
 <title>board List</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var result = '${result}';
@@ -24,6 +21,23 @@
 		$("#regBtn").click(function() {
 			location.href = "${cpath}/board/register.do";
 		});
+		//페이지 번호 클릭시 이동 하기
+		var pageFrm=$("#pageFrm");
+    	$(".paginate_button a").on("click", function(e){
+    		e.preventDefault(); // a tag의 기능을 막는 부분
+    		var page=$(this).attr("href"); // 페이지번호
+    		pageFrm.find("#page").val(page);
+    		pageFrm.submit(); // /kgstudy/board/list   		
+    	});
+    	// 상세보기 클릭시 이동 하기
+    	$(".move").on("click", function(e){
+    		e.preventDefault(); // a tag의 기능을 막는 부분
+    		var boardId=$(this).attr("href");
+    		var tag="<input type='hidden' name='boardId' value='"+boardId+"'/>";
+    		pageFrm.append(tag);
+    		pageFrm.attr("action","${cpath}/board/get.do");
+    		pageFrm.submit();
+    	});
 	});
 	function checkModal(result) {
 		if (result == '') {
@@ -69,7 +83,7 @@
 							</c:if>
 							<c:if test="${vo.boardLevel>0}">
 								<c:if test="${vo.boardAvailable==1}"> 			    	<!-- XSS를 방지하기 위해 c:out 태그 사용 -->
-									<a href="${cpath}/board/get.do?boardId=${vo.boardId}"><c:out value='[RE]${vo.title}'/></a>
+									<a class="move" href="${vo.boardId}"><c:out value='[RE]${vo.title}'/></a>
 								</c:if>
 								<c:if test="${vo.boardAvailable==0}">
 									<a href="javascript:goMsg()">삭제된 게시물 입니다.</a>
@@ -77,7 +91,7 @@
 							</c:if>
 							<c:if test="${vo.boardLevel==0}">
 								<c:if test="${vo.boardAvailable==1}">
-									<a href="${cpath}/board/get.do?boardId=${vo.boardId}"><c:out value='${vo.title}'/></a>
+									<a class="move" href="${vo.boardId}"><c:out value='${vo.title}'/></a>
 								</c:if>
 								<c:if test="${vo.boardAvailable==0}">
 									<a href="javascript:goMsg()">삭제된 게시물 입니다.</a>
@@ -95,6 +109,34 @@
 						</td>
 					</tr>
 				</table>
+				<!-- 페이징 처리 START -->
+				<div style="text-align: center">
+				 <ul class="pagination">
+				<!-- 이전 처리 -->
+				<c:if test="${pageMaker.prev}">
+					<li class="paginate_button previous">
+					<%-- <a href="${cpath}/board/list.do?page=${pageMaker.startPage-1}">이전</a> --%>
+					<a href="${pageMaker.startPage-1}">이전</a>
+				</c:if>
+				<!-- 페이지 번호 처리 -->
+				  <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	         		<li class="paginate_button ${pageMaker.cri.page==pageNum ? 'active' : ''}"><a href="${pageNum}">${pageNum}</a></li>
+		  		  </c:forEach>
+				<!-- 다음 처리 -->
+				<c:if test="${pageMaker.next}">
+					<li class="paginate_button previous">
+					<%-- <a href="${cpath}/board/list.do?page=${pageMaker.endPage+1}">다음</a> --%>
+					<a href="${pageMaker.endPage+1}">다음</a>
+				</c:if>
+				
+				 </ul>
+				</div>
+				<!-- END -->
+				<form id="pageFrm" action="${cpath}/board/list.do" method="get">
+					<!-- 게시물 번호(boardId)추가 -->
+					<input type="hidden" id="page" name="page" value="${pageMaker.cri.page}" />
+					<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum}" />
+				</form>
 
 
 

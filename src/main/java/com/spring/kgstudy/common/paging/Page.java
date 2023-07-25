@@ -9,19 +9,19 @@ import lombok.ToString;
 @Getter @Setter @ToString @AllArgsConstructor
 public class Page {
 
-    private int pageNum;
-    private int amount;
+    private int pageNum; //현재 페이지 번호
+    private int amount; //한 페이지에 보여줄 데이터의 개수
 
     public Page(){
         this.pageNum = 1;
         this.amount = 12;
     }
 
-    public int getStart() {
+    public int getStart() { //시작 데이터의 인덱스를 계산하는 메서드
         return (pageNum - 1) * amount;
     }
 
-    public void setPageNum(int pageNum){
+    public void setPageNum(int pageNum){ //페이지 번호를 설정하는 메서드, 1이상의 값이여야 함.
         if(pageNum <= 0 || pageNum > Integer.MAX_VALUE){
             this.pageNum = 1;
             return;
@@ -30,7 +30,7 @@ public class Page {
     }
 
 
-    public void setAmount(int amount){
+    public void setAmount(int amount){ // 한 페이지에 보여줄 데이터 개수를 설정하는 메서드로, 4~100사이의 값이어야함.
         if(amount < 4 || amount > 100){
             this.amount = 5;
             return;

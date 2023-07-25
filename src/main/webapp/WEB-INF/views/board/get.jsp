@@ -20,12 +20,12 @@
 			var formData = $("#frm");
 			var btn = $(this).data("btn"); // data-btn="list"
 			if (btn == 'reply') {
-				formData.attr("action", "${cpath}/board/reply");
+				formData.attr("action", "${cpath}/board/reply.do");
 			} else if (btn == 'modify') {
-				formData.attr("action", "${cpath}/board/modify");
+				formData.attr("action", "${cpath}/board/modify.do");
 			} else if (btn == 'list') {
 				formData.find("#boardId").remove();
-				formData.attr("action", "${cpath}/board/list");
+				formData.attr("action", "${cpath}/board/list.do");
 			}
 			formData.submit();
 		});
@@ -73,7 +73,9 @@
 					<tr>
 				</table>
 				<form id="frm" method="get">
-					<input type="hidden" name="board_id" value="<c:out value='${vo.board_id}'/>"/>
+					<input type="hidden" name="boardId" value="<c:out value='${vo.boardId}'/>"/>
+					<input type="hidden" name="page" value="<c:out value='${cri.page}'/>"/>
+					<input type="hidden" name="perPageNum" value="<c:out value='${cri.perPageNum}'/>"/>	
 				</form>
 			</div>
 			<div class="panel-footer">문의 게시판</div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.board.mapper.BoardMapper;
 import com.spring.kgstudy.board.vo.BoardVO;
+import com.spring.kgstudy.common.vo.Criteria;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -15,9 +16,9 @@ public class BoardServiceImpl implements BoardService {
 	BoardMapper boardMapper;
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(Criteria cri) {
 		// TODO Auto-generated method stub
-		List<BoardVO> list = boardMapper.getList();
+		List<BoardVO> list = boardMapper.getList(cri);
 		
 		System.out.println(list);
 		return list;
@@ -69,6 +70,12 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.replyInsert(vo);
 		
 		
+	}
+
+	@Override
+	public int totalCount() {
+		// TODO Auto-generated method stub
+		return boardMapper.totalCount();
 	}
 	
 	
