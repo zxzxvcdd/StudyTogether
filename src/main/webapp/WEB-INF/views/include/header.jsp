@@ -20,10 +20,10 @@
 <body>
 
 	<!-- header section -->
-	<div id="menu-bars" class="fas fa-bars"></div>
+	<div id="menu-bars" class="fas fa-bars"></div> <!-- 창이 작아지면 메뉴바 생김 -->
 
 	<header>
-	
+		
 		<a href="main.do" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" width="180"></a>
 		
 		<nav class="navbar">
@@ -35,13 +35,24 @@
 			<a href="#">예약</a>
 		</nav>
 		
-		<!-- 각 회원별로 아이콘 다르게 보여줘야함 -->
+		
 		<div class="follow"> <!-- 아이콘 -->
-			<a href="loginPageView.do" id="login" class='fa fa-unlock'></a> <!-- 로그인 --> 
-			<a href="#" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
-			<a href="#" id="admin_page" class='fas fa-user-cog'></a> <!-- 관리자페이지 -->
-			<a href="#" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
-			<a href="#" id="ask" class='fas fa-headphones-alt'></a> <!-- 고객센터(문의) -->
+		
+		<c:choose>
+				<c:when test="${loginUser.user_grant == 'user'}">
+					<a href="#" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
+					<a href="logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
+				</c:when> 
+				<c:when test="${loginUser.user_grant == 'admin'}">
+					<a href="#" id="admin_page" class='fas fa-user-cog'></a> <!-- 관리자페이지 -->
+					<a href="logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
+				</c:when> 
+				<c:otherwise> 
+					<a href="loginPageView.do" id="login" class='fa fa-unlock'></a> <!-- 로그인 -->
+				</c:otherwise>
+		</c:choose>
 		</div>
 		
 	</header>

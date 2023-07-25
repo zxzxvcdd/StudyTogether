@@ -21,7 +21,7 @@
         
             <div class="form-value">
             
-                <form action="/kgCoffee/user/login.do" method="post">
+                <form action="login.do" method="post">
                 
                     <h2>Login</h2>
                     
@@ -38,7 +38,7 @@
                     </div>
                     
                     <div class="button">
-						<input type="submit" class="btn" value="로그인">
+						<input type="submit" class="btn_login" value="로그인">
 					</div>
                     
                 </form>
@@ -53,5 +53,27 @@
 	
 	<%@include file="../include/footer.jsp" %>
 	
+	<script>
+		let loginMsg = "${loginMsg}"; //로그인 실패 메세지
+	
+		if (loginMsg) {
+			alert(loginMsg);
+		}
+	</script>
+	
+	<script>
+		let joinMsg = "${joinMsg}"; //회원가입 성공 메세지
+		
+		if (joinMsg) {
+			alert(joinMsg);
+		}
+	</script>
+	<script>
+		let updatePwMsg = "${updatePwMsg}";
+		
+		if (updatePwMsg) {
+			alert(updatePwMsg);
+		}
+	</script>
 </body>
 </html>

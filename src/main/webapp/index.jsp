@@ -8,7 +8,7 @@
 </head>
 <body>
 	
-	<!-- main page로 보내기 --><!-- ㅇ -->
+	<!-- main page로 보내기 -->
 	<script>
 		location.href="main.do"
 	</script>

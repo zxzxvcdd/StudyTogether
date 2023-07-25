@@ -8,7 +8,8 @@
 
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/login.css?after">
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script> <!-- jquery -->
+<!-- jquery -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
 
 </head>
 <body class="login_body">
@@ -24,7 +25,7 @@
 				<h2>Join</h2>
 
 				<div class="input-box">
-					<label class="join-label" id="checkId"></label>
+					<label class="join-label" id="checkId"></label> 
 					<input type="text" name="user_id" id="id" placeholder="아이디" class="input_id" required>
 				</div>
 
@@ -52,8 +53,8 @@
 				</div>
 
 				<div class="con-gender">
-					<p class="font">성별 선택 </p> 
-					<select id="select_gender" name="user_gender">
+					<p class="font">성별 선택</p>
+					<select id="select_gender" name="user_gender" required>
 						<option value="" selected>선택하세요</option>
 						<option value="M">남자</option>
 						<option value="F">여자</option>
@@ -71,43 +72,48 @@
 	<!-- join section end -->
 
 	<%@include file="../include/footer.jsp"%>
-	
+
 	<!-- main JS 파일 -->
 	<script src="${pageContext.request.contextPath}/resources/js/member/join.js"></script>
+
+	<script>
+		//아이디 중복 비동기 처리
+		$('.input_id').focusout(function() {
+			
+			let user_id = $('.input_id').val();
+			
+			$.ajax({
+				url: "IdCheck.do",
+				type: "post",
+				data:{user_id: user_id},
+				success: function(result) {
+					
+					if(result == 1){
+						$('#checkId').html('사용할 수 없는 아이디입니다.');
+						$('#checkId').css("color", "#eb4d4b");
+					} else {
+						$('#checkId').html('사용할 수 있는 아이디입니다.');
+						$('#checkId').css("color", "#6ab04c");
+					}
+					
+				},
+				  error: function (request, status, error) {
+				        console.log("code: " + request.status)
+				        console.log("message: " + request.responseText)
+				        console.log("error: " + error);
+				  }
+				
+			})
+			
+		}) //.ajax-end
+	</script>
 	
 	<script>
+		let joinMsg = "${joinMsg}"; //회원가입 실패 메세지
 		
-	/* $('.input_id').focusout(function() {
-		
-		let user_id = $('.input_id').val();
-		
-		$.ajax({
-			
-			url: "IdCheck.do",
-			type: "post",
-			data:{user_id: user_id},
-			success: function(result) {
-				
-				if(result == 0){
-					$('#checkId').html('사용할 수 없는 아이디입니다.');
-					$('#checkId').css("color", "#eb4d4b");
-				} else {
-					$('#checkId').html('사용할 수 있는 아이디입니다.');
-					$('#checkId').css("color", "#6ab04c");
-				}
-				
-			},
-			  error: function (request, status, error) {
-			        console.log("code: " + request.status)
-			        console.log("message: " + request.responseText)
-			        console.log("error: " + error);
-			        
-			  }
-			
-		})
-		
-	}) */
-		
+		if (joinMsg) {
+			alert(joinMsg);
+		}
 	</script>
 
 </body>

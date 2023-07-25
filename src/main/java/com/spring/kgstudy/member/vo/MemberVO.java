@@ -5,10 +5,13 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor
+@NoArgsConstructor
+@Data @AllArgsConstructor
 public class MemberVO {
 	
 	private String user_id;
@@ -21,6 +24,6 @@ public class MemberVO {
 	private Date user_birthday;
 	private String user_grant;
 	
-	public MemberVO() { }
+	
 	
 }

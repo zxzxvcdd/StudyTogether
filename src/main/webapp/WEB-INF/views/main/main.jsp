@@ -12,6 +12,7 @@
 <!-- home_슬라이드쇼 만들기 https://swiperjs.com/demos#responsive-breakpoints -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<!-- @media query 사용하기 위해 viewport 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 </head>
@@ -134,6 +135,21 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 	<!-- main JS 파일 -->
 	<script src="${pageContext.request.contextPath}/resources/js/main/main.js"></script>
+	
+	<script>
+		let loginMsg = "${loginMsg}"; //로그인 성공 메세지
+	
+		if (loginMsg) {
+			alert(loginMsg);
+		}
+	</script>
+	<script>
+		let logoutMsg = "${logoutMsg}"; //로그아웃 메세지
+	
+		if (logoutMsg) {
+			alert(logoutMsg);
+		}
+	</script>
 	
 </body>
 </html>

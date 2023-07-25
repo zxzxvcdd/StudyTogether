@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
 <configuration>
 
-<!-- 	<typeAliases>
-	
-	
-	
-		<typeAlias alias="sawonVO" type="com.spring.mybatis1.sawon.vo.SawonVO"/>
-	
-	</typeAliases> -->
-
-
-
     <settings>
-
-
 
         <!-- 카멜 케이스 VO 매핑 -->       
         <setting name="mapUnderscoreToCamelCase" value="true"/>
@@ -26,6 +16,10 @@
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
     
+    
+    <typeAliases>
+		<typeAlias alias="memberVO" type="com.spring.kgstudy.member.vo.MemberVO"/>
+	</typeAliases>
 
 
 </configuration>

@@ -20,29 +20,13 @@ public class MemberAPIController {
 	private final MemberService service;
 
 	// 아이디 중복 체크
-
-	/*
-	 * @PostMapping(value="/IdCheck.do",produces = "application/json; charset=utf8")
-	 * public ResponseEntity idCheck(String user_id, ResponseEntity<Integer> res) {
-	 * 
-	 * 
-	 * int result=service.idCheck(user_id);
-	 * 
-	 * 
-	 * res System.out.println(result);
-	 * 
-	 * return result;
-	 * 
-	 * 
-	 * }
-	 */
-
-	
 	 @RequestMapping(value = "/IdCheck.do", method = RequestMethod.POST)
-	 @ResponseBody 
 	 public int nameCheck(@RequestParam("user_id") String user_id) {
-		return service.idCheck(user_id); }
+		 
+		 System.out.println("idcheck");
+		 return service.idCheck(user_id); 
 
+	 }
 
 }
 
