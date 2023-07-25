@@ -20,8 +20,7 @@ public class StoreController {
 	@GetMapping("get.do")
 	public String storeIndex() {
 		
-		System.out.println("hi");
-		
+	
 		
 		return "/store/store";
 		

@@ -4,6 +4,7 @@
 
 <sql id="search">
         <if test="type == 'name'">WHERE sotre_name LIKE '%'||#{keyword}||'%'</if>
+        <if test="type == 'id'">WHERE sotre_id = #{keyword}</if>
         <if test="type == 'address'">WHERE store_address LIKE '%'||#{keyword}||'%' or store_road_address LIKE '%'||#{keyword}||'%' </if>
         <if test="type == 'tc'">
             WHERE sotre_name LIKE '%'||#{keyword}||'%'
@@ -26,9 +27,12 @@ insert into store_table(sotre_id,user_id,store_name,store_address,store_road_add
 
 <select id="findAllStore">
 
-select * from
-(select *, ROW_NUMBER() rn from store_table
+select *, ROW_NUMBER() rn from
+(select * from store_table
 <include refid="search"/>
+
+order by sotre_id
+
 
 ) where rn between #{page}-1*#{amount}+1 and  #{page}*#{amount}
 
@@ -37,20 +41,35 @@ select * from
 
 <select id="findOneStore">
 
+select * from store_table
+<include refid="search"/>
+
+
 </select>
 
 
-<select id="searchCnt">
+<select id="searchStoreCnt">
+
+select count(*) from store_table
+<include refid="search"/>
 
 </select>
 
 
 <update id="updateStore">
+update store_table set
+	user_id=#{userId}, store_name =#{storeName}, 
+	store_address=#{storeAddress}, store_road_address=#{storeRoadAddress}, 
+	store_tel=#{storeTel}, store_info=#{storeInfo} 
+	where store_id = #{storeId}
 
 </update>
 
 
 <delete id="deleteStore">
+
+delete store_table where store_id=#{storeId}
+
 
 </delete>
 

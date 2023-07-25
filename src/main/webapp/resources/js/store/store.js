@@ -269,7 +269,7 @@ function panTo(moveLatLon) {
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
     var imageSrc = '/kgstudy/resources/img/store/marker.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(40, 50),  // 마커 이미지의 크기
+        imageSize = new kakao.maps.Size(50, 50),  // 마커 이미지의 크기
         markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
         marker = new kakao.maps.Marker({
             position: position, // 마커의 위치
@@ -335,7 +335,7 @@ function displayInfowindow(marker, places) {
 
     var content = '<div class="map_marker_pop_wrap">' +
         '<div class="map_marker_pop">' +
-        '<div class="map_marker_pop_header"> 스터디 투게더' + places.place_name.substr(6) + '</div>' +
+        '<div class="map_marker_pop_header"> 스터디 투게더<br>' + places.place_name.substr(6) + '</div>' +
         ' <div class="close" onclick="infowindow.close()" title="닫기"></div>' +
         '<article>' +
         '<div class="map_marker_pop_inner">' +

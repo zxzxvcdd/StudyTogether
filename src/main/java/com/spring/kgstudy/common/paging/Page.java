@@ -14,7 +14,7 @@ public class Page {
 
     public Page(){
         this.pageNum = 1;
-        this.amount = 12;
+        this.amount = 10;
     }
 
     public int getStart() {

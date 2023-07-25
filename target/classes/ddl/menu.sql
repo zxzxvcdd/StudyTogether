@@ -5,7 +5,6 @@ menu_id number constraint pass_id_pk primary key
 , pass_type varchar2(200)
 , pass_time number
 , pass_price number
-, constraint menu_user_fk foreign key (user_id) references meber(user_id)
 ,
 )
 

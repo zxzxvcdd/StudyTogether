@@ -219,8 +219,8 @@
 }
 
 #menu_wrap .find_store_header>ul>li.active {
-    color: #000;
-    background: #FDD000;
+    color: #fff;
+    background: rgb(0,138,148);
 
 
 }
@@ -264,8 +264,9 @@
 #menu_wrap .search .quick_search {
     height: 31%;
 
+	color:#fff;
     position: relative;
-    background: #FDD000;
+    background: rgb(0,138,148);
     text-align: center;
 
 
@@ -350,7 +351,7 @@
 #placesList::-webkit-scrollbar-thumb {
     height: 30%;
     /* 스크롤바의 길이 */
-    background: #FDD000;
+    background: rgb(0,138,148);
     /* 스크롤바의 색상 */
 
     border-radius: 10px;
@@ -427,10 +428,11 @@
     position: absolute;
     right: 4%;
     top: 50%;
-    width: 40px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     transform: translate(0%, -50%);
     background: url("/kgstudy/resources/store/marker.png") center;
+    background-color: white;
 }
 
 
@@ -468,7 +470,7 @@
     width: 100%;
     height: 22%;
     padding: 20px;
-    background: #fdd000;
+    background: rgb(0,138,148);
 
     text-align: center;
 
@@ -551,11 +553,11 @@
 }
 
 .location_list_wrap .location_list::-webkit-scrollbar-thumb {
-    background: #fdd000;
+    background: rgb(0,138,148);
 }
 
 .location_list_wrap .location_list::selection {
-    background: #fdd000;
+    background: rgb(0,138,148);
     color: #1c1c1b;
 }
 
@@ -769,7 +771,7 @@
     #placesList::-webkit-scrollbar-thumb {
         height: 30%;
         /* 스크롤바의 길이 */
-        background: #FDD000;
+        background: rgb(0,138,148);
         /* 스크롤바의 색상 */
 
         border-radius: 10px;
