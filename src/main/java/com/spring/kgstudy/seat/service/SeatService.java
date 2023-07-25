@@ -49,28 +49,29 @@ public class SeatService{
 	}
 	
 	
-	public boolean seatChoise(int seatId, String userId) {
+	public boolean seatChoise(int seatId, String userId, String seatName) {
 	
 		
 		String type = sdao.seatCheck(seatId);
+		
 		
 		if(type.equals("Y")) {
 			
 			SeatVO vo = new SeatVO();
 			
-			vo.setSeatType(type);
+			vo.setSeatId(seatId);
+			vo.setSeatType("N");
 			vo.setUserId(userId);
+			vo.setSeatName(seatName);
 			
-			sdao.updateSeat(vo);
+			System.out.println(vo);
+			boolean result = sdao.updateSeat(vo);
+			System.out.println(result);
 			
-			
-			
-			
-			
-			
-			
+			return true;
 		}
 		
+		return false;
 		
 	}
 	

@@ -4,37 +4,41 @@
 
 
 
-
+<!-- 좌석 리스트 -->
 <select id="findSeat" resultType="com.spring.kgstudy.seat.vo.SeatVO" >
 	SELECT * FROM seat WHERE store_id=#{storeId}
 </select>
 
 
-
+<!-- 좌석추가 -->
 <insert id="insertSeat">
 
 	INSERT INTO seat VALUES(seat_seq.nextval,#{seatName},#{storeId},#{userId},#{seatType},#{x},#{y})
 
 </insert>
 
-
+<!--  -->
 <select id="findSeatBySeatId" resultType="int" >
 	SELECT count(*) FROM seat WHERE seat_id=#{seatId}
 </select>
 
 <update id="updateSeat">
 	UPDATE seat SET  
-	<if test="#{x}!=null">
+	<if test="#{seatName}!=null">
 	seat_name=#{seatName},  x=#{x}, y=#{y},
 	</if>
 	
 	user_id=#{userId},  seat_type=#{seatType} WHERE seat_id=#{seatId}
 </update>
 
+<select id="seatCheck" resultType="String">
+	SELECT seat_type FROM seat WHERE seat_id=#{seatId}
+</select>
 
 
 
 
+	
 
 
 

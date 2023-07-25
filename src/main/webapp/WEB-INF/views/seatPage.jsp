@@ -9,6 +9,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/seatPage.css">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <%-- <script src="${pageContext.request.contextPath }/resources/js/seatPage.js"/> --%>
 <style>
 body {
 	width: 100%;
@@ -150,32 +151,54 @@ div.wrapper {
 
 }
 
-.seat_list #box{
+ .box{
 	font-size: 0.75rem;
     height: 40px;
     width: 40px;
-    background: #dedede;
+ 	box-shadow: 1px 1px 5px #ddd;	
     border: solid 1px white;
-    color: white;
+    color: black;
     border-radius: 5px;
-    cursor: default;
+    cursor: pointer;
     text-align: center;
     display: inline-block;
+	
   	
+}
+
+.box:hover{
+	top: 0;
+    right: 0;
+    transform: translate(0,0);
+    z-index: 400;
+    width: 50px;
+    height: 50px;
 }
 
 .seat_color1{
 	background-color: green;
-	cursor: pointer;
-	
+		
 }
 
 .seat_color2{
 	background-color: red;
+	cursor: default;
+
+    
+}
+
+.box.seat_color2:hover,.box.seat_color3:hover {
+  top: 0;
+  right: 0;
+  transform: translate(0,0);
+  z-index: 400;
+  width: 40px; /* 기존 크기로 복원 */
+  height: 40px; /* 기존 크기로 복원 */
 }
 
 .seat_color3{
 	background-color: gray;
+	cursor: default;
 }
 
 .box{
@@ -222,7 +245,7 @@ div.wrapper {
 			  <div class="seat_list">
 			  	<c:forEach var="vo" items="${seat }" >
 			  	  
-			  		<div id="box" data-id="${vo.seatId}" data-type="${vo.seatType}">${vo.seatName } </div>
+			  		<div class="box" data-id="${vo}" data-type="${vo.seatType}" onclick="addConfirm()">${vo.seatName} </div>
 			  	</c:forEach>
 			  </div>
 			</div>
@@ -243,42 +266,52 @@ div.wrapper {
 
 		console.log(seat);
 		
-		$("#box").each(function(i,seat){
+	$(document).ready(function() {
+		
+		$(".box").each(function(i,seat){
 			
-			let seatType = seat.data("type");
+			let seatType = $(this).data("type");
 			
 			if(seatType==="Y"){
-				$('#box').addClass('seat_color1');	
+				$(this).addClass('seat_color1');	
 			}else if(seatType==="N"){
-				$('#box').addClass('seat_color2');
+				$(this).addClass('seat_color2');
 			}else if(seatType==="D"){
-				$('#box').addClass('seat_color3');
+				$(this).addClass('seat_color3');
 			}
 			
 			
 			
 			
 		})
+	});
 		
 		
-		function addConfim(){
-			  $("seat_color1").click(function (event) {
+		function addConfirm(){
+			  $(".seat_color1").click(function (event) {
 
-		         event.stopPropagation();  
+		          event.stopPropagation();   
 				
 				if(confirm("좌석을 선택하시겠습니까?")){
 					
-					var seatId = $(this).data("id");
+					console.log($(this));
 					
-					var reqUrl = "kgstudy/seat/seatChcke.do?seatId="+seatId;
+					var seatVO = $(this).data("id");
+					console.log(seatVO);
+					
+					var reqUrl = "seatChecke.do";
 					
 					
 					
 					
 					$.ajax({
 						url : reqUrl,
-						type : "GET",
-						data : 'JSON',
+						type : "POST",
+						contentType: "application/json",
+						data : {
+							
+							"seatVO":seatVO
+						},
 						success : function(data) {
 							
 							
@@ -286,29 +319,29 @@ div.wrapper {
 							if(msg){
 							
 								if(msg==="success"){
-								$(this).removeClass('seat_color1');
-								$('#box').addClass('seat_color2');
+									$(this).removeClass('seat_color1');
+									$('.box').addClass('seat_color2');
 								}
 							
 							
 							}
 						}
 							
-					}
+					})
 					
 				}
 				
 				
 					
 					
-				}		         
+				});		         
 		         
 				
 
+		
+		      };
 
-		      });
-
-		      $(".inner_close").click(function (event) {
+		      /* $(".inner_close").click(function (event) {
 
 		         event.stopPropagation();
 		         event.preventDefault();
@@ -319,10 +352,11 @@ div.wrapper {
 		         $modal.removeClass("active");
 
 
-		      });
-		}
-
+		      }); */
 		
+	
+	
+	
 		
 		
 		
