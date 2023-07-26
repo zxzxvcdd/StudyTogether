@@ -1,3 +1,4 @@
+<%@page import="com.spring.kgstudy.seat.vo.TestUser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -242,13 +243,36 @@ div.wrapper {
 					</li>
 				</ul>
 			  </div>
+			  
+			  
+			  <!-- ========== 테스트 ====================== -->
+			 <%
+    			String userId = "admin";
+   				 TestUser loginUser = new TestUser(userId);
+    			request.setAttribute("loginUser", loginUser);
+			%> 
+			  
+			  
+			  
+			  <!-- 좌석 리스트 -->
 			  <div class="seat_list">
 			  	<c:forEach var="vo" items="${seat }" >
 			  	  
-			  		<div class="box" data-id="${vo}" data-type="${vo.seatType}" onclick="addConfirm()">${vo.seatName} </div>
-			  	</c:forEach>
-			  </div>
-			</div>
+			  	  <!-- 사용자 본인 자리 확인 -->
+			  	  <c:choose>
+			  	  
+			  	  	<c:when test="${loginUser.userId eq vo.userId}">
+			  	  	
+			  			<div class="box myseat" data-id="${vo.seatId}" data-type="${vo.seatType}" data-name="${vo.seatName }" onclick="addConfirm(this)">${vo.seatName} </div>
+			  	  	</c:when>
+			  	  	<c:otherwise>
+			  			<div class="box" data-id="${vo.seatId}" data-type="${vo.seatType}" data-name="${vo.seatName }" onclick="addConfirm(this)">${vo.seatName} </div>
+
+					</c:otherwise>
+		  		</c:choose>
+		  	</c:forEach>
+		  </div>
+		</div>
 			<nav class="add_btn"></nav>
 
 		</div>
@@ -266,6 +290,7 @@ div.wrapper {
 
 		console.log(seat);
 		
+	/* ================= 좌석상태 색깔 처리 ============================== */
 	$(document).ready(function() {
 		
 		$(".box").each(function(i,seat){
@@ -281,46 +306,120 @@ div.wrapper {
 			}
 			
 			
+		})
+		
+		
+		
+		
+		
+		
+		
+		/* ======================= 퇴실처리 ============================= */
+	 
+		$(".myseat").click(function(){
+				
+			if(confirm("퇴실하시겠습니까?")){
+				var seatId = $(this).data("id");
+				var seatType = $(this).data("type");
+				var seatName = $(this).data("name");
+				var seatVO = {
+					    seatId: seatId,
+					    seatType: seatType,
+					    seatName: seatName
+					  }; 
+				
+				var reqUrl = "seatCheckOut.do";
+				
+				
+				
+				$.ajax({
+					url : reqUrl,
+					type : "POST",
+					contentType: "application/json",
+					data : JSON.stringify(seatVO),
+				
+					success : function(data) {
+						
+						console.log(data);
+						let msg = data;
+						if(msg){
+						
+							if(msg==="success"){
+								$(this).removeClass('seat_color2');
+								$(this).addClass('seat_color1');
+								alert("퇴실");
+								location.reload(); 
+								
+								
+							}
+						
+						
+						}
+					}
+						
+				})
+				
+				
+			}
+			
 			
 			
 		})
+		
 	});
-		
-		
-		function addConfirm(){
-			  $(".seat_color1").click(function (event) {
-
-		          event.stopPropagation();   
+	
+	
+	
+	
+	
+			
+		/* ================ 좌석선택 메소드 ========================== */
+		function addConfirm(seatElement){
+			  
+			if($(seatElement).data("type")==="Y"){
 				
 				if(confirm("좌석을 선택하시겠습니까?")){
 					
-					console.log($(this));
+					console.log($(seatElement));
 					
-					var seatVO = $(this).data("id");
-					console.log(seatVO);
+					var seatId = $(seatElement).data("id");
+					var seatType = $(seatElement).data("type");
+					var seatName = $(seatElement).data("name");
+					var seatVO = {
+						    seatId: seatId,
+						    seatType: seatType,
+						    seatName: seatName
+						  };
+					
+					
+					console.log(JSON.stringify(seatVO));
 					
 					var reqUrl = "seatChecke.do";
 					
 					
 					
+					console.log($(this));
+					
+	
 					
 					$.ajax({
 						url : reqUrl,
 						type : "POST",
 						contentType: "application/json",
-						data : {
-							
-							"seatVO":seatVO
-						},
+						data : JSON.stringify(seatVO),
+					
 						success : function(data) {
 							
-							
+							console.log(data);
 							let msg = data;
 							if(msg){
 							
 								if(msg==="success"){
-									$(this).removeClass('seat_color1');
-									$('.box').addClass('seat_color2');
+									$(seatElement).removeClass('seat_color1');
+									$(seatElement).addClass('seat_color2');
+									alert("예약성공");
+									location.reload(); 
+									
 								}
 							
 							
@@ -330,29 +429,19 @@ div.wrapper {
 					})
 					
 				}
+			}
 				
 				
 					
 					
-				});		         
+			         
 		         
-				
+		
 
 		
 		      };
 
-		      /* $(".inner_close").click(function (event) {
-
-		         event.stopPropagation();
-		         event.preventDefault();
-		         var $modal = $(this).parent().parent();
-
-
-
-		         $modal.removeClass("active");
-
-
-		      }); */
+		  
 		
 	
 	
