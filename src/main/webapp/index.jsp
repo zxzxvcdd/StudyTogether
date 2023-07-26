@@ -13,5 +13,14 @@
 		location.href="main.do"
 	</script>
 
+			<div class="content_hedear_wrap">
+				<div class="content_header">
+					<div class="header_title">
+					  <label class="font">지점선택</label>
+					    <input type="text" id="store_list" name="store_list" list="store_list_data">
+					</div>
+				</div>
+			</div>
+	<a href="seat/seat.do?storeId=1">[이동]</a>
 </body>
 </html>
