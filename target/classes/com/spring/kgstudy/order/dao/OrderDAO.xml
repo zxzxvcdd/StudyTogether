@@ -4,13 +4,144 @@
 
 
 
-<select id="test" resultType="String"> 
 
 
-select 'hello' from dual
+<!-- Pass  -->
+
+<sql id="searchPass">
+        <if test="type == 'pass'">WHERE pass_id = #{keyword}</if>
+        <if test="type == 'user'">WHERE user_id = #{keyword}</if>
+        <if test="type == 'order'">WHERE order_id = #{keyword}</if>
+        <if test="type == 'state'">WHERE pass_state = #{keyword}</if>
+        <if test="type == 'type'">WHERE pass_type = #{keyword}</if>
+</sql>
+
+
+
+<insert id="insertPass">
+
+insert into pass_table(pass_id, order_id, user_id, pass_type, pass_time, pass_start, pass_end, pass_price, pass_name, pass_state)
+			values(pass_seq.nextval, #{orderId}, #{userId}, #{passType}, #{passTime}, #{passStart}, #{passEnd}, #{passPrice}, #{passName}, #{passState});
+
+</insert>
+
+
+
+<select id="findPass" resultType="com.spring.kgstudy.order.vo.PassVO">
+
+
+select * from
+(select A.*, row_number() over(order by pass_id desc) rn from pass_table A
+<include refid="searchPass"/>
+order by pass_id desc
+) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
+
+</select>
+
+
+<select id="findOnePass" resultType="com.spring.kgstudy.order.vo.PassVO">
+
+select * from pass_table
+<include refid="searchPass"/>
+
+</select>
+
+
+
+<select id="findPassCnt" resultType="int">
+
+
+select count(*) from pass_table
+<include refid="searchPass"/>
 
 
 </select>
+
+<update id="updatePass">
+
+update pass_table set pass_time=#{passTime} , pass_start = #{passStart} , pass_end =#{passEnd}, pass_state = #{passState}
+				where pass_id = #{passId}
+				
+</update>
+
+
+
+<delete id="deletePass">
+
+delete pass_table where pass_id=#{passId}
+
+
+</delete>
+
+
+<!-- Order  -->
+
+
+<sql id="searchOrder">
+        <if test="type == 'order'">WHERE order_id = #{keyword}</if>
+        <if test="type == 'imp'">WHERE imp_uid = #{keyword}</if>
+        <if test="type == 'user'">WHERE user_id = #{keyword}</if>
+        <if test="type == 'date'">WHERE order_date LIKE '%'||#{keyword}||'%'</if>
+</sql>
+
+
+
+<insert id="insertOrder">
+
+insert into order_table(order_id, imp_uid, user_id, order_state, order_name, order_price, order_date)
+			values(order_seq.nextval, #{impUid}, #{userId}, #{orderState}, #{orderName}, #{orderPrice}, #{orderDate})
+
+</insert>
+
+
+
+<select id="findOrder" resultType="com.spring.kgstudy.order.vo.OrderVO">
+
+
+select * from
+(select A.*, row_number() over(order by order_id desc) rn from order_table A
+<include refid="searchOrder"/>
+
+order by order_id desc
+) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
+
+</select>
+
+<select id="findOneOrder" resultType="com.spring.kgstudy.order.vo.OrderVO">
+
+
+select * from order_table
+<include refid="searchOrder"/>
+
+</select>
+
+<select id="getOrderSeq" resultType="int">
+
+select order_seq.currval from dual
+
+</select>
+
+
+<select id="findOrderCnt" resultType="int">
+
+select count(*) from order_table
+<include refid="searchOrder"/>
+
+</select>
+
+<update id="updateOrder">
+
+update order_table set order_state = #{orderState}
+
+</update>
+
+<delete id="deleteOrder">
+
+delete order_table where imp_uid = #{impUid}
+
+</delete>
+
+
 
 
 </mapper>

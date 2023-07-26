@@ -1,4 +1,4 @@
-package com.spring.kgstudy.pass.vo;
+package com.spring.kgstudy.order.vo;
 
 import java.util.Date;
 
