@@ -25,16 +25,20 @@
 	<%@include file="../include/header.jsp"%>
 	
 	<div class="container" style="justify-content: center">
-		<h1>주문 상세</h1>
+		<h1>상품 상세</h1>
+		
+	<!-- 상품 선택 =================================================== -->
 		<div class="form-group menu-list-form">
 			<label class="font" for="menu-list-wrap">
 				<div class="order-title">
-					<div>주문 상품</div>
+					<div>상품 선택</div>
 					<div id="orderName">
-						${cartList[0].menuName}
+						<%-- ${cartList[0].menuName}
 						<c:if test="${fn:length(cartList)>1}"> 외 ${fn:length(cartList)-1}건 <div
 								class="open-menu" onclick="arccodionMenu()"></div>
-						</c:if>
+						</c:if> --%>
+						
+						
 					</div>
 				</div>
 			</label>
@@ -70,9 +74,9 @@
 
 		</div>
 
-
+		<!-- 지점 선택 =================================================== -->
 		<div class="form-group store_list_form">
-			<label class="font" for="request">매장 선택</label>
+			<label class="font" for="request">지점 선택</label>
 
 			<div style="display: flex" class="store_list_wrap">
 				<input id="store_list" name="store_list" list="store_list_data"
@@ -95,28 +99,8 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="font" for="request">요청 사항</label>
-			<textarea id="request" rows="2" placeholder="요청 사항을 입력하세요"></textarea>
-		</div>
-
-
-
-
-		<div class="form-group">
-			<label class="font">매장 방문 여부</label>
-			<div style="display: flex">
-				<input type="radio" id="eat-in" name="visit-type" value="매장 먹고 가기"
-					checked>
-				<p for="eat-in">매장에서 먹고 갈게요</p>
-			</div>
-			<div style="display: flex">
-				<input type="radio" id="take-out" name="visit-type" value="포장">
-				<p for="take-out">포장해주세요</p>
-			</div>
-		</div>
+		<!-- 결제 수단 =================================================== -->
 		<div>
-
 			<div class="form-group" style="flex-wrap: wrap; display: flex;">
 				<label style="width: 100%;" class="font">결제 수단</label>
 
@@ -157,7 +141,7 @@
 	</div>
 
 
-	<%@include file="../include/footer.jsp"%>
+	<%-- <%@include file="../include/footer.jsp"%> --%>
 	
 </body>
 </html>

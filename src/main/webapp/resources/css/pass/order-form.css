@@ -24,10 +24,9 @@ label {
 
 
 .container {  
-    min-height: 700px;
-    
+
     max-width: 500px;
-    margin: 0 auto;
+    margin: 30px auto 10px;
     background-color: rgba(0, 0, 0, 0.06);
 
 
