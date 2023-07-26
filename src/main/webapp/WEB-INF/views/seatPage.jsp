@@ -336,7 +336,7 @@ div.wrapper {
 					url : reqUrl,
 					type : "POST",
 					contentType: "application/json",
-					data : JSON.stringify(seatVO),
+					data : JSON.stringify(seatVO),   
 				
 					success : function(data) {
 						
