@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<!-- main page로 보내기 -->
+	<script>
+		location.href="main.do"
+	</script>
 
 </body>
 </html>
