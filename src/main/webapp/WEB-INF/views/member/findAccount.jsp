@@ -85,7 +85,7 @@
 	</script>
 	<script>
 		let findIdMsg = "${findIdMsg}";
-	
+		
 		if (findIdMsg) {
 			alert(findIdMsg);
 		}

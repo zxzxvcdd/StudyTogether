@@ -30,7 +30,7 @@ public class MemberService {
 		// BCryptPasswordEncoder 암호화 사용
 		String pwdBycrypt = passwordEncoder.encode(memberVO.getUser_pw());
 
-		System.out.println("pw 암호화:" + pwdBycrypt);
+		//System.out.println("pw 암호화:" + pwdBycrypt);
 
 		memberVO.setUser_pw(pwdBycrypt);
 
@@ -58,13 +58,18 @@ public class MemberService {
 		String rawPw = memberVO.getUser_pw();
 
 		memberVO = dao.findOneMember(memberVO.getUser_id()); // db에서 login한 유저의 아이디를 가져와서
+		
+		if(memberVO == null) {
+			return false;
+		}
+		
 		String encodedPw = memberVO.getUser_pw(); // login한 유저의 pw를 MemberVO pw안에 넣는다.
 
 		boolean pwdSuccess = passwordEncoder.matches(rawPw, encodedPw);
 											//matches(평문 pw, 암호화된 pw) 순서!!
 		
-		System.out.println("평문 pw:" + rawPw);
-		System.out.println("암호화된 pw:" + encodedPw);
+		//System.out.println("평문 pw:" + rawPw);
+		//System.out.println("암호화된 pw:" + encodedPw);
 
 		if (pwdSuccess) {
 			session.setAttribute("loginUser", memberVO); //성공하면 세션에 memberVO 넣어주기
@@ -99,9 +104,9 @@ public class MemberService {
 		
 		String pwdBycrypt = passwordEncoder.encode(memberVO.getUser_pw());
 
-		/* System.out.println("pw 암호화:" + pwdBycrypt); */
-
 		memberVO.setUser_pw(pwdBycrypt);
+		
+		/* System.out.println("pw 암호화:" + pwdBycrypt); */
 
 		System.out.println(memberVO);
 		boolean updateSuccess = dao.updatePw(memberVO);
@@ -114,28 +119,4 @@ public class MemberService {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-}
+}//MemberService-end

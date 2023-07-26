@@ -75,5 +75,13 @@
 			alert(updatePwMsg);
 		}
 	</script>
+	<script>
+		let msg = "${msg}";
+		
+		if (msg) {
+			alert(msg);
+		}
+	</script>
+	
 </body>
 </html>

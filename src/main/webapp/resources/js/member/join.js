@@ -54,16 +54,17 @@ function check() {
 	}
 	
 	
-	/* 전화번호 */
-	if(!telReg.test(tel)) {
-		alert("전화번호 형식으로 입력해주세요.");
-		return false;
-	}
-	
 	/* 이메일 */
 	/* 숫자 (0~9) or 알파벳 (a~z, A~Z) 으로 시작하며 @와 .이 반드시 존재해야 함 */
 	if(!emailReg.test(email)) {
 		alert("이메일 형식으로 입력해주세요.");
+		return false;
+	}
+	
+	
+	/* 전화번호 */
+	if(!telReg.test(tel)) {
+		alert("전화번호 형식으로 입력해주세요.");
 		return false;
 	} else {
 		return true;

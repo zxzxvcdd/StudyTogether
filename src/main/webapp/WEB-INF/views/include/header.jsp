@@ -31,7 +31,7 @@
 			<a href="#">지점찾기</a>
 			<a href="#">소식</a>
 			<a href="#">리뷰</a>
-			<a href="#">이용권구매</a>
+			<a href="passOrder.do">이용권구매</a>
 			<a href="#">예약</a>
 		</nav>
 		
@@ -40,7 +40,7 @@
 		
 		<c:choose>
 				<c:when test="${loginUser.user_grant == 'user'}">
-					<a href="#" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
+					<a href="userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
 					<a href="logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
 					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
 				</c:when> 

@@ -24,6 +24,4 @@ public class MemberVO {
 	private Date user_birthday;
 	private String user_grant;
 	
-	
-	
 }
