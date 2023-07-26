@@ -22,7 +22,7 @@ public interface StoreDAO {
 	
 	public ArrayList<StoreVO> findAllStore(Search search);
 	
-	public int searchCnt(Search search);
+	public int searchStoreCnt(Search search);
 	
 	public StoreVO findOneStore(Search search);
 	

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.kgstudy.menu.dao.MenuDAO">
+
+
+
+
+
+
+<sql id="search">
+        <if test="type == 'menu'">WHERE menu_id = #{keyword}</if>
+        <if test="type == 'name'">WHERE menu_name Like '%'||#{keyword}||'%'</if>
+        <if test="type == 'type'">WHERE pass_type LIKE '%'||#{keyword}||'%'</if>
+</sql>
+
+
+
+<insert id="insertMenu">
+
+insert into menu_table(menu_id, menu_name, pass_type, pass_time, pass_price)
+			values(menu_seq.nextval, #{menuName}, #{passType}, #{passTime}, #{passPrice})
+
+</insert>
+
+<select id="findAllMenu" resultType="com.spring.kgstudy.menu.vo.MenuVO">
+
+
+select * from
+(select A.*, row_number() over(order by menu_id) rn from menu_table A
+<include refid="search"/>
+
+order by menu_id
+) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
+
+
+
+
+
+
+</select>
+
+
+<select id="findOneMenu" resultType="com.spring.kgstudy.menu.vo.MenuVO">
+
+
+select * from menu_table
+<include refid="search"/>
+
+
+
+
+</select>
+
+
+<select id="searchMenuCnt" resultType="int">
+
+
+select count(*) from menu_table
+<include refid="search"/>
+
+
+</select>
+
+<update id="updateMenu">
+
+update menu_table set menu_name=#{menuName} , pass_type = #{passType} , pass_time =#{passTime}, pass_price = #{passPrice}
+				where menu_id = #{menuId}
+				
+
+</update>
+
+
+
+<delete id="deleteMenu">
+
+delete menu_table where menu_id=#{menuId}
+
+
+</delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

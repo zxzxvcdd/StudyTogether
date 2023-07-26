@@ -20,10 +20,7 @@ class OrderServiceTest {
 	@Test
 	public void test() {
 		
-		String res = service.test();
-		
-		System.out.println(res);
-		
+
 		
 	}
 }
