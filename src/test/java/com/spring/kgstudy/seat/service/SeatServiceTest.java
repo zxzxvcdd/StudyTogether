@@ -27,7 +27,7 @@ class SeatServiceTest {
 
 			vo.setSeatName(""+i);
 			vo.setStoreId(1);
-			vo.setSeatType("N");
+			vo.setSeatType("Y");
 			voList.add(vo);
 			
 			

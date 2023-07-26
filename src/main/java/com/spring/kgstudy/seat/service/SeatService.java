@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DaoSupport;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.seat.dao.SeatDAO;
@@ -19,12 +20,13 @@ public class SeatService{
 	
 	private final SeatDAO sdao;
 	
+	//좌석출력
 	public ArrayList<SeatVO> test(int storeId) {
 		return sdao.findSeat(storeId);
 	}
 	
 	
-	
+	//좌석추가
 	public boolean insertSeat(ArrayList<SeatVO> voList) {
 		
 		
@@ -48,22 +50,21 @@ public class SeatService{
 	
 	}
 	
+	//좌석선택
+    @Async
+	public boolean seatChoise(SeatVO vo) {
 	
-	public boolean seatChoise(int seatId, String userId, String seatName) {
-	
+		int seatId = vo.getSeatId();
 		
 		String type = sdao.seatCheck(seatId);
 		
 		
 		if(type.equals("Y")) {
 			
-			SeatVO vo = new SeatVO();
 			
-			vo.setSeatId(seatId);
+
 			vo.setSeatType("N");
-			vo.setUserId(userId);
-			vo.setSeatName(seatName);
-			
+
 			System.out.println(vo);
 			boolean result = sdao.updateSeat(vo);
 			System.out.println(result);
@@ -76,9 +77,41 @@ public class SeatService{
 	}
 	
 	
+	//좌석퇴실
+    @Async
+	public boolean seatCheckOut(SeatVO vo) {
+		
+		int seatId = vo.getSeatId();
+		
+		String type = sdao.seatCheck(seatId);
+		
+		System.out.println("service: "+type);
+		
+		if(type.equals("N")) {
+			
+			
+			
+			vo.setSeatType("Y");
+			vo.setUserId("");
+
+			System.out.println(vo);
+			boolean result = sdao.updateSeat(vo);
+			System.out.println(result);
+			
+			return result;
+		}
+		
+		return false;
+		
+	}
+		
+		
+	}
+	
+	
 	
 	
 
 	
 
-}
+

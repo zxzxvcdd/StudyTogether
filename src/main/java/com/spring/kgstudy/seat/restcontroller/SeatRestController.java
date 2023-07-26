@@ -1,5 +1,7 @@
 package com.spring.kgstudy.seat.restcontroller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,20 +24,34 @@ public class SeatRestController {
 	@PostMapping("seatChecke.do")
 	public String seatChoise(@RequestBody SeatVO vo) {
 		
+		System.out.println("1."+vo);
+		
 		//세션에서 유저 아이디 받아옴
-		String userId = "admin";
-		int seatId = vo.getSeatId();
-		String seatName = vo.getSeatName();
+	 	String userId = "admin";
+
+		vo.setUserId(userId);	
 		
-		System.out.println(seatId+","+seatName);
-		
-		service.seatChoise(seatId, userId, seatName);
+		boolean result = service.seatChoise(vo);
 		
 		
 		
-		return "seatPage";
+		return result?"success":"fail";
 		
 	}
+	
+	@PostMapping("seatCheckOut.do")
+	public String seatCheckOut(@RequestBody SeatVO vo) {
+		
+		System.out.println("2. "+vo);
+		
+		boolean result = service.seatCheckOut(vo);
+		
+		System.out.println("controller: "+result);
+		
+		return result?"success":"fail";
+	}
+	
+	
 	
 	
 }
