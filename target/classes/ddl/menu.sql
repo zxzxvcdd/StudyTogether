@@ -5,9 +5,9 @@ menu_id number constraint pass_id_pk primary key
 , pass_type varchar2(200)
 , pass_time number
 , pass_price number
-,
+, constraint menu_type_ck check(pass_type in('TIME','SEASON'))
+, constraint menu_uk unique menu_name
 )
-
 
 create sequence menu_seq
 INCREMENT BY 1
