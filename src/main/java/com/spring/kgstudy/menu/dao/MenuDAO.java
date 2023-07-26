@@ -16,7 +16,7 @@ public interface MenuDAO {
 	
 	public boolean insertMenu(MenuVO vo);
 	public boolean updateMenu(MenuVO vo);
-	public boolean deleteMenu(MenuVO vo);
+	public boolean deleteMenu(int menuId);
 	
 	
 	public ArrayList<MenuVO> findAllMenu(Search search);

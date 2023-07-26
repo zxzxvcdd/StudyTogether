@@ -18,21 +18,19 @@
 <insert id="insertMenu">
 
 insert into menu_table(menu_id, menu_name, pass_type, pass_time, pass_price)
-			values(menu_seq.nextval, #{menuName}, #{passType}, #{passTime}, #{passPrice});
+			values(menu_seq.nextval, #{menuName}, #{passType}, #{passTime}, #{passPrice})
 
 </insert>
 
 <select id="findAllMenu" resultType="com.spring.kgstudy.menu.vo.MenuVO">
 
 
-select *, ROW_NUMBER() rn from
-(select * from menu_table
+select * from
+(select A.*, row_number() over(order by menu_id) rn from menu_table A
 <include refid="search"/>
 
-order by pass_id desc
-
-
-) where rn between #{page}-1*#{amount}+1 and  #{page}*#{amount}
+order by menu_id
+) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
 
 
 
@@ -75,7 +73,7 @@ update menu_table set menu_name=#{menuName} , pass_type = #{passType} , pass_tim
 
 <delete id="deleteMenu">
 
-delete pass_table where menu_id=#{menuId}
+delete menu_table where menu_id=#{menuId}
 
 
 </delete>

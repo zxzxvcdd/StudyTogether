@@ -51,7 +51,7 @@ public class MenuService {
 		boolean flag = false;
 		
 		
-		flag = dao.deleteMenu(vo);
+		flag = dao.deleteMenu(vo.getMenuId());
 		
 		
 		return flag;
