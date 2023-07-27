@@ -13,10 +13,10 @@ public interface BoardMapper {
 	public void insert(BoardVO vo);
 	public void insertSelectKey(BoardVO vo);
 	public void update(BoardVO vo);
-	public void delete(int boardId);
-	public BoardVO read(int boardId);
+	public void delete(int board_id);
+	public BoardVO read(int board_id);
 	public void replySeqUpdate(BoardVO parent);
 	public void replyInsert(BoardVO vo);
-	public int totalCount();
+	public int totalCount(Criteria cri);
 	
 }

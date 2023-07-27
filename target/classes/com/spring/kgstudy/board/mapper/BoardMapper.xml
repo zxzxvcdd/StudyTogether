@@ -3,14 +3,14 @@
 <mapper namespace="com.spring.kgstudy.board.mapper.BoardMapper">
 
 	<resultMap type="com.spring.kgstudy.board.vo.BoardVO" id="BoardVO">
-		<result property="boardId" column="board_id" />
-		<result property="userId" column="user_id" />
+		<result property="board_id" column="board_id" />
+		<result property="user_id" column="user_id" />
 		<result property="indate" column="indate" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="writer" column="writer" />
 		<result property="count" column="count" />
-		<!-- <result property="filename" column="filename" /> -->
+		<!-- <result property="board_filename" column="board_filename" /> -->
 		<result property="boardGroup" column="boardGroup" />
 		<result property="boardSequence" column="boardSequence" />
 		<result property="boardLevel" column="boardLevel" />
@@ -18,81 +18,115 @@
 	</resultMap>
 
 
+	<sql id="search">
+		<if test="type=='writer'">
+			where writer like '%' || #{keyword} || '%'
+		</if>
+		<if test="type=='title'">
+			where title like '%' || #{keyword} || '%'
+		</if>
+		<if test="type=='content'">
+			where content like '%' || #{keyword} || '%'
+		</if>
+	</sql>
+
+
+
+
 	<select id="getList" resultMap="BoardVO" parameterType="com.spring.kgstudy.common.vo.Criteria">
-	<!-- select * from board order by boardGroup desc, boardSequence asc -->
+		<!-- select * from board order by boardGroup desc, boardSequence asc -->
 
 
 		SELECT *
-		FROM (
+		FROM 
+		(
 		SELECT rownum as rnum, b.*
-		FROM (SELECT * FROM board ORDER BY boardGroup DESC, boardSequence ASC) b
+		FROM (SELECT * FROM board
+		  <include refid="search"/>  
+
+		ORDER BY boardGroup DESC, boardSequence ASC) b
 		)
-		WHERE rnum BETWEEN #{pageStart} AND #{pageStart} + #{perPageNum} - 1
-		
+		WHERE rnum BETWEEN
+		#{pageStart} AND #{pageStart} + #{perPageNum} - 1
+
 	</select>
 
 	<insert id="insert">
-		<!-- INSERT INTO Board 
-			( board_id, user_id, title, content, writer, indate, count, boardGroup,boardSequence, boardLevel, boardAvailable) 
-			VALUES (board_seq.NEXTVAL, #{user_id}, #{title}, #{content}, #{writer}, SYSDATE, 0, 0, 0, 0, 1 ) -->
+		<!-- INSERT INTO Board ( board_id, user_id, title, content, writer, indate, 
+			count, boardGroup,boardSequence, boardLevel, boardAvailable) VALUES (board_seq.NEXTVAL, 
+			#{user_id}, #{title}, #{content}, #{writer}, SYSDATE, 0, 0, 0, 0, 1 ) -->
 
-			INSERT INTO Board 
-			(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
-			SELECT COALESCE(MAX(board_id)+1, 1), #{user_id}, #{title}, #{content},#{writer}, sysdate, 0, 
-				   COALESCE(MAX(boardGroup)+1, 0), 0, 0, 1
-			FROM Board	
+		INSERT INTO Board
+		(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+		SELECT COALESCE(MAX(board_id)+1, 1), #{user_id}, #{title}, #{content},#{writer}, sysdate, 0,
+		COALESCE(MAX(boardGroup)+1, 0), 0, 0, 1
+		FROM Board
 	</insert>
-	
+
 	<!-- 동적 SQL , insert/insertSelectKey 둘중 아무거나 사용해도 됨 -->
 	<insert id="insertSelectKey" parameterType="BoardVO">
-		<selectKey keyProperty="boardId,boardGroup" resultType="BoardVO" order="BEFORE">
-			SELECT COALESCE(MAX(board_id)+1, 1) as board_id,
-				   COALESCE(MAX(boardGroup)+1, 0) as boardGroup
+		<selectKey keyProperty="board_id,boardGroup"
+			resultType="BoardVO" order="BEFORE">
+			SELECT COALESCE(MAX(board_id)+1, 1) as
+			board_id,
+			COALESCE(MAX(boardGroup)+1, 0) as boardGroup
 			from board
 		</selectKey>
-	
-	INSERT INTO 
-	Board (board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
-	values(#{board_id}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, 0, 0, 1)
-	
-	</insert>
-	
-	
-	<insert id="replyInsert" parameterType="BoardVO">
-	
-		<selectKey keyProperty="boardId,boardGroup" resultType="BoardVO" order="BEFORE">
-			SELECT COALESCE(MAX(board_id)+1, 1) as board_id from board
-		</selectKey>
-	
-	INSERT INTO 
-	Board (board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
-	values(#{board_id}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, #{boardSequence}, #{boardLevel}, 1)
-		
+
+		INSERT INTO Board
+		(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+		values(#{board_id}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0,
+		#{boardGroup}, 0, 0, 1)
+
 	</insert>
 
-	<update id="update" >
-		update Board set title=#{title}, content=#{content}
+
+	<insert id="replyInsert" parameterType="BoardVO">
+
+		<!-- <selectKey keyProperty="board_id,boardGroup" resultType="BoardVO" order="BEFORE"> 
+		SELECT COALESCE(MAX(board_id)+1, 1) as board_id from board 
+			</selectKey> -->
+
+	<!-- 	<selectKey keyProperty="board_id,boardGroup" resultType="BoardVO" order="BEFORE">
+			SELECT board_seq.NEXTVAL AS board_id FROM board
+		</selectKey> -->
+		  		
+
+		
+		INSERT INTO
+		Board (board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+		values(board_seq.NEXTVAL, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, #{boardSequence}, #{boardLevel}, 1)
+
+	</insert>
+
+	<update id="update">
+		update Board set title=#{title},
+		content=#{content}
 		where board_id=#{board_id}
 	</update>
 
 	<delete id="delete">
-		<!-- 	delete from Board where board_id=#{board_id} -->
+		<!-- delete from Board where board_id=#{board_id} -->
 		update Board set boardAvailable=0 where board_id=#{board_id}
 	</delete>
 
 	<select id="read" resultMap="BoardVO">
-		select * from Board 
+		select * from Board
 		where board_id=#{board_id}
 	</select>
-	
-	
+
+
 	<update id="replySeqUpdate" parameterType="BoardVO">
-		update Board set boardSequence=boardSequence+1
-		where boardGroup=#{boardGroup} and boardSequence > #{boardSequence}
+		update Board set
+		boardSequence=boardSequence+1
+		where boardGroup=#{boardGroup} and
+		boardSequence > #{boardSequence}
 	</update>
-	
-	<select id="totalCount" resultType="int">
-		select count(*) from Board 
+
+	<select id="totalCount" resultType="int"
+		parameterType="com.spring.kgstudy.common.vo.Criteria">
+		select count(*) from Board
+		<include refid="search" />
 	</select>
 
 </mapper>

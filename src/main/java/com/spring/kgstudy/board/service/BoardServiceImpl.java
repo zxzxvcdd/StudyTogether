@@ -2,6 +2,8 @@ package com.spring.kgstudy.board.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +33,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO get(int boardId) {
+	public BoardVO get(int board_id) {
 		// TODO Auto-generated method stub
-		BoardVO vo = boardMapper.read(boardId);
+		BoardVO vo = boardMapper.read(board_id);
 		return vo;
 	}
 
@@ -45,9 +47,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void remove(int boardId) {
+	public void remove(int board_id) {
 		// TODO Auto-generated method stub
-		boardMapper.delete(boardId);
+		boardMapper.delete(board_id);
 		
 	}
 
@@ -55,10 +57,10 @@ public class BoardServiceImpl implements BoardService {
 	public void replyProcess(BoardVO vo) {
 		// TODO Auto-generated method stub
 		// - 답글 만들기
-		// 1. 부모글의(원글)의 정보를 가져오기(vo -> boardId)
-		BoardVO parent = boardMapper.read(vo.getBoardId());
+		// 1. 부모글의(원글)의 정보를 가져오기(vo -> board_id)
+		BoardVO parent = boardMapper.read(vo.getBoard_id());
 		// 2. 부모글의 boardGroup의 값을 -> 답글(vo)정보에 정보하기
-		vo.setBoardGroup(parent.getBoardId());
+		vo.setBoardGroup(parent.getBoard_id());
 		// 3. 부모글의 boardSequence의 값을 1을 더해서 -> 답글(vo)정보에 저장하기
 		vo.setBoardSequence(parent.getBoardSequence()+1);
 		// 4. 부모글의 boardLevel의 값을 1을 더해서 -> 답글(vo)정보에 저장하기
@@ -68,14 +70,13 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.replySeqUpdate(parent);
 		// 6. 답글(vo)을 저장하기
 		boardMapper.replyInsert(vo);
-		
-		
 	}
 
+
 	@Override
-	public int totalCount() {
+	public int totalCount(Criteria cri) {
 		// TODO Auto-generated method stub
-		return boardMapper.totalCount();
+		return boardMapper.totalCount(cri);
 	}
 	
 	

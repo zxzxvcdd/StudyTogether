@@ -24,7 +24,7 @@
 			} else if (btn == 'modify') {
 				formData.attr("action", "${cpath}/board/modify.do");
 			} else if (btn == 'list') {
-				formData.find("#boardId").remove();
+				formData.find("#board_id").remove();
 				formData.attr("action", "${cpath}/board/list.do");
 			}
 			formData.submit();
@@ -43,8 +43,8 @@
 				<table class="table table-bordered">
 					<tr>
 						<td>번호</td>
-						<td><input type="text" class="form-control" name="boardId"
-							readonly="readonly" value="${vo.boardId}" /></td>
+						<td><input type="text" class="form-control" name="board_id"
+							readonly="readonly" value="${vo.board_id}" /></td>
 					</tr>
 					<tr>
 						<td>제목</td>
@@ -73,7 +73,7 @@
 					<tr>
 				</table>
 				<form id="frm" method="get">
-					<input type="hidden" name="boardId" value="<c:out value='${vo.boardId}'/>"/>
+					<input type="hidden" name="board_id" value="<c:out value='${vo.board_id}'/>"/>
 					<input type="hidden" name="page" value="<c:out value='${cri.page}'/>"/>
 					<input type="hidden" name="perPageNum" value="<c:out value='${cri.perPageNum}'/>"/>	
 				</form>

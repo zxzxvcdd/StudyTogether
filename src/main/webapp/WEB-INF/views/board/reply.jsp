@@ -45,8 +45,8 @@
         <form id="frm" method="post">
         	<input type="hidden" name="page" value="<c:out value='${cri.page}'/>"/>
 			<input type="hidden" name="perPageNum" value="<c:out value='${cri.perPageNum}'/>"/>	
-          <!-- boardId(원글, 부모글) -->
-          <input type="hidden" name="boardId" value="${vo.boardId}"/>
+          <!-- board_id(원글, 부모글) -->
+          <input type="hidden" name="board_id" value="${vo.board_id}"/>
           <div class="form-group">
              <label>제목</label>
              <input type="text" name="title" class="form-control" value="${vo.title}">

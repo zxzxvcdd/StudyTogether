@@ -27,7 +27,7 @@
 				formData.attr("action", "${cpath}/board/remove.do");
 				formData.attr("method", "get")
 			} else if (btn == 'list') {
-				formData.find("#boardId").remove();
+				formData.find("#board_id").remove();
 				formData.find("#title").remove();
 				formData.find("#content").remove();
 				formData.find("#writer").remove();
@@ -50,8 +50,8 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>번호</td>
-							<td><input type="text" class="form-control" name="boardId"
-								readonly="readonly" value="${vo.boardId}" /></td>
+							<td><input type="text" class="form-control" name="board_id"
+								readonly="readonly" value="${vo.board_id}" /></td>
 						</tr>
 						<tr>
 							<td>제목</td>

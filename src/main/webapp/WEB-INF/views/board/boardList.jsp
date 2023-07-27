@@ -16,6 +16,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var result = '${result}';
+		console.log("bn:"+result);
+		
 		checkModal(result);
 
 		$("#regBtn").click(function() {
@@ -32,8 +34,8 @@
     	// 상세보기 클릭시 이동 하기
     	$(".move").on("click", function(e){
     		e.preventDefault(); // a tag의 기능을 막는 부분
-    		var boardId=$(this).attr("href");
-    		var tag="<input type='hidden' name='boardId' value='"+boardId+"'/>";
+    		var board_id=$(this).attr("href");
+    		var tag="<input type='hidden' name='board_id' value='"+board_id+"'/>";
     		pageFrm.append(tag);
     		pageFrm.attr("action","${cpath}/board/get.do");
     		pageFrm.submit();
@@ -43,9 +45,10 @@
 		if (result == '') {
 			return;
 		}
-		if (parseInt(result) > 0) {
+		else if (parseInt(result) > 0) {
 			// 새로운 다이얼로그 창 띄우기
-			$(".modal-body").html("게시글" + parseInt(result) + "번이 등록되었습니다.");
+			console.log(result)
+			$(".modal-body").html("게시글" + parseInt(result) + "번 이 등록되었습니다.");
 		}
 		$("#myModal").modal("show");
 	}
@@ -74,16 +77,16 @@
 					</thead>
 					<c:forEach var="vo" items="${list}">
 						<tr>
-							<td>${vo.boardId}</td>
+							<td>${vo.board_id}</td>
 							<td>
 							<c:if test="${vo.boardLevel>0}">
-								<c:forEach begin="1" end="${vo.baordLevel}">
+								<c:forEach begin="1" end="${vo.boardLevel}">
 									<span style="padding-left: 10px"></span>
 								</c:forEach>
 							</c:if>
 							<c:if test="${vo.boardLevel>0}">
 								<c:if test="${vo.boardAvailable==1}"> 			    	<!-- XSS를 방지하기 위해 c:out 태그 사용 -->
-									<a class="move" href="${vo.boardId}"><c:out value='[RE]${vo.title}'/></a>
+									<a class="move" href="${vo.board_id}"><c:out value='[RE]${vo.title}'/></a>
 								</c:if>
 								<c:if test="${vo.boardAvailable==0}">
 									<a href="javascript:goMsg()">삭제된 게시물 입니다.</a>
@@ -91,7 +94,7 @@
 							</c:if>
 							<c:if test="${vo.boardLevel==0}">
 								<c:if test="${vo.boardAvailable==1}">
-									<a class="move" href="${vo.boardId}"><c:out value='${vo.title}'/></a>
+									<a class="move" href="${vo.board_id}"><c:out value='${vo.title}'/></a>
 								</c:if>
 								<c:if test="${vo.boardAvailable==0}">
 									<a href="javascript:goMsg()">삭제된 게시물 입니다.</a>
@@ -109,6 +112,34 @@
 						</td>
 					</tr>
 				</table>
+				
+				
+				
+				
+				<!-- 검색 -->
+				<div style="text-align: center;">
+					<form class="form-inline" action="${cpath}/board/list.do" method="post">
+						<div class="form-group">
+							<select name="type" class="form-control">
+								<option value="writer"
+									${pageMaker.cri.type=='writer' ? 'selected' : ''}>작성자</option>
+								<option value="title"
+									${pageMaker.cri.type=='title' ? 'selected' : ''}>제목</option>
+								<option value="content"
+									${pageMaker.cri.type=='content' ? 'selected' : ''}>내용</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="keyword" value="${pageMaker.cri.keyword}">
+						</div>
+						<button type="submit" class="btn btn-success">검색</button>
+					</form>
+				</div>
+
+
+
+
+
 				<!-- 페이징 처리 START -->
 				<div style="text-align: center">
 				 <ul class="pagination">
@@ -133,7 +164,6 @@
 				</div>
 				<!-- END -->
 				<form id="pageFrm" action="${cpath}/board/list.do" method="get">
-					<!-- 게시물 번호(boardId)추가 -->
 					<input type="hidden" id="page" name="page" value="${pageMaker.cri.page}" />
 					<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum}" />
 				</form>
@@ -148,9 +178,10 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Modal Header</h4>
+								<h4 class="modal-title">알림</h4>
 							</div>
 							<div class="modal-body">
+							
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
