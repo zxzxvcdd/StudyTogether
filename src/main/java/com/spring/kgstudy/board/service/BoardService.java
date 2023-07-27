@@ -2,10 +2,12 @@ package com.spring.kgstudy.board.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.board.vo.BoardVO;
 import com.spring.kgstudy.common.vo.Criteria;
 
+@Service("Board")
 public interface BoardService {
 
 	List<BoardVO> getList(Criteria cri) throws Exception;

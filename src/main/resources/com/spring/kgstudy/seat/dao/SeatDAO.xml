@@ -13,7 +13,7 @@
 <!-- 좌석추가 -->
 <insert id="insertSeat">
 
-	INSERT INTO seat VALUES(seat_seq.nextval,#{seatName},#{storeId},#{userId},#{seatType},#{x},#{y})
+	INSERT INTO seat VALUES(seat_seq.nextval,#{reservationId},#{seatName},#{storeId},#{userId},#{seatType},#{x},#{y})
 
 </insert>
 
@@ -24,24 +24,80 @@
 
 <update id="updateSeat">
 	UPDATE seat SET  
-	<if test="#{seatName}!=null">
+
 	seat_name=#{seatName},  x=#{x}, y=#{y},
-	</if>
-	
-	user_id=#{userId},  seat_type=#{seatType} WHERE seat_id=#{seatId}
+
+	reservation_id = #{reservationId}, user_id=#{userId},  seat_type=#{seatType} WHERE seat_id=#{seatId}
 </update>
 
 <select id="seatCheck" resultType="String">
 	SELECT seat_type FROM seat WHERE seat_id=#{seatId}
 </select>
 
-<delete id="">
+
+
+
+<sql id="searchReserv">
+        <if test="type == 'pass'">WHERE pass_id = #{keyword}</if>
+        <if test="type == 'user'">WHERE user_id = #{keyword}</if>
+        <if test="type == 'reservation'">WHERE reservation_id = #{keyword}</if>
+        <if test="type == 'date'">WHERE reservation_day like '%'||#{keyword}||'%'</if>
+        <if test="type == 'seat'">WHERE seat_id = #{keyword}</if>
+</sql>
+
+
+
+
+
+
+<insert id="insertReserv">
+
+
+INSERT INTO reservation_table(reservation_id,reservation_day,store_id,pass_id,user_id,seat_id,use_time) 
+	VALUES(reservation_seq.nextval,#{reservationDay},#{storeId},#{passId},#{userId},#{seatId},#{useTime})
+
+	<selectKey keyProperty="reservationId" order="AFTER" resultType="int">
+	
+		select reservation_seq.currval from dual
+		
+	</selectKey>
+
+</insert>
+
+<select id="findAllReserv" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
+
+select * from
+(select A.*, row_number() over(order by reservation_id desc) rn from reservation_table A
+<include refid="searchReserv"/>
+order by reservation_id desc
+) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
+
+
+
+</select>
+
+<select id="findOneResrv" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
+
+(select * from reservation_table 
+<include refid="searchReserv"/>
+
+</select>
+
+<select id="findResrvCnt" resultType="int">
+select count(*) from reservation_table 
+<include refid="searchReserv"/>
+
+</select>
+
+<update id="updateResrv">
+
+update reservation_table set use_time = #{useTime} where reservation_id =#{reservationId}
+
+</update>
+	
+<delete id="deleteResrv">
 
 </delete>
-
-
-	
-
 
 
 </mapper>

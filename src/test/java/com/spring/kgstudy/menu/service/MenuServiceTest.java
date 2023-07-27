@@ -1,6 +1,9 @@
 package com.spring.kgstudy.menu.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +45,37 @@ class MenuServiceTest {
 	
 	@Autowired
 	MenuService menuService;
+
+	
+	@Test
+	public void test() {
+		
+		Calendar cal=Calendar.getInstance();
+		Date now = new Date();
+		LocalDate today = LocalDate.now();
+
+		
+		
+		cal.setTime(now);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		
+		System.out.println(now);
+		System.out.println(cal.getTime());
+		
+		
+		System.out.println(today);
+		
+		
+		Long mils = now.getTime();
+		
+		System.out.println(new Date(mils));
+		
+		System.out.println(now.before(cal.getTime()));
+
+		
+	}
 	
 	@Test
 	void insertTest() {

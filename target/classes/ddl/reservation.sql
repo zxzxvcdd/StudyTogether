@@ -1,12 +1,12 @@
---¿¹¾àÁ¤º¸
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE reservation_table (
-  reservation_id NUMBER PRIMARY KEY, --¿¹¾à ¾ÆÀÌµð
-  reservation_day DATE, --¿¹¾à ³¯Â¥
-  store_id NUMBER, --ÁöÁ¡ ¾ÆÀÌµð
-  pass_id NUMBER, --ÀÌ¿ë±Ç ¾ÆÀÌµð
-  user_id VARCHAR2(200), --È¸¿ø ¾ÆÀÌµð
-  seat_id NUMBER, --ÁÂ¼® ¾ÆÀÌµð
-  useTime NUMBER, --»ç¿ë½Ã°£
+  reservation_id NUMBER PRIMARY KEY, --ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  reservation_day DATE, --ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥
+  store_id NUMBER, --ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  pass_id NUMBER, --ï¿½Ì¿ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  user_id VARCHAR2(200), --È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  seat_id NUMBER, --ï¿½Â¼ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  use_time NUMBER, --ï¿½ï¿½ï¿½Ã°ï¿½
   constraint reservation_store_fk FOREIGN KEY (store_id) REFERENCES store_table(store_id),
   constraint reservation_pass_fk FOREIGN KEY (pass_id) REFERENCES pass_table(pass_id),
   constraint reservation_user_fk FOREIGN KEY (user_id) REFERENCES member(user_id),

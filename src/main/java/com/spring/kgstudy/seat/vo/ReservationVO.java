@@ -1,25 +1,23 @@
 package com.spring.kgstudy.seat.vo;
 
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class SeatVO {
-	
-	private int reservationId;
-	private int seatId;
-	private String seatName;
-	private int storeId;
-	private String userId;
-	private String seatType;
-	private int x;
-	private int y;
+@AllArgsConstructor
+@Data
+public class ReservationVO {
 
-	
+	private int reservationId;
+	private Date reservationDay;
+	private int storeId;
+	private int passId;
+	private String userId;
+	private int seatId;
+	private int useTime;
 	
 	
 }

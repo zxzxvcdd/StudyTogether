@@ -1,15 +1,17 @@
--- ÁöÁ¡ ÁÂ¼® Å×ÀÌºí »ý¼º
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Â¼ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE seat (
-  seat_id NUMBER PRIMARY KEY, --ÁÂ¼® ¾ÆÀÌµð
-  seat_name VARCHAR2(200), --ÁÂ¼®ÀÌ¸§
-  store_id NUMBER, --ÁöÁ¡ ¾ÆÀÌµð
-  user_id VARCHAR2(200), --È¸¿ø ¾ÆÀÌµð
-  seat_type VARCHAR2(2), --ÁÂ¼®ÆÇº°(ÀÔ½Ç,Åð½Ç,ºñÈ°¼º,È°¼º)
+  seat_id NUMBER PRIMARY KEY,
+  reservation_id NUMBER, --ï¿½Â¼ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  seat_name VARCHAR2(200), --ï¿½Â¼ï¿½ï¿½Ì¸ï¿½
+  store_id NUMBER, --ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  user_id VARCHAR2(200), --È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+  seat_type VARCHAR2(2), --ï¿½Â¼ï¿½ï¿½Çºï¿½(ï¿½Ô½ï¿½,ï¿½ï¿½ï¿½,ï¿½ï¿½È°ï¿½ï¿½,È°ï¿½ï¿½)
   x NUMBER,
   y NUMBER,
-  CONSTRAINT seat_ck CHECK(seat_type IN('Y','N','D','A')), --'Y'ÀÔ½Ç,'N'Åð½Ç,'D'ºñÈ°¼º,'A'È°¼º
+  CONSTRAINT seat_ck CHECK(seat_type IN('Y','N','D','A')), --'Y'ï¿½Ô½ï¿½,'N'ï¿½ï¿½ï¿½,'D'ï¿½ï¿½È°ï¿½ï¿½,'A'È°ï¿½ï¿½
   constraint seat_store_fk FOREIGN KEY (store_id) REFERENCES store_table(store_id),
-  constraint seat_user_fk FOREIGN KEY (user_id) REFERENCES member(user_id)
+  constraint seat_user_fk FOREIGN KEY (user_id) REFERENCES member(user_id),
+  constraint seat_reserv_fk FOREIGN KEY (reservation_id) REFERENCES reservation_table(reservation_id)
 );
 
 CREATE SEQUENCE seat_seq
