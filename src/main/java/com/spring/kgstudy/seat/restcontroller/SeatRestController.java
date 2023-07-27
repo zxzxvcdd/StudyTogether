@@ -1,13 +1,17 @@
 package com.spring.kgstudy.seat.restcontroller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.seat.service.SeatService;
 import com.spring.kgstudy.seat.vo.SeatVO;
+import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,14 +23,41 @@ public class SeatRestController {
 
 	private final SeatService service;
 
+	
+	@PostMapping("getPassList.do")
+	public Map<String, Object> getPassList(HttpSession session,Search search){
+		
+		Map<String, Object> resMap = null;
+		
+		
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+		
+		
+		search.setType("user");
+		search.setKeyword(userId);
+		
+		
+		
+		
+		resMap = service.findPassList(search);
+		
+		
+		
+		return resMap;
+		
+		
+		
+		
+	}
+
+	
+	
 
 	@PostMapping("seatChecke.do")
-	public String seatChoise(@RequestBody SeatVO vo) {
+	public String seatChoise(SeatVO vo, HttpSession session) {
 
-		System.out.println("1." + vo);
 
-		// 세션에서 유저 아이디 받아옴
-		String userId = "admin";
+		String userId = LoginUtil.getCurrentMemberAccount(session);
 
 		vo.setUserId(userId);
 
@@ -37,10 +68,11 @@ public class SeatRestController {
 	}
 
 	@PostMapping("seatCheckOut.do")
-	public String seatCheckOut(@RequestBody SeatVO vo) {
+	public String seatCheckOut(SeatVO vo) {
 
-		System.out.println("2. " + vo);
 
+		
+		
 		boolean result = service.seatCheckOut(vo);
 
 		System.out.println("controller: " + result);
