@@ -39,17 +39,18 @@ public class OrderAPIController {
 	}
 	
 	@PostMapping("complete.do")
-	public String orderComplete(MenuVO menu, OrderVO order, Long paidAt, HttpSession session) {
+	public String orderComplete(MenuVO menu,  Long paidAt, HttpSession session) {
 		
+		System.out.println("complete");
 		
 		Date pDate = new java.util.Date(paidAt * 1000L);
-		
+		OrderVO order = new OrderVO();
 		order.setOrderDate(pDate);
 
 //		String userId = LoginUtil.getUserId(session);
 //		order.setUserId(userId);
 		
-		
+		order.setUserId("admin01");
 		String msg = orderService.orderProgress(menu, order);
 		
 		return msg;

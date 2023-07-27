@@ -13,6 +13,27 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+/* 버튼 JQuery */
+	$(document).ready(function() {
+		$("button").on("click", function(e) {
+			var formData=$("#frm");
+			var btn = $(this).data("btn"); // data-btn="list"
+			if (btn == 'reply') {
+				formData.attr("action", "${cpath}/board/reply.do");
+			} else if (btn == 'list') {
+				var formData1=$("#frm1");
+				formData1.attr("action", "${cpath}/board/list.do");
+				formData1.submit();
+				return;
+			} else if(btn =='reset'){
+				formData[0].reset();
+				return;
+			}
+			formData.submit();
+		});
+	});
+</script>
 </head>
 <body>
  
@@ -21,9 +42,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">문의 게시판</div>
     <div class="panel-body">
-        <form action="${cpath}/board/reply.do" method="post">
-          <!-- boardId(원글, 부모글) -->
-          <input type="hidden" name="boardId" value="${vo.boardId}"/>
+        <form id="frm" method="post">
+        	<input type="hidden" name="page" value="<c:out value='${cri.page}'/>"/>
+			<input type="hidden" name="perPageNum" value="<c:out value='${cri.perPageNum}'/>"/>	
+          <!-- board_id(원글, 부모글) -->
+          <input type="hidden" name="board_id" value="${vo.board_id}"/>
           <div class="form-group">
              <label>제목</label>
              <input type="text" name="title" class="form-control" value="${vo.title}">
@@ -36,10 +59,14 @@
              <label>답변</label>
              <textarea rows="10" name="content" class="form-control" value="${vo.content}"></textarea>
           </div>
-          <button type="submit" class="btn btn-default btn-sm">답변</button>
-          <button type="reset" class="btn btn-default btn-sm">취소</button>
-          <button type="button" class="btn btn-default btn-sm" onclick="location.href='${cpath}/board/list.do'">목록</button>
+          <button type="button" data-btn="reply" class="btn btn-default btn-sm">답변</button>
+          <button type="button" data-btn="reset" class="btn btn-default btn-sm">취소</button>
+          <button type="button" data-btn="list" class="btn btn-default btn-sm">목록</button>
        </form>
+       <form id="frm1" method="get">
+ 		 <input type="hidden" name="page" value="<c:out value='${cri.page}'/>"/>
+		 <input type="hidden" name="perPageNum" value="<c:out value='${cri.perPageNum}'/>"/>
+	   </form>
     </div>
     <div class="panel-footer">문의 게시판</div>
   </div>

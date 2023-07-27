@@ -30,6 +30,7 @@ public interface OrderDAO {
 	public boolean deleteOrder(String impUid);
 	public boolean updateOrder(OrderVO order);
 	
+	public OrderVO findOneOrder(Search search);
 
 	
 	
@@ -45,7 +46,6 @@ public interface OrderDAO {
 
 	public boolean deletePass(int passId);
 
-	public OrderVO findOneOrder(Search search);
 	
 
 

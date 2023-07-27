@@ -1,11 +1,14 @@
 package com.spring.kgstudy.order.service;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.common.order.OrderState;
 import com.spring.kgstudy.common.pass.PassState;
 import com.spring.kgstudy.common.pass.PassType;
 import com.spring.kgstudy.common.search.Search;
+import com.spring.kgstudy.menu.service.MenuService;
 import com.spring.kgstudy.menu.vo.MenuVO;
 import com.spring.kgstudy.order.dao.OrderDAO;
 import com.spring.kgstudy.order.vo.OrderVO;
@@ -20,6 +23,17 @@ public class OrderService {
 	
 	private final OrderDAO dao;
 	private final IamportService iamportService;
+	private final MenuService menuService;
+	
+	public Map<String,Object> getMenuList(Search search){
+		
+		
+		
+		return menuService.findAllMenu(search);
+		
+		
+	}
+	
 	
 	public String orderProgress(MenuVO menu, OrderVO order) {
 		
@@ -43,21 +57,27 @@ public class OrderService {
 		  e.printStackTrace(); }
 		  
 
+		  Search search = new Search();
+		  
+		  search.setType("menu");
+		  search.setKeyword(""+menu.getMenuId());
+		  menu = menuService.findOneMenu(search);
+		  
 
 		
 		String userId = order.getUserId();
 		int paidAmount = menu.getPassPrice();
 
 		
-		
 		if (paidAmount == amount) {
+			System.out.println("결제금액일치");
 
 			order.setOrderName(menu.getMenuName());
 			order.setOrderState(OrderState.PAID);
 			order.setOrderPrice(paidAmount);
 		
 			if (dao.insertOrder(order)) {
-				
+				System.out.println("order 생성");
 				int orderId = dao.getOrderSeq();
 				PassType passType = menu.getPassType();
 				PassVO pass =new PassVO();
@@ -74,7 +94,7 @@ public class OrderService {
 				
 				
 				if(dao.insertPass(pass)) {
-					
+					System.out.println("pass생성");
 					result="결제 성공";
 				}else {
 					
@@ -93,6 +113,7 @@ public class OrderService {
 			result="결제정보 불일치";
 		}
 
+		System.out.println(result);
 		
 		return result;
 			

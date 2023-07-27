@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.common.paging.Page;
 import com.spring.kgstudy.common.paging.PageMaker;
+import com.spring.kgstudy.common.pass.PassType;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.menu.dao.MenuDAO;
 import com.spring.kgstudy.menu.vo.MenuVO;
@@ -70,11 +71,25 @@ public class MenuService {
 		
 		menuList = dao.findAllMenu(search);
 		
+		
+		ArrayList<MenuVO> timePass = new ArrayList<MenuVO>();
+		ArrayList<MenuVO> dayPass = new ArrayList<MenuVO>();
 	
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		
+		for(MenuVO menu : menuList) {
+			
+			if(menu.getPassType()==PassType.TIME) {
+				timePass.add(menu);
+				
+			}else {
+				dayPass.add(menu);
+			}
+		}
 		
-		resMap.put("menuList", menuList);
+		
+		resMap.put("timePassList", timePass);
+		resMap.put("dayPassList", dayPass);
 		
 		resMap.put("pm",getPage(search));
 		

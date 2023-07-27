@@ -61,17 +61,68 @@
 							<div class="product_content">
 								<div class="product_content_list">
 									<div class="content_list_box">
-										<label class="pcon-label">이용권이름 : </label>
-											<c:set var="placeName" value="${dto.order.placeName}" /> <!-- 지점명 자르기 위해서 -->
-                                   	 		<c:set var="pLen" value="${fn:length(placeName)}" /> <!-- 지점명 자르기 위해서 -->
-										<label class="pcon-label">지점 이름 : ${fn:substring(placeName,8,pLen)}</label>
-										<label class="pcon-label">총 금액 : ${dto.order.totalPrice} 원</label>
+										<label class="pcon-label">남은 기간 : </label>
+										<label class="pcon-label">남은 시간 : </label>
+										<label class="pcon-label">총 금액 : 원</label>
 										<button type="button" class="btn_refund_order" data-total-price="${dto.order.totalPrice}" data-imp-uid="${dto.order.impUid}">환불하기</button>
 									</div>	
 								</div>
 							</div>
-
+							
+							<div>
+								<button type="button" class="btn_order_list" onclick="arccodionMenu(${dto.order.orderId})"> 구매한 이용권 상세보기</button>
+							</div>
+							
 						</div> 
+						
+						<!-- 구매한 이용권 상세보기 -->
+						<div id="content${dto.order.orderId}" class="content">
+							<ul class="paymentList">
+								<c:set var="totalAmount" value="0" />
+
+								<!-- --------------------------------------------------- -->
+								<c:forEach var="payments" items="${dto.paymentsList}">
+
+									<li class="orderOneView">
+										<div class="itme-one">
+
+											<!-- 구입한 상품정보들 -->
+											<div class="product_content">
+												<div class="product_content_list">
+													<img alt="상품1"
+														src="/kgCoffee/img/menuImg/${payments.fileName}">
+												</div>
+
+												<div class="product_content_list">
+													<div class="content_list_box">
+														<h3 class="menu_name">${payments.menuName}</h3>
+														<!-- 각상품들의 이름 -->
+														<a class="order_total">${payments.menuPrice} 원</a>
+														<!-- 각 상품들의 가격 -->
+														<a class="order_total">${payments.menuAmount} 개</a>
+														<!-- 각상품들의 수량 -->
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</li>
+									<c:set var="totalAmount"
+										value="${totalAmount + payments.menuAmount }" />
+
+								</c:forEach>
+								<!-- <hr class="hr_view"> -->
+								<div class="order_total_view">
+									<strong>[ 결제 정보 ]</strong><br>
+									<p>지점명 : ${fn:substring(placeName,8,pLen)}</p>
+									<p>총 수량 : ${totalAmount} 개</p>
+									<p>총 금액 : ${dto.order.totalPrice} 원</p>
+								</div>
+							</ul>
+
+
+						</div>
+						<!-- 구매한 이용권 상세보기 -->
 						
 					</li>
 				<%-- </c:forEach> --%>
@@ -91,7 +142,7 @@
 						<label class="con-label">1주일간 나의 총 공부 시간 : </label> 
 					</div>
 					
-					<!-- 여기에 chart.js 뜨도록 -->
+					<!-- chart.js -->
 					<canvas id="myChart" width="400" height="400"></canvas>
 					
 				</li>
@@ -106,49 +157,114 @@
 	<%@include file="../include/footer.jsp"%>
 
 	<script>
+		const ctx = document.getElementById('myChart').getContext('2d');
+		
+		const myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: ['월', '화', '수', '목', '금', '토', '일'],
+		        datasets: [{
+		            label: '',
+		            data: [1, 3, 5, 10, 2, 3, 3], //시간단위
+		            backgroundColor: [
+	/*  	            'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)', */
+		                'rgba(22, 160, 133,0.2)'
+		            ],
+		            borderColor: [
+	/*  	            'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',  */
+		                'rgba(22, 160, 133,1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		    	plugins: {
+		    	    legend: {
+		    	      display: false, //라벨 없애기
+		    	    }
+		    	  },
+		        scales: {
+		            y: {
+		                beginAtZero: true
+		            }
+		            
+		        }
+		    }
+		}); //chart.js-end
+	</script>
 	
-	const ctx = document.getElementById('myChart').getContext('2d');
+	<script>
 	
-	const myChart = new Chart(ctx, {
-	    type: 'bar',
-	    data: {
-	        labels: ['월', '화', '수', '목', '금', '토', '일'],
-	        datasets: [{
-	            label: '# of Votes',
-	            data: [12, 19, 3, 5, 2, 3, 3], //시간단위
-	            backgroundColor: [
-	                'rgba(255, 99, 132, 0.2)',
-	                'rgba(54, 162, 235, 0.2)',
-	                'rgba(255, 206, 86, 0.2)',
-	                'rgba(75, 192, 192, 0.2)',
-	                'rgba(153, 102, 255, 0.2)',
-	                'rgba(255, 159, 64, 0.2)'
-	            ],
-	            borderColor: [
-	                'rgba(255, 99, 132, 1)',
-	                'rgba(54, 162, 235, 1)',
-	                'rgba(255, 206, 86, 1)',
-	                'rgba(75, 192, 192, 1)',
-	                'rgba(153, 102, 255, 1)',
-	                'rgba(255, 159, 64, 1)'
-	            ],
-	            borderWidth: 1
-	        }]
-	    },
-	    options: {
-	    	plugins: {
-	    	    legend: {
-	    	      display: false,
-	    	    }
-	    	  },
-	        scales: {
-	            y: {
-	                beginAtZero: true
-	            }
-	            
-	        }
-	    }
-	}); //chart.js-end
+		$(".btn_refund_order").click(function refundOrder(){
+	
+			if(confirm("해당 주문을 환불하시겠습니까?")){
+	
+				let imp_uid = $(this).data("imp-uid");
+				let total_price= $(this).data("total-price");
+	
+				let reqUrl = "/kgCoffee/order/api/refund.do";
+	
+				console.log(imp_uid)
+	
+				
+				console.log(total_price)
+	
+				$.ajax({
+	                type : "POST",
+	                url : reqUrl,
+	                data : {
+	                    // 저장할 pay 정보 넣어서 서버 보내서 DB 테이블 저장
+	                    imp_uid : imp_uid,
+	                    total_price: total_price,
+	
+	
+	                },
+	                success:function(res_data) {
+	
+	                	
+	                    var res = JSON.parse(res_data);
+	                    
+	                    console.log(res);
+						
+						var msg = res.msg;
+						console.log(msg);
+	                    if(!(msg===null)){
+	
+	                        if(msg==="refund-success"){
+	                            alert("환불이 완료되었습니다.");
+								location.reload(true);
+	
+	                        }else if(msg==="delete-faild"){
+	
+	                            alert("결제 실패.");
+	
+	                        }else if(msg==="refund-faild"){
+	                            alert("refund-faild");
+	
+	                        }
+	
+	                    }
+	
+	                }
+	            })
+	
+			}
+			
+		})
+	
+		
+		//아코디언 메뉴 클릭 이벤트
+		function arccodionMenu(orderId){
+		    $("#content"+orderId).toggleClass("show");
+		}
 	
 	</script>
 
