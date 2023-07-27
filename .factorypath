@@ -85,4 +85,5 @@
     <factorypathentry kind="EXTJAR" id="C:\apache-tomcat-8.5.88\lib\websocket-api.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="PLUGIN" id="net.harawata.mybatipse" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="PLUGIN" id="org.eclipselabs.stlipse" enabled="true" runInBatchMode="false"/>
 </factorypath>
