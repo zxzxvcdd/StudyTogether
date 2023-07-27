@@ -20,9 +20,8 @@ public class SeatController {
 	public String test(Model model, int storeId) {
 		
 		model.addAttribute("seat", service.test(storeId));
-		
 		return "seatPage";
-		
+
 	}
 	
 	

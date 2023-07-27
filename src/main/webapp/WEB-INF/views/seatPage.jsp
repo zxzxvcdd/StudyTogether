@@ -202,8 +202,10 @@ div.wrapper {
 	cursor: default;
 }
 
-.box{
+.myseat{
+	cursor: pointer;
 	
+	background-color: violet;
 }
 
 
@@ -247,7 +249,7 @@ div.wrapper {
 			  
 			  <!-- ========== 테스트 ====================== -->
 			 <%
-    			String userId = "admin";
+    			String userId = "aa";
    				 TestUser loginUser = new TestUser(userId);
     			request.setAttribute("loginUser", loginUser);
 			%> 
@@ -375,6 +377,11 @@ div.wrapper {
 			
 		/* ================ 좌석선택 메소드 ========================== */
 		function addConfirm(seatElement){
+			
+			var userId = '${loginUser.userId}';
+			
+			/* 로그인 확인 처리 */
+		if(userId != ""){ 
 			  
 			if($(seatElement).data("type")==="Y"){
 				
@@ -420,7 +427,14 @@ div.wrapper {
 									alert("예약성공");
 									location.reload(); 
 									
+								}else if(msg == "fail"){
+									alert("이미 이용중인 좌석입니다.");
+								}else if(msg==="checkeIn"){
+									
+									alert("1인 1좌석만 이용 가능합니다.");
 								}
+								
+								
 							
 							
 							}
@@ -431,7 +445,10 @@ div.wrapper {
 				}
 			}
 				
-				
+		}else{
+			alert("로그인 후 이용해주세요");
+			
+		}
 					
 					
 			         

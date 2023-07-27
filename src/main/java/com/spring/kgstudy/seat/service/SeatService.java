@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.kgstudy.seat.dao.SeatDAO;
 import com.spring.kgstudy.seat.vo.SeatVO;
@@ -48,7 +49,6 @@ public class SeatService{
 	
 	
 	//좌석선택
-    @Async
 	public boolean seatChoise(SeatVO vo) {
 
 		int seatId = vo.getSeatId();
@@ -77,7 +77,6 @@ public class SeatService{
     
 
 	//좌석퇴실
-    @Async
 	public boolean seatCheckOut(SeatVO vo) {
 
 		int seatId = vo.getSeatId();
@@ -98,14 +97,29 @@ public class SeatService{
 			System.out.println(result);
 
 			return result;
-		}
+			}
 
 		return false;
 
-	}
+		}
+	
+	
+		/*
+		 * public boolean findSeatByUser(String userId, String seatType) {
+		 * 
+		 * int cnt = sdao.findSeatByUser(userId, seatType);
+		 * 
+		 * System.out.println("findSeatByUser: "+cnt);
+		 * 
+		 * if(cnt > 1) { return false; }else { return true; }
+		 * 
+		 * }
+		 */
 
 
 	}
+
+	
 	
 	
 

@@ -35,13 +35,15 @@
 	SELECT seat_type FROM seat WHERE seat_id=#{seatId}
 </select>
 
-<delete id="">
-
+<delete id="seatDelete">
+	DELETE FROM seat WHERE seat_id=#{seatId}
 </delete>
 
 
-	
-
+<!-- <select id="findSeatByUser" resultType="int">
+	select count(*) from seat where user_id=#{userId} and seat_type = #{seatType};
+</select>	
+ -->
 
 
 </mapper>

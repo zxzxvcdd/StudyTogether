@@ -19,5 +19,5 @@ public interface SeatDAO {
 	
 	String seatCheck(int seatId);
 
-	
+	/* int findSeatByUser(String userId, String seatType); */
 }
