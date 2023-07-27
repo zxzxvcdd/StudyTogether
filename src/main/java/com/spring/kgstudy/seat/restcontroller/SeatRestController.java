@@ -14,10 +14,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/seat")
 public class SeatRestController {
 
+
 	private final SeatService service;
 
+
 	@PostMapping("seatChecke.do")
-	public String seatChoise(SeatVO vo) {
+	public String seatChoise(@RequestBody SeatVO vo) {
 
 		System.out.println("1." + vo);
 
@@ -33,7 +35,7 @@ public class SeatRestController {
 	}
 
 	@PostMapping("seatCheckOut.do")
-	public String seatCheckOut( SeatVO vo) {
+	public String seatCheckOut(@RequestBody SeatVO vo) {
 
 		System.out.println("2. " + vo);
 
