@@ -21,7 +21,7 @@ public class BoardMapperTest {
 	
 	@Test
 	public void testGetList() {
-		List<BoardVO> list = boardMapper.getList();
+		List<BoardVO> list = boardMapper.getList(null);
 		for(BoardVO vo : list){
 			System.out.println(vo);
 		}

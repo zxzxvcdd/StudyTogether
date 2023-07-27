@@ -30,6 +30,10 @@
              <label>작성자</label>
              <input type="text" name="writer" class="form-control">
           </div>
+       <!--     <div class="form-group">
+             <label>첨부파일</label>
+             <input type="file" name="filename" class="form-control">
+          </div> -->
           <div class="form-group">
              <label>내용</label>
              <textarea rows="10" name="content" class="form-control"></textarea>
