@@ -139,6 +139,7 @@
 	    	let passPrice = $(this).data("price");
 	    	/* console.log(passPrice); */
 			$(".total-price-value").text(passPrice.toLocaleString());
+			$(".total-price-value").data("menu_id",$(this).val());
 		});
 	</script>
 	

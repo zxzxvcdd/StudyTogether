@@ -21,7 +21,7 @@
 <insert id="insertPass">
 
 insert into pass_table(pass_id, order_id, user_id, pass_type, pass_time, pass_start, pass_end, pass_price, pass_name, pass_state)
-			values(pass_seq.nextval, #{orderId}, #{userId}, #{passType}, #{passTime}, #{passStart}, #{passEnd}, #{passPrice}, #{passName}, #{passState});
+			values(pass_seq.nextval, #{orderId}, #{userId}, #{passType}, #{passTime}, #{passStart}, #{passEnd}, #{passPrice}, #{passName}, #{passState})
 
 </insert>
 
@@ -88,8 +88,17 @@ delete pass_table where pass_id=#{passId}
 
 <insert id="insertOrder">
 
+
+
 insert into order_table(order_id, imp_uid, user_id, order_state, order_name, order_price, order_date)
 			values(order_seq.nextval, #{impUid}, #{userId}, #{orderState}, #{orderName}, #{orderPrice}, #{orderDate})
+
+	<selectKey keyProperty="orderId" order="AFTER" resultType="int">
+	
+		select order_seq.currval from dual
+		
+	</selectKey>
+
 
 </insert>
 
