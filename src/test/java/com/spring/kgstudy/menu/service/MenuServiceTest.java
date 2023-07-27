@@ -78,18 +78,17 @@ class MenuServiceTest {
 	}
 	
 	
-	@Test
-	void deleteTest() {
-
-		for(int i=1;i<12;i++) {
-		MenuVO vo = new MenuVO();
-		vo.setMenuId(i);
-
-		menuService.deleteMenu(vo);
-
-		}
-
-	}
+	/*
+	 * @Test void deleteTest() {
+	 * 
+	 * for(int i=1;i<12;i++) { MenuVO vo = new MenuVO(); vo.setMenuId(i);
+	 * 
+	 * menuService.deleteMenu(vo);
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 
 
 	

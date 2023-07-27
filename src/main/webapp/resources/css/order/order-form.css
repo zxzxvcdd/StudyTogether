@@ -6,7 +6,7 @@ body {
 }
 
 label.font {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 20px;
     font-weight: 700;
     height: flex;
@@ -24,10 +24,9 @@ label {
 
 
 .container {  
-    min-height: 700px;
-    
+
     max-width: 500px;
-    margin: 0 auto;
+    margin: 30px auto 10px;
     background-color: rgba(0, 0, 0, 0.06);
 
 
@@ -201,10 +200,10 @@ button:hover {
 }
 .order-title div:last-child {
 
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 550;
-   
-
+    width: 100%;
+	margin-bottom: 10px;
 
 }
 
@@ -248,3 +247,14 @@ div.open-menu {
 .menu-list-form:has(div.show) .open-menu::after {
     transform: rotate(-180deg);
 }
+
+.menu-list-con{
+	
+	display: none;
+}
+
+.menu-list-con.dblock{
+	
+	display: block;
+}
+

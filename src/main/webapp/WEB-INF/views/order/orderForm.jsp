@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,9 +13,10 @@
 <title>결제</title>
 
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/order/order-form.js"></script>
 
 <!-- css 파일 -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/pass/order-form.css?after">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/order/order-form.css?after">
 <!-- jquery -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
 
@@ -25,101 +27,64 @@
 	<%@include file="../include/header.jsp"%>
 	
 	<div class="container" style="justify-content: center">
-		<h1>주문 상세</h1>
+		<h1>상품 상세</h1>
+		
+		<!-- 상품 선택 =================================================== -->
 		<div class="form-group menu-list-form">
-			<label class="font" for="menu-list-wrap">
-				<div class="order-title">
-					<div>주문 상품</div>
-					<div id="orderName">
-						${cartList[0].menuName}
-						<c:if test="${fn:length(cartList)>1}"> 외 ${fn:length(cartList)-1}건 <div
-								class="open-menu" onclick="arccodionMenu()"></div>
-						</c:if>
-					</div>
+
+			<div class="order-title">
+				<div>상품 유형</div>
+			</div>
+
+				<div style="display: flex; width: 50%; margin-bottom: 3px;">
+					<input type="radio" id="pass-time" name="pass" checked>
+					<p>시간권</p>
 				</div>
-			</label>
+				<div style="display: flex; width: 50%; margin-bottom: 3px;">
+					<input type="radio" id="pass-day" name="pass">
+					<p>기간권</p>
+				</div>
+			
+		</div>
+		
+		<!-- 상품 선택(시간권) =================================================== -->
+		<div class="form-group menu-list-form menu-list-con time dblock">
 
-			<div class="menu-list-wrap">
+			<div class="order-title">
+				<div>상품 선택</div>
+			</div>
+			
+			<c:forEach var="timePass" items="${resMap.timePassList}">
+				<div style="display: flex; width: 50%; margin-bottom: 3px;">
+					<input type="radio" class="pass timePass" name="menuId" data-price="${timePass.passPrice }" value="${timePass.menuId}">
+					<p style="margin-right: 20px;">${timePass.menuName}</p>
+					<p class="price" id="${timePass.passPrice}"><fmt:formatNumber value="${timePass.passPrice}" pattern="#,###" />원</p>
+				</div>
+			</c:forEach>
+			
+		</div>
+		
+		<!-- 상품 선택(기간권) =================================================== -->
+		<div class="form-group menu-list-form menu-list-con day">
 
-				<c:forEach var="item" items="${cartList}" varStatus="status">
-					<div class="product-info" id="ix${status.count}">
-						<div>
-							<img src="/kgCoffee/img/menuImg/${item.fileName}" width="70">
-						</div>
-						<div class="product-info-content">
-							<div>
-								<div class="product-info-name">${item.menuName}</div>
-								<div class="product-info-count">
-									<div id="p_num${status.count}" class="p_num">
-										${item.menuAmount}개</div>
-								</div>
-							</div>
-						</div>
-						<div>
-
-							<div class="product-info-fee" id="amount${status.count}"
-								style="margin-top: 40px">${item.menuPrice * item.menuAmount}원</div>
-						</div>
-
-					</div>
-				</c:forEach>
-
+			<div class="order-title">
+				<div>상품 선택</div>
 			</div>
 
-
-
+			<c:forEach var="dayPass" items="${resMap.dayPassList}">
+				<div style="display: flex; width: 50%; margin-bottom: 3px;">
+					<input type="radio" class="pass dayPass" name="menuId" data-price="${dayPass.passPrice }" value="${dayPass.menuId}">
+					<p style="margin-right: 20px;">${dayPass.menuName}</p>
+					<p class="price" id="${dayPass.passPrice}"><fmt:formatNumber value="${dayPass.passPrice}" pattern="#,###" />원</p>
+				</div>
+			</c:forEach>
+				
 		</div>
-
-
-		<div class="form-group store_list_form">
-			<label class="font" for="request">매장 선택</label>
-
-			<div style="display: flex" class="store_list_wrap">
-				<input id="store_list" name="store_list" list="store_list_data"
-					type="text">
-				<datalist id="store_list_data" class="store_list_data">
-					<c:forEach var="store" items="${storeList}" varStatus="status">
-						<c:set var="placeName" value="${store.placeName}" />
-						<c:set var="pLen" value="${fn:length(placeName)}" />
-
-						<option data-val=${store.mapId
-							} id="${fn:substring(placeName,8,pLen)}"
-							value="${fn:substring(placeName,8,pLen)}"
-							label="${store.roadAddressName }">
-                                        </option>
-
-					</c:forEach>
-
-				</datalist>
-				</input>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="font" for="request">요청 사항</label>
-			<textarea id="request" rows="2" placeholder="요청 사항을 입력하세요"></textarea>
-		</div>
-
-
-
-
-		<div class="form-group">
-			<label class="font">매장 방문 여부</label>
-			<div style="display: flex">
-				<input type="radio" id="eat-in" name="visit-type" value="매장 먹고 가기"
-					checked>
-				<p for="eat-in">매장에서 먹고 갈게요</p>
-			</div>
-			<div style="display: flex">
-				<input type="radio" id="take-out" name="visit-type" value="포장">
-				<p for="take-out">포장해주세요</p>
-			</div>
-		</div>
+		
+		<!-- 결제 수단 =================================================== -->
 		<div>
-
 			<div class="form-group" style="flex-wrap: wrap; display: flex;">
 				<label style="width: 100%;" class="font">결제 수단</label>
-
 
 				<div style="display: flex; width: 50%">
 					<input type="radio" id="kakaopay" name="payment-method"
@@ -143,21 +108,39 @@
 		</div>
 
 
-		<div class="total-price"
-			style="display: flex; text-align: center; justify-content: center">
-			<p class="font">결제 금액: &nbsp</p>
-			<p class="font total-price-value">${totalPrice}</p>
+		<div class="total-price" style="display: flex; text-align: center; justify-content: center">
+			<p class="font">결제 금액 : &nbsp;</p>
+			<p class="font total-price-value"></p>
 			<p class="font">원</p>
 		</div>
 	</div>
+	
 	<div class="buttons">
-		<button id="pay-button"
-			onclick="javascript:order.go_pay('${userId}', '${totalPrice}', '${userId}')">결제하기</button>
+		<button id="pay-button" onclick="javascript:order.go_pay()">결제하기</button>
 		<button id="back-button" onclick="history.back()">뒤로가기</button>
 	</div>
-
-
-	<%@include file="../include/footer.jsp"%>
+	
+	<script>
+		$("input:radio[name=pass]").click(function(){
+		    $(".menu-list-con").toggleClass("dblock");
+		});
+	/* 	
+		let n = "${loginUser.user_id}";
+	 */	
+		let n = "admin01";
+		
+	
+		
+	</script>
+	
+	<script>
+		// 선택한 상품 값을 가져오기
+	    $('.pass').click(function(){
+	    	let passPrice = $(this).data("price");
+	    	/* console.log(passPrice); */
+			$(".total-price-value").text(passPrice.toLocaleString());
+		});
+	</script>
 	
 </body>
 </html>
