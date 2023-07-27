@@ -242,9 +242,9 @@ public class SeatService{
 			vo.setSeatType("Y");
 			vo.setUserId("");
 
-			System.out.println(vo);
+	
 			boolean result = sdao.updateSeat(vo);
-			System.out.println(result);
+		
 
 			return result;
 		}

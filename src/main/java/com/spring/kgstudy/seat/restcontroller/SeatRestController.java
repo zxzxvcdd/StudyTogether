@@ -109,9 +109,9 @@ public class SeatRestController {
 			session.removeAttribute("checkIn");
 			
 		}
+	
 		
 		
-		System.out.println("controller: " + result);
 
 		return result ? "success" : "fail";
 	}
