@@ -1,5 +1,6 @@
 package com.spring.kgstudy.seat.restcontroller;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.kgstudy.common.search.Search;
+import com.spring.kgstudy.order.vo.PassVO;
 import com.spring.kgstudy.seat.service.SeatService;
 import com.spring.kgstudy.seat.vo.SeatVO;
 import com.spring.kgstudy.util.LoginUtil;
@@ -35,6 +37,7 @@ public class SeatRestController {
 		
 		search.setType("user");
 		search.setKeyword(userId);
+		search.setAmount(100);
 		
 		
 		
@@ -54,28 +57,61 @@ public class SeatRestController {
 	
 
 	@PostMapping("seatChecke.do")
-	public String seatChoise(SeatVO vo, HttpSession session) {
+	public String seatChoise(SeatVO vo, PassVO pass, HttpSession session) {
 
+		
+		Date now = new Date();
+		
+		
+		if(session.getAttribute("checkIn")!=null) {
+			
 
+			Long checkIn = (Long) session.getAttribute("checkIn");
+			
+			if (checkIn < now.getTime())return "checkedIN";
+			else session.removeAttribute("checkIn");
+			
+		}
+		
 		String userId = LoginUtil.getCurrentMemberAccount(session);
 
+		
+		
 		vo.setUserId(userId);
 
-		boolean result = service.seatChoise(vo);
+		
+		
+		boolean result = service.seatChoise(vo,pass);
+		
+		
+		if(result) session.setAttribute("checkIn",now.getTime()+pass.getPassTime()*1000);
 
 		return result ? "success" : "fail";
 
 	}
 
 	@PostMapping("seatCheckOut.do")
-	public String seatCheckOut(SeatVO vo) {
+	public String seatCheckOut(SeatVO vo,HttpSession session) {
 
 
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+		
+		
+		if(!userId.equals(vo.getUserId())) return "fail";
+
+	
 		
 		
 		boolean result = service.seatCheckOut(vo);
 
-		System.out.println("controller: " + result);
+		if(result) {
+			
+			session.removeAttribute("checkIn");
+			
+		}
+	
+		
+		
 
 		return result ? "success" : "fail";
 	}
