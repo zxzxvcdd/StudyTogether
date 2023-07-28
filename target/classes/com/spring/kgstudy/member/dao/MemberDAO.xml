@@ -24,7 +24,7 @@
 	<insert id="insertUser">
 		insert into member
 		values (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, 
-					#{user_tel}, #{user_gender}, #{user_birthday}, DEFAULT)
+					#{user_tel}, #{user_gender}, #{user_birthday}, #{user_grant})
 	</insert>
 
 	<!-- 아이디 중복체크 -->

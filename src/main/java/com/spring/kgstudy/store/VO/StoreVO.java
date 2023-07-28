@@ -32,7 +32,7 @@ public class StoreVO {
 	private String storeAddress;
 	private String storeRoadAddress;
 	private String storeTel;
-	private String sotreInfo;
+	private String storeInfo;
 	private double storeLat;
 	private double storeLng;
 	

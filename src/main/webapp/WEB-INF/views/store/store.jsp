@@ -35,16 +35,9 @@
  
 
 	<body>
-<%-- 
-		<%@include file="../include/header.jsp" %>
- --%>
-			
-			<div class="header_wrap" style="height:30vh">
-			
-			
-			
-			
-			</div>
+	
+		<%@include file="../include/header.jsp"%>
+
 
 		
 			<div class="map_wrap">
@@ -148,8 +141,19 @@
 			</div>
 
 
-<%-- 			<%@include file="../include/footer.jsp" %>
- --%>
+				<%@include file="../include/footer.jsp"%>
+
+ 
+ <script>
+ 	
+ 	let msg = "${msg}";
+ 	
+ 	if(msg){
+ 		
+ 		alert(msg);
+ 	}
+ 
+ </script>
 	</body>
 
 	</html>

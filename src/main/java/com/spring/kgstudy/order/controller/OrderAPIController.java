@@ -2,7 +2,6 @@ package com.spring.kgstudy.order.controller;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,8 @@ import com.spring.kgstudy.menu.vo.MenuVO;
 import com.spring.kgstudy.order.service.OrderService;
 import com.spring.kgstudy.order.vo.OrderVO;
 import com.spring.kgstudy.order.vo.PassVO;
+import com.spring.kgstudy.util.LoginUtil;
+import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,16 +43,16 @@ public class OrderAPIController {
 		
 	
 		
+		
 		Date pDate = new java.util.Date(paidAt * 1000L);
 		
 		order.setOrderDate(pDate);
 		
 		
 
-//		String userId = LoginUtil.getUserId(session);
-//		order.setUserId(userId);
-		
-		order.setUserId("admin01");
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+		order.setUserId(userId);
+	
 		String msg = orderService.orderProgress(menu, order);
 		
 		return msg;
@@ -62,12 +63,12 @@ public class OrderAPIController {
 	
 	
 	@PostMapping("refund.do")
-	public String orderRefund(PassVO pass) {
+	public String orderRefund(PassVO pass, HttpSession session) {
 		
 		
 		
-//		String userId = LoginUtil.getUserId(session);
-//		order.setUserId(userId);
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+		pass.setUserId(userId);
 		String msg = orderService.orderRefund(pass);
 		
 		

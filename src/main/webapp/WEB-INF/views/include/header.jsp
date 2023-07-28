@@ -24,14 +24,14 @@
 
 	<header>
 		
-		<a href="main.do" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" width="180"></a>
+		<a href="/kgstudy/main.do" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" width="180"></a>
 		
 		<nav class="navbar">
-			<a href="main.do">home</a>
-			<a href="#">지점찾기</a>
+			<a href="/kgstudy/main.do">home</a>
+			<a href="/kgstudy/store/find.do">지점찾기</a>
 			<a href="#">소식</a>
 			<a href="#">리뷰</a>
-			<a href="passOrder.do">이용권구매</a>
+			<a href="/kgstudy/order/passOrder.do">이용권구매</a>
 			<a href="#">예약</a>
 		</nav>
 		
@@ -40,17 +40,17 @@
 		
 		<c:choose>
 				<c:when test="${loginUser.user_grant == 'user'}">
-					<a href="userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
-					<a href="logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<a href="/kgstudy/userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
+					<a href="/kgstudy/logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
 					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
 				</c:when> 
 				<c:when test="${loginUser.user_grant == 'admin'}">
 					<a href="#" id="admin_page" class='fas fa-user-cog'></a> <!-- 관리자페이지 -->
-					<a href="logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<a href="/kgstudy/logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
 					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
 				</c:when> 
 				<c:otherwise> 
-					<a href="loginPageView.do" id="login" class='fa fa-unlock'></a> <!-- 로그인 -->
+					<a href="/kgstudy/loginPageView.do" id="login" class='fa fa-unlock'></a> <!-- 로그인 -->
 				</c:otherwise>
 		</c:choose>
 		</div>

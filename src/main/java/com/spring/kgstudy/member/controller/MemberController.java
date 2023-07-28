@@ -80,13 +80,12 @@ public class MemberController {
 
 	// 로그아웃 기능
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-	public String memberLogout(HttpSession session, HttpServletResponse res) throws IOException {
+	public String memberLogout(HttpSession session, Model model) throws IOException {
 
 		session.removeAttribute("loginUser"); // 로그아웃
+		
+		model.addAttribute("loginMsg", "로그아웃 하였습니다.");
 
-		PrintWriter out = res.getWriter();
-		out.println("<script>alert(\"로그아웃 되었습니다.\")</script>");
-		out.flush();
 
 		return "/main/main";
 	}

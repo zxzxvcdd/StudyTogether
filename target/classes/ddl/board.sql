@@ -12,7 +12,7 @@ board_id NUMBER CONSTRAINT board_id_pk PRIMARY KEY
 , ref NUMBER
 , re_step NUMBER
 , re_level NUMBER
-, CONSTRAINT fk_user_id_board FOREIGN KEY (user_id) REFERENCES member(user_id)
+, CONSTRAINT fk_user_id_board FOREIGN KEY (user_id) REFERENCES member(user_id) on delete cascade
 );
 
 CREATE SEQUENCE board_seq

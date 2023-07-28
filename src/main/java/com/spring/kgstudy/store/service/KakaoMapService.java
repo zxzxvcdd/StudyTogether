@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -32,11 +33,11 @@ public class KakaoMapService {
 	private final String uri = "https://dapi.kakao.com/v2/local/search/keyword.json?size=15";
 	private final String apiKey = "KakaoAK 4811118d83cc4f11769af7407cf75b6e";
 	
-	private final StoreDAO dao;
+	
 	
 
 	//얻어온 정보 db에 저장
-	public void saveMap() {
+	public List<StoreVO> saveMap() {
 
 		JsonArray jsonMapList = new JsonArray();
 		double jumpX = 0.5;
@@ -101,21 +102,16 @@ public class KakaoMapService {
 			
 	
 			
+			return resultList;
 			
-			for(StoreVO vo : resultList){
-				
-				if(!(dao.insertStore(vo))) {
-					System.out.println("Insert Map Fail - map id "+vo.getStoreId());
-					
-				}
-				
-			}
+	
 			
 			
 			
 			
 			
 		}
+		return null;
 
 	}
 	
@@ -161,6 +157,7 @@ public class KakaoMapService {
 				conn.setRequestProperty("Authorization", apiKey);
 				conn.setRequestProperty("Content-type", "application/json; charset=utf-8");
 
+				
 
 				try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
 
@@ -213,24 +210,7 @@ public class KakaoMapService {
 
 	}
 
-	
-	public ArrayList<StoreVO> findMap(Search search){
-		
-		ArrayList<StoreVO> result = null;
-		
-		
-		
-		
-		
-		result= dao.findAllStore(search);
-		
-		
-		return result;
-		
-		
-		
-	}
-	
+
 	
 	
 	

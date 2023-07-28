@@ -31,6 +31,11 @@ public class SeatRestController {
 		
 		Map<String, Object> resMap = null;
 		
+		if(LoginUtil.isLogin(session)) {
+			
+		
+			
+	
 		
 		String userId = LoginUtil.getCurrentMemberAccount(session);
 		
@@ -44,6 +49,12 @@ public class SeatRestController {
 		
 		resMap = service.findPassList(search);
 		
+		
+		
+		}
+		
+		
+		resMap.put("msg", "no-login");
 		
 		
 		return resMap;
@@ -62,6 +73,12 @@ public class SeatRestController {
 		
 		Date now = new Date();
 		
+		
+		if(!LoginUtil.isLogin(session)) {
+			return "no-login";
+			
+		}
+
 		
 		if(session.getAttribute("checkIn")!=null) {
 			
@@ -93,6 +110,11 @@ public class SeatRestController {
 	@PostMapping("seatCheckOut.do")
 	public String seatCheckOut(SeatVO vo,HttpSession session) {
 
+		
+		if(!LoginUtil.isLogin(session)) {
+			return "no-login";
+			
+		}
 
 		String userId = LoginUtil.getCurrentMemberAccount(session);
 		

@@ -2,16 +2,17 @@ package com.spring.kgstudy.order.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.kgstudy.common.search.Search;
-import com.spring.kgstudy.menu.service.MenuService;
-import com.spring.kgstudy.menu.vo.MenuVO;
 import com.spring.kgstudy.order.service.IamportService;
 import com.spring.kgstudy.order.service.OrderService;
+import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,8 +37,13 @@ public class OrderController {
 	}
 	
 	@GetMapping("/passOrder.do")
-	public String orderForm(Model model) {
+	public String orderForm(Model model, HttpSession session) {
 		
+		
+		if(!LoginUtil.isLogin(session)) {
+			
+			return "redircet:/member/login.do";
+		}
 		
 		Search search = new Search();
 

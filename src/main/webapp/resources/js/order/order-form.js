@@ -104,7 +104,7 @@ let order = {
                     	
                         var msg = res_data
         
-        				alert(msg);
+        			
                         if(!(msg===null)){
     
                          

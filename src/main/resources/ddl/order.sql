@@ -7,9 +7,9 @@ order_id number constraint order_id_pk primary key
 ,order_name varchar2(200) 
 ,order_price number 
 ,order_date DATE DEFAULT SYSDATE
-, constraint oder_user_fk foreign key (user_id) references meber(user_id)
-, constraint pass_type_ck check(pass_type in('PAID','REFUNDED'))
-)
+, constraint oder_user_fk foreign key (user_id) references member(user_id) on delete cascade
+, constraint order_state check(order_state in('PAID','REFUNDED'))
+);
 
 create sequence order_seq
 INCREMENT BY 1

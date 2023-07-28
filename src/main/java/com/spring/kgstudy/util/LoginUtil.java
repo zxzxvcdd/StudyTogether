@@ -29,7 +29,7 @@ public class LoginUtil {
     // 로그인한 사용자 권한 가져오기
     public static String getCurrentMemberAuth(HttpSession session) {
     	MemberVO member = (MemberVO) session.getAttribute(LOGIN_FLAG);
-        return member.getUser_grant().toString();
+        return member.getUser_grant();
     }
 
     // 자동 로그인 쿠키 가져오기
