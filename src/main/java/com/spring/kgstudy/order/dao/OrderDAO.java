@@ -21,7 +21,7 @@ public interface OrderDAO {
 	
 	public int getOrderSeq();
 
-	public boolean insertOrder(OrderVO order);
+	public int insertOrder(OrderVO order);
 
 	public ArrayList<OrderVO> findOrder(Search search) ;
 

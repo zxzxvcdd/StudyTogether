@@ -21,11 +21,14 @@ let order = {
 		let tp =$(".total-price-value").text();
 		tp = parseInt(tp.replace(/,/g , ''));
 		let menuId =$(".total-price-value").data("menu_id");
-
 		console.log(menuId);
-		console.log(n);
 		console.log(tp);
 		
+		if(menuId===undefined || tp ===NaN){
+		
+			alert("메뉴를 선택하세요");
+			return
+		}
         var merchant_uid = 'kg_study_' + new Date().getTime();
 
         IMP.request_pay({
@@ -76,7 +79,8 @@ let order = {
               
 
 
-
+		
+				
                 //var reqUrl = "/kgCoffee/order/complete";
                 var reqUrl = "/kgstudy/order/complete.do";
 
@@ -85,7 +89,7 @@ let order = {
                     url : reqUrl,
                     data : {
                         // 저장할 pay 정보 넣어서 서버 보내서 DB 테이블 저장
-                        imp_uid : res.imp_uid,
+                        impUid : res.imp_uid,
                         paid_amount : res.paid_amount,
                         pay_method : res.pay_method,
                         pg_provider : res.pg_provider,  

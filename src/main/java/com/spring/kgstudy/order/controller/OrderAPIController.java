@@ -2,6 +2,7 @@ package com.spring.kgstudy.order.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,30 +23,30 @@ import lombok.RequiredArgsConstructor;
 public class OrderAPIController {
 
 	
-	OrderService orderService;
+	private final OrderService orderService;
 	
 	@GetMapping("test.do")
-	public int test(String userId) {
+	public String test() {
 		
-		if(userId.equals("1")) {
+	
+			return "안녕";
 			
-			return 1;
-			
-		}else {
-			return 0;
-		}
+		
 		
 		
 	}
 	
 	@PostMapping("complete.do")
-	public String orderComplete(MenuVO menu,  Long paidAt, HttpSession session) {
+	public String orderComplete(MenuVO menu, OrderVO order, Long paidAt, HttpSession session) {
 		
-		System.out.println("complete");
+		
+	
 		
 		Date pDate = new java.util.Date(paidAt * 1000L);
-		OrderVO order = new OrderVO();
+		
 		order.setOrderDate(pDate);
+		
+		
 
 //		String userId = LoginUtil.getUserId(session);
 //		order.setUserId(userId);

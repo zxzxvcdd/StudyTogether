@@ -41,6 +41,7 @@ public class OrderController {
 		
 		Search search = new Search();
 
+		
 		search.setAmount(100);
 
 		Map<String, Object> resMap = orderService.getMenuList(search);

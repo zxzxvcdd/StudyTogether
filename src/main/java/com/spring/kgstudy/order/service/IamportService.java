@@ -119,9 +119,9 @@ public class IamportService {
 
 			conn.setDoInput(true);
 
-			System.out.println(conn.getRequestProperty("Authorization"));
+//			System.out.println(conn.getRequestProperty("Authorization"));
 			int responseCode = conn.getResponseCode();
-			System.out.println("info response :" + responseCode);
+//			System.out.println("info response :" + responseCode);
 
 			// 응답 데이터 받기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));

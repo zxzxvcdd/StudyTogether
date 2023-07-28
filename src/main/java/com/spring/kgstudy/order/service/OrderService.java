@@ -40,15 +40,18 @@ public class OrderService {
 
 		String result = "order-complete-fail";
 		
-		String impUid = order.getImpUid();
 		
+		String impUid = order.getImpUid();
+		System.out.println(impUid);
 		
 		int amount = 0; 
 		  
 		  try { 
 			  
+	 
 		  String accessToken = iamportService.getAccessToken(); 
 		  
+	
 		  amount =	iamportService.getPaymentsInfo(impUid, accessToken);
 		  
 		  
@@ -66,6 +69,7 @@ public class OrderService {
 
 		
 		String userId = order.getUserId();
+		
 		int paidAmount = menu.getPassPrice();
 
 		
@@ -76,9 +80,16 @@ public class OrderService {
 			order.setOrderState(OrderState.PAID);
 			order.setOrderPrice(paidAmount);
 		
-			if (dao.insertOrder(order)) {
+			
+			
+			if (dao.insertOrder(order)==1) {
 				System.out.println("order 생성");
-				int orderId = dao.getOrderSeq();
+				
+				
+				
+				int orderId= order.getOrderId();
+				
+				
 				PassType passType = menu.getPassType();
 				PassVO pass =new PassVO();
 				
@@ -91,7 +102,7 @@ public class OrderService {
 				
 				pass.setPassTime(menu.getPassTime());
 	
-				
+				System.out.println(pass);
 				
 				if(dao.insertPass(pass)) {
 					System.out.println("pass생성");
