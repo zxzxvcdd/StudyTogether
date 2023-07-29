@@ -1,0 +1,345 @@
+@charset "UTF-8";
+
+ol, ul {
+	list-style: none;
+}
+
+.review_name {
+    width: 700px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px, rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 10px 0px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.reviewView {
+	display: grid;
+	align-content: center;
+	width: 700px;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px, rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+	background-color: rgb(255, 255, 255);
+	margin-bottom: 20px;
+	padding: 25px;
+	border-radius: 20px;
+}
+
+.reviewView-line {
+	display: inline-block;
+}
+
+/* star_area zone ==================================================== */
+.star_area {
+	float: left;
+	width: 254px;
+	margin: 20px 50px 0 50px;
+}
+
+.total {
+	text-align: center;
+	font-size: 18px;
+	color: #000;
+	font-weight: 700;
+}
+
+.num {
+	/* margin-bottom: 24px; */
+	line-height: 40px;
+	color: #000;
+	font-weight: 700;
+	text-align: center;
+}
+
+.num>strong {
+	font-size: 35px;
+}
+
+.star_list {
+	text-align: center;
+}
+
+.star_list li {
+	position: relative;
+	display: inline-block;
+	width: 26px;
+	height: 25px;
+	margin-left: 3px;
+}
+
+.star_list li img {
+	position: relative;
+	z-index: 5;
+}
+
+.star_list li>span.rating {
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 26px;
+	background-color: #f27370;
+}
+
+/* graph_area zone ==================================================== */
+.graph_area {
+	float: left;
+	width: 255px;
+}
+
+.graph_list {
+	padding-left: 16px;
+	text-align: left;
+}
+
+.graph_list li {
+	width: 56px; position : relative;
+	display: inline-block;
+	width: 38px;
+	padding: 27px 0 0;
+	text-align: center;
+	position: relative;
+}
+
+.graph_list li span.per {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	font-size: 14px;
+	color: #aaa;
+	font-weight: 700;
+}
+
+.graph_list li .graph {
+	position: relative;
+	width: 8px;
+	height: 100px;
+	background-color: #e5e5e5;
+	border-radius: 5px;
+	margin: 0 auto 8px;
+}
+
+.graph_list li .graph>span {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 8px;
+	background-color: #f27370;
+	border-radius: 5px;
+}
+
+.graph_list li .txt {
+	font-size: 14px;
+	color: #888;
+	font-weight: 700;
+}
+
+/* text-area-zone ==================================================== */
+.text-area-store {
+	color: #2f3640;
+    font-size: 18px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+}
+
+.text-area-zone {
+	display: flex;
+	-webkit-box-pack: start;
+	justify-content: start;
+	height: 80px;
+	margin: 0px auto;
+}
+
+.text-area-zone .tazone {
+    width: 550px;
+    height: 70px;
+    border: 2px solid #6ab04c;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    color: gray;
+    resize: none;
+    font-size: 14px;
+}
+
+.btn-tazone {
+	width: 85px;
+    height: 70px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    padding: 20px;
+    color: #fff;
+    background: #6ab04c;
+}
+
+.btn-tazone:hover {
+	background: #27ae60;
+}
+
+.text-star_list {
+	display: inline-flex;
+    position: relative;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: rgb(250, 175, 0);
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.text-star_list li>span.rating {
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 26px;
+	background-color: #f27370;
+}
+
+.text-star_list li img {
+    position: relative;
+    z-index: 5;
+}
+
+.text-file-btn::file-selector-button {
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #6ab04c;
+  color: #fff;
+  margin-left: 2px;
+}
+
+/* review_cont_sort-zone ==================================================== */
+
+.reviewViewList {
+	display: grid;
+    align-content: center;
+    width: 700px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px, rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 25px;
+}
+
+.reviewView-sort {
+   	border-bottom: 2px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+.align_sort {
+	position: relative;
+    z-index: 1;
+}
+
+.align_sort ul {
+    overflow: visible;
+}
+
+.align_sort>ul>li.is-layer {
+    position: relative;
+    padding-right: 25px;
+}
+
+.align_sort>ul, .align_sort>ul>li {
+    float: left;
+}
+
+.align_sort>ul>li>a {
+    display: inline-block;
+    margin: 0 21px;
+    color: #666;
+    font-size: 13px;
+}
+
+.align_sort>ul>li+li {
+    background: url(https://static.oliveyoung.co.kr/pc-static-root/image/comm/bar_1x14.png) 0 50% no-repeat;
+    padding-left: 1px;
+}
+
+/* review_cont-zone ==================================================== */
+
+.review_cont {
+	position: relative;
+    margin-left: 10px;
+    padding: 20px 0;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.cont-user-id {
+	color: #555;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.cont-user-b {
+	color: #636e72;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.r-star_list {
+	display: inline-flex;
+    position: relative;
+    font-size: 1.5rem;
+    color: rgb(250, 175, 0);
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.r-star_list li>span.rating {
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 20px;
+	background-color: #f27370;
+}
+
+.r-star_list li img {
+    position: relative;
+    z-index: 5;
+    width: 20px;
+}
+
+.r-cont-text {
+	color: #333;
+    line-height: 24px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.reviewView-my {
+	border-bottom: 2px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+.cont-user-my {
+	color: #555;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.review_none {
+    height: 150px;
+    text-align: center;
+    padding: 55px;
+    font-size: 20px;
+    color: #b2bec3;
+}
+
+
+
+
