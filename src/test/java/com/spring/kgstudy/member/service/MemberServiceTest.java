@@ -1,11 +1,11 @@
 package com.spring.kgstudy.member.service;
 
+import java.net.URL;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -40,7 +40,11 @@ class MemberServiceTest {
 		
 	
 		System.out.println(rootPath);
+		URL r = this.getClass().getResource("");
 
+		String path = r.getPath();
+		
+		System.out.println(path);
 		
 		
 	}
