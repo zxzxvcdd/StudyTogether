@@ -11,8 +11,9 @@ CREATE TABLE seat (
   CONSTRAINT seat_ck CHECK(seat_type IN('Y','N','D','A')), --'Y'�Խ�,'N'���,'D'��Ȱ��,'A'Ȱ��
   constraint seat_store_fk FOREIGN KEY (store_id) REFERENCES store_table(store_id) on delete cascade ,
   constraint seat_user_fk FOREIGN KEY (user_id) REFERENCES member(user_id) on delete cascade ,
-  constraint seat_reserv_fk FOREIGN KEY (reservation_id) REFERENCES reservation_table(reservation_id) on delete cascade
 );
+
+
 
 CREATE SEQUENCE seat_seq
        INCREMENT BY 1

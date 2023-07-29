@@ -5,6 +5,7 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -29,6 +30,19 @@ class MemberServiceTest {
 
 		service.insertUser(admin);
 	
+	}
+	
+	
+	@Test
+	void path() {
+		
+		String rootPath = System.getProperty("user.dir").replace("\\", "/");
+		
+	
+		System.out.println(rootPath);
+
+		
+		
 	}
 
 }
