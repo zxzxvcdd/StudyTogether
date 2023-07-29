@@ -1,11 +1,15 @@
 package com.spring.kgstudy.review.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -57,26 +61,34 @@ public class ReviewService {
 
 	public boolean reviewInsert(ReviewVO reviewVO, MultipartFile file) {
 		
-		String fileName = file.getOriginalFilename();
+		String originalName = file.getOriginalFilename();
+		String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 		
 		
-		File target = new File(rootPath + uploadPath, fileName);
-		System.out.println("upload path : " + rootPath + uploadPath);
+		File target = new File(uploadPath, fileName);
+		System.out.println("upload path : " + uploadPath);
 		
-		//경로 생성
-        if (!new File(rootPath + uploadPath).exists()) {
-            new File(rootPath + uploadPath).mkdirs();
-        }
+		String uuid = UUID.randomUUID().toString();
+		
+		String savefileName = uploadPath + File.separator + uuid + "_" + fileName;
+		
+		System.out.println(savefileName);
+		
+		//경로설정
+        Path savePath = Paths.get(savefileName);
+		
         
         //파일 복사
         try {
-			FileCopyUtils.copy(file.getBytes(), target);
+        	FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(savePath.toFile()));
 			System.out.println("파일 복사 됨");
 			return true;
 		} catch (IOException e) {
 			System.out.println("파일 복사 실패");
 			return false;
 		}
+        
+        //--------------------------------------------------------------------
         
         
         

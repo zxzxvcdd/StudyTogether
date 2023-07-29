@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,9 +64,15 @@ public class ReviewController {
 	
 	
 	//리뷰 등록
-	@RequestMapping(value = "/reviewInsert.do", method = RequestMethod.POST)
-	public String reviewInsert(ReviewVO reviewVO, MultipartFile review_file, RedirectAttributes ra) throws IOException {
-
+	@PostMapping("/reviewInsert.do")
+	public String reviewInsert(ReviewVO reviewVO, MultipartFile review_file, RedirectAttributes ra, HttpServletRequest rq) {
+		
+		
+		rq.getParameterNames().asIterator().forEachRemaining(key -> System.out.println("key:"+key));
+		
+		
+		System.out.println(reviewVO);
+		System.out.println(review_file);
 		boolean result = reviewService.reviewInsert(reviewVO, review_file);
 		// service => DAO => Mapper.xml(sql) => DB => return
 		

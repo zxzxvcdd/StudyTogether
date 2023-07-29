@@ -52,7 +52,7 @@
 				<c:choose>
 					<c:when test="${reservationVO != null}">
 							<li class="reviewView"> <!-- 리뷰 작성 (이용한 지점이 있으면 뜨도록) -->
-							<form id="frm1" action="reviewInsert.do" method="post" enctype="multipart/form-data">
+							<form id="frm5" action="reviewInsert.do" method="post" enctype="multipart/form-data">
 								<div class="text-area-store"> <!-- 지점이름 -->
 									<b>[ 지점명 : ${reservationVO.storeName} ]</b>
 									<input type="hidden" name="user_id" value="${loginUser.user_id}">
@@ -82,6 +82,7 @@
 								<div class="text-area-zone"> <!-- 작성하는 text box -->
 									<textarea name="review_content" class="tazone" placeholder="후기를 작성해주세요."></textarea>
 									<button onclick="formSubmit();" class="btn-tazone">등록</button><br>
+									<!-- <input type="submit" value="전송"> -->
 								</div>
 								
 								<div class="text-file">
@@ -171,7 +172,7 @@
 	
 	<script>
 		function formSubmit(){
-			$("#frm1").submit();
+			$("#frm5").submit();
 		}
 	</script>
 	
