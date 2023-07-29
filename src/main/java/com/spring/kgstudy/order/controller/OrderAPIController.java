@@ -26,9 +26,10 @@ public class OrderAPIController {
 	
 	private final OrderService orderService;
 	
-	@GetMapping("test.do")
-	public String test() {
+	@PostMapping("test.do")
+	public String test(String bno) {
 		
+		System.out.println(bno);
 	
 			return "안녕";
 			
