@@ -11,15 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.store.VO.StoreVO;
-import com.spring.kgstudy.store.dao.StoreDAO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +27,7 @@ public class KakaoMapService {
 
 	
 	
-	private final String uri = "https://dapi.kakao.com/v2/local/search/keyword.json?size=15";
+	private final String uri = "https://dapi.kakao.com/v2/local/search/keyword.json?size=15&category_group_code=CE7";
 	private final String apiKey = "KakaoAK 4811118d83cc4f11769af7407cf75b6e";
 	
 	

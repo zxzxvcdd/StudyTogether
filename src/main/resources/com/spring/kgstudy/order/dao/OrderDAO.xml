@@ -20,8 +20,8 @@
 
 <insert id="insertPass">
 
-insert into pass_table(pass_id, order_id, user_id, pass_type, pass_time, pass_start, pass_end, pass_price, pass_name, pass_state)
-			values(pass_seq.nextval, #{orderId}, #{userId}, #{passType}, #{passTime}, #{passStart}, #{passEnd}, #{passPrice}, #{passName}, #{passState})
+insert into pass_table(pass_id,menu_id order_id, user_id, pass_type, pass_time, pass_start, pass_end, pass_price, pass_name, pass_state)
+			values(pass_seq.nextval,#{menu_id}, #{orderId}, #{userId}, #{passType}, #{passTime}, #{passStart}, #{passEnd}, #{passPrice}, #{passName}, #{passState})
 
 </insert>
 

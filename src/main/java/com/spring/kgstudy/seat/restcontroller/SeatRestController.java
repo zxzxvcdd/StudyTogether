@@ -130,7 +130,7 @@ public class SeatRestController {
 	
 		
 		
-		boolean result = service.seatCheckOut(vo);
+		boolean result = service.seatCheckOut(vo.getReservationId());
 
 		if(result) {
 			

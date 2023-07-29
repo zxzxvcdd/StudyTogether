@@ -28,10 +28,7 @@ public class StoreService {
 		List<StoreVO> resultList = kakaoMapService.saveMap();
 		
 		
-		ArrayList<SeatVO> seatList = new ArrayList<SeatVO>();
 
-		
-		
 		
 		System.out.println(resultList.size());
 		
@@ -43,7 +40,9 @@ public class StoreService {
 				
 			}else {
 			
-				
+				ArrayList<SeatVO> seatList = new ArrayList<SeatVO>();
+
+
 				for(int i=1;i<=30;i++) {
 					SeatVO seat = new SeatVO();
 

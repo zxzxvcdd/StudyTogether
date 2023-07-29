@@ -19,6 +19,7 @@ public class PassVO {
 	
 	private int passId;
 	private int orderId;
+	private int menuId;
 	private String userId;
 	private PassType passType;
 	private int passTime;

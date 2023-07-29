@@ -35,13 +35,12 @@ public class ReserveScheduler {
 			  if(new Date().getTime() > checkInByTime.getKey()) {
 				  
 				  System.out.println("이용권 시간 만료 퇴실 처리");
-				  for(int seatId : checkInByTime.getValue()) {
+				  for(int reservId : checkInByTime.getValue()) {
 					  
-					  SeatVO seat = new SeatVO();
-					  seat.setSeatId(seatId);
-					  if(!seatService.seatCheckOut(seat)) {
+					  
+					  if(!seatService.seatCheckOut(reservId)) {
 						  
-						  System.out.println(seatId +"좌석 자동퇴실 실패");
+						  System.out.println(reservId +"좌석 자동퇴실 실패");
 					  }
 					  
 					
@@ -74,13 +73,12 @@ public class ReserveScheduler {
 		   for(Entry<Long, List<Integer>> checkInByTime : checkInList.entrySet()) {
 				
 	
-					  for(int seatId : checkInByTime.getValue()) {
+					  for(int reservId : checkInByTime.getValue()) {
 						  
-						  SeatVO seat = new SeatVO();
-						  seat.setSeatId(seatId);
-						  if(!seatService.seatCheckOut(seat)) {
+				
+						  if(!seatService.seatCheckOut(reservId)) {
 							  
-							  System.out.println(seatId +"좌석 자동퇴실 실패");
+							  System.out.println(reservId +"좌석 자동퇴실 실패");
 						  }
 						  
 						
