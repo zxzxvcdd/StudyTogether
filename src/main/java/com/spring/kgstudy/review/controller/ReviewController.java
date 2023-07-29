@@ -1,13 +1,20 @@
 package com.spring.kgstudy.review.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.reservation.vo.ReservationVO;
@@ -52,8 +59,30 @@ public class ReviewController {
 
 		return "/mypage/userReviewList";
 	}
-
 	
+	
+	//리뷰 등록
+	@RequestMapping(value = "/reviewInsert.do", method = RequestMethod.POST)
+	public String reviewInsert(ReviewVO reviewVO, MultipartFile review_file, RedirectAttributes ra) throws IOException {
+
+		boolean result = reviewService.reviewInsert(reviewVO, review_file);
+		// service => DAO => Mapper.xml(sql) => DB => return
+		
+	
+		
+		
+		if (result) {
+
+			ra.addFlashAttribute("msg", "리뷰 성공");
+			
+		} else {
+
+			ra.addFlashAttribute("msg", "리뷰 실패");
+		}
+		
+		
+		return "redirect:/userReviewView.do?user_id="+reviewVO.getUser_id(); 
+	}
 	
 	
 	

@@ -51,37 +51,43 @@
 				<!-- --------------------------------------------------------------------- -->
 				<c:choose>
 					<c:when test="${reservationVO != null}">
-						<li class="reviewView"> <!-- 리뷰 작성 (이용한 지점이 있으면 뜨도록) -->
-							<div class="text-area-store"> <!-- 지점이름 -->
-								<b>[ 지점명 : ${reservationVO.storeName} ]</b>
-							</div>
-		
-							<fieldset class="rate"> <!-- 별점 -->
-								<input type="radio" id="rating5" name="rating" value="5" onclick="clickStar(this);">
-								<label for="rating5" title="5점"></label> 
-											
-								<input type="radio" id="rating4" name="rating" value="4" onclick="clickStar(this);">
-								<label for="rating4" title="4점"></label> 
-											
-								<input type="radio" id="rating3" name="rating" value="3" onclick="clickStar(this);">
-								<label for="rating3" title="3점"></label> 
-											
-								<input type="radio" id="rating2" name="rating" value="2" onclick="clickStar(this);">
-								<label for="rating2" title="2점"></label> 
-										
-								<input type="radio" id="rating1" name="rating" value="1" onclick="clickStar(this);">
-								<label for="rating1" title="1점"></label> 
-							</fieldset>	
-							
-							<div class="text-area-zone"> <!-- 작성하는 text box -->
-								<textarea class="tazone" placeholder="후기를 작성해주세요."></textarea>
-								<button class="btn-tazone">등록</button><br>
-							</div>
-							
-							<div class="text-file">
-								<input type="file" name="file" id="file" class="text-file-btn">
-							</div>
-							
+							<li class="reviewView"> <!-- 리뷰 작성 (이용한 지점이 있으면 뜨도록) -->
+							<form id="frm1" action="reviewInsert.do" method="post" enctype="multipart/form-data">
+								<div class="text-area-store"> <!-- 지점이름 -->
+									<b>[ 지점명 : ${reservationVO.storeName} ]</b>
+									<input type="hidden" name="user_id" value="${loginUser.user_id}">
+									<input type="hidden" name="store_id" value="${reservationVO.storeId}">
+									<input type="hidden" name="store_name" value="${reservationVO.storeName}">
+									<input type="hidden" name="reservation_id" value="${reservationVO.reservationId}">
+									<input type="hidden" name="review_star" id="inputStar">
+								</div>
+			
+								<fieldset class="rate"> <!-- 별점 -->
+									<input type="radio" id="rating5" name="rating" value="5" onclick="clickStar(this);">
+									<label for="rating5" title="5점"></label> 
+												
+									<input type="radio" id="rating4" name="rating" value="4" onclick="clickStar(this);">
+									<label for="rating4" title="4점"></label> 
+												
+									<input type="radio" id="rating3" name="rating" value="3" onclick="clickStar(this);">
+									<label for="rating3" title="3점"></label> 
+												
+									<input type="radio" id="rating2" name="rating" value="2" onclick="clickStar(this);">
+									<label for="rating2" title="2점"></label> 
+															
+									<input type="radio" id="rating1" name="rating" value="1" onclick="clickStar(this);">
+									<label for="rating1" title="1점"></label> 
+								</fieldset>	
+								
+								<div class="text-area-zone"> <!-- 작성하는 text box -->
+									<textarea name="review_content" class="tazone" placeholder="후기를 작성해주세요."></textarea>
+									<button onclick="formSubmit();" class="btn-tazone">등록</button><br>
+								</div>
+								
+								<div class="text-file">
+									<input type="file" name="review_file" id="file" class="text-file-btn">
+								</div>
+							</form>
 						</li> <!-- reviewView end -->
 					</c:when>
 				</c:choose>
@@ -128,7 +134,7 @@
 								<ul class="inner">
 									<li>
 										<a href="#">
-											<span>
+											<span> <!-- 이미지 경로 수정해야함################################## -->
 												<img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;">
 											</span>
 										</a>
@@ -164,16 +170,29 @@
 	<%@include file="../include/footer.jsp"%>
 	
 	<script>
+		function formSubmit(){
+			$("#frm1").submit();
+		}
+	</script>
 	
+	<script>
+	
+		let msg = "${msg}";
+		
+		if(msg)
+			{
+			alert(msg);
+			}
+		
 		var value = null;
 		
 		function clickStar(arg0) {
 			value = $(arg0).val();
-			alert(value + "점 선택"); //별점 테스트
+			//alert(value + "점 선택"); //별점 선택 잘 되는지 테스트
 			
+			$("#inputStar").val(value);
+			//alert($("#inputStar").val()); //별점 잘 들어가는지 테스트
 		}
-		
-		/* alert("${reviewList}"); */
 		
 	</script>
 
