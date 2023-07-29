@@ -15,7 +15,7 @@ public interface SeatDAO {
 	
 	boolean insertSeat(SeatVO vo);
 	
-	int findSeatBySeatId(int seatId);
+	SeatVO findSeatBySeatId(int seatId);
 	
 	boolean updateSeat(SeatVO vo);
 	

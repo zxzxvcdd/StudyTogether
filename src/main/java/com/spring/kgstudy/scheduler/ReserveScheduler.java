@@ -10,6 +10,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.spring.kgstudy.seat.service.SeatService;
+import com.spring.kgstudy.seat.vo.SeatVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,18 +29,27 @@ public class ReserveScheduler {
 	       
 		   	
 		   
-		  for(Entry<Long, List<Integer>> reservInfoList : checkInList.entrySet()) {
+		  for(Entry<Long, List<Integer>> checkInByTime : checkInList.entrySet()) {
 			
 			  
-			  if(new Date().getTime() > reservInfoList.getKey()) {
+			  if(new Date().getTime() > checkInByTime.getKey()) {
 				  
-				  for(int reservId : reservInfoList.getValue()) {
+				  System.out.println("이용권 시간 만료 퇴실 처리");
+				  for(int seatId : checkInByTime.getValue()) {
 					  
-			
+					  SeatVO seat = new SeatVO();
+					  seat.setSeatId(seatId);
+					  if(!seatService.seatCheckOut(seat)) {
+						  
+						  System.out.println(seatId +"좌석 자동퇴실 실패");
+					  }
+					  
 					
 					  //퇴실처리
 					  
 				  }
+				  
+				  checkInList.remove(checkInByTime.getKey());
 				  
 				  
 			  }
@@ -56,9 +66,36 @@ public class ReserveScheduler {
 	   
 	   
 	   @Scheduled(cron = "0 0 23 * * *")
-	    public void checkOutALl() {
+	    public void checkOutAll() {
 	       
 		   //전부 퇴실처리
+		   
+		   System.out.println("23시 전좌석 퇴실 처리");
+		   for(Entry<Long, List<Integer>> checkInByTime : checkInList.entrySet()) {
+				
+	
+					  for(int seatId : checkInByTime.getValue()) {
+						  
+						  SeatVO seat = new SeatVO();
+						  seat.setSeatId(seatId);
+						  if(!seatService.seatCheckOut(seat)) {
+							  
+							  System.out.println(seatId +"좌석 자동퇴실 실패");
+						  }
+						  
+						
+						  //퇴실처리
+						  
+					  }
+					  
+					  checkInList.remove(checkInByTime.getKey());
+					  
+					  
+				  }
+				  	
+				  
+				  
+			  
 		   
 
 		   

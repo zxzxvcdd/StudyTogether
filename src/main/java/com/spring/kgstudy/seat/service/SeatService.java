@@ -46,6 +46,7 @@ public class SeatService{
 				
 				sdao.updateSeat(vo);
 			}else {
+				
 				sdao.insertSeat(vo);
 				
 			}
@@ -183,7 +184,7 @@ public class SeatService{
 
 		int seatId = vo.getSeatId();
 		
-		
+		vo = sdao.findSeatBySeatId(seatId);
 
 		Search search= new Search();
 		

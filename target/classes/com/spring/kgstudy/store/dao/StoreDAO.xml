@@ -18,6 +18,14 @@
 insert into store_table(store_id,user_id,store_name,store_address,store_road_address,store_tel,store_info,store_lat,store_lng)
 				values(store_seq.nextval,#{userId},#{storeName},#{storeAddress},#{storeRoadAddress},#{storeTel},#{storeInfo},#{storeLat},#{storeLng})
 
+
+<selectKey keyProperty="storeId" order="AFTER" resultType="int">
+	
+		select store_seq.currval from dual
+		
+	</selectKey>
+	
+	
 </insert>
 
 

@@ -76,8 +76,15 @@ public class KakaoMapService {
 				Double storeLat = map.get("x").getAsDouble();
 				Double storeLng = map.get("y").getAsDouble();
 				
-				
+				if(storeName.length()>6) {
 				storeName = "스터디투게더" + storeName.substring(6);
+				
+				}else {
+					
+					storeName = "스터디투게더 " + storeName;
+					
+					
+				}
 				
 				int kakaoMapId = map.get("id").getAsInt();
 				
@@ -94,12 +101,15 @@ public class KakaoMapService {
 				
 				
 				distinctMap.put(kakaoMapId, vo);
+				
+				System.out.println(vo);
 
 			}
 			
 
 			List<StoreVO> resultList  = new ArrayList<StoreVO>(distinctMap.values());
-			
+
+			System.out.println("검색 결과 : "+resultList.size());
 	
 			
 			return resultList;
@@ -171,11 +181,9 @@ public class KakaoMapService {
 					JsonArray documents = object.get("documents").getAsJsonArray();
 
 					int searchCnt = meta.get("total_count").getAsInt();
-					System.out.println("검색결과"+searchCnt);
 
 					if (searchCnt > 45) {
 
-						System.out.println("지도분할");
 						double halfX = (startX + endX) / 2;
 						double halfY = (startY + endY) / 2;
 
@@ -187,11 +195,9 @@ public class KakaoMapService {
 						return mapList;
 
 					} else if (meta.get("is_end").getAsBoolean()) {
-						System.out.println("페이징종료");
 						mapList.addAll(documents);
 						return mapList;
 					} else {
-						System.out.println("페이징");
 						page += 1;
 						mapList.addAll(documents);
 

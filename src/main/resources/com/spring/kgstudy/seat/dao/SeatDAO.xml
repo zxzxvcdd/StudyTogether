@@ -13,13 +13,14 @@
 <!-- 좌석추가 -->
 <insert id="insertSeat">
 
-	INSERT INTO seat VALUES(seat_seq.nextval,#{reservationId},#{seatName},#{storeId},#{userId},#{seatType},#{x},#{y})
+	INSERT INTO seat(seat_id,seat_name,store_id,seat_type,x,y) 
+	VALUES(seat_seq.nextval,#{seatName},#{storeId},#{seatType},#{x},#{y})
 
 </insert>
 
 <!--  -->
-<select id="findSeatBySeatId" resultType="int" >
-	SELECT count(*) FROM seat WHERE seat_id=#{seatId}
+<select id="findSeatBySeatId" resultType="com.spring.kgstudy.seat.vo.SeatVO" >
+	SELECT * FROM seat WHERE seat_id=#{seatId}
 </select>
 
 <update id="updateSeat">
