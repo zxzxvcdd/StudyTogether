@@ -42,7 +42,7 @@ public class OrderController {
 		
 		if(!LoginUtil.isLogin(session)) {
 			
-			return "redircet:/member/login.do";
+			return "redirect:/member/login.do";
 		}
 		
 		Search search = new Search();

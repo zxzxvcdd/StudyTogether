@@ -1,6 +1,7 @@
 package com.spring.kgstudy.seat.restcontroller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -51,10 +52,15 @@ public class SeatRestController {
 		
 		
 		
+		}else {
+		
+		
+			resMap = new HashMap<String, Object>();
+			
+					resMap.put("msg", "no-login");
+		
+		
 		}
-		
-		
-		resMap.put("msg", "no-login");
 		
 		
 		return resMap;
@@ -71,7 +77,6 @@ public class SeatRestController {
 	public String seatChoise(SeatVO vo, PassVO pass, HttpSession session) {
 
 		
-		Date now = new Date();
 		
 		
 		if(!LoginUtil.isLogin(session)) {
@@ -79,6 +84,7 @@ public class SeatRestController {
 			
 		}
 
+		Date now = new Date();
 		
 		if(session.getAttribute("checkIn")!=null) {
 			
