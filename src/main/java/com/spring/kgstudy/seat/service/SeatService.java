@@ -61,7 +61,7 @@ public class SeatService{
 	
 	
 	//좌석선택
-    @Async
+
 	public boolean seatChoise(SeatVO vo,PassVO pass) {
 
     	boolean result = false;
@@ -73,6 +73,7 @@ public class SeatService{
 		
 		pass = orderDao.findOnePass(search);
 		
+		System.out.println(pass);
 		
 		if(pass.getPassState()==PassState.EXPIRED) {
 			
@@ -82,6 +83,8 @@ public class SeatService{
 		
 		String type = sdao.seatCheck(seatId);
 		
+
+		System.out.println("type"+type);
 
 		if(type.equals("Y")) {
 
@@ -101,11 +104,13 @@ public class SeatService{
 					pass.setPassStart(now);
 					
 					Date endDate = new Date(now.getTime()+pass.getPassTime()*1000);
+					
+					System.out.println(endDate);
 					pass.setPassEnd(endDate);
 					
 
 					
-					if(orderDao.updatePass(pass))return result;
+			
 					
 				}
 			}
@@ -122,21 +127,33 @@ public class SeatService{
 			reserv.setStoreId(vo.getStoreId());
 			reserv.setUseTime(0);
 			
+		
+			
+			
 			if(!sdao.insertReserv(reserv)) return result;
 			
+			System.out.println(reserv);
+
 			vo.setReservationId(reserv.getReservationId());			
 			vo.setSeatType("N");
+
+			System.out.println(vo);
 			if(!sdao.updateSeat(vo))return result;
+			
+
 			
 			
 			if(pass.getPassType()==PassType.TIME) {
 				
 				
-				 if(orderDao.updatePass(pass))return result;
+				pass.setPassStart(now);
+			
+				System.out.println(pass);
+				 if(!orderDao.updatePass(pass))return result;
 				
 				
 				
-				
+				System.out.println(5);
 
 				Calendar cal=Calendar.getInstance();
 				
@@ -147,11 +164,13 @@ public class SeatService{
 				
 				Date deadLine = cal.getTime();
 				
+				System.out.println(deadLine);
+				
 				if(deadLine.getTime()>now.getTime()+pass.getPassTime()*1000) {
 					
 					//동적 스케쥴링
 					
-					
+					System.out.println("스케쥴");
 					
 					
 				}
@@ -179,22 +198,20 @@ public class SeatService{
     
 
 	//좌석퇴실
-    @Async
-	public boolean seatCheckOut(SeatVO vo) {
 
-		int seatId = vo.getSeatId();
-		
-		vo = sdao.findSeatBySeatId(seatId);
+	public boolean seatCheckOut(int reservId) {
+
 
 		Search search= new Search();
 		
-		search.setType("seat");
-		search.setKeyword(""+seatId);
+		search.setType("reservation");
+		search.setKeyword(""+reservId);
 		
 		
 		ReservationVO reserv = sdao.findOneResrv(search);
 		
-		
+		if(reserv.getUseTime()!=0)return false;
+		System.out.println(reserv);
 		
 		search.setType("pass");
 		search.setKeyword(""+reserv.getPassId());
@@ -203,12 +220,14 @@ public class SeatService{
 		
 		PassVO pass =orderDao.findOnePass(search);
 		
-		int usedSec = (int) (new Date().getTime()- reserv.getReservationDay().getTime()) * 1000;
+		System.out.println(pass);
+		
+		int usedSec = (int) (new Date().getTime()- reserv.getReservationDay().getTime())/1000 ;
 		
 		reserv.setUseTime(usedSec);
 		
-		if(sdao.updateResrv(reserv)) return false;
-		
+		if(!sdao.updateResrv(reserv)) return false;
+		System.out.println(reserv);
 		
 		
 		if(pass.getPassType()==PassType.TIME) {
@@ -223,17 +242,23 @@ public class SeatService{
 			}
 			pass.setPassTime(reSec);
 			
-			if(orderDao.updatePass(pass))return false;
+			if(!orderDao.updatePass(pass))return false;
 			
+			System.out.println(pass);
 			
 			//스케줄 삭제 처리
 			
 		}
 		
+
+		
+		SeatVO vo = sdao.findSeatBySeatId(reserv.getSeatId());
+
+
 		
 		
 
-		String type = sdao.seatCheck(seatId);
+		String type = sdao.seatCheck(reserv.getSeatId());
 
 
 		if(type.equals("N")) {
@@ -243,9 +268,11 @@ public class SeatService{
 			vo.setSeatType("Y");
 			vo.setUserId("");
 
+			
 	
 			boolean result = sdao.updateSeat(vo);
 		
+			System.out.println(vo);
 
 			return result;
 		}

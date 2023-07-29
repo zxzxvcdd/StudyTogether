@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.spring.kgstudy.order.vo.PassVO;
 import com.spring.kgstudy.seat.vo.SeatVO;
 
 
@@ -42,6 +43,51 @@ class SeatServiceTest {
 
 		service.insertSeat(voList);
 		
+	
+		
 	}
+	
+	
+	@Test
+	void checkin() {
+		
+		
+		
+		SeatVO seat = new SeatVO();
+		
+		PassVO pass =new PassVO();
+		
+		pass.setPassId(1);
+		
+		
+		seat.setSeatId(53);
+		seat.setSeatName("23");
+		seat.setStoreId(2234);
+		seat.setSeatType("Y");
+		
+		boolean result = service.seatChoise(seat, pass);
+		
+		System.out.println(result);
+		
+		
+	}
+	
+	@Test
+	void checkout() {
+		
+		
+		int reservId = 8;
+	
+		
+		boolean result = service.seatCheckOut(reservId);
+		
+		System.out.println(result);
+		
+		
+	}
+	
+	
+	
+	
 
 }

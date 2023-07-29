@@ -79,7 +79,7 @@ order by reservation_id desc
 
 <select id="findOneResrv" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
 
-(select * from reservation_table 
+select * from reservation_table 
 <include refid="searchReserv"/>
 
 </select>
