@@ -58,50 +58,36 @@
 
 		INSERT INTO Board
 		(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
-		SELECT COALESCE(MAX(board_id)+1, 1), #{user_id}, #{title}, #{content},#{writer}, sysdate, 0,
-		COALESCE(MAX(boardGroup)+1, 0), 0, 0, 1
-		FROM Board
+		SELECT COALESCE(MAX(board_id)+1, 1), #{user_id}, #{title}, #{content},#{writer}, sysdate, 0, 
+		COALESCE(MAX(boardGroup)+1, 1), 0, 0, 1 FROM Board
 	</insert>
 
 	<!-- 동적 SQL , insert/insertSelectKey 둘중 아무거나 사용해도 됨 -->
 	<insert id="insertSelectKey" parameterType="BoardVO">
-		<selectKey keyProperty="board_id,boardGroup"
-			resultType="BoardVO" order="BEFORE">
-			SELECT COALESCE(MAX(board_id)+1, 1) as
-			board_id,
-			COALESCE(MAX(boardGroup)+1, 0) as boardGroup
+		<selectKey keyProperty="board_id,boardGroup" resultType="com.spring.kgstudy.board.vo.BoardVO" order="BEFORE">
+			SELECT COALESCE(MAX(board_id)+1, 1) as board_id,
+			COALESCE(MAX(boardGroup)+1, 1) as boardGroup
 			from board
 		</selectKey>
 
 		INSERT INTO Board
 		(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
-		values(#{board_id}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0,
-		#{boardGroup}, 0, 0, 1)
+		values(#{board_id}, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, 0, 0, 1)
 
 	</insert>
 
 
-	<insert id="replyInsert" parameterType="BoardVO">
-
-		<!-- <selectKey keyProperty="board_id,boardGroup" resultType="BoardVO" order="BEFORE"> 
-		SELECT COALESCE(MAX(board_id)+1, 1) as board_id from board 
-			</selectKey> -->
-
-	<!-- 	<selectKey keyProperty="board_id,boardGroup" resultType="BoardVO" order="BEFORE">
-			SELECT board_seq.NEXTVAL AS board_id FROM board
-		</selectKey> -->
-		  		
-
-		
-		INSERT INTO
-		Board (board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
-		values(board_seq.NEXTVAL, #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, #{boardSequence}, #{boardLevel}, 1)
+	<insert id="replyInsert" parameterType="com.spring.kgstudy.board.vo.BoardVO">
+		  			
+		INSERT INTO Board
+		(board_id, user_id, title, content, writer, indate, count, boardGroup, boardSequence, boardLevel, boardAvailable)
+		SELECT COALESCE(MAX(board_id)+1, 1), #{user_id}, #{title}, #{content}, #{writer}, sysdate, 0, #{boardGroup}, #{boardSequence}, #{boardLevel}, 1
+		FROM Board
 
 	</insert>
 
 	<update id="update">
-		update Board set title=#{title},
-		content=#{content}
+		update Board set title=#{title}, content=#{content}
 		where board_id=#{board_id}
 	</update>
 
@@ -111,22 +97,23 @@
 	</delete>
 
 	<select id="read" resultMap="BoardVO">
-		select * from Board
-		where board_id=#{board_id}
+		select * from Board where board_id=#{board_id}
 	</select>
 
 
-	<update id="replySeqUpdate" parameterType="BoardVO">
-		update Board set
-		boardSequence=boardSequence+1
-		where boardGroup=#{boardGroup} and
-		boardSequence > #{boardSequence}
+	<update id="replySeqUpdate" parameterType="com.spring.kgstudy.board.vo.BoardVO">
+		update Board set boardSequence = boardSequence+1
+		where boardGroup=#{boardGroup} and boardSequence > #{boardSequence}
 	</update>
 
-	<select id="totalCount" resultType="int"
-		parameterType="com.spring.kgstudy.common.vo.Criteria">
+	<select id="totalCount" resultType="int" parameterType="com.spring.kgstudy.common.vo.Criteria">
 		select count(*) from Board
 		<include refid="search" />
 	</select>
+	
+	<update id="countUpdate">
+		update board set count=count+1 where board_id=#{board_id}
+	</update>
+	
 
 </mapper>

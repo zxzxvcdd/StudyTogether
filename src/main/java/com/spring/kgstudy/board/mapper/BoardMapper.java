@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.kgstudy.board.vo.BoardVO;
 import com.spring.kgstudy.common.vo.Criteria;
+import com.spring.kgstudy.member.vo.MemberVO;
 
 @Mapper
 public interface BoardMapper {	
@@ -18,5 +19,6 @@ public interface BoardMapper {
 	public void replySeqUpdate(BoardVO parent);
 	public void replyInsert(BoardVO vo);
 	public int totalCount(Criteria cri);
+	public void countUpdate(int board_id);
 	
 }

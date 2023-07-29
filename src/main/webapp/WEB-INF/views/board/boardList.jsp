@@ -9,10 +9,14 @@
 <head>
 <title>board List</title>
 <meta charset="utf-8">
+<!-- css 파일 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css?after">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 <script type="text/javascript">
 	$(document).ready(function() {
 		var result = '${result}';
@@ -29,7 +33,7 @@
     		e.preventDefault(); // a tag의 기능을 막는 부분
     		var page=$(this).attr("href"); // 페이지번호
     		pageFrm.find("#page").val(page);
-    		pageFrm.submit(); // /kgstudy/board/list   		
+    		pageFrm.submit(); // /kgstudy/board/boardList   		
     	});
     	// 상세보기 클릭시 이동 하기
     	$(".move").on("click", function(e){
@@ -38,6 +42,7 @@
     		var tag="<input type='hidden' name='board_id' value='"+board_id+"'/>";
     		pageFrm.append(tag);
     		pageFrm.attr("action","${cpath}/board/get.do");
+    		pageFrm.attr("method","get");
     		pageFrm.submit();
     	});
 	});
@@ -45,24 +50,29 @@
 		if (result == '') {
 			return;
 		}
-		else if (parseInt(result) > 0) {
+		if (result > 0) {
 			// 새로운 다이얼로그 창 띄우기
 			console.log(result)
-			$(".modal-body").html("게시글" + parseInt(result) + "번 이 등록되었습니다.");
+			 $(".modal-body").html("게시글 "+result+"번이 등록되었습니다.");
 		}
-		$("#myModal").modal("show");
+		 $("#myModal").modal("show");
 	}
-	function goMsg(){
-		alert("삭제된 게시물입니다."); //Modal창
-	}
+	 function goMsg(){
+    	 alert("삭제된 게시물입니다."); // Modal창
+     }
 </script>
 
 </head>
 <body>
+<%@include file="../include/header.jsp"%>
+
+<div class="jumbotron text-center">
+  <h1>STUDY TOGETHER</h1>
+  <p>고객의 취향을 맞춘 다양한 공간!</p>
+</div>
 
 	<div class="container">
-		<h2>KG STUDY</h2>
-		<div class="panel panel-default">
+		<div class="panel panel-success">
 			<div class="panel-heading">문의 게시판</div>
 			<div class="panel-body">
 				<table class="table table-bordered table-hover">
@@ -83,9 +93,10 @@
 								<c:forEach begin="1" end="${vo.boardLevel}">
 									<span style="padding-left: 10px"></span>
 								</c:forEach>
+								<i class="bi bi-arrow-return-right"></i>
 							</c:if>
 							<c:if test="${vo.boardLevel>0}">
-								<c:if test="${vo.boardAvailable==1}"> 			    	<!-- XSS를 방지하기 위해 c:out 태그 사용 -->
+								<c:if test="${vo.boardAvailable==1}"> 	<!-- XSS를 방지하기 위해 c:out 태그 사용 -->
 									<a class="move" href="${vo.board_id}"><c:out value='[RE]${vo.title}'/></a>
 								</c:if>
 								<c:if test="${vo.boardAvailable==0}">
@@ -106,11 +117,21 @@
 							<td>${vo.count}</td>
 						</tr>
 					</c:forEach>
+					<c:if test="${!empty loginUser}">
 					<tr>
 						<td colspan="5">
-							<button id="regBtn" class="btn btn-sm btn-primary pull-right">글쓰기</button>
+							<button id="regBtn" class="btn btn-sm btn-success pull-right">글쓰기</button>
 						</td>
 					</tr>
+					</c:if>
+					<c:if test="${empty loginUser}">
+					<tr>
+						<td colspan="5">
+							<button disabled="disbaled" id="regBtn" class="btn btn-sm btn-success pull-right">글쓰기</button>
+						</td>
+					</tr>
+					</c:if>
+					
 				</table>
 				
 				
@@ -170,22 +191,20 @@
 
 
 
-				<!-- Modal 추가 bootstrap -->
+				<!-- Modal 추가 -->
 				<div id="myModal" class="modal fade" role="dialog">
 					<div class="modal-dialog">
 
 						<!-- Modal content-->
 						<div class="modal-content">
 							<div class="modal-header">
+								<h4 class="modal-title">MESSAGE</h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">알림</h4>
 							</div>
-							<div class="modal-body">
-							
-							</div>
+							<div class="modal-body"></div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
-									data-dismiss="modal">확인</button>
+									data-dismiss="modal">Close</button>
 							</div>
 						</div>
 
@@ -196,7 +215,7 @@
 
 
 			</div>
-			<div class="panel-footer">문의 게시판</div>
+			<!-- <div class="panel-footer">문의 게시판</div> -->
 		</div>
 	</div>
 

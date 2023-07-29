@@ -9,6 +9,8 @@
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
+  <!-- css 파일 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css?after">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -18,7 +20,7 @@
  
 <div class="container">
   <h2>KG STUDY</h2>
-  <div class="panel panel-default">
+  <div class="panel panel-success">
     <div class="panel-heading">문의 게시판</div>
     <div class="panel-body">
       
