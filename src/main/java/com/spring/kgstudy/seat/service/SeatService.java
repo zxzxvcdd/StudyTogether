@@ -89,6 +89,8 @@ public class SeatService{
 	public boolean seatCheckOut(SeatVO vo) {
 
 		int seatId = vo.getSeatId();
+		
+		System.out.println(seatId);
 
 		String type = sdao.seatCheck(seatId);
 

@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,7 +55,7 @@ public class SeatRestController {
 	
 
 	@PostMapping("seatChecke.do")
-	public String seatChoise(SeatVO vo,HttpSession session) {
+	public String seatChoise(@RequestBody SeatVO vo,HttpSession session) {
 
 		if(session.getAttribute("checkIn")!=null) {
 			
@@ -93,7 +94,7 @@ public class SeatRestController {
 	}
 
 	@PostMapping("seatCheckOut.do")
-	public String seatCheckOut(SeatVO vo) {
+	public String seatCheckOut(@RequestBody SeatVO vo) {
 
 
 		
@@ -104,5 +105,12 @@ public class SeatRestController {
 
 		return result ? "success" : "fail";
 	}
+	
+	
+	
+	
+	
+	
+	
 
 }
