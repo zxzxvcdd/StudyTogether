@@ -74,7 +74,7 @@ public class ReviewController {
 		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
 		
 		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
-		
+			
 
 		
 		Map<String, Object> ReviewMap = reviewService.userReviewView(reviewVO);

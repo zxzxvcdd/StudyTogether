@@ -17,8 +17,8 @@ public interface ReviewDAO {
 
 	public ReservationVO revIdfind(String user_id);
 
-	public String findReservId(int reservationId);
+	public int findReservId(int reservationId);
 	
-	
+	public boolean reviewInsert(ReviewVO vo);
 	
 }

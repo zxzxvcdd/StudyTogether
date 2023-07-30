@@ -48,13 +48,22 @@ public class ReviewService {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		
+		reviewdao.findReservId(reviewVO.getReservation_id());
+		
 		ArrayList<ReviewVO> reviewList = reviewdao.findList(reviewVO);
 		
-		map.put("reviewList",reviewList);
+		map.put("reviewList", reviewList);
 		
 		ReservationVO reservationVO = reviewdao.revIdfind(reviewVO.getUser_id());
 		
-		map.put("reservationVO",reservationVO);
+		int result = reviewdao.findReservId(reservationVO.getReservationId());
+		
+		if(result==0) {
+			map.put("reservationVO",reservationVO);
+		}
+		
+		
 		
 		return map;
 		
@@ -66,37 +75,36 @@ public class ReviewService {
 		String originalName = file.getOriginalFilename();
 		String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 		
-		System.out.println(fileName);
-		File target = new File(uploadPath, fileName);
+		//System.out.println(fileName);
+		//File target = new File(uploadPath, fileName);
 		System.out.println("upload path : " + uploadPath);
 		
 		String uuid = UUID.randomUUID().toString();
 		
-		String savefileName =  uploadPath + File.separator + uuid + "_" + fileName;
+		String savefileName =  uuid + "_" + fileName;
 		
-		System.out.println(savefileName);
+		System.out.println("savefileName : " + savefileName);
 		
 		//경로설정
-        Path savePath = Paths.get(savefileName);
+        Path savePath = Paths.get(uploadPath + File.separator + savefileName);
 		
         
         //파일 복사
         try {
         	FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(savePath.toFile()));
-			System.out.println("파일 복사 됨");
+			System.out.println("파일 복사 됨"); 
+			
+			reviewVO.setReview_filename(savefileName);
+			
+			reviewdao.reviewInsert(reviewVO);
+			
 			return true;
+			
 		} catch (IOException e) {
 			System.out.println("파일 복사 실패");
+			
 			return false;
 		}
-        
-        //--------------------------------------------------------------------
-        
-        
-        
-        
-        
-        
         
 	}
 	
