@@ -70,12 +70,12 @@ public class ReviewController {
 	@RequestMapping(value = "/userReviewView.do")
 	public String userReviewView(ReviewVO reviewVO, Model model, HttpSession session) throws Exception {
 
-//		
-//		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
-//		
-//		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
 		
-		reviewVO.setUser_id("admin");
+		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		
+		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
+		
+
 		
 		Map<String, Object> ReviewMap = reviewService.userReviewView(reviewVO);
 
@@ -99,13 +99,7 @@ public class ReviewController {
 	@PostMapping("/reviewInsert.do")
 	public String reviewInsert(ReviewVO reviewVO,MultipartFile file, RedirectAttributes ra, HttpServletRequest rq) {
 		
-		
-		rq.getParameterNames().asIterator().forEachRemaining(key -> System.out.println("key:"+key + "\nvalue:"+rq.getParameter(key)));
-		
-		
-		reviewVO.setUser_id("admin");
-		System.out.println(reviewVO);
-		System.out.println(file);
+
 		boolean result = reviewService.reviewInsert(reviewVO, file);
 		// service => DAO => Mapper.xml(sql) => DB => return
 		
