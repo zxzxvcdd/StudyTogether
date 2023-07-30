@@ -24,7 +24,7 @@ public class ReserveScheduler {
 	private final SeatService seatService;
  	
 	
-	   @Scheduled(cron = "0 * * * * * ")
+	   @Scheduled(cron = "0 * 9-22 * * * ")
 	    public void checkOut() {
 	       
 		   	
@@ -44,11 +44,11 @@ public class ReserveScheduler {
 					  }
 					  
 					
-					  //퇴실처리
-					  
+	
 				  }
 				  
-				  checkInList.remove(checkInByTime.getKey());
+				//퇴실처리, 스케줄 삭제
+				
 				  
 				  
 			  }
@@ -82,11 +82,11 @@ public class ReserveScheduler {
 						  }
 						  
 						
-						  //퇴실처리
+						  //퇴실처리, 스케줄 삭제
 						  
 					  }
 					  
-					  checkInList.remove(checkInByTime.getKey());
+				
 					  
 					  
 				  }

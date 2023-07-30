@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.common.pass.PassState;
@@ -14,6 +13,7 @@ import com.spring.kgstudy.common.pass.PassType;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.order.dao.OrderDAO;
 import com.spring.kgstudy.order.vo.PassVO;
+import com.spring.kgstudy.scheduler.ReserveScheduler;
 import com.spring.kgstudy.seat.dao.SeatDAO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
 import com.spring.kgstudy.seat.vo.SeatVO;
@@ -145,7 +145,8 @@ public class SeatService{
 			
 			if(pass.getPassType()==PassType.TIME) {
 				
-				
+				Long endTime = now.getTime()+pass.getPassTime()*1000;
+				pass.setPassEnd(new Date(endTime));
 				pass.setPassStart(now);
 			
 				System.out.println(pass);
@@ -165,12 +166,11 @@ public class SeatService{
 				Date deadLine = cal.getTime();
 				
 				System.out.println(deadLine);
+			
+				if(deadLine.getTime()>endTime) {
 				
-				if(deadLine.getTime()>now.getTime()+pass.getPassTime()*1000) {
-					
-					//동적 스케쥴링
-					
-					System.out.println("스케쥴");
+					ReserveScheduler.checkInList.add(endTime, reserv.getReservationId());
+				
 					
 					
 				}
@@ -246,7 +246,11 @@ public class SeatService{
 			
 			System.out.println(pass);
 			
-			//스케줄 삭제 처리
+			
+			ReserveScheduler.checkInList.remove(pass.getPassEnd().getTime());
+			
+			
+			
 			
 		}
 		
