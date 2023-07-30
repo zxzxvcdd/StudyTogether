@@ -16,10 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.kgstudy.common.search.Search;
-import com.spring.kgstudy.member.vo.MemberVO;
-import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.service.ReviewService;
 import com.spring.kgstudy.review.vo.ReviewVO;
+import com.spring.kgstudy.seat.vo.ReservationVO;
 import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
