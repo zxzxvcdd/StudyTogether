@@ -23,12 +23,19 @@ public class MypageController {
 	
 	// 마이페이지 버튼을 누르면 나의 학습 정보 페이지로 이동
 	@RequestMapping(value = "/userStudyChartView.do")
-	public String mypageStudyChartForm(Search search, HttpSession session) throws Exception {
+	public String mypageStudyChartForm(Search search, HttpSession session, Model model) throws Exception {
 		
 		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
 		
 		String user_id = (LoginUtil.getCurrentMemberAccount(session));
 		
+		
+		search.setType("tc");
+		search.setKeyword(user_id);
+		search.setAmount(9999);
+		model.addAttribute("resMap", service.mypageFindReserv(search));
+		
+
 		
 		
 		

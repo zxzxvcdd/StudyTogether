@@ -1,5 +1,8 @@
 package com.spring.kgstudy.mypage.service;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +10,8 @@ import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.dao.MypageDAO;
 import com.spring.kgstudy.seat.dao.SeatDAO;
+import com.spring.kgstudy.seat.service.SeatService;
+import com.spring.kgstudy.seat.vo.ReservationVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +21,8 @@ public class MypageService {
 
 	private final MypageDAO dao;
 	private final SeatDAO seatDao;
+	private final SeatService seatService;
+	
 	
 	private final PasswordEncoder passwordEncoder;
 	
@@ -64,12 +71,23 @@ public class MypageService {
 
 
 	
-	public boolean mypagefindReserv(String user_id) {
+	public Map<String, Object> mypageFindReserv(Search search) {
 		
-		
-		Search search = new Search();
 
-		return false;
+		ArrayList<ReservationVO> reservList = seatDao.findAllReserv(search);
+		
+		
+		search.setType("user");
+
+		
+		Map<String, Object> resMap = seatService.findPassList(search);
+		
+		
+		resMap.put("reservList", reservList);
+		
+		
+		return resMap;
+		
 		
 		
 		

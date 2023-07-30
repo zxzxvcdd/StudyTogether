@@ -35,7 +35,7 @@
 		where user_id = #{user_id}
 	</select>
 	
-	<select id="revIdfind" resultType="com.spring.kgstudy.reservation.vo.ReservationVO">
+	<select id="revIdfind" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
 		SELECT *
 		FROM (
 		  SELECT A.*, ROW_NUMBER() OVER (ORDER BY reservation_day DESC) AS rn
