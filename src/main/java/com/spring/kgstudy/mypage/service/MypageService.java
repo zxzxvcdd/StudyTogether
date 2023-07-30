@@ -3,6 +3,7 @@ package com.spring.kgstudy.mypage.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.dao.MypageDAO;
 import com.spring.kgstudy.seat.dao.SeatDAO;
@@ -65,6 +66,10 @@ public class MypageService {
 	
 	public boolean mypagefindReserv(String user_id) {
 		
+		
+		Search search = new Search();
+
+		return false;
 		
 		
 		

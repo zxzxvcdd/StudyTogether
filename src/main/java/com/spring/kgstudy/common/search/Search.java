@@ -11,7 +11,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Setter @Getter @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 public class Search extends Page {
 
@@ -21,6 +20,16 @@ public class Search extends Page {
     private Date startDate;
     
     private Date endDate;
+    
+    public Search() {
+    	
+    	
+    	this.endDate = new Date();
+    	
+    	this.startDate = new Date(); 
+    	
+    	
+    }
     
     
 }
