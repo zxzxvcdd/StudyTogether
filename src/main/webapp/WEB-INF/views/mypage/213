@@ -1,0 +1,66 @@
+
+			WARN : org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved
+			[org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 6
+			errors<EOL>Field error in object 'reviewVO' on field 'reservation_id': rejected value
+				[org.apache.catalina.core.ApplicationPart@1c13765]; codes
+				[typeMismatch.reviewVO.reservation_id,typeMismatch.reservation_id,typeMismatch.int,typeMismatch];
+				arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes
+				[reviewVO.reservation_id,reservation_id]; arguments []; default message [reservation_id]]; default
+				message [Failed to convert property value of type 'org.apache.catalina.core.ApplicationPart' to required
+				type 'int' for property 'reservation_id'; nested exception is java.lang.IllegalArgumentException: Cannot
+				convert value of type 'org.apache.catalina.core.ApplicationPart' to required type 'int' for property
+				'reservation_id': PropertyEditor [org.springframework.beans.propertyeditors.CustomNumberEditor] returned
+				inappropriate value of type 'org.apache.catalina.core.ApplicationPart']<EOL>Field error in object
+					'reviewVO' on field 'review_content': rejected value
+					[org.apache.catalina.core.ApplicationPart@746e3773]; codes
+					[typeMismatch.reviewVO.review_content,typeMismatch.review_content,typeMismatch.java.lang.String,typeMismatch];
+					arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes
+					[reviewVO.review_content,review_content]; arguments []; default message [review_content]]; default
+					message [Failed to convert property value of type 'org.apache.catalina.core.ApplicationPart' to
+					required type 'java.lang.String' for property 'review_content'; nested exception is
+					java.lang.IllegalStateException: Cannot convert value of type
+					'org.apache.catalina.core.ApplicationPart' to required type 'java.lang.String' for property
+					'review_content': no matching editors or conversion strategy found]<EOL>Field error in object
+						'reviewVO' on field 'review_star': rejected value
+						[org.apache.catalina.core.ApplicationPart@26313250]; codes
+						[typeMismatch.reviewVO.review_star,typeMismatch.review_star,typeMismatch.double,typeMismatch];
+						arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes
+						[reviewVO.review_star,review_star]; arguments []; default message [review_star]]; default
+						message [Failed to convert property value of type 'org.apache.catalina.core.ApplicationPart' to
+						required type 'double' for property 'review_star'; nested exception is
+						java.lang.IllegalArgumentException: Cannot convert value of type
+						'org.apache.catalina.core.ApplicationPart' to required type 'double' for property 'review_star':
+						PropertyEditor [org.springframework.beans.propertyeditors.CustomNumberEditor] returned
+						inappropriate value of type 'org.apache.catalina.core.ApplicationPart']<EOL>Field error in
+							object 'reviewVO' on field 'store_id': rejected value
+							[org.apache.catalina.core.ApplicationPart@70ff6654]; codes
+							[typeMismatch.reviewVO.store_id,typeMismatch.store_id,typeMismatch.int,typeMismatch];
+							arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes
+							[reviewVO.store_id,store_id]; arguments []; default message [store_id]]; default message
+							[Failed to convert property value of type 'org.apache.catalina.core.ApplicationPart' to
+							required type 'int' for property 'store_id'; nested exception is
+							java.lang.IllegalArgumentException: Cannot convert value of type
+							'org.apache.catalina.core.ApplicationPart' to required type 'int' for property 'store_id':
+							PropertyEditor [org.springframework.beans.propertyeditors.CustomNumberEditor] returned
+							inappropriate value of type 'org.apache.catalina.core.ApplicationPart']<EOL>Field error in
+								object 'reviewVO' on field 'store_name': rejected value
+								[org.apache.catalina.core.ApplicationPart@780d1d31]; codes
+								[typeMismatch.reviewVO.store_name,typeMismatch.store_name,typeMismatch.java.lang.String,typeMismatch];
+								arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes
+								[reviewVO.store_name,store_name]; arguments []; default message [store_name]]; default
+								message [Failed to convert property value of type
+								'org.apache.catalina.core.ApplicationPart' to required type 'java.lang.String' for
+								property 'store_name'; nested exception is java.lang.IllegalStateException: Cannot
+								convert value of type 'org.apache.catalina.core.ApplicationPart' to required type
+								'java.lang.String' for property 'store_name': no matching editors or conversion strategy
+								found]<EOL>Field error in object 'reviewVO' on field 'user_id': rejected value
+									[org.apache.catalina.core.ApplicationPart@7ddd68ec]; codes
+									[typeMismatch.reviewVO.user_id,typeMismatch.user_id,typeMismatch.java.lang.String,typeMismatch];
+									arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes
+									[reviewVO.user_id,user_id]; arguments []; default message [user_id]]; default
+									message [Failed to convert property value of type
+									'org.apache.catalina.core.ApplicationPart' to required type 'java.lang.String' for
+									property 'user_id'; nested exception is java.lang.IllegalStateException: Cannot
+									convert value of type 'org.apache.catalina.core.ApplicationPart' to required type
+									'java.lang.String' for property 'user_id': no matching editors or conversion
+									strategy found]]

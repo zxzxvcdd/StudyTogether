@@ -1,27 +1,24 @@
 package com.spring.kgstudy.review.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.service.ReviewService;
 import com.spring.kgstudy.review.vo.ReviewVO;
+import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -83,8 +80,12 @@ public class ReviewController {
 	// 마이페이지 => [나의 리뷰 관리] 버튼 클릭
 	//  => (서버)내가 작성한 리뷰 리스트, 최근 방문 매장 찾아서 리뷰 작성 여부 확인 후 => 사용자에게 view를 보여줌
 	@RequestMapping(value = "/userReviewView.do")
-	public String userReviewView(ReviewVO reviewVO, Model model) throws Exception {
+	public String userReviewView(ReviewVO reviewVO, Model model, HttpSession session) throws Exception {
 
+		
+		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		
+		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
 		Map<String, Object> ReviewMap = reviewService.userReviewView(reviewVO);
 
 		/* String reservId = (String) ReviewMap.get("reservId"); */
@@ -105,31 +106,31 @@ public class ReviewController {
 	
 	//리뷰 등록
 	@PostMapping("/reviewInsert.do")
-	public String reviewInsert(ReviewVO reviewVO, MultipartFile review_file, RedirectAttributes ra, HttpServletRequest rq) {
+	public String reviewInsert(MultipartFile review_file, RedirectAttributes ra, HttpServletRequest rq) {
 		
 		
-		rq.getParameterNames().asIterator().forEachRemaining(key -> System.out.println("key:"+key));
+		rq.getParameterNames().asIterator().forEachRemaining(key -> System.out.println("key:"+key + "\nvalue:"+rq.getParameter(key)));
 		
 		
-		System.out.println(reviewVO);
+//		System.out.println(reviewVO);
 		System.out.println(review_file);
-		boolean result = reviewService.reviewInsert(reviewVO, review_file);
+//		boolean result = reviewService.reviewInsert(reviewVO, review_file);
 		// service => DAO => Mapper.xml(sql) => DB => return
 		
 	
 		
-		
-		if (result) {
-
-			ra.addFlashAttribute("msg", "리뷰 성공");
-			
-		} else {
-
-			ra.addFlashAttribute("msg", "리뷰 실패");
-		}
-		
-		
-		return "redirect:/userReviewView.do?user_id="+reviewVO.getUser_id(); 
+//		
+//		if (result) {
+//
+//			ra.addFlashAttribute("msg", "리뷰 성공");
+//			
+//		} else {
+//
+//			ra.addFlashAttribute("msg", "리뷰 실패");
+//		}
+//		
+//		
+		return "redirect:/userReviewView.do";
 	}
 	
 	

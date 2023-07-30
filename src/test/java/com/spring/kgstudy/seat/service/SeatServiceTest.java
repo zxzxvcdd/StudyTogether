@@ -76,7 +76,7 @@ class SeatServiceTest {
 	void checkout() {
 		
 		
-		int reservId = 8;
+		int reservId = 4;
 	
 		
 		boolean result = service.seatCheckOut(reservId);

@@ -102,6 +102,7 @@ public class OrderService {
 				
 				pass.setPassTime(menu.getPassTime());
 	
+				pass.setMenuId(menu.getMenuId());
 				System.out.println(pass);
 				
 				if(dao.insertPass(pass)) {
