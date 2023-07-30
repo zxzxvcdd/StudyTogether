@@ -84,9 +84,9 @@
 									<button onclick="formSubmit();" class="btn-tazone">등록</button><br>
 								</div>
 								
-								<div class="text-file">
+								<!-- <div class="text-file">
 									<input type="file" name="review_file" id="file" class="text-file-btn">
-								</div>
+								</div> -->
 							</form>
 						</li> <!-- reviewView end -->
 					</c:when>

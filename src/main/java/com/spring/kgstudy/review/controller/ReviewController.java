@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.service.ReviewService;
@@ -33,11 +34,9 @@ public class ReviewController {
 
 	// 전체 리스트 보기
 	@RequestMapping(value = "/reviewListView.do")
-	public String reviewList(ReviewVO vo, Model model) throws Exception {
+	public String reviewList(ReviewVO vo, Model model, Search search) throws Exception {
 		
-		List<ReviewVO> Rlist = reviewService.getAllReview(vo);
-		
-		
+		List<ReviewVO> Rlist = reviewService.getAllReview(vo, search);
 		
 		model.addAttribute("Rlist", Rlist);
 		
@@ -47,12 +46,8 @@ public class ReviewController {
 		
 		Map<String,Integer> starMap = new HashMap<String, Integer>();
 		
-		
 		for(int i=1;i<6;i++) {
-			
 			starMap.put("starCnt"+i,0);
-			
-			
 		}
 		
 		for(ReviewVO rv : Rlist) {
@@ -61,23 +56,15 @@ public class ReviewController {
 			
 			starMap.put("starCnt"+star, starMap.get("starCnt"+star)+1);
 			
-			
-			
 			avgStar += star;
-			
-		
-			
 		}
 		
 		avgStar /= Rlist.size();
 		
-		
 		model.addAttribute("avgStar", avgStar);
 		model.addAttribute("starMap", starMap);
 		
-		
-		
-		return "review/reviewList"; // /WEB-INF/vies/review/reviewList.jsp
+		return "review/reviewList";
 	}
 
 	// 마이페이지 => [나의 리뷰 관리] 버튼 클릭
@@ -104,36 +91,26 @@ public class ReviewController {
 	
 	
 	//리뷰 등록
-	@PostMapping("/reviewInsert.do")
+	@RequestMapping(value = "/reviewInsert.do", method = RequestMethod.POST)
 	public String reviewInsert(ReviewVO reviewVO, MultipartFile review_file, RedirectAttributes ra, HttpServletRequest rq) {
-		
+	
+		System.out.println("ReviewVO :" + reviewVO);
+		System.out.println("review_file :" + review_file);
 		
 		rq.getParameterNames().asIterator().forEachRemaining(key -> System.out.println("key:"+key));
 		
 		
-		System.out.println(reviewVO);
-		System.out.println(review_file);
 		boolean result = reviewService.reviewInsert(reviewVO, review_file);
 		// service => DAO => Mapper.xml(sql) => DB => return
 		
-	
-		
-		
 		if (result) {
-
-			ra.addFlashAttribute("msg", "리뷰 성공");
-			
+			ra.addFlashAttribute("msg", "리뷰 성공"); //msg를 전송하기 위해 RedirectAttributes 사용
 		} else {
-
 			ra.addFlashAttribute("msg", "리뷰 실패");
 		}
 		
-		
 		return "redirect:/userReviewView.do?user_id="+reviewVO.getUser_id(); 
 	}
-	
-	
-	
 	
 	
 	

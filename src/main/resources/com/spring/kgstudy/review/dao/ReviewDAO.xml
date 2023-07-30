@@ -15,9 +15,19 @@
 		<result property="review_star" column="review_star" />
 	</resultMap>
 	
+	<sql id="search">
+		<if test="type=='review_star'">
+			where store_name like '%' || #{keyword} || '%' ORDER BY review_star DESC
+		</if>
+		<if test="type=='review_date'">
+			where store_name like '%' || #{keyword} || '%' ORDER BY review_date DESC
+		</if> 
+	</sql>
+	
 	
 	<select id="getAllReview" resultMap="ReviewVO">
 		SELECT * FROM review
+		 <include refid="search"/>
 	</select>
 	
 	<select id="findList" resultMap="ReviewVO">

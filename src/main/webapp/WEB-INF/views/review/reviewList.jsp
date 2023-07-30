@@ -10,13 +10,10 @@
 <title>review</title>
 
 <!-- jquery -->
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
 <!-- css 파일 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
 
 </head>
 <body>
@@ -49,27 +46,26 @@
 								</em>건
 							</p>
 
-							<p class="num">
-								<strong>${avgStar} 점</strong>
-								<!-- 총점의 평균 점수 -->
+							<p class="num"><!-- 총점의 평균 점수 -->
+								<strong><fmt:formatNumber value="${avgStar}" pattern=".0" /> 점</strong>
+								<input class="avgStarNum" type="hidden" value="${avgStar}" >
 							</p>
-							<ul class="star_list">
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-								<li><span class="rating"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-
-									
-								<li><span class="rating" style="width: 80%;"></span><img
-									src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
-							</ul>
+								<ul class="star_list">
+									<li><span class="rating avgStar" id="star1"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+	
+									<li><span class="rating avgStar" id="star2"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+	
+									<li><span class="rating avgStar" id="star3"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+	
+									<li><span class="rating avgStar" id="star4"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+	
+									<li><span class="rating avgStar" id="star5"></span><img
+										src="https://static.oliveyoung.co.kr/pc-static-root/image//product/bg_rating_star.png"></li>
+								</ul>
 						</div>
 
 						<div class="graph_area">
@@ -117,8 +113,8 @@
 				<li class="reviewViewList">
 					<!-- 리뷰 리스트 -->
 
-					<div class="reviewView-sort">
-						<!-- 별점순, 최신순으로 sort -->
+					<!-- <div class="reviewView-sort">
+						별점순, 최신순으로 sort
 						<div class="align_sort">
 							<ul id="gdasSort">
 								<li><a href="#">별점순</a></li>
@@ -126,7 +122,7 @@
 								<li><a>지점검색</a></li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 
 
 					<div class="reviewView-line">
@@ -168,18 +164,23 @@
 								${rvo.review_content}
 							</div>
 
-							<div class="r-cont-img">
-								<ul class="inner">
-									<li>
-										<a href="#"> 
-											<span> 
-												<img src="${pageContext.request.contextPath}/resources/img/review_img.jpg" style="width: 165px;">
-											</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-
+							<c:choose> <%-- 사용자가 리뷰를 적었을때 img를 넣었으면 보여주고 안넣었으면 보여주지 말기 --%>
+								<c:when test="${rvo.review_filename != null}">
+								<div class="r-cont-img">
+									<ul class="inner">
+										<li>
+											<a href="#">
+												<span> <%-- 이미지 경로################################## --%>
+													<%-- <img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;"> --%>
+													<img src="${pageContext.request.contextPath}/resources/fileUpload/${rvo.review_filename}" style="width: 165px;">
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								</c:when>
+							</c:choose>
+							
 						</div>
 						</c:forEach>
 					</div>
@@ -200,22 +201,34 @@
 	<%@include file="../include/footer.jsp"%>
 	
 	<script>
-	
+		/* 각각의 게시물의 별점 조절 */
 		$(".starNum").each(function(i,el) {
 
 			let star = $(el).val();
 			let index = $(el).data("index");
 			
 			starId ="#star"+index+"-";
-		
-			console.log(star);
+			//console.log(star);
 			
 			for(j=5;j>star;j--){
 				
-				console.log(starId+j);
-				
+				//console.log(starId+j);
 				$(starId+j).css("width","0%");
+			}
+			
+		})
+		
+		
+		/* 전체 게시물의 별점 평점 조절 */
+		let avgStarNum = $(".avgStarNum").val();
+		
+		$(".avgStar").each(function(i,el) {
 
+			let avgStar = "${avgStar}";
+		
+			for(j=5;j>avgStar;j--){
+				$("#star"+j).css("width", avgStar%1*100+"%");
+				
 			}
 			
 		})
