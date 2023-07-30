@@ -24,14 +24,22 @@
 
 	<header>
 		
-		<a href="/kgstudy/main.do" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" width="180"></a>
+		<div>
+			<a href="/kgstudy/main.do" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" width="180" style="margin-bottom: 5px;"></a><br>
+			<c:choose>
+				<c:when test="${loginUser.user_grant == 'user'}">
+				<!-- 좌석이용중 (평소에는 안뜨다가 입실(=예약)하자마자 (좌석이용중) 표시 띄우기) -->
+				<a id="seat" onmouseover="mover()" onmouseout="mout()" href="#" style="font-size:20px; color:#badc58;">(좌석 이용중)</a>
+				</c:when>
+			</c:choose>
+		</div>
 		
 		<nav class="navbar">
 			<a href="/kgstudy/main.do">home</a>
 			<a href="/kgstudy/store/find.do">지점찾기</a>
 			<a href="#">소식</a>
-			<a href="#">리뷰</a>
-			<a href="/kgstudy/order/passOrder.do">이용권구매</a>
+			<a href="reviewListView.do">리뷰</a>
+			<a href="/kgstudy/order/#">이용권구매</a>
 			<a href="#">예약</a>
 		</nav>
 		
@@ -58,7 +66,22 @@
 	</header>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/main/header.js"></script>
-	<!-- header section end -->
+	
+	<script>
+	
+		// 입실&퇴실 마우스오버 이벤트
+		function mover() {
+			let m = document.getElementById('seat');
+			m.innerText = "(퇴실하겠습니까?)";
+			m.style.color = "#ff7979";
+		}
+		
+		function mout() {
+			let m = document.getElementById('seat');
+			m.innerText = "(좌석 이용중)";
+			m.style.color = "#badc58";
+		}
+	</script>
 	
 </body>
 </html>

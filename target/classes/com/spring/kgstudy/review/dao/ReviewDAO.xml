@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.kgstudy.review.dao.ReviewDAO">
+	
+	<resultMap type="com.spring.kgstudy.review.vo.ReviewVO" id="ReviewVO">
+		<result property="review_id" column="review_id" />
+		<result property="user_id" column="user_id" />
+		<result property="store_id" column="store_id" />
+		<result property="store_name" column="store_name" />
+		<result property="reservation_id" column="reservation_id" />
+		<result property="review_date" column="review_date" />
+		<result property="review_content" column="review_content" />
+		<result property="review_filename" column="review_filename" />
+		<result property="review_star" column="review_star" />
+	</resultMap>
+	
+	
+	<select id="getAllReview" resultMap="ReviewVO">
+		SELECT * FROM review
+	</select>
+	
+	<select id="findList" resultMap="ReviewVO">
+		select * from review
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="revIdfind" resultType="com.spring.kgstudy.reservation.vo.ReservationVO">
+		SELECT *
+		FROM (
+		  SELECT A.*, ROW_NUMBER() OVER (ORDER BY reservation_day DESC) AS rn
+		  FROM reservation_table A
+		  WHERE user_id = #{user_id}
+		) 
+		WHERE rn = 1
+	</select>
+	
+	<select id="findReservId" resultMap="ReviewVO">
+		select * from review 
+		where reservation_id = #{reservation_id}
+	</select>
+	
+
+</mapper>

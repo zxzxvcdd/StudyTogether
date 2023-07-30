@@ -19,9 +19,6 @@
 <!-- chart js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<style>
-
-</style>
 </head>
 <body>
 
@@ -44,12 +41,17 @@
 							개인정보 확인/수정
 						</button>
 					</div>
+					<div class="select_btn">
+						<button type="button" class="btn_select_list" onclick="location.href='userReviewView.do?user_id=${loginUser.user_id}'">
+							나의 리뷰 관리
+						</button>
+					</div>
 				</li>
 			</ul>
 			<!-- --------------------------------------------------- -->
 			
 			<!-- --------------------------------------------------- -->
-			<!-- 구매한 이용권 현황 => 없으면 :보유하고 있는 이용권 없습니다. -->
+			<!-- 구매한 이용권 현황 => 없으면 : 보유하고 있는 이용권 없습니다. -->
 			<ul class="paymentList">
 					<li class="paymentItem">
 						<div class="item">
