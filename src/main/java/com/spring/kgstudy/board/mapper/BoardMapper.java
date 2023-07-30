@@ -19,6 +19,6 @@ public interface BoardMapper {
 	public void replySeqUpdate(BoardVO parent);
 	public void replyInsert(BoardVO vo);
 	public int totalCount(Criteria cri);
-	public void countUpdate(int board_id);
+	public void countUpdate(String user_id);
 	
 }

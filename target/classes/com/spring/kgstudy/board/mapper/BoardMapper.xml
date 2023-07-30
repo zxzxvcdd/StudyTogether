@@ -112,7 +112,7 @@
 	</select>
 	
 	<update id="countUpdate">
-		update board set count=count+1 where board_id=#{board_id}
+		update board set count=count+1 where user_id=#{user_id}
 	</update>
 	
 

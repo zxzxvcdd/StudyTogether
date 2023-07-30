@@ -2,6 +2,9 @@ package com.spring.kgstudy.board.service;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,7 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO get(int board_id) {
 		// TODO Auto-generated method stub
 		BoardVO vo = boardMapper.read(board_id);
-		boardMapper.countUpdate(board_id);
+		//boardMapper.countUpdate(board_id);
 		return vo;
 	}
 
@@ -77,6 +80,38 @@ public class BoardServiceImpl implements BoardService {
 	public int totalCount(Criteria cri) {
 		// TODO Auto-generated method stub
 		return boardMapper.totalCount(cri);
+	}
+
+	@Override
+	public void countUpdate(BoardVO vo, HttpServletRequest rq, HttpServletResponse rs) {
+		
+		String userID = vo.getUser_id();
+		
+		Cookie[] cookies = rq.getCookies();
+		
+		boolean flag = true;
+		
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				if(c.getName().equals(userID+"1")) { // 쿠키이름이 게시글 조회 아이디와 동일한지 검사
+					flag = false; // 중복의 의미
+					break;
+				}
+			}
+		}
+		
+		if(flag) { // 중복이 없다면 true
+			// DAO연결 조회수증가
+			boardMapper.countUpdate(userID);
+			
+			// 1. 마지막에 조회된 글 번호를 쿠키로 생성해서, 클라이언트 측으로 전송
+			Cookie cookie = new Cookie(userID+"1", userID); // 쿠키형식( 1:1 , 2:2 ).....
+			cookie.setMaxAge(60); // 1분 수명설정
+			rs.addCookie(cookie);
+			
+		}
+		
+		
 	}
 
 

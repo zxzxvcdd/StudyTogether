@@ -2,6 +2,9 @@ package com.spring.kgstudy.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,9 +58,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/get.do")
-	public String get(@RequestParam("board_id") int board_id, Model model, @ModelAttribute("cri") Criteria cri) {
+	public String get(@RequestParam("board_id") int board_id, Model model, @ModelAttribute("cri") Criteria cri, HttpServletRequest rq, HttpServletResponse rs) {
 		BoardVO vo = boardService.get(board_id);
 		model.addAttribute("vo", vo);
+		
+		boardService.countUpdate(vo, rq, rs);
 		
 		return "board/get"; // /WEB-INF/views/board/get.jsp -> @ModelAttribute 객체 바인딩 해서 jsp 에서 사용할수 있음 ${cri.page}
 	}

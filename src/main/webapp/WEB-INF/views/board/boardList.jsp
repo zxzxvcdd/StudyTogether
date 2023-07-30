@@ -68,7 +68,7 @@
 
 <div class="jumbotron text-center">
   <h1>STUDY TOGETHER</h1>
-  <p>고객의 취향을 맞춘 다양한 공간!</p>
+  <p style="color: white;">고객의 취향을 맞춘 다양한 공간!</p>
 </div>
 
 	<div class="container">
@@ -78,16 +78,16 @@
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
+							<th class="center" style="width: 5%">번호</th>
+							<th style="width: 55%">제목</th>
+							<th class="center" style="width: 15%">작성자</th>
+							<th class="center" style="width: 15%">작성일</th>
+							<th class="center" style="width: 10%">조회수</th>
 						</tr>
 					</thead>
 					<c:forEach var="vo" items="${list}">
 						<tr>
-							<td>${vo.board_id}</td>
+							<td class="center">${vo.board_id}</td>
 							<td>
 							<c:if test="${vo.boardLevel>0}">
 								<c:forEach begin="1" end="${vo.boardLevel}">
@@ -112,9 +112,9 @@
 								</c:if>
 							</c:if>
 							</td>
-							<td>${vo.writer}
-							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${vo.indate}" /></td>
-							<td>${vo.count}</td>
+							<td class="center">${vo.writer}
+							<td class="center"><fmt:formatDate pattern="yyyy-MM-dd" value="${vo.indate}" /></td>
+							<td class="center">${vo.count}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${!empty loginUser}">

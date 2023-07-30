@@ -17,11 +17,15 @@
     background-image: url('../../img/board/bg.jpg');
     background-size: cover;
     text-shadow: black 0.2em 0.2em 0.2em;
-    color:white;
+    color: #fff;
 }
 
 
 .jumbotron .h1, .jumbotron h1 {
     /* color: inherit; */
     color: #5CB85C !important;
+}
+
+.center{
+	text-align:center;
 }

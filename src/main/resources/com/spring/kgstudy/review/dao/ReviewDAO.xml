@@ -14,11 +14,25 @@
 	</resultMap>
 
 
+	<sql id="search">
+		<if test="type=='review_star'">
+			where store_name like '%' || #{keyword} || '%' ORDER BY review_star DESC
+		</if>
+		<if test="type=='review_date'">
+			where store_name like '%' || #{keyword} || '%' ORDER BY review_date DESC
+		</if> 
+	</sql>
+	
+	
+	
+
+
 
 
 
 	<select id="getAllReview" resultMap="ReviewVO">
 		SELECT * FROM review
+		 <include refid="search"/>
 	</select>
 	
 	
@@ -43,11 +57,13 @@
 	</select>
 	
 	
-	<insert id="insertReview">
-		insert into review
-		values (review_seq.NEXTVAL, #{user_id}, #{store_id}, #{store_name}, #{reservation_id}, sysdate, #{review_content}, #{review_filename}, #{review_star} )
 	
+	<insert id="reviewInsert">
+		insert into review
+		values (review_seq.NEXTVAL, #{user_id}, #{store_id}, #{store_name}, #{reservation_id}, sysdate, #{review_content}, #{review_filename}, #{review_star} )	
 	</insert>
+	
+	
 
 
 </mapper>

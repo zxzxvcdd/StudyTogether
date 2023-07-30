@@ -46,7 +46,7 @@
 
 <div class="jumbotron text-center">
   <h1>STUDY TOGETHER</h1>
-  <p>고객의 취향을 맞춘 다양한 공간!</p>
+  <p style="color: white;">고객의 취향을 맞춘 다양한 공간!</p>
 </div>
 
 	<div class="container">
