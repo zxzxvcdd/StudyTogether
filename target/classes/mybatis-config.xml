@@ -6,9 +6,7 @@
 
     <settings>
 
-
-
-   <!--      카멜 케이스 VO 매핑       --> 
+  	   <!-- 카멜 케이스 VO 매핑       --> 
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         
        <!--  쿼리 결과 필드가 null인 경우, 누락이 되서 나오지 않게 설정 -->
@@ -24,6 +22,9 @@
 		<typeAlias alias="BoardVO" type="com.spring.kgstudy.board.vo.BoardVO"/>
 
 		<typeAlias alias="memberVO" type="com.spring.kgstudy.member.vo.MemberVO"/>
+		
+		<typeAlias alias="ReviewVO" type="com.spring.kgstudy.review.vo.ReviewVO"/>
+		
 	</typeAliases>
 
 

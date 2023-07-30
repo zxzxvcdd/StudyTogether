@@ -47,13 +47,16 @@
 		<div class="follow"> <!-- 아이콘 -->
 		
 		<c:choose>
-				<c:when test="${loginUser!=null}">
+			<c:when test="${loginUser.user_grant == 'user'}">
 					<a href="/kgstudy/userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
 					<a href="/kgstudy/logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
 					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
 				</c:when> 
 				<c:when test="${loginUser.user_grant == 'admin'}">
 					<a href="#" id="admin_page" class='fas fa-user-cog'></a> <!-- 관리자페이지 -->
+					<a href="/kgstudy/userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
+					<a href="/kgstudy/logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
 				</c:when> 
 				<c:otherwise> 
 					<a href="/kgstudy/loginPageView.do" id="login" class='fa fa-unlock'></a> <!-- 로그인 -->
@@ -64,6 +67,22 @@
 	</header>
 	
 	<script src="${pageContext.request.contextPath}/resources/js/main/header.js"></script>
+	
+	<script>
+	
+		// 입실&퇴실 마우스오버 이벤트
+		function mover() {
+			let m = document.getElementById('seat');
+			m.innerText = "(퇴실하겠습니까?)";
+			m.style.color = "#ff7979";
+		}
+		
+		function mout() {
+			let m = document.getElementById('seat');
+			m.innerText = "(좌석 이용중)";
+			m.style.color = "#badc58";
+		}
+	</script>
 	
 	<script>
 	

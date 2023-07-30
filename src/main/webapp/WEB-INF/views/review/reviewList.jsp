@@ -125,6 +125,28 @@
 					</div> -->
 
 
+										<!-- 검색 -->
+										<div class="reviewView-sort">
+											<div>
+												<form class="form-inline" action="#" method="post">
+													<div class="form-group">
+														<select name="type" class="form-control">
+															<option value="review_star"
+																${Search.type=='review_star' ? 'selected' : ''}>별점순</option>
+															<option value="review_date"
+																${Search.type=='review_date' ? 'selected' : ''}>최신순</option>
+														</select>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="keyword"
+															value="${Search.keyword}" autocomplete="on" placeholder="지점명을 입력해주세요">
+													</div>
+													<button type="submit" class="btn btn-success">검색</button>
+												</form>
+											</div>
+										</div>
+					
+
 					<div class="reviewView-line">
 						
 						<c:forEach var="rvo" items="${Rlist}" varStatus="status" >

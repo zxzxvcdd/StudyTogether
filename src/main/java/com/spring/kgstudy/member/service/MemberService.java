@@ -34,6 +34,8 @@ public class MemberService {
 
 		memberVO.setUser_pw(pwdBycrypt);
 
+		
+		System.out.println(memberVO);
 		boolean loginSuccess = dao.insertUser(memberVO);
 		
 		if (loginSuccess) {

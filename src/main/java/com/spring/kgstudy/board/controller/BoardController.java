@@ -2,6 +2,9 @@ package com.spring.kgstudy.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import com.spring.kgstudy.board.service.BoardService;
 import com.spring.kgstudy.board.vo.BoardVO;
 import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.common.vo.PageMaker;
+import com.spring.kgstudy.member.vo.MemberVO;
 
 @Controller //POJO
 @RequestMapping("/board")
@@ -33,28 +37,33 @@ public class BoardController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(boardService.totalCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
+		
 		return "/board/boardList"; //view	
 	}
 	
 	@GetMapping("/register.do")
-	public String register() {
+	public String register(MemberVO vo) {
+		
 		return "board/register";
 	}
 	
-	@RequestMapping("/register.do")	   //리다이렉트 후에도 데이터를 유지하면서 다른 페이지로 전달
-	public String register(BoardVO vo, Model model) {
-		boardService.register(vo); // 게시물 등록(vo -> board_id , boardGroup)
-		model.addAttribute("result", vo.getBoard_id()); //${result}
+	@RequestMapping("/register.do")	 
+	public String register(BoardVO vo, RedirectAttributes rttr) { // 파라미터수집
+		boardService.register(vo); // 게시물 등록
+		System.out.println("게시글 등록 :::::::::::: " + vo);
+		rttr.addAttribute("result", vo.getBoard_id()); //${result}
 			 //객체바인딩 addFlashAttribute 1회성 세션임. jsp 에서 ${result}로 사용가능 
-		
 		
 		return "redirect:/board/list.do";
 	}
 	
 	@GetMapping("/get.do")
-	public String get(@RequestParam("board_id") int board_id, Model model, @ModelAttribute("cri") Criteria cri) {
+	public String get(@RequestParam("board_id") int board_id, Model model, @ModelAttribute("cri") Criteria cri, HttpServletRequest rq, HttpServletResponse rs) {
 		BoardVO vo = boardService.get(board_id);
 		model.addAttribute("vo", vo);
+		
+		boardService.countUpdate(vo, rq, rs);
+		
 		return "board/get"; // /WEB-INF/views/board/get.jsp -> @ModelAttribute 객체 바인딩 해서 jsp 에서 사용할수 있음 ${cri.page}
 	}
 	
@@ -62,6 +71,7 @@ public class BoardController {
 	public String modify(@RequestParam("board_id") int board_id, Model model, @ModelAttribute("cri") Criteria cri) {
 		BoardVO vo = boardService.get(board_id);
 		model.addAttribute("vo", vo);
+		
 		return "board/modify"; // /WEB-INF/views/board/modify.jsp
 	}
 	
@@ -72,6 +82,7 @@ public class BoardController {
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:/board/list.do";	// ?page=2&perPageNum=10
 	}
 	
@@ -82,6 +93,7 @@ public class BoardController {
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("type",cri.getType());
 		rttr.addAttribute("keyword",cri.getKeyword());
+		
 		return "redirect:/board/list.do";	// ?page=2&perPageNum=10	
 	}
 	
@@ -89,6 +101,7 @@ public class BoardController {
 	public String reply(int board_id, Model model, @ModelAttribute("cri") Criteria cri){
 		BoardVO vo = boardService.get(board_id);
 		model.addAttribute("vo", vo);
+		
 		return "board/reply"; // /WEB-INF/views/board/reply.jsp	
 	}
 	
@@ -100,6 +113,7 @@ public class BoardController {
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:/board/list.do";
 	}
 	

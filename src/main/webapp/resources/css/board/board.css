@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #5CB85C !important;
+    border-color: #5CB85C !important;
+}
+
+.jumbotron{
+    background-image: url('../../img/board/bg.jpg');
+    background-size: cover;
+    text-shadow: black 0.2em 0.2em 0.2em;
+    color: #fff;
+}
+
+
+.jumbotron .h1, .jumbotron h1 {
+    /* color: inherit; */
+    color: #5CB85C !important;
+}
+
+.center{
+	text-align:center;
+}
