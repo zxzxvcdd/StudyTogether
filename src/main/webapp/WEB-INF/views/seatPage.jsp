@@ -281,7 +281,7 @@ div.wrapper {
 }
 
 .menu-list-con {
-	/* display: none; */
+	display: none; 
 	
 }
 
@@ -355,6 +355,7 @@ input[type="radio"] {
 						<li><span style="background: #669934"></span> 이용 가능</li>
 						<li><span style="background: #6b6c68"></span> 이용 불가</li>
 						<li><span style="background: #cd3333"></span> 이용중</li>
+						<li><span style="background: violet"></span> 본인 좌석</li>
 					</ul>
 				</div>
 
@@ -369,8 +370,8 @@ input[type="radio"] {
 
 						<!-- 사용자 본인 자리 확인 -->
 						<c:choose>
-
-							<c:when test="${loginUser.user_id eq vo.userId}">
+	
+							<c:when test="${loginUser.user_id eq vo.userId && vo.seatType=='N'}">
 
 								<div class="box myseat" data-id="${vo.seatId}"
 									data-type="${vo.seatType}" data-name="${vo.seatName }"
@@ -437,7 +438,7 @@ input[type="radio"] {
 				</div> 
 
 			<div class="buttons">
-				<button id="pay-button" onclick="">사용하기</button>
+				<button id="pay-button" onclick="checkIn(this)">사용하기</button>
 				<button id="back-button" onclick="location.href='/order/passOrder.do'">구매하기</button>
 				<button id="reset-button" onclick="resetModal()">취소</button>
 			</div>
@@ -506,60 +507,71 @@ input[type="radio"] {
 					let $time = $(".menu-list-form.time");
 					let $day = $(".menu-list-form.day");
 					
-					for(timePass in timePassList){
+					console.log(timePassList);
+					
+					/* 사용자 시간권 */
+					for(var timePass in timePassList){	
 						
-						let newEL = document.createElement("div");
+						timePass =timePassList[timePass];
+						console.log(timePass);
+						console.log(timePass.passPrice);
+						
+						
+						
+						let newEl = document.createElement("div");
 						
 						let innerText = "";
 						
-						newEl.attr("style","display: flex; width: 50%; margin-bottom: 3px;")
+						newEl.style.cssText ="display: flex; width: 50%; margin-bottom: 3px;"
 
 						
 						
 						
-						innertText +=
+						innerText +=
 							
-							"	<div style='display: flex; width: 50%; margin-bottom: 3px;'>"
+							"	<div style='display: flex; width: 150%; margin-bottom: 3px;'>"
 							+ "		<input type='radio' class='pass timePass' name='menuId'"
 							+ "			data-price='"+timePass.passPrice +"' value='" + timePass.menuId +"'>"
-							+ "		<p style='margin-right: 20px;'>"+timePass.passName+"</p>"
+							+ "		<p style='margin-right: 10px;'>"+timePass.passName+"</p>"
 							+ "		<p class='price' id='"+timePass.passPrice+"'>"
-							+ "			<fmt:formatNumber value='"+timePass.passPrice+" pattern='#,###' />"
+							+ 			timePass.passPrice
 							+ "			원"
 							+ "		</p>";
 						
 							
 						
 						
+						newEl.innerHTML = innerText;
 						
-						newEl.innerHtml = innertText;
-						
+						console.log(newEl)
 						$time.append(newEl);
 						
 						
 					}
 					
 					
-
-					for(dayPass in dayPassList){
+					/* 사용자 기간권 */
+					for(var dayPass in dayPassList){
 						
-						let newEL = document.createElement("div");
+						let newEl = document.createElement("div");
 						
 						let innerText = "";
 						
-						newEl.attr("style","display: flex; width: 50%; margin-bottom: 3px;")
+						dayPass =dayPassList[dayPass];
+						
+						newEl.style.cssText ="display: flex; width: 50%; margin-bottom: 3px;"
 
 						
 						
 						
-						innertText +=
+						innerText +=
 							
-							"	<div style='display: flex; width: 50%; margin-bottom: 3px;'>"
+							"	<div style='display: flex; width: 150%; margin-bottom: 3px;'>"
 							+ "		<input type='radio' class='pass dayPass' name='menuId'"
 							+ "			data-price='"+dayPass.passPrice +"' value='" + dayPass.menuId +"'>"
-							+ "		<p style='margin-right: 20px;'>"+dayPass.passName+"</p>"
+							+ "		<p style='margin-right: 10px;'>"+dayPass.passName+"</p>"
 							+ "		<p class='price' id='"+dayPass.passPrice+"'>"
-							+ "			<fmt:formatNumber value='"+dayPass.passPrice+" pattern='#,###' />"
+							+ 			dayPass.passPrice
 							+ "			원"
 							+ "		</p>";
 						
@@ -567,10 +579,10 @@ input[type="radio"] {
 						
 						
 						
-						newEl.innerHtml = innertText;
+						newEl.innerHTML = innerText;
 						
 						$day.append(newEl);
-						
+							
 						
 					}
 					
@@ -645,7 +657,7 @@ input[type="radio"] {
 
 
 
-				/* $(this).children(".inner_modal").addClass("active") */
+			
 
 
 				/* ================ 좌석선택 메소드 ========================== */
@@ -710,18 +722,6 @@ input[type="radio"] {
 
 
 
-	/* 				$(".inner_close").click(function (event) {
-
-						event.stopPropagation();
-						event.preventDefault();
-						var $modal = $(this).parent();
-
-
-
-						$modal.removeClass("active");
-
-
-					}); */
 
 
 
@@ -745,10 +745,6 @@ input[type="radio"] {
 
 			
 					var reqUrl = "seatChecke.do";
-
-
-
-		
 
 
 
