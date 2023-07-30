@@ -84,9 +84,9 @@
 									<button onclick="formSubmit();" class="btn-tazone">등록</button><br>
 								</div>
 								
-								<div class="text-file">
-									<input type="file" name="file" id="file" class="text-file-btn">
-								</div>
+								<!-- <div class="text-file">
+									<input type="file" name="review_file" id="file" class="text-file-btn">
+								</div> -->
 							</form>
 						</li> <!-- reviewView end -->
 					</c:when>
@@ -221,7 +221,7 @@
 			value = $(arg0).val();
 			//alert(value + "점 선택"); //별점 선택 잘 되는지 테스트
 			
-			$("#inputStar").val(parseFloat(value));
+			$("#inputStar").val(value);
 			//alert($("#inputStar").val()); //별점 잘 들어가는지 테스트
 		}
 		

@@ -8,13 +8,12 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
-	
-	
-	<mybatis-spring:scan
-		base-package="com.spring.kgstudy" />
+
+
+
+	<mybatis-spring:scan base-package="com.spring.kgstudy" />
 
 
 
@@ -28,23 +27,24 @@
 		<property name="username" value="kgstudy" />
 		<property name="password" value="kgstudy" />
 	</bean>
-	
-		
-		
-		
+
+
+
+
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<property name="configLocation"
+			value="classpath:/mybatis-config.xml" />
 
 		<!-- resources -->
 	</bean>
 
 
-	<!--  파일업로드 디렉토리 설정 -->
-	  <bean id="uploadPath" class="java.lang.String">
-	    <constructor-arg value="C:\prj2\spring_prj\KGStudy\src\main\webapp\resources\fileUpload"/>
-	  </bean>
+	<!-- 파일업로드 디렉토리 설정 -->
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="C:\Users\shinj\git\KGStudy\src\main\webapp\resources\fileUpload" />
+	</bean>
 
 
 
@@ -54,7 +54,7 @@
 		<property name="maxInMemorySize" value="1000000000"></property>
 	</bean>
 
-		
-		
-		
+
+
+
 </beans>
