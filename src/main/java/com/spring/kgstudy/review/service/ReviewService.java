@@ -30,7 +30,7 @@ public class ReviewService {
 
 	private final ReviewDAO reviewdao;
 	
-	private String rootPath = System.getProperty("user.dir").replace("\\", "/");
+
 	@Resource(name="uploadPath")  //properties에 있는 uploadPath값 가져오기
 	private String uploadPath;  
 	
@@ -66,13 +66,13 @@ public class ReviewService {
 		String originalName = file.getOriginalFilename();
 		String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 		
-		
+		System.out.println(fileName);
 		File target = new File(uploadPath, fileName);
 		System.out.println("upload path : " + uploadPath);
 		
 		String uuid = UUID.randomUUID().toString();
 		
-		String savefileName = rootPath + uploadPath + File.separator + uuid + "_" + fileName;
+		String savefileName =  uploadPath + File.separator + uuid + "_" + fileName;
 		
 		System.out.println(savefileName);
 		
