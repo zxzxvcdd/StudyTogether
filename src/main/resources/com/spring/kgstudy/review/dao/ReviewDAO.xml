@@ -45,10 +45,15 @@
 		WHERE rn = 1
 	</select>
 	
-	<select id="findReservId" resultMap="ReviewVO">
-		select * from review 
+	<select id="findReservId" resultType="int">
+		select count(*) from review 
 		where reservation_id = #{reservation_id}
 	</select>
+	
+	<insert id="reviewInsert">
+		insert into review
+		values (review_seq.NEXTVAL, #{user_id}, #{store_id}, #{store_name}, #{reservation_id}, sysdate, #{review_content}, #{review_filename}, #{review_star} )	
+	</insert>
 	
 
 </mapper>

@@ -6,7 +6,7 @@
 	
 <!DOCTYPE html>
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
 <title>review</title>
 
@@ -143,8 +143,7 @@
 										<li>
 											<a href="#">
 												<span> <%-- 이미지 경로################################## --%>
-													<%-- <img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;"> --%>
-													<img src="${pageContext.request.contextPath}/resources/fileUpload/${reviewList.review_filename}" style="width: 165px;">
+													<img src="/kgstudy/resources/fileUpload/${reviewList.review_filename}" style="width: 165px;">
 												</span>
 											</a>
 										</li>

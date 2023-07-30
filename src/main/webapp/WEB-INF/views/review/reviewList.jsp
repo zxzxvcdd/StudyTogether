@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
 <title>review</title>
 
@@ -249,10 +249,17 @@
 			let avgStar = "${avgStar}";
 		
 			for(j=5;j>avgStar;j--){
-				$("#star"+j).css("width", avgStar%1*100+"%");
+				$("#star"+j).css("width", 0+"%");
 				
 			}
 			
+			var target= "#star"+(parseInt(avgStar/1)+1);
+			
+			console.log(target);
+			
+				$(target).css("width", avgStar%1*100+"%");
+				
+				
 		})
 		
 	</script>
