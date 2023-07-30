@@ -1,5 +1,7 @@
 package com.spring.kgstudy.common.search;
 
+import java.util.Date;
+
 import com.spring.kgstudy.common.paging.Page;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,9 @@ public class Search extends Page {
     private String type; // 검색 조건
     private String keyword; // 검색 키워드
     
+    private Date startDate;
+    
+    private Date endDate;
     
     
 }

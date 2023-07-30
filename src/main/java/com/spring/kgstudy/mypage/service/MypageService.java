@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.dao.MypageDAO;
+import com.spring.kgstudy.seat.dao.SeatDAO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +14,11 @@ import lombok.RequiredArgsConstructor;
 public class MypageService {
 
 	private final MypageDAO dao;
+	private final SeatDAO seatDao;
+	
 	private final PasswordEncoder passwordEncoder;
-
+	
+	
 	//마이페이지 비밀번호 체크
 	public boolean mypagePwCheck(MemberVO memberVO) {
 		
@@ -59,6 +63,12 @@ public class MypageService {
 
 
 	
+	public boolean mypagefindReserv(String user_id) {
+		
+		
+		
+		
+	}
 	
 	
 	

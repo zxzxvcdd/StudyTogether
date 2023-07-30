@@ -2,15 +2,15 @@ package com.spring.kgstudy.mypage.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.service.MypageService;
+import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +23,15 @@ public class MypageController {
 	
 	// 마이페이지 버튼을 누르면 나의 학습 정보 페이지로 이동
 	@RequestMapping(value = "/userStudyChartView.do")
-	public String mypageStudyChartForm(MemberVO memberVO) throws Exception {
+	public String mypageStudyChartForm(Search search, HttpSession session) throws Exception {
+		
+		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		
+		String user_id = (LoginUtil.getCurrentMemberAccount(session));
+		
+		
+		
+		
 		return "/mypage/userStudyChart";
 	}
 

@@ -44,6 +44,7 @@
         <if test="type == 'reservation'">WHERE reservation_id = #{keyword}</if>
         <if test="type == 'date'">WHERE reservation_day like '%'||#{keyword}||'%'</if>
         <if test="type == 'seat'">WHERE seat_id = #{keyword}</if>
+        <if test="type == 'tc'">WHERE user_id = #{keyword} and reservation_day between #{startDate} and #{endDate}</if>
 </sql>
 
 
@@ -65,6 +66,8 @@ INSERT INTO reservation_table(reservation_id,reservation_day,store_id,pass_id,us
 
 </insert>
 
+
+
 <select id="findAllReserv" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
 
 select * from
@@ -76,6 +79,7 @@ order by reservation_id desc
 
 
 </select>
+
 
 <select id="findOneResrv" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
 
