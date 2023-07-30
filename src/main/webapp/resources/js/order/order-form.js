@@ -3,7 +3,7 @@ function arccodionMenu(){
 
     $(".menu-list-wrap").toggleClass("show");
 
-}
+} 
 
 let order = {
     go_pay : function() {
@@ -77,7 +77,7 @@ let order = {
                 // }
                 
               
-
+  
 
 		
 				

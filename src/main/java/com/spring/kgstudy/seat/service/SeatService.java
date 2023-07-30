@@ -267,7 +267,7 @@ public class SeatService{
 		ArrayList<PassVO> dayPass = new ArrayList<PassVO>();
 	
 		
-		
+		System.out.println(passList);
 		for(PassVO pass : passList) {
 			
 			if(pass.getPassType()==PassType.TIME) {

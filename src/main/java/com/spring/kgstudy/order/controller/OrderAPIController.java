@@ -42,7 +42,7 @@ public class OrderAPIController {
 	public String orderComplete(MenuVO menu, OrderVO order, Long paidAt, HttpSession session) {
 		
 		
-	
+	System.out.println(order.getImpUid());
 		
 		
 		Date pDate = new java.util.Date(paidAt * 1000L);
