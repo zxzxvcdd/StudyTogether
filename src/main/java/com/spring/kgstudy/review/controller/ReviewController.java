@@ -34,9 +34,49 @@ public class ReviewController {
 	// 전체 리스트 보기
 	@RequestMapping(value = "/reviewListView.do")
 	public String reviewList(ReviewVO vo, Model model) throws Exception {
+		
 		List<ReviewVO> Rlist = reviewService.getAllReview(vo);
+		
+		
+		
 		model.addAttribute("Rlist", Rlist);
-
+		
+		model.addAttribute("reviewCnt",Rlist.size());
+		
+		double avgStar = 0;
+		
+		Map<String,Integer> starMap = new HashMap<String, Integer>();
+		
+		
+		for(int i=1;i<6;i++) {
+			
+			starMap.put("starCnt"+i,0);
+			
+			
+		}
+		
+		for(ReviewVO rv : Rlist) {
+			
+			int star =  (int) rv.getReview_star();
+			
+			starMap.put("starCnt"+star, starMap.get("starCnt"+star)+1);
+			
+			
+			
+			avgStar += star;
+			
+		
+			
+		}
+		
+		avgStar /= Rlist.size();
+		
+		
+		model.addAttribute("avgStar", avgStar);
+		model.addAttribute("starMap", starMap);
+		
+		
+		
 		return "review/reviewList"; // /WEB-INF/vies/review/reviewList.jsp
 	}
 
