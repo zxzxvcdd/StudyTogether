@@ -43,7 +43,7 @@
 
 	<!-- 파일업로드 디렉토리 설정 -->
 	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="C:\Users\shinj\git\KGStudy\src\main\webapp\resources\fileUpload"/>
+		<constructor-arg value="F:\MyProject\SpringPrj\KGStudy\src\main\webapp\resources\fileUpload"/>
 	</bean>
 
 

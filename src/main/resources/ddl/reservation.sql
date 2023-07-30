@@ -2,6 +2,7 @@ CREATE TABLE reservation_table (
   reservation_id NUMBER PRIMARY KEY, --���� ���̵�
   reservation_day DATE, --���� ��¥
   store_id NUMBER, --���� ���̵�
+  store_name varchar2(200),
   pass_id NUMBER, --�̿�� ���̵�
   user_id VARCHAR2(200), --ȸ�� ���̵�
   seat_id NUMBER, --�¼� ���̵�

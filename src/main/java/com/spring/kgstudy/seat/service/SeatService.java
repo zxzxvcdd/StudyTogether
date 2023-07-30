@@ -73,7 +73,7 @@ public class SeatService{
 		
 		pass = orderDao.findOnePass(search);
 		
-		System.out.println(pass);
+		
 		
 		if(pass.getPassState()==PassState.EXPIRED) {
 			
@@ -127,7 +127,8 @@ public class SeatService{
 			reserv.setStoreId(vo.getStoreId());
 			reserv.setUseTime(0);
 			
-		
+			
+			System.out.println(reserv);
 			
 			
 			if(!sdao.insertReserv(reserv)) return result;
@@ -210,8 +211,8 @@ public class SeatService{
 		
 		ReservationVO reserv = sdao.findOneResrv(search);
 		
-		if(reserv.getUseTime()!=0)return false;
 		System.out.println(reserv);
+		if(reserv.getUseTime()!=0)return false;
 		
 		search.setType("pass");
 		search.setKeyword(""+reserv.getPassId());
@@ -298,8 +299,7 @@ public class SeatService{
 		ArrayList<PassVO> timePass = new ArrayList<PassVO>();
 		ArrayList<PassVO> dayPass = new ArrayList<PassVO>();
 	
-		
-		System.out.println(passList);
+	
 		for(PassVO pass : passList) {
 			
 			if(pass.getPassType()==PassType.TIME) {
@@ -311,7 +311,7 @@ public class SeatService{
 		}
 		
 		
-		
+		  
 		resMap.put("timePassList", timePass);
 		resMap.put("dayPassList", dayPass);
 		

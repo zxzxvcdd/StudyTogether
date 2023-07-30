@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,12 @@ import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
+
+@MultipartConfig(
+        fileSizeThreshold   = 1024 * 1024 * 10,  // 1 MB
+        maxFileSize         = 1024 * 1024 * 20, // 10 MB
+        maxRequestSize      = 1024 * 1024 * 30 // 15 MB
+)
 @RequiredArgsConstructor
 @Controller
 public class ReviewController {
@@ -90,6 +97,7 @@ public class ReviewController {
 			model.addAttribute("reviewList", reviewList);
 		}
 
+		System.out.println(reservationVO);
 		return "/mypage/userReviewList";
 	}
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.order.vo.PassVO;
 import com.spring.kgstudy.seat.service.SeatService;
+import com.spring.kgstudy.seat.vo.ReservationVO;
 import com.spring.kgstudy.seat.vo.SeatVO;
 import com.spring.kgstudy.util.LoginUtil;
 
@@ -73,11 +74,11 @@ public class SeatRestController {
 	
 	
 
-	@PostMapping("seatChecke.do")
+	@PostMapping("seatCheck.do")
 	public String seatChoise(SeatVO vo, PassVO pass, HttpSession session) {
 
 		
-		
+
 		
 		if(!LoginUtil.isLogin(session)) {
 			return "no-login";
@@ -114,8 +115,9 @@ public class SeatRestController {
 	}
 
 	@PostMapping("seatCheckOut.do")
-	public String seatCheckOut(SeatVO vo,HttpSession session) {
+	public String seatCheckOut(ReservationVO reserv,HttpSession session) {
 
+	
 		
 		if(!LoginUtil.isLogin(session)) {
 			return "no-login";
@@ -124,13 +126,10 @@ public class SeatRestController {
 
 		String userId = LoginUtil.getCurrentMemberAccount(session);
 		
-		
-		if(!userId.equals(vo.getUserId())) return "fail";
 
-	
 		
-		
-		boolean result = service.seatCheckOut(vo.getReservationId());
+		System.out.println(reserv);
+		boolean result = service.seatCheckOut(reserv.getReservationId());
 
 		if(result) {
 			

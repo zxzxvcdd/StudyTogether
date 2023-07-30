@@ -57,7 +57,7 @@ class SeatServiceTest {
 		
 		PassVO pass =new PassVO();
 		
-		pass.setPassId(1);
+		pass.setPassId(3);
 		
 		
 		seat.setSeatId(53);
@@ -76,7 +76,7 @@ class SeatServiceTest {
 	void checkout() {
 		
 		
-		int reservId = 4;
+		int reservId = 18;
 	
 		
 		boolean result = service.seatCheckOut(reservId);

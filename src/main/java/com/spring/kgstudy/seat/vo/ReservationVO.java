@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReservationVO {
 
 	private int reservationId;
+	private String storeName;
 	private Date reservationDay;
 	private int storeId;
 	private int passId;

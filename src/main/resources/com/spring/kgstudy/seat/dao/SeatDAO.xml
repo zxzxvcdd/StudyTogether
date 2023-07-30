@@ -54,15 +54,15 @@
 
 <insert id="insertReserv">
 
-
-INSERT INTO reservation_table(reservation_id,reservation_day,store_id,pass_id,user_id,seat_id,use_time) 
-	VALUES(reservation_seq.nextval,#{reservationDay},#{storeId},#{passId},#{userId},#{seatId},#{useTime})
-
-	<selectKey keyProperty="reservationId" order="AFTER" resultType="int">
-	
-		select reservation_seq.currval from dual
-		
+	<selectKey keyProperty="storeName,reservationId" order="BEFORE" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
+			select store_name,(reservation_seq.nextval) reservation_id from store_table where store_id = #{storeId}	
 	</selectKey>
+
+
+INSERT INTO reservation_table(reservation_id,reservation_day,store_id,store_name,pass_id,user_id,seat_id,use_time) 
+	VALUES(#{reservationId},#{reservationDay},#{storeId},#{storeName},#{passId},#{userId},#{seatId},#{useTime})
+
+	
 
 </insert>
 

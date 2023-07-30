@@ -17,9 +17,10 @@ public class SeatController {
 	private final SeatService service;
 	
 	@GetMapping("seat.do")
-	public String test(Model model, int storeId) {
+	public String test(Model model, String storeId)  {
 		
-		model.addAttribute("seat", service.test(storeId));
+		storeId="2324";
+		model.addAttribute("seat", service.test(Integer.parseInt(storeId)));
 		
 		return "seatPage";
 		
