@@ -76,6 +76,8 @@ public class MypageController {
 	// 마이페이지에서 리뷰페이지로 넘어가기
 	@RequestMapping(value = "/userLivewView.do")
 	public String mypageLeviwForm() throws Exception {
+		
+		
 		return "/mypage/userReviewList";
 	}
 	

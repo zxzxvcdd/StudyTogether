@@ -43,13 +43,16 @@
 
 	<!--  파일업로드 디렉토리 설정 -->
 	  <bean id="uploadPath" class="java.lang.String">
-	    <constructor-arg value="C:\Users\shinj\git\KGStudy\src\main\webapp\resources\fileUpload"/>
+	    <constructor-arg value="C:\prj2\spring_prj\KGStudy\src\main\webapp\resources\fileUpload"/>
 	  </bean>
 
 
 
-
-
+	<!-- MultipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000000"/>
+		<property name="maxInMemorySize" value="1000000000"></property>
+	</bean>
 
 		
 		

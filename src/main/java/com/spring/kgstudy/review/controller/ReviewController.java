@@ -82,10 +82,13 @@ public class ReviewController {
 	@RequestMapping(value = "/userReviewView.do")
 	public String userReviewView(ReviewVO reviewVO, Model model, HttpSession session) throws Exception {
 
+//		
+//		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+//		
+//		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
 		
-		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		reviewVO.setUser_id("admin");
 		
-		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
 		Map<String, Object> ReviewMap = reviewService.userReviewView(reviewVO);
 
 		/* String reservId = (String) ReviewMap.get("reservId"); */
@@ -106,30 +109,31 @@ public class ReviewController {
 	
 	//리뷰 등록
 	@PostMapping("/reviewInsert.do")
-	public String reviewInsert(MultipartFile review_file, RedirectAttributes ra, HttpServletRequest rq) {
+	public String reviewInsert(ReviewVO reviewVO,MultipartFile file, RedirectAttributes ra, HttpServletRequest rq) {
 		
 		
 		rq.getParameterNames().asIterator().forEachRemaining(key -> System.out.println("key:"+key + "\nvalue:"+rq.getParameter(key)));
 		
 		
-//		System.out.println(reviewVO);
-		System.out.println(review_file);
-//		boolean result = reviewService.reviewInsert(reviewVO, review_file);
+		reviewVO.setUser_id("admin");
+		System.out.println(reviewVO);
+		System.out.println(file);
+		boolean result = reviewService.reviewInsert(reviewVO, file);
 		// service => DAO => Mapper.xml(sql) => DB => return
 		
 	
 		
-//		
-//		if (result) {
-//
-//			ra.addFlashAttribute("msg", "리뷰 성공");
-//			
-//		} else {
-//
-//			ra.addFlashAttribute("msg", "리뷰 실패");
-//		}
-//		
-//		
+		
+		if (result) {
+
+			ra.addFlashAttribute("msg", "리뷰 성공");
+			
+		} else {
+
+			ra.addFlashAttribute("msg", "리뷰 실패");
+		}
+		
+		
 		return "redirect:/userReviewView.do";
 	}
 	

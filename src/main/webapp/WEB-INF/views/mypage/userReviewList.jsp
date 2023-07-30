@@ -127,7 +127,7 @@
 												</div>
 
 												<div class="text-file">
-													<input type="file" name="review_file" id="file"
+													<input type="file" name="file" id="file"
 														class="text-file-btn">
 												</div>
 											</form>
@@ -249,7 +249,7 @@
 
 								console.log(value);
 
-								$("#inputStar").val(value);
+								$("#inputStar").val(parseFloat(value));
 								//alert($("#inputStar").val()); //별점 잘 들어가는지 테스트
 							}
 
