@@ -438,7 +438,7 @@ input[type="radio"] {
 				</div> 
 
 			<div class="buttons">
-				<button id="pay-button" onclick="checkIn(this)">사용하기</button>
+				<button id="pay-button" onclick="checkIn()">사용하기</button>
 				<button id="back-button" onclick="location.href='/order/passOrder.do'">구매하기</button>
 				<button id="reset-button" onclick="resetModal()">취소</button>
 			</div>
