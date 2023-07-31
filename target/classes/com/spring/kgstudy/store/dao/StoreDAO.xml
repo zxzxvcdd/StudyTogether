@@ -4,7 +4,7 @@
 
 <sql id="search">
         <if test="type == 'name'">WHERE store_name LIKE '%'||#{keyword}||'%'</if>
-        <if test="type == 'id'">WHERE store_id = #{keyword}</if>
+        <if test="type == 'store'">WHERE store_id = #{keyword}</if>
         <if test="type == 'address'">WHERE store_address LIKE '%'||#{keyword}||'%' or store_road_address LIKE '%'||#{keyword}||'%' </if>
         <if test="type == 'tc'">
             WHERE store_name LIKE '%'||#{keyword}||'%'
@@ -47,7 +47,7 @@ order by store_id
 </select>
 
 
-<select id="findOneStore">
+<select id="findOneStore" resultType="com.spring.kgstudy.store.VO.StoreVO" >
 
 select * from store_table
 <include refid="search"/>

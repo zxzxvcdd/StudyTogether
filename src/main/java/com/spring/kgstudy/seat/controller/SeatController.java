@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.seat.service.SeatService;
+import com.spring.kgstudy.seat.vo.SeatVO;
 import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
 
@@ -26,7 +27,6 @@ public class SeatController {
 	public String test(Model model, String storeId)  {
 		
 		
-		
 		Search search= new Search();
 		search.setAmount(999999);
 		
@@ -36,10 +36,46 @@ public class SeatController {
 		System.out.println(storeList.size());
 		if(storeId!=null) {
 			
-			model.addAttribute("seat", service.test(Integer.parseInt(storeId)));
+			ArrayList<SeatVO> seatList = service.test(Integer.parseInt(storeId));
+			search.setType("store");
+			search.setKeyword(storeId);
+			
+			StoreVO store = storeService.findOneStore(search);
+			System.out.println(store.getStoreName());
+			
+			model.addAttribute("stName", store.getStoreName());
+			
+			int seatCnt = 0;
+			int seatCk = 0;
+			
+			for(SeatVO seat : seatList) {
+				System.out.println(seat.getSeatType().equals("Y"));
+				if(seat.getSeatType().equals("N")) {
+					seatCnt++;
+				}else if(seat.getSeatType().equals("Y")) {
+					seatCk++;
+				}
+			}
+			System.out.println(seatCk);
+			model.addAttribute("seatCnt", seatCnt);
+			model.addAttribute("seatCk", seatCk);
+			
+			model.addAttribute("seat", seatList);
+			
+			model.addAttribute("totalSeat", seatList.size());
+			
+			
+			
+
+			
 		}
 		
+			
+		
+		
 		model.addAttribute("storeList", storeList);
+		
+		System.out.println(model.getAttribute("stName"));
 		
 		
 		return "seatPage";

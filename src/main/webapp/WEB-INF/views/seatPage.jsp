@@ -342,8 +342,7 @@ input[type="radio"] {
 						<c:set var="storeName" value="${store.storeName}" />
 						<c:set var="sLen" value="${fn:length(storeName)}" />
 
-						<option data-val=${store.storeId
-							} id="${fn:substring(storeName,7,sLen)}"
+						<option data-val="${store.storeId }" id="${fn:substring(storeName,7,sLen)}"
 							value="${fn:substring(storeName,7,sLen)}"
 							label="${store.storeRoadAddress }">
                                         </option>
@@ -362,10 +361,11 @@ input[type="radio"] {
 					<div class="seatinfo_title">여유좌석</div>
 				</div>
 				<div class="seatinfo">
-					<div class="seatinfo_content">1</div>
-					<div class="seatinfo_content">1</div>
-					<div class="seatinfo_content">1</div>
-					<div class="seatinfo_content">1</div>
+				
+					<div class="seatinfo_content">${stName}</div>
+					<div class="seatinfo_content">${totalSeat}</div>
+					<div class="seatinfo_content">${seatCnt}</div>
+					<div class="seatinfo_content">${seatCk}</div>
 				</div>
 			</div>
 			<div class="seat_wrap">
@@ -460,7 +460,7 @@ input[type="radio"] {
 			<div class="buttons">
 				<button id="pay-button" onclick="checkIn()">사용하기</button>
 				<button id="back-button"
-					onclick="location.href='/order/passOrder.do'">구매하기</button>
+					onclick="location.href='http://localhost:8001/kgstudy/order/passOrder.do'">구매하기</button>
 				<button id="reset-button" onclick="resetModal()">취소</button>
 			</div>
 
@@ -485,6 +485,9 @@ input[type="radio"] {
 
 
 	<Script>
+	
+				console.log("${stName}")
+				console.log("${seatCnt}")
 				let seat = "${loginUser.user_id}";
 				/* console.log('${storeList}'); */
 
@@ -549,7 +552,8 @@ input[type="radio"] {
 
 				/* 모달창 취소 이벤트 */
 				function resetModal() {
-					$(".container").removeClass('inner_modal');
+					location.reload();
+					
 				}
 
 

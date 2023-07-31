@@ -1,7 +1,10 @@
 package com.spring.kgstudy.member.service;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,6 +50,56 @@ class MemberServiceTest {
 		System.out.println(path);
 		
 		
+	}
+	
+	
+	
+	@Test
+	void InsertMemberTest() {
+		
+		LocalDate now = LocalDate.now();
+		
+		LocalDate start = now.minusYears(90);
+		
+		
+		for(int i=1; i<=200; i++) {
+			
+			 Random random = new Random();
+			 Long ranDay = (long) (random.nextInt((int) (now.toEpochDay() -start.toEpochDay()+1)) + start.toEpochDay());
+			 
+			MemberVO member = new MemberVO("user"+i, "user"+i, "유저"+i, "user"+i+"@kgstudy.com","010-4545-4444","M",new Date(),"admin");
+			
+			String userName = "user"+i;
+			Date birthday = 	Date.from(LocalDate.ofEpochDay(ranDay).atStartOfDay(ZoneId.systemDefault()).toInstant());
+			
+	
+
+			String email = userName+"@kgstudy.com";
+			String tel = "010-4545-4444";
+			
+			
+			String gender="F";
+			if(i%2==0) {
+				gender="M";
+			}
+					
+			
+			member.setUser_name(userName);
+			member.setUser_pw(userName);
+			member.setUser_grant("user");
+			member.setUser_gender(gender);
+			member.setUser_tel(tel);
+			member.setUser_email(email);
+			member.setUser_birthday(birthday);
+			
+
+			service.insertUser(member);
+			
+		}
+
+	
+	
+	
 	}
 
 }
