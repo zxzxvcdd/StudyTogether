@@ -32,9 +32,9 @@ insert into pass_table(pass_id,menu_id, order_id, user_id, pass_type, pass_time,
 
 
 select * from
-(select A.*, row_number() over(order by pass_id desc) rn from pass_table A
+(select A.*, row_number() over(order by pass_id) rn from pass_table A
 <include refid="searchPass"/>
-order by pass_id desc
+order by pass_id
 ) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
 
 </select>

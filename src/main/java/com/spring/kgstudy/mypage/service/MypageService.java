@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.dao.MypageDAO;
+import com.spring.kgstudy.order.vo.PassVO;
 import com.spring.kgstudy.seat.dao.SeatDAO;
 import com.spring.kgstudy.seat.service.SeatService;
 import com.spring.kgstudy.seat.vo.ReservationVO;
@@ -74,22 +75,40 @@ public class MypageService {
 	public Map<String, Object> mypageFindReserv(Search search) {
 		
 
+		System.out.println(search.getAmount());
+		System.out.println(search);
 		ArrayList<ReservationVO> reservList = seatDao.findAllReserv(search);
 		
 		
+		
 		search.setType("user");
-
+		
+		search.setAmount(100);
 		
 		Map<String, Object> resMap = seatService.findPassList(search);
 		
 		
+		
+		
 		resMap.put("reservList", reservList);
+		
+
+		ArrayList<String> reservDates= new ArrayList<String>();
+		
+		
+		int sumTime = 0;
+		for(ReservationVO reserv : reservList) {
+		
+			System.out.println(reserv);
+			sumTime += reserv.getUseTime();
+			reservDates.add(search.getForm().format(reserv.getReservationDay()));
+		}
+		
+		resMap.put("sumTime", sumTime); //총 공부시간
+		resMap.put("reservDates", reservDates); 
 		
 		
 		return resMap;
-		
-		
-		
 		
 	}
 	

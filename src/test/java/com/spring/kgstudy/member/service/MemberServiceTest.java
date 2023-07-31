@@ -39,10 +39,28 @@ class MemberServiceTest {
 	}
 	
 	
+	/*
+	 * @Test void path() {
+	 * 
+	 * String rootPath = System.getProperty("user.dir").replace("\\", "/");
+	 * 
+	 * 
+	 * System.out.println(rootPath); URL r = this.getClass().getResource("");
+	 * 
+	 * String path = r.getPath();
+	 * 
+	 * System.out.println(path);
+	 * 
+	 * 
+	 * }
+	 */
+	
 	@Test
-	void path() {
+	void InsertMemberTest() {
 		
-		String rootPath = System.getProperty("user.dir").replace("\\", "/");
+		LocalDate now = LocalDate.now();
+		
+		LocalDate start = now.minusYears(90);
 		
 	
 		System.out.println(rootPath);

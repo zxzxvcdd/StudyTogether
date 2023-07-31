@@ -15,12 +15,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Search extends Page {
 
-    private String type; // 검색 조건
+	private String type; // 검색 조건
     private String keyword; // 검색 키워드
     
-    private SimpleDateFormat form = new SimpleDateFormat("yy/mm/dd");
+    private SimpleDateFormat form = new SimpleDateFormat("yy/MM/dd");
     private String startDate;
-    
+
     private String endDate;
     
     public Search() {
@@ -36,9 +36,7 @@ public class Search extends Page {
 		
 
     }
-
-
-
+    
 	public void setStartDate(String startDate) {
 		this.startDate = form.format(startDate);
 	}
@@ -48,10 +46,4 @@ public class Search extends Page {
 		
 		
 	}
-    
-    
-    
-
-
-    
 }

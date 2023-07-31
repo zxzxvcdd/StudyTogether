@@ -1,15 +1,21 @@
 package com.spring.kgstudy.mypage.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.service.MypageService;
+import com.spring.kgstudy.order.vo.PassVO;
 import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -25,18 +31,19 @@ public class MypageController {
 	@RequestMapping(value = "/userStudyChartView.do")
 	public String mypageStudyChartForm(Search search, HttpSession session, Model model) throws Exception {
 		
-		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		//if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
 		
-		String user_id = (LoginUtil.getCurrentMemberAccount(session));
-		
+		//String user_id = (LoginUtil.getCurrentMemberAccount(session));
+
+		String user_id="user32";
 		
 		search.setType("tc");
 		search.setKeyword(user_id);
 		search.setAmount(9999);
 		model.addAttribute("resMap", service.mypageFindReserv(search));
 		
-
-		
+		System.out.println(search.getStartDate());
+		System.out.println(search.getEndDate());
 		
 		
 		return "/mypage/userStudyChart";
@@ -95,5 +102,37 @@ public class MypageController {
 		
 		return "/mypage/userReviewList";
 	}
+	
+	
+	@RequestMapping(value = "/studyData.do")
+	public String studyDataForm(Search search, HttpSession session, Model model) throws Exception {
+		
+		
+		//if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		//String user_id = (LoginUtil.getCurrentMemberAccount(session));
+		
+		String user_id="user32";
+		
+		search.setType("tc");
+		search.setKeyword(user_id);
+		search.setAmount(9999);
+		
+		/*
+		 * SimpleDateFormat form = new SimpleDateFormat("yy/MM/dd");
+		 * 
+		 * String startDate2 = form.format(startDate); String endDate2 =
+		 * form.format(endDate);
+		 * 
+		 * search.setStartDate(startDate2); search.setEndDate(endDate2);
+		 */
+		
+		
+		model.addAttribute("resMap", service.mypageFindReserv(search));
+		
+		
+		return "/mypage/userStudyChart";
+	}
+	
+	
 	
 }// MypageController-end

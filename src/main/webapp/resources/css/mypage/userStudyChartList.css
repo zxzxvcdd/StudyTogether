@@ -65,10 +65,11 @@ body {
     padding: 24px 35px 24px; 
 }
 
-div.content{
-    
-	
-
+.pass_none {
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    color: #b2bec3;
 }
 
 div.content ul.paymentList{
@@ -159,6 +160,30 @@ div .product_content_list a {
     border-radius: 10px;
 }
 
+.studyDate {
+    padding: 5px;
+    border: solid 0.1px;
+    border-radius: 10px;
+}
+
+.btn-tazone {
+	width: 65px;
+    font-size: 15px;
+    border-radius: 10px;
+    padding: 5px;
+    color: #fff;
+    background: #6ab04c;
+    margin-left: 20px;
+}
+
+.btn-tazone:hover {
+	background: #27ae60;
+}
+
+.con-margin {
+    margin-bottom: 22px;
+}
+
 .con-label {
     margin: 0 10px 0 45px;
     font-size: 15px;
@@ -180,6 +205,17 @@ div .product_content_list a {
 
 canvas {
     margin: 35px 35px 10px 35px;
+}
+
+
+.menu-list-con{
+	
+	display: none;
+}
+
+.menu-list-con.dblock{
+	
+	display: block;
 }
 
 

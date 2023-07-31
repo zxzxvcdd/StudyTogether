@@ -340,17 +340,28 @@ public class SeatService{
 		
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		
+		
 		ArrayList<PassVO> passList = orderDao.findPass(search);
 		
 
 		ArrayList<PassVO> timePass = new ArrayList<PassVO>();
 		ArrayList<PassVO> dayPass = new ArrayList<PassVO>();
-	
-	
+		
+		int sumPassTime = 0;
+		
+		int totalPrice = 0;
+		
 		for(PassVO pass : passList) {
+			
+			totalPrice += pass.getPassPrice();
 			
 			if(pass.getPassType()==PassType.TIME) {
 				timePass.add(pass);
+				
+				
+				sumPassTime += pass.getPassTime();
+				
+				
 				
 			}else {
 				dayPass.add(pass);
@@ -358,6 +369,9 @@ public class SeatService{
 		}
 		
 		
+		
+		resMap.put("totalPrice", totalPrice);
+		resMap.put("sumPassTime", sumPassTime);
 		  
 		resMap.put("timePassList", timePass);
 		resMap.put("dayPassList", dayPass);
