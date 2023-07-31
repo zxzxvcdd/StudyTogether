@@ -372,7 +372,7 @@
 
                                 <!-- 좌석 리스트 -->
                                 <div class="seat_list">
-                                    <c:forEach var="vo" items="${seat }">
+                                    <c:forEach var="vo" items="${seat }" varStatus="status">
 
                                         <!-- 사용자 본인 자리 확인 -->
                                         <c:choose>
@@ -385,7 +385,8 @@
                                                     data-type="${vo.seatType}"
                                                     data-name="${vo.seatName }"
                                                     data-reserv="${vo.reservationId}"
-                                                    onclick="checkOut(this)">${vo.seatName}</div>
+                                                    data-index="${status.index}"
+                                                    >${vo.seatName}</div>
                                             </c:when>
                                             <c:otherwise>
 
@@ -394,7 +395,8 @@
                                                     data-id="${vo.seatId}"
                                                     data-type="${vo.seatType}"
                                                     data-name="${vo.seatName }"
-                                                    onclick="addConfirm(this)">${vo.seatName}</div>
+                                                    data-index="${status.index}"
+                                                    >${vo.seatName}</div>
 
                                             </c:otherwise>
                                         </c:choose>
@@ -415,45 +417,174 @@
                             newPosY = 0,
                             startPosX = 0,
                             startPosY = 0,
-                            tstampCnt = 0;
+                            index = 0;
 
-                        const noteData = [
-                            {
-                                pageNum: 1,
-                                text: "내용을 입력하세요",
-                                tags: []
-                            }
+       
+
+                        const seatList =[
+              
+
                         ];
 
-                        /* ================= 좌석상태 색깔 처리 ============================== */
-                        $(document).ready(function () {
+
+                        <c:forEach var="vo" items="${seat}" varStatus="status">
+                            if("1"==="1"){
+                            let newSeat={
+                                seatId: "${vo.seatId}",
+                                seatName: "${vo.seatName}",
+                                storeId: "${vo.storeId}",
+                                seatType: "${vo.seatType}",
+                                x: "${vo.x}",
+                                y: "${vo.y}",
+
+                            };
+
+                            index++;
+                            seatList.push(newSeat);
+
+                            }
+                        </c:forEach>
+
+
+                        console.log(index);
+
+
+
+                        
+                        function addMousedownEvent(){
+
+                            $(".box").mousedown(function (e) {
+                                e.preventDefault();
+                                   // 드래그 함수 콜
+                                moveSeat(this,e);
+                                // 아이콘 삭제 함수
+                                
+
+						    })
+                        
+                        }
+
+               
+
+
+                        function addClickEvent(){
+                            $(".box").click(function (e) {
+                                e.preventDefault();
+
+                                let targetType = $(this).data("type");
+                                let targetIndex = $(this).data(index)-1;
+                                
+                                if(targetType==="Y"){
+
+                                    changeType="D"
+                                }else if (targetType==="D"){
+
+                                    changeType="Y"
+
+                                }else if (targetType==="N"){
+
+                                    alert("사용중인 좌석은 상태를 변경할 수 없습니다.");
+                                    return;
+                                }
+
+                                
+                                $(this).data("type",changeType);
+                                seatList[targetIndex].seatType = changeType;
+                                refreshTypeClass();
+                                
+                            })
+                        }
+
+                        function addDbClickEvent(){
+
+                            $(".box").dblclick(function(){
+                                e.preventDefault();
+
+                                if(confirm("좌석을 삭제 하시겠습니까?"))
+                                {
+                                    let targetIndex = $(this).data(index)-1;
+                                    $(this).remove();
+                                    delete seatList[targetIndex];
+
+
+
+                                }
+
+
+                            })
+
+
+                        }
+
+
+
+                        function moveSeat(target,e1){
+
+                            startPosX = e1.clientX;
+                            startPosY = e1.clientY;
+
+                            $(target).mousemove(function (e){
+
+                                newPosX = startPosX - e.clientX;
+                                newPosY = startPosY - e.clientY;
+                                startPosX = e.clientX;
+                                startPosY = e.clientY;
+                                
+                                let offsetTop = $(target).offset().top - newPosY;
+                                let offsetLeft = $(target).offset().left - newPosX;
+                                
+                                $(target).css("top", offsetTop + "px")
+                                $(target).css("left",offsetLeft + "px")
+                                let targetIndex = $(target).data("index")-1;
+
+
+                                seatList[targetIndex].x = offsetTop
+                                seatList[targetIndex].y = offsetLeft
+    
+                            });
+
+                            $(this).mouseup(function(){
+                                $(this).off("mousemove");
+                            });
+
+
+
+
+                        }
+
+                        function refreshTypeClass(){
 
                             $(".box").each(function (i, seat) {
 
-                                let seatType = $(this).data("type");
+                            let seatType = $(this).data("type");
 
-                                if (seatType === "Y") {
-                                    $(this).addClass('seat_color1');
-                                } else if (seatType === "N") {
-                                    $(this).addClass('seat_color2');
-                                } else if (seatType === "D") {
-                                    $(this).addClass('seat_color3');
-                                }
+                            if (seatType === "Y") {
+                                $(this).addClass('seat_color1');
+                            } else if (seatType === "N") {
+                                $(this).addClass('seat_color2');
+                            } else if (seatType === "D") {
+                                $(this).addClass('seat_color3');
+                            }
 
                             })
+
+                        }
+
+
+                                    
+                        $(document).ready(function () {
+                        
+                      
+                            refreshTypeClass();
+
+                            addMousedownEvent();
+                            addClickEvent();
+                            addDbClickEvent();
+
+                            
                         })
 
-                        $(".box").click(function () {
-
-
-						})
-
-                        $(".box").click(function () {
-
-
-
-							
-						})
+                    
                     </Script>
 
                 </body>

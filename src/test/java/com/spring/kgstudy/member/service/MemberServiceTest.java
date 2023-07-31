@@ -55,23 +55,7 @@ class MemberServiceTest {
 	 * }
 	 */
 	
-	@Test
-	void InsertMemberTest() {
-		
-		LocalDate now = LocalDate.now();
-		
-		LocalDate start = now.minusYears(90);
-		
-	
-		System.out.println(rootPath);
-		URL r = this.getClass().getResource("");
 
-		String path = r.getPath();
-		
-		System.out.println(path);
-		
-		
-	}
 	
 	
 	

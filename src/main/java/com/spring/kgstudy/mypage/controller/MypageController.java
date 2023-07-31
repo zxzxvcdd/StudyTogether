@@ -41,10 +41,9 @@ public class MypageController {
 		search.setKeyword(user_id);
 		search.setAmount(9999);
 		model.addAttribute("resMap", service.mypageFindReserv(search));
+		model.addAttribute("search",search);
 		
-		System.out.println(search.getStartDate());
-		System.out.println(search.getEndDate());
-		
+
 		
 		return "/mypage/userStudyChart";
 	}
@@ -103,36 +102,7 @@ public class MypageController {
 		return "/mypage/userReviewList";
 	}
 	
-	
-	@RequestMapping(value = "/studyData.do")
-	public String studyDataForm(Search search, HttpSession session, Model model) throws Exception {
-		
-		
-		//if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
-		//String user_id = (LoginUtil.getCurrentMemberAccount(session));
-		
-		String user_id="user32";
-		
-		search.setType("tc");
-		search.setKeyword(user_id);
-		search.setAmount(9999);
-		
-		/*
-		 * SimpleDateFormat form = new SimpleDateFormat("yy/MM/dd");
-		 * 
-		 * String startDate2 = form.format(startDate); String endDate2 =
-		 * form.format(endDate);
-		 * 
-		 * search.setStartDate(startDate2); search.setEndDate(endDate2);
-		 */
-		
-		
-		model.addAttribute("resMap", service.mypageFindReserv(search));
-		
-		
-		return "/mypage/userStudyChart";
-	}
-	
+
 	
 	
 }// MypageController-end

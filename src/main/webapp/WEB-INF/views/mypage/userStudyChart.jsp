@@ -194,7 +194,7 @@
 								<label class="con-label">총 공부 시간 : ${resMap.sumTime } 시간 </label> 
 							</div>
 							
-						<form id="frm3" action="studyData.do" method="get">
+						<form id="frm3" action="userStudyChartView.do" method="get">
 							<div>
 								<label class="con-label">시작 날짜</label> 
 								<input type="date" class="studyDate startDate" name="startDate">
@@ -370,15 +370,34 @@
 	
 		
 		
+		if("${search}"){
+
 		
 		//오늘 날짜
+		let startDate= new Date(20+"${search.startDate}");
+		let endDate=  new Date(20+"${search.endDate}");
+
+		startDate.setDate(startDate.getDate()+1)
+		endDate.setDate(endDate.getDate()+1)
+
+		
+		$(".endDate").val(endDate.toISOString().slice(0,10));
+		
+		//1주일 전 날짜
+		$(".startDate").val(startDate.toISOString().slice(0,10));
+	
+		}else{
+
+
+					//오늘 날짜
 		let now = new Date();
 		let today = now.toISOString().slice(0,10);
 		$(".endDate").val(today);
 		
 		//1주일 전 날짜
 		$(".startDate").val(new Date(now.setDate(now.getDate()-7)).toISOString().slice(0,10));
-	
+
+		}
 	</script>
 	
 	<script>	

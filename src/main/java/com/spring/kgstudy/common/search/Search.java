@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.spring.kgstudy.common.paging.Page;
 
 import lombok.AllArgsConstructor;
@@ -19,8 +21,10 @@ public class Search extends Page {
     private String keyword; // 검색 키워드
     
     private SimpleDateFormat form = new SimpleDateFormat("yy/MM/dd");
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String startDate;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String endDate;
     
     public Search() {
@@ -37,11 +41,11 @@ public class Search extends Page {
 
     }
     
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = form.format(startDate);
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = form.format(endDate);
 		
 		
