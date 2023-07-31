@@ -92,5 +92,14 @@ public class StoreService {
 		
 	}
 	
+	public StoreVO findOneStore(Search search) {
+		
+		StoreVO store = storeDao.findOneStore(search);
+		
+		return store;
+		
+		
+	}
+	
 	
 }

@@ -152,7 +152,7 @@ public class SeatService{
 					
 					System.out.println(endDate);
 					pass.setPassEnd(endDate);
-					
+				
 
 					orderDao.updatePass(pass);
 			
@@ -184,8 +184,10 @@ public class SeatService{
 			vo.setSeatType("N");
 
 			System.out.println(vo);
-			if(!sdao.updateSeat(vo))return result;
+
+			result = sdao.updateSeat(vo);
 			
+			System.out.println(result);
 
 			
 			
@@ -363,6 +365,9 @@ public class SeatService{
 		
 		return resMap;
 	}
+	
+
+	
 
 
 	}

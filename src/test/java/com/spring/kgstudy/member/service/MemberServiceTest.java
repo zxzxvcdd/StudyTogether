@@ -3,7 +3,10 @@ package com.spring.kgstudy.member.service;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
