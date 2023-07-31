@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -59,14 +60,13 @@
 							<div class="order_date">
 								<strong>[ 이용권 현황 ]</strong>
 							</div>
-				<%-- <c:forEach var="dto" items="${dtoList}"> --%>
+							
+				<c:forEach var="reservList" items="${resMap.reservList}">
 							<div class="product_content">
 								<div class="product_content_list">
 									<div class="content_list_box">
-										<label class="pcon-label">남은 기간 : </label>
-										<label class="pcon-label">남은 시간 : </label>
+										<label class="pcon-label">남은 시간 : ${reservList.userTime} </label>
 										<label class="pcon-label">총 금액 : 원</label>
-										<button type="button" class="btn_refund_order" data-total-price="${dto.order.totalPrice}" data-imp-uid="${dto.order.impUid}">환불하기</button>
 									</div>	
 								</div>
 							</div>
@@ -80,21 +80,16 @@
 						<!-- 구매한 이용권 상세보기 -->
 						<div id="content${dto.order.orderId}" class="content">
 							<ul class="paymentList">
-								<c:set var="totalAmount" value="0" />
+								<%-- <c:set var="totalAmount" value="0" /> --%>
 
 								<!-- --------------------------------------------------- -->
-								<c:forEach var="payments" items="${dto.paymentsList}">
+								<%-- <c:forEach var="payments" items="${dto.paymentsList}"> --%>
 
 									<li class="orderOneView">
 										<div class="itme-one">
 
 											<!-- 구입한 상품정보들 -->
 											<div class="product_content">
-												<div class="product_content_list">
-													<img alt="상품1"
-														src="/kgCoffee/img/menuImg/${payments.fileName}">
-												</div>
-
 												<div class="product_content_list">
 													<div class="content_list_box">
 														<h3 class="menu_name">${payments.menuName}</h3>
@@ -103,6 +98,7 @@
 														<!-- 각 상품들의 가격 -->
 														<a class="order_total">${payments.menuAmount} 개</a>
 														<!-- 각상품들의 수량 -->
+														<button type="button" class="btn_refund_order" data-total-price="${dto.order.totalPrice}" data-imp-uid="${dto.order.impUid}">환불하기</button>
 													</div>
 												</div>
 											</div>
@@ -112,7 +108,7 @@
 									<c:set var="totalAmount"
 										value="${totalAmount + payments.menuAmount }" />
 
-								</c:forEach>
+								<%-- </c:forEach> --%>
 								<!-- <hr class="hr_view"> -->
 								<div class="order_total_view">
 									<strong>[ 결제 정보 ]</strong><br>
@@ -127,7 +123,7 @@
 						<!-- 구매한 이용권 상세보기 -->
 						
 					</li>
-				<%-- </c:forEach> --%>
+				</c:forEach>
 			</ul> <!-- paymentList-end -->
 			<!-- --------------------------------------------------- -->
 			
@@ -140,7 +136,7 @@
 							<strong>[ 나의 학습정보 ]</strong>
 						</div>
 						<label class="con-label">날짜 선택</label> 
-						<input type="date" id="date" min="1800-01-01"> 
+						<input type="date" id="date" min="1800-01-01">  <!-- 기본으로 현재날짜 출력되도록 --> 
 						<label class="con-label">1주일간 나의 총 공부 시간 : </label> 
 					</div>
 					
@@ -267,6 +263,10 @@
 		function arccodionMenu(orderId){
 		    $("#content"+orderId).toggleClass("show");
 		}
+		
+		//오늘 날짜
+		let today = new Date().toISOString().slice(0,10);
+		$("#date").val(today);
 	
 	</script>
 
