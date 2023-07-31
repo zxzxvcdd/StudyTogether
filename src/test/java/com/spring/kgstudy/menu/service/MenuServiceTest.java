@@ -1,10 +1,7 @@
 package com.spring.kgstudy.menu.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +45,20 @@ class MenuServiceTest {
 	@Test
 	public void qwe() {
 		
+		
+	
+		
+       SimpleDateFormat form = new SimpleDateFormat("yy/mm/dd");
 
+      
+        
+        Calendar now = Calendar.getInstance();
+		
+		
+		System.out.println(form.format(now.getTime()));
+		now.add(Calendar.DATE, -7);
+		System.out.println(form.format(now.getTime()));
+		
 
 	}
 

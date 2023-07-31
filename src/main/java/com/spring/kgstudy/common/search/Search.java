@@ -1,8 +1,7 @@
 package com.spring.kgstudy.common.search;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.spring.kgstudy.common.paging.Page;
@@ -19,22 +18,40 @@ public class Search extends Page {
     private String type; // 검색 조건
     private String keyword; // 검색 키워드
     
-    private Date startDate;
+    private SimpleDateFormat form = new SimpleDateFormat("yy/mm/dd");
+    private String startDate;
     
-    private Date endDate;
+    private String endDate;
     
     public Search() {
     	
-    	 LocalDate localDate = LocalDate.now();
+    	
+    	
+		Calendar now = Calendar.getInstance();
+		
+		
+		this.endDate = form.format(now.getTime());
+		now.add(Calendar.DATE, -7);
+		this.startDate= form.format(now.getTime());
+		
 
-    	
-    	this.endDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    	
-    	
-    	this.startDate = Date.from(localDate.plusDays(-7).atStartOfDay(ZoneId.systemDefault()).toInstant());
-    	
-    	
     }
+
+
+
+	public void setStartDate(String startDate) {
+		this.startDate = form.format(startDate);
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = form.format(endDate);
+		
+		
+	}
     
+    
+    
+
+
     
 }
