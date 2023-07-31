@@ -71,9 +71,9 @@ INSERT INTO reservation_table(reservation_id,reservation_day,store_id,store_name
 <select id="findAllReserv" resultType="com.spring.kgstudy.seat.vo.ReservationVO">
 
 select * from
-(select A.*, row_number() over(order by reservation_id desc) rn from reservation_table A
+(select A.*, row_number() over(order by reservation_day ASC) rn from reservation_table A
 <include refid="searchReserv"/>
-order by reservation_id desc
+order by reservation_day ASC
 ) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
 
 
