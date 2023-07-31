@@ -130,12 +130,6 @@
 	
 	<%@include file="../include/footer.jsp" %>
 	
-	<!-- home_슬라이드쇼 -->
-	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-	<!-- main JS 파일 -->
-	<script src="${pageContext.request.contextPath}/resources/js/main/main.js"></script>
-	
 	<script>
 		let loginMsg = "${loginMsg}"; //로그인 성공 메세지
 	
@@ -150,6 +144,13 @@
 			alert(logoutMsg);
 		}
 	</script>
+	
+	
+	<!-- home_슬라이드쇼 -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+	<!-- main JS 파일 -->
+	<script src="${pageContext.request.contextPath}/resources/js/main/main.js"></script>
 	
 </body>
 </html>

@@ -38,7 +38,9 @@ public class ReviewController {
 		
 		model.addAttribute("Rlist", Rlist);
 		
-		model.addAttribute("reviewCnt",Rlist.size());
+		// 총별점, 별점 평균 계산---------------------------------------------
+		
+		model.addAttribute("reviewCnt",Rlist.size()); //리뷰 갯수
 		
 		double avgStar = 0;
 		
@@ -79,8 +81,6 @@ public class ReviewController {
 		
 		Map<String, Object> ReviewMap = reviewService.userReviewView(reviewVO);
 
-		/* String reservId = (String) ReviewMap.get("reservId"); */
-
 		ReservationVO reservationVO = (ReservationVO) ReviewMap.get("reservationVO");
 		ArrayList<ReviewVO> reviewList = (ArrayList<ReviewVO>) ReviewMap.get("reviewList");
 
@@ -99,7 +99,6 @@ public class ReviewController {
 	@PostMapping("/reviewInsert.do")
 	public String reviewInsert(ReviewVO reviewVO,MultipartFile file, RedirectAttributes ra, HttpServletRequest rq) {
 		
-
 		boolean result = reviewService.reviewInsert(reviewVO, file);
 		// service => DAO => Mapper.xml(sql) => DB => return
 		

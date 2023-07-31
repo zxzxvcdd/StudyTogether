@@ -57,7 +57,11 @@ public class ReviewService {
 		
 		ReservationVO reservationVO = reviewdao.revIdfind(reviewVO.getUser_id());
 		
-		int result = reviewdao.findReservId(reservationVO.getReservationId());
+		int result = 0;
+		
+		if(reservationVO != null) {
+			result = reviewdao.findReservId(reservationVO.getReservationId());
+		}
 		
 		if(result==0) {
 			map.put("reservationVO",reservationVO);
@@ -92,7 +96,7 @@ public class ReviewService {
         //파일 복사
         try {
         	FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(savePath.toFile()));
-			System.out.println("파일 복사 됨"); 
+			System.out.println("이미지 파일 fileUpload 폴더에 복사 됨"); 
 			
 			reviewVO.setReview_filename(savefileName);
 			
@@ -101,7 +105,7 @@ public class ReviewService {
 			return true;
 			
 		} catch (IOException e) {
-			System.out.println("파일 복사 실패");
+			System.out.println("이미지 파일 fileUpload 폴더에 복사 실패");
 			
 			return false;
 		}
