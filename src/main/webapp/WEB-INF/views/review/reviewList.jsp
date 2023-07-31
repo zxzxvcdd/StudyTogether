@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>review</title>
+<!-- css 파일 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css?after">
 
 <!-- jquery -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
