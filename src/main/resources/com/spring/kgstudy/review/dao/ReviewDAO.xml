@@ -34,9 +34,9 @@
 	
 	
 	<select id="getAllReview" resultMap="ReviewVO">
-		SELECT * FROM review 
+		SELECT * FROM (SELECT A.*, Row_Number() over (order by review_date desc) rn from review A
 		 <include refid="search"/>
-		
+		)where rn between #{pageStart}+1 AND #{pageStart} + #{perPageNum}
 	</select>
 	
 
@@ -64,6 +64,11 @@
    <delete id="reviewDelete">
    	delete from review where review_id=#{review_id}
    </delete>
+   
+   <select id="totalCount" resultType="int" parameterType="com.spring.kgstudy.common.vo.Criteria">
+   		select count(*) from review
+   		<include refid="search" />
+   </select>
 	
 
 </mapper>

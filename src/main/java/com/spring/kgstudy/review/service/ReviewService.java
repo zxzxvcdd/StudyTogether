@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.kgstudy.common.search.Search;
+import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.dao.ReviewDAO;
 import com.spring.kgstudy.review.vo.ReviewVO;
@@ -37,25 +37,25 @@ public class ReviewService {
 	private String uploadPath;  
 	
 	// 리뷰 전체 보기
-	public List<ReviewVO> getAllReview(Search search) {
+	public List<ReviewVO> getAllReview(Criteria cri) {
 		// TODO Auto-generated method stub
 		ArrayList<ReviewVO> Rlist = new ArrayList<ReviewVO>();
 		
-		Rlist = reviewdao.getAllReview(search);
+		Rlist = reviewdao.getAllReview(cri);
 		return Rlist;
 	}
 
 	// 마이페이지 나의 리뷰 보기
-	public Map<String, Object> userReviewView(Search search) {
+	public Map<String, Object> userReviewView(Criteria cri) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		ArrayList<ReviewVO> reviewList = reviewdao.getAllReview(search);
+		ArrayList<ReviewVO> reviewList = reviewdao.getAllReview(cri);
 		
 		
 		map.put("reviewList",reviewList);
 		
-		ReservationVO reservationVO = reviewdao.revIdfind(search.getKeyword());
+		ReservationVO reservationVO = reviewdao.revIdfind(cri.getKeyword());
 		
 		map.put("reservationVO",reservationVO);
 		
@@ -105,6 +105,11 @@ public class ReviewService {
 	public void remove(ReviewVO reviewVO) {
 		// TODO Auto-generated method stub
 		reviewdao.reviewDelete(reviewVO);
+	}
+
+	public int totalCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return reviewdao.totalCount(cri);
 	}
 	
 	
