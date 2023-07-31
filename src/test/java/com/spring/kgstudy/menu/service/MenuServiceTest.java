@@ -1,7 +1,10 @@
 package com.spring.kgstudy.menu.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,9 +49,7 @@ class MenuServiceTest {
 	public void qwe() {
 		
 
-			Search search = new Search();
-			
-			System.out.println(search);
+
 	}
 
 	

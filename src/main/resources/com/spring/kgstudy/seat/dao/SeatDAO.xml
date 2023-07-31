@@ -32,6 +32,7 @@
 </update>
 
 <select id="seatCheck" resultType="String">
+
 	SELECT seat_type FROM seat WHERE seat_id=#{seatId}
 </select>
 

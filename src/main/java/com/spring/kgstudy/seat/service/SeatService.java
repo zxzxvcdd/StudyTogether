@@ -1,5 +1,11 @@
 package com.spring.kgstudy.seat.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +37,45 @@ public class SeatService{
 	
 	public ArrayList<SeatVO> test(int storeId) {
 		return sdao.findSeat(storeId);
+	}
+	
+	
+	public int updateTimePass() {
+		
+		int result = 0;
+		
+		
+		
+		Search search = new Search();
+		
+		
+		search.setType("ex");
+	
+		
+		ArrayList<PassVO> timePassList = orderDao.findPass(search);
+		
+		
+		for(PassVO timePass : timePassList) {
+			
+			
+			timePass.setPassState(PassState.EXPIRED);
+			
+			if(orderDao.updatePass(timePass)) result++;
+			
+		
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		return result;
+		
+		
+		
 	}
 	
 	
@@ -109,7 +154,7 @@ public class SeatService{
 					pass.setPassEnd(endDate);
 					
 
-					
+					orderDao.updatePass(pass);
 			
 					
 				}

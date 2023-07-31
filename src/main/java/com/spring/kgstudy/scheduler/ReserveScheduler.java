@@ -86,6 +86,10 @@ public class ReserveScheduler {
 						  
 					  }
 					  
+					  int result = seatService.updateTimePass();
+					  
+					  System.out.println("기간권 "+result+"건 만료처리");
+					  
 				
 					  
 					  
