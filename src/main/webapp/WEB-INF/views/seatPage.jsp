@@ -335,6 +335,9 @@
 			<%@include file="./include/header.jsp"%>
 
 			<div class="wrapper">
+				<c:if test="${loginUser.user_grant == 'admin'}">
+				<button type="button" onclick="location.href='seatUpdate.do'">좌석 수정</button>
+				</c:if>
 				<div class="content_wrap">
 					<div class="seatinfo_wrap_1">
 						<div class="seatinfo">
@@ -350,6 +353,7 @@
 							<div class="seatinfo_content">1</div>
 						</div>
 					</div>
+
 					<div class="seat_wrap">
 						<div class="seat_check">
 							<ul>
