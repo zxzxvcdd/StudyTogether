@@ -17,7 +17,7 @@ public class SeatController {
 	private final SeatService service;
 	
 	@GetMapping("seat.do")
-	public String test(Model model, String storeId)  {
+	public String getSeatView(Model model, String storeId)  {
 		
 		storeId="2324";
 		model.addAttribute("seat", service.test(Integer.parseInt(storeId)));
@@ -26,6 +26,16 @@ public class SeatController {
 		
 	}
 	
+	
+	@GetMapping("seatUpdate.do")
+	public String seatUpdateForm(Model model, String storeId)  {
+		
+		storeId="2324";
+		model.addAttribute("seat", service.test(Integer.parseInt(storeId)));
+		
+		return "seatUpdateForm";
+		
+	}
 	
 
 }

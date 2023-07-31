@@ -331,6 +331,9 @@
 		</head>
 
 		<body>
+
+			<%@include file="./include/header.jsp"%>
+
 			<div class="wrapper">
 				<div class="content_wrap">
 					<div class="seatinfo_wrap_1">

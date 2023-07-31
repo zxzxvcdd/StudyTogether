@@ -14,6 +14,7 @@
         <if test="type == 'order'">WHERE order_id = #{keyword}</if>
         <if test="type == 'state'">WHERE pass_state = #{keyword}</if>
         <if test="type == 'type'">WHERE pass_type = #{keyword}</if>
+        <if test="type == 'ex'">WHERE pass_type = 'SEASON' and pass_state='ACTIVE' and Pass_end like '%'||TO_CHAR(trunc(SYSDATE), 'yy/MM/dd')||'%'  </if>
 </sql>
 
 
