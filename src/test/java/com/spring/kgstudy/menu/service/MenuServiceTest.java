@@ -1,6 +1,7 @@
 package com.spring.kgstudy.menu.service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,6 +41,15 @@ class MenuServiceTest {
 	 * 
 	 * System.out.println(cal.getTime());
 	 */
+	
+	@Test
+	public void qwe() {
+		
+
+			Search search = new Search();
+			
+			System.out.println(search);
+	}
 
 	
 	

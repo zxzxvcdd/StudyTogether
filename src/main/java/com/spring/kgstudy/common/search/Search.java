@@ -1,12 +1,14 @@
 package com.spring.kgstudy.common.search;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import com.spring.kgstudy.common.paging.Page;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -23,10 +25,13 @@ public class Search extends Page {
     
     public Search() {
     	
+    	 LocalDate localDate = LocalDate.now();
+
     	
-    	this.endDate = new Date();
+    	this.endDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     	
-    	this.startDate = new Date(); 
+    	
+    	this.startDate = Date.from(localDate.plusDays(-7).atStartOfDay(ZoneId.systemDefault()).toInstant());
     	
     	
     }
