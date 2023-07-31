@@ -1,5 +1,6 @@
 package com.spring.kgstudy.review.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.kgstudy.common.search.Search;
-import com.spring.kgstudy.member.vo.MemberVO;
+import com.spring.kgstudy.common.vo.Criteria;
+import com.spring.kgstudy.common.vo.PageMaker;
 import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.service.ReviewService;
 import com.spring.kgstudy.review.vo.ReviewVO;
@@ -32,9 +34,10 @@ public class ReviewController {
 
 	// 전체 리스트 보기
 	@RequestMapping(value = "/reviewListView.do")
-	public String reviewList(ReviewVO vo, Model model, Search search) throws Exception {
+	public String reviewList(Model model, Search search) throws Exception {
 		
-		List<ReviewVO> Rlist = reviewService.getAllReview(vo, search);
+		System.out.println(search);
+		List<ReviewVO> Rlist = reviewService.getAllReview(search);
 		
 		model.addAttribute("Rlist", Rlist);
 		
@@ -62,22 +65,27 @@ public class ReviewController {
 		model.addAttribute("avgStar", avgStar);
 		model.addAttribute("starMap", starMap);
 		
+		
 		return "review/reviewList";
 	}
 
 	// 마이페이지 => [나의 리뷰 관리] 버튼 클릭
 	//  => (서버)내가 작성한 리뷰 리스트, 최근 방문 매장 찾아서 리뷰 작성 여부 확인 후 => 사용자에게 view를 보여줌
 	@RequestMapping(value = "/userReviewView.do")
-	public String userReviewView(ReviewVO reviewVO, Model model, HttpSession session) throws Exception {
+	public String userReviewView(Search search, Model model, HttpSession session) throws Exception {
 
 		
 		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
 		
-		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
 		
 
+		String userId= (LoginUtil.getCurrentMemberAccount(session));
 		
-		Map<String, Object> ReviewMap = reviewService.userReviewView(reviewVO);
+		search.setType("user");
+		search.setKeyword(userId);
+
+		
+		Map<String, Object> ReviewMap = reviewService.userReviewView(search);
 
 		/* String reservId = (String) ReviewMap.get("reservId"); */
 
@@ -91,6 +99,7 @@ public class ReviewController {
 			model.addAttribute("reviewList", reviewList);
 		}
 
+		
 		return "/mypage/userReviewList";
 	}
 	
@@ -111,6 +120,16 @@ public class ReviewController {
 		
 		return "redirect:/userReviewView.do";
 	}
+	
+	//@RequestMapping("/remove.do")
+	@RequestMapping(value = "/remove.do")
+	public String remove(ReviewVO reviewVO, Model model)throws ClassNotFoundException,SQLException {
+		reviewService.remove(reviewVO);
+		
+		return "redirect:/userReviewView.do";
+		
+	}
+	
 	
 	
 	

@@ -14,6 +14,9 @@
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -194,7 +197,7 @@
 											<a href="#">
 												<span> <%-- 이미지 경로################################## --%>
 													<%-- <img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;"> --%>
-													<img src="${pageContext.request.contextPath}/resources/fileUpload/${rvo.review_filename}" style="width: 165px;">
+													<img src="/kgstudy/resources/fileUpload/${rvo.review_filename}" style="width: 165px;">
 												</span>
 											</a>
 										</li>
@@ -206,11 +209,17 @@
 						</div>
 						</c:forEach>
 					</div>
-
+					
+					
+					
+					
+				
 				</li>
 				<!-- reviewView end -->
 				<!-- --------------------------------------------------------------------- -->
-
+				
+				
+					
 
 			</ul>
 			<!-- modifyList end -->
@@ -256,6 +265,9 @@
 		})
 		
 	</script>
+	
+
+
 	
 	
 </body>

@@ -19,12 +19,14 @@ public interface ReviewDAO {
 	
 	public ArrayList<ReviewVO> getAllReview(Search search);
 
-	public ArrayList<ReviewVO> findList(ReviewVO reviewVO);
+	public ArrayList<ReviewVO> findList(Search search);
 
 	public ReservationVO revIdfind(String user_id);
 
 	public String findReservId(int reservationId);
 
 	public void reviewInsert(ReviewVO vo);
+	
+	public void reviewDelete(ReviewVO reviewVO);
 
 }

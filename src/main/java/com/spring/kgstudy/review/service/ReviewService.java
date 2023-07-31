@@ -13,6 +13,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +37,7 @@ public class ReviewService {
 	private String uploadPath;  
 	
 	// 리뷰 전체 보기
-	public List<ReviewVO> getAllReview(ReviewVO vo, Search search) {
+	public List<ReviewVO> getAllReview(Search search) {
 		// TODO Auto-generated method stub
 		ArrayList<ReviewVO> Rlist = new ArrayList<ReviewVO>();
 		
@@ -44,15 +46,16 @@ public class ReviewService {
 	}
 
 	// 마이페이지 나의 리뷰 보기
-	public Map<String, Object> userReviewView(ReviewVO reviewVO) {
+	public Map<String, Object> userReviewView(Search search) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		ArrayList<ReviewVO> reviewList = reviewdao.findList(reviewVO);
+		ArrayList<ReviewVO> reviewList = reviewdao.getAllReview(search);
+		
 		
 		map.put("reviewList",reviewList);
 		
-		ReservationVO reservationVO = reviewdao.revIdfind(reviewVO.getUser_id());
+		ReservationVO reservationVO = reviewdao.revIdfind(search.getKeyword());
 		
 		map.put("reservationVO",reservationVO);
 		
@@ -72,18 +75,22 @@ public class ReviewService {
 		
 		String uuid = UUID.randomUUID().toString();
 		
-		String savefileName =  uploadPath + File.separator + uuid + "_" + fileName;
+		String savefileName = uuid + "_" + fileName;
 		
 		System.out.println(savefileName);
 		
 		//경로설정
-        Path savePath = Paths.get(savefileName);
+        Path savePath = Paths.get(uploadPath + File.separator + savefileName);
 		
         
         //파일 복사
         try {
         	FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(savePath.toFile()));
 			System.out.println("파일 복사 됨");
+			
+			reviewVO.setReview_filename(savefileName);
+			reviewdao.reviewInsert(reviewVO);
+			
 			return true;
 		} catch (IOException e) {
 			System.out.println("파일 복사 실패");
@@ -93,16 +100,12 @@ public class ReviewService {
         //--------------------------------------------------------------------
         
         
-        
-        
-        
-        
-        
 	}
-	
-	
-	
-	
+
+	public void remove(ReviewVO reviewVO) {
+		// TODO Auto-generated method stub
+		reviewdao.reviewDelete(reviewVO);
+	}
 	
 	
 	

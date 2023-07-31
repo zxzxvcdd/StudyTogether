@@ -22,18 +22,24 @@
 		<if test="type=='review_date'">
 			where store_name like '%' || #{keyword} || '%' ORDER BY review_date DESC
 		</if> 
+		<if test="type=='user'">
+			 where user_id = #{keyword} ORDER BY review_date DESC
+		</if>
+		
+		<if test="type==null or type.equals('')">
+			ORDER BY review_date DESC
+		</if>
+		
 	</sql>
 	
 	
 	<select id="getAllReview" resultMap="ReviewVO">
-		SELECT * FROM review
+		SELECT * FROM review 
 		 <include refid="search"/>
+		
 	</select>
 	
-	<select id="findList" resultMap="ReviewVO">
-		select * from review
-		where user_id = #{user_id}
-	</select>
+
 	
 	<select id="revIdfind" resultType="com.spring.kgstudy.reservation.vo.ReservationVO">
 		SELECT *
@@ -49,6 +55,15 @@
 		select * from review 
 		where reservation_id = #{reservation_id}
 	</select>
+	
+	<insert id="reviewInsert">
+      insert into review
+      values (review_seq.NEXTVAL, #{user_id}, #{store_id}, #{store_name}, #{reservation_id}, sysdate, #{review_content}, #{review_filename}, #{review_star} )   
+   </insert>
+   
+   <delete id="reviewDelete">
+   	delete from review where review_id=#{review_id}
+   </delete>
 	
 
 </mapper>
