@@ -30,11 +30,8 @@ public class Page {
     }
 
 
-    public void setAmount(int amount){ // 한 페이지에 보여줄 데이터 개수를 설정하는 메서드로, 4~100사이의 값이어야함.
-        if(amount < 4 || amount > 100){
-            this.amount = 5;
-            return;
-        }
+    public void setAmount(int amount){ 
+   
         this.amount = amount;
     }
 }
