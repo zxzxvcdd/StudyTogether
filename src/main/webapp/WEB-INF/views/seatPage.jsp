@@ -328,6 +328,22 @@ input[type="radio"] {
 .store_check input {
 	width: 200px;
 }
+     .btn_wrap{
+
+                             
+
+                            }
+                            .btn-con{
+
+                                display:block;
+                                width:300px;
+                                margin : 0 auto;
+                                text-align:center;
+                            }
+                            .btn-con *{
+                                display:inline-block;
+                                
+                            }
 </style>
 </head>
 
@@ -335,27 +351,25 @@ input[type="radio"] {
 			<%@include file="./include/header.jsp"%>
 
 			<div class="wrapper">
-				<c:if test="${loginUser.user_grant == 'admin'}">
-				<button type="button" onclick="location.href='seatUpdate.do'">좌석 수정</button>
-				</c:if>
+				
 				<div class="content_wrap">
 					<div class="store_check">
-				<input id="store_list" name="store_list" list="store_list_data" type="text">
-				<datalist id="store_list_data" class="store_list_data">
-					<c:forEach var="store" items="${storeList}" varStatus="status">
-						<c:set var="storeName" value="${store.storeName}" />
-						<c:set var="sLen" value="${fn:length(storeName)}" />
+						<input id="store_list" name="store_list" list="store_list_data" type="text">
+						<datalist id="store_list_data" class="store_list_data">
+							<c:forEach var="store" items="${storeList}" varStatus="status">
+								<c:set var="storeName" value="${store.storeName}" />
+								<c:set var="sLen" value="${fn:length(storeName)}" />
 
-						<option data-val="${store.storeId }" id="${fn:substring(storeName,7,sLen)}"
-							value="${fn:substring(storeName,7,sLen)}"
-							label="${store.storeRoadAddress }">
-                                        </option>
+								<option data-val="${store.storeId }" id="${fn:substring(storeName,7,sLen)}"
+									value="${fn:substring(storeName,7,sLen)}"
+									label="${store.storeRoadAddress }">
+												</option>
 
-					</c:forEach>
+							</c:forEach>
 
-				</datalist>
-				<button class="store_id">확인</button>	
-			</div>
+						</datalist>
+						<button class="store_id">확인</button>	
+						</div>
 
 					<div class="seatinfo_wrap_1">
 						<div class="seatinfo">
@@ -414,7 +428,15 @@ input[type="radio"] {
 
 			</div>
 		</div>
+	
 
+		 <div class="btn_wrap">
+                                        <div class="btn-con">
+                                     		<c:if test="${loginUser.user_grant == 'admin'}">
+				<button type="button" onclick="location.href='seatUpdate.do?storeId=${seat[0].storeId}'">좌석 수정</button>
+		</c:if>
+                                        </div>
+                                    </div>
 		<!-- ================ !모달창! ==================== -->
 		<div class="container" style="justify-content: center">
 			<h1>이용권</h1>

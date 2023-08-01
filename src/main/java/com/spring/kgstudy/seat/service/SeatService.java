@@ -1,15 +1,10 @@
 package com.spring.kgstudy.seat.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -80,26 +75,40 @@ public class SeatService{
 	
 	
 	
-	public boolean insertSeat(ArrayList<SeatVO> voList) {
+	public int insertSeat(List<SeatVO> voList) {
 		
-		
+		int flag=0;
 		for(SeatVO vo : voList) { 
 			
 			
 			
 			if(vo.getSeatId()>0) {
 				
-				sdao.updateSeat(vo);
+				if(!sdao.updateSeat(vo)){
+					flag++;
+				}
 			}else {
 				
-				sdao.insertSeat(vo);
+				if(!sdao.insertSeat(vo)) {
+					flag++;
+				};
 				
 			}
 			
 			
 			
 		}
-		return true;
+		return flag;
+		
+	
+	}
+	
+	public boolean deleteSeat(int seatId) {
+		
+		
+		boolean result =sdao.deleteSeat(seatId);
+		
+		return result;
 		
 	
 	}

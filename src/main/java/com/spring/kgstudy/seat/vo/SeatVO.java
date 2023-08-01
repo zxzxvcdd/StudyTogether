@@ -1,6 +1,8 @@
 package com.spring.kgstudy.seat.vo;
 
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ public class SeatVO {
 	private String seatType;
 	private int x;
 	private int y;
+
 
 	
 	
