@@ -37,7 +37,7 @@
 		<nav class="navbar">
 			<a href="/kgstudy/main.do">home</a>
 			<a href="/kgstudy/store/find.do">지점찾기</a>
-			<a href="#">소식</a>
+			<a href="/kgstudy/board/list.do">소식</a>
 			<a href="/kgstudy/reviewListView.do">리뷰</a>
 			<a href="/kgstudy/order/passOrder.do">이용권구매</a>
 			<a href="/kgstudy/seat/seat.do">예약</a>
