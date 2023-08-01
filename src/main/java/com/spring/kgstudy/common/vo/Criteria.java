@@ -13,7 +13,7 @@ public class Criteria { // 크리테리아 기준 클래스
 	
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum = 5; //조정
+		this.perPageNum = 10; //조정
 	}
 	
 	 // 현재 페이지의 게시글의 시작번호
