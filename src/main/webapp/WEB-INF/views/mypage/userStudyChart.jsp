@@ -67,43 +67,51 @@
 								<div class="product_content_list">
 									<div class="content_list_box">
 										<label class="pcon-label">총 남은 시간 : <fmt:formatNumber value="${resMap.sumPassTime / 3600}" pattern="#" /> 시간 </label>
-										<label class="pcon-label">총 금액 : ${resMap.totalPrice }원</label>
+										<label class="pcon-label">총 금액 : <fmt:formatNumber value="${resMap.totalPrice}" pattern="#,###" />원</label>
 									</div>	
 								</div>
 							</div>
 							
-							<div>
-								<!-- <button type="button" class="btn_order_list" onclick="arccodionMenu()"> 구매한 이용권 상세보기</button> -->
-								
-								<div style="display: flex; width: 50%; margin-bottom: 3px;">
-									<input type="radio" id="pass-time" name="pass" checked>
-									<p>시간권</p>
+							<div class="pass_select">
+								<div style="display: flex; width: 50%; margin: 0 5px 10px;">
+									<input type="radio" id="pass-time" name="pass">
+									<p class="pass_p">시간권</p>
 								</div>
-								<div style="display: flex; width: 50%; margin-bottom: 3px;">
+								<div style="display: flex; width: 50%; margin: 0 20px 10px;">
 									<input type="radio" id="pass-day" name="pass">
-									<p>기간권</p>
+									<p class="pass_p">기간권</p>
 								</div>
 							</div>
 							
-						</div> 
+						</div>  
 						
 						<!-- 구매한 이용권 상세보기 -->
 						<!-- ---------------------------------------------------------------- -->
-							<div class="form-group menu-list-form menu-list-con time dblock">
+							<div class="form-group menu-list-form menu-list-con time">
 
 								<div class="order-title">
 									<div>시간권 상세보기</div>
 								</div>
-								
-								<c:forEach var="timePass" items="${resMap.timePassList}">
-								
-									<div style="display: flex; width: 50%; margin-bottom: 3px;">
-						
-										<p style="margin-right: 20px;">${timePass.passName}</p>
-										<p class="price" id="${timePass.passPrice}"><fmt:formatNumber value="${timePass.passPrice}" pattern="#,###" />원</p>
-									</div>
-								
-								</c:forEach>
+
+								<table style="width: 100%;">
+										
+									<tr class="passStyle" style="margin-bottom: 3px; text-align: center;">
+										<th>이용권 이름</th> 
+										<th>가격</th> 
+										<th>상태</th> 
+										<th>남은시간</th> 
+									</tr>
+									
+									<c:forEach var="timePass" items="${resMap.timePassList}">
+										<tr class="passStyle" style="margin-bottom: 3px; text-align: center;">
+											<td>${timePass.passName}</td>
+											<td><fmt:formatNumber value="${timePass.passPrice}" pattern="#,###" /> 원</td>
+											<td>${timePass.passState}</td>
+											<td><fmt:formatNumber value="${timePass.passTime / 3600}" pattern="#" /> 시간</td>
+										</tr>
+									</c:forEach>
+									
+								</table>
 								
 							</div>
 							
@@ -113,59 +121,31 @@
 								<div class="order-title">
 									<div>기간권 상세보기</div>
 								</div>
-					
-								<c:forEach var="dayPass" items="${resMap.dayPassList}">
-									<div style="display: flex; width: 50%; margin-bottom: 3px;">
-										<p style="margin-right: 20px;">${dayPass.passName}</p>
-										<p class="price" id="${dayPass.passPrice}"><fmt:formatNumber value="${dayPass.passPrice}" pattern="#,###" />원</p>
-									</div>
-								</c:forEach>
+								
+								<table style="width: 100%;">
+										
+									<tr class="passStyle" style="margin-bottom: 3px; text-align: center;">
+										<th>이용권 이름</th> 
+										<th>가격</th> 
+										<th>상태</th> 
+										<th>시작날짜</th> 
+										<th>종료날짜</th>
+									</tr>
+									
+									<c:forEach var="dayPass" items="${resMap.dayPassList}">
+										<tr class="passStyle" style="margin-bottom: 3px; text-align: center;">
+											<td>${dayPass.passName}</td>
+											<td><fmt:formatNumber value="${dayPass.passPrice}" pattern="#,###" /> 원</td>
+											<td>${dayPass.passState}</td>
+											<td><fmt:formatDate value="${dayPass.passStart}" pattern = "yyyy-MM-dd"/></td>
+											<td><fmt:formatDate value="${dayPass.passEnd}" pattern = "yyyy-MM-dd"/></td>
+										</tr>
+									</c:forEach>
+									
+								</table>
 									
 							</div>
 							
-							
-							
-							<%-- <ul class="paymentList">
-								<c:set var="totalAmount" value="0" />
-
-								<!-- --------------------------------------------------- -->
-								<c:forEach var="payments" items="${resMap.timePassList}">
-
-									<li class="orderOneView">
-										<div class="itme-one">
-
-											<!-- 구입한 상품정보들 -->
-											<div class="product_content">
-												<div class="product_content_list">
-													<div class="content_list_box">
-														<h3 class="menu_name">${payments.menuName}</h3>
-														<!-- 각상품들의 이름 -->
-														<a class="order_total">${payments.menuPrice} 원</a>
-														<!-- 각 상품들의 가격 -->
-														<a class="order_total">${payments.menuAmount} 개</a>
-														<!-- 각상품들의 수량 -->
-														<button type="button" class="btn_refund_order" data-total-price="${dto.order.totalPrice}" data-imp-uid="${dto.order.impUid}">환불하기</button>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</li>
-									<c:set var="totalAmount"
-										value="${totalAmount + payments.menuAmount }" />
-
-								<!-- <hr class="hr_view"> -->
-								<div class="order_total_view">
-									<strong>[ 결제 정보 ]</strong><br>
-									<p>지점명 : ${fn:substring(placeName,8,pLen)}</p>
-									<p>총 수량 : ${totalAmount} 개</p>
-									<p>총 금액 : ${dto.order.totalPrice} 원</p>
-								</div>
-								</c:forEach>
-							</ul>
- --%>
-
-						<!-- </div> -->
 						</c:when>
 						
 						<c:when test="${resMap.sumPassTime == 0}"> 
@@ -191,10 +171,10 @@
 								<strong>[ 나의 학습정보 ]</strong>
 							</div>
 							<div class="con-margin">
-								<label class="con-label">총 공부 시간 : ${resMap.sumTime } 시간 </label> 
+								<label class="con-label">총 공부 시간 : <fmt:formatNumber value="${resMap.sumTime / 3600}" pattern="#" /> 시간 </label> 
 							</div>
 							
-						<form id="frm3" action="userStudyChartView.do" method="get">
+						<form id="frm3" action="studyData.do" method="get">
 							<div>
 								<label class="con-label">시작 날짜</label> 
 								<input type="date" class="studyDate startDate" name="startDate">
@@ -205,9 +185,19 @@
 						</form>
 						
 						</div>
-
-					<!-- chart.js -->
-					<canvas id="myChart" width="400" height="400"></canvas>
+					
+					
+					<c:choose>
+						<c:when test="${resMap.reservList != '[]'}"> 
+							<canvas id="myChart" width="400" height="400"></canvas> <!-- chart.js -->
+						</c:when>
+						<c:when test="${resMap.reservList == '[]'}"> 
+							<div class="study_none">
+								<b class="study_none">선택한 기간에 학습시간이 없습니다. 다시 검색해주세요.</b>
+							</div>
+						</c:when>
+					</c:choose>
+					
 					
 				</li>
 			</ul>
@@ -222,21 +212,14 @@
 
 	<script>
 	var resMap = "${resMap}";
+	
 	makeChart();
 	
-	
-	
-	
-	function makeChart() {	// 데이터를 가져왔을때 동작. 매개변수로 data 입력
+	function makeChart() {
 			
+		chartShow();
 
-			
-	
-		
-			
-				chartShow();
-
-		} //chartSend()-end
+	}
 	
 	function chartShow() {
 
@@ -244,14 +227,13 @@
 		var chartLabels = [];
 		var chartTitle;
 		let reservList = [];
+		
 		<c:forEach var="reserv" items="${resMap.reservList}" varStatus="status">
-		chartDatas.push(parseInt("${reserv.useTime/3600}"))
-
+			chartDatas.push(parseInt("${reserv.useTime/3600}"))
 		</c:forEach>
 		
 		<c:forEach var="date" items="${resMap.reservDates}" varStatus="status">
-		chartLabels.push("${date}");	
-
+			chartLabels.push("${date}");	
 		</c:forEach>
 		
 		console.log(chartDatas);
@@ -270,7 +252,7 @@
 
 				datasets: [  //데이터
 					{
-						label: chartTitle, //차트 제목
+						label: chartTitle,
 						fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 						data: chartDatas,
 						backgroundColor: [	//색상
@@ -294,6 +276,11 @@
 				]
 			},
 			options: {
+				plugins:{
+	                legend: {
+	                    display: false //라벨 지워줌
+	                },
+	            },
 				scales: {
 					y: {
 						beginAtZero: true
@@ -370,34 +357,15 @@
 	
 		
 		
-		if("${search}"){
-
 		
 		//오늘 날짜
-		let startDate= new Date(20+"${search.startDate}");
-		let endDate=  new Date(20+"${search.endDate}");
-
-		startDate.setDate(startDate.getDate()+1)
-		endDate.setDate(endDate.getDate()+1)
-
-		
-		$(".endDate").val(endDate.toISOString().slice(0,10));
-		
-		//1주일 전 날짜
-		$(".startDate").val(startDate.toISOString().slice(0,10));
-	
-		}else{
-
-
-					//오늘 날짜
 		let now = new Date();
 		let today = now.toISOString().slice(0,10);
 		$(".endDate").val(today);
 		
 		//1주일 전 날짜
 		$(".startDate").val(new Date(now.setDate(now.getDate()-7)).toISOString().slice(0,10));
-
-		}
+	
 	</script>
 	
 	<script>	
@@ -407,9 +375,17 @@
 		}
 		
 		
+		/* $("input:radio[name=pass]").click(function(){
+	    	$(".menu-list-con").toggleClass("dblock");
+		}); */
+		$("#pass-time").click(function(){
+		    $(".time").css("display","block");
+		    $(".day").css("display","none");
+		});
 		
-		$("input:radio[name=pass]").click(function(){
-		    $(".menu-list-con").toggleClass("dblock");
+		$("#pass-day").click(function(){
+		    $(".day").css("display","block");
+			$(".time").css("display","none");
 		});
 
 	</script>

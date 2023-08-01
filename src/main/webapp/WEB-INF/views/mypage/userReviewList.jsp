@@ -181,13 +181,6 @@
 	
 	<script>
 		function formSubmit(){
-			
-			let reviewStar = $("#inputStar").val();
-			if(reviewStar<1){
-				alert("별점을 입력해주세요");
-				return;
-			}
-			
 			$("#frm5").submit();
 		}
 	</script>

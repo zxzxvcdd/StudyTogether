@@ -107,7 +107,6 @@ public class MypageService {
 		resMap.put("sumTime", sumTime); //총 공부시간
 		resMap.put("reservDates", reservDates); 
 		
-		
 		return resMap;
 		
 	}

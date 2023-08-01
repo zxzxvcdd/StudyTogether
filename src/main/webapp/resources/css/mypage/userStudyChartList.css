@@ -125,7 +125,7 @@ div .product_content_list {
 
 div .product_content_list .content_list_box {
 	display: grid;
-	gap: 0.4rem;
+	gap: 0.5rem;
 }
 
 div .product_content_list img {
@@ -133,10 +133,14 @@ div .product_content_list img {
 	width: 150px;
 }
 
+.pass_select {
+    display: inline-flex;
+    font-size: 15px;
+}
 
 .order_date {
 	font-size: 22px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 }
 
 .menu_name {
@@ -181,7 +185,7 @@ div .product_content_list a {
 }
 
 .con-margin {
-    margin-bottom: 22px;
+    margin-bottom: 15px;
 }
 
 .con-label {
@@ -190,7 +194,7 @@ div .product_content_list a {
 }
 
 .con-strong {
-    margin: 10px 0 25px 30px;
+    margin: 10px 0 10px 30px;
     font-size: 22px;
 }
 
@@ -208,7 +212,17 @@ canvas {
 }
 
 
-.menu-list-con{
+th {
+    padding: 5px 0;
+}
+
+
+td {
+    padding: 3px 0;
+}
+
+
+/* .menu-list-con{
 	
 	display: none;
 }
@@ -216,8 +230,49 @@ canvas {
 .menu-list-con.dblock{
 	
 	display: block;
+} */
+
+.time {
+	display: none;
+}
+.time.dblock {
+	display: block;
 }
 
+.day {
+	display: none;
+}
+.day.dblock {
+	display: block;
+}
+
+.menu-list-con {
+    border-top: 2px solid #e5e5e5;
+}
+
+.pass_p {
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+.order-title {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.passStyle {
+    font-size: 16px;
+    margin: 0 30px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.study_none {
+    text-align: center;
+    padding: 120px 0;
+    font-size: 23px;
+    color: #b2bec3;
+}
 
 /* 버튼 */
 .btn_order_list { 
