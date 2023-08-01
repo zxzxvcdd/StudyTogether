@@ -91,7 +91,7 @@ public class SeatController {
 		
 		search.setType("store");
 		search.setKeyword(storeId);
-		
+			
 		StoreVO store = storeService.findOneStore(search);
 		System.out.println(store.getStoreName());
 		
