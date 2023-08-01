@@ -20,7 +20,7 @@ public class Search extends Page {
 	private String type; // 검색 조건
     private String keyword; // 검색 키워드
     
-    private SimpleDateFormat form = new SimpleDateFormat("yy/MM/dd");
+    private SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd");
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String startDate;

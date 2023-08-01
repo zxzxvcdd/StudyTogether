@@ -49,7 +49,7 @@ class MenuServiceTest {
 	
 
 		int startX= 400;
-		int startY=250;
+		int startY=150;
 		
 		int endX = 1300;
 		int endY = 650;

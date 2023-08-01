@@ -73,6 +73,9 @@ public class MemberService {
 		//System.out.println("평문 pw:" + rawPw);
 		//System.out.println("암호화된 pw:" + encodedPw);
 
+		
+		
+		
 		if (pwdSuccess) {
 			session.setAttribute("loginUser", memberVO); //성공하면 세션에 memberVO 넣어주기
 			return true;

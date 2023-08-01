@@ -6,6 +6,10 @@
 
 }
 
+a {
+	text-decoration-line: none;
+}
+
 #map {
     font-family: 'Noto Sans KR', sans-serif;
     width: 100%;

@@ -357,14 +357,15 @@
 	
 		
 		
+		// 시작날짜, 종료날짜
 		
-		//오늘 날짜
-		let now = new Date();
-		let today = now.toISOString().slice(0,10);
-		$(".endDate").val(today);
+		let startDate = new Date("${search.startDate}");
+		let endDate = new Date("${search.endDate}");
 		
-		//1주일 전 날짜
-		$(".startDate").val(new Date(now.setDate(now.getDate()-7)).toISOString().slice(0,10));
+		//console.log('startDate: ' + new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000)).toISOString().split("T")[0]);
+		
+		$(".startDate").val(new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000)).toISOString().split("T")[0]);
+		$(".endDate").val(new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000)).toISOString().split("T")[0]);
 	
 	</script>
 	

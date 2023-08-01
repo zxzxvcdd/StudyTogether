@@ -70,6 +70,8 @@ public class MemberController {
 
 		if (result) {
 			model.addAttribute("loginMsg", "로그인 성공");
+			
+			
 		} else {
 			model.addAttribute("loginMsg", "로그인 실패");
 		}
