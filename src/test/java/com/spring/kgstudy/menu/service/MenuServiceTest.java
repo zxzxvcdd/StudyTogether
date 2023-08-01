@@ -48,29 +48,35 @@ class MenuServiceTest {
 		
 	
 
-		int startX= 400;
-		int startY=150;
+		int startX= 100;
+		int startY=100;
 		
-		int endX = 1300;
-		int endY = 650;
+		int endX = 900;
+		int endY = 500;
 		
 		int width=40;
 		int height=40;
 		
+		int marginX = (endX-startX - width*10)/9+width;
+		int marginY = (endY-startY - height*3)/2+height;
+		
 		String sql = "update seat set x = ";
 		String sql2 = " , y = ";
 		String sql3 = " where seat_name='";
-		for(int i=1; i<=30; i++) {
+		for(int i=1; i<=3; i++) {
 		
-		if(i==11||i==21) {
-			startX=400;
-			startY+=200;
-		}
+		
+			for(int j=1; j<=10; j++) {
+				
+				
+				System.out.println(sql + (startX+(marginX*(j-1))) + sql2 + startY + sql3 + (((i-1)*10)+j) + "\';");
+				
+				
+			}
 			
-		System.out.println(sql + startX + sql2 + startY + sql3 + i + "\';");
 		
-		startX += 40+55;
-		
+			startY+=marginY;
+			
 		
 			
 		}

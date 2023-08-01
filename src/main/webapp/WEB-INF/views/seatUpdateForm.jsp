@@ -34,15 +34,14 @@
 
                             .content_wrap {
                                 width: 100%;
-                                position: relative;
+                                
                                 margin: 0 auto;
                                 padding: 20px;
                             }
-
                             .seatinfo_wrap_1 {
                                 box-sizing: border-box;
                                 box-shadow: 1px 1px 5px #ddd;
-                                height: 10vh;
+                                height:auto;
                                 margin-bottom: 10px;
                                 text-align: center;
                                 width: 90%;
@@ -50,6 +49,7 @@
                                 font-size: 15px;
                                 font-weight: 500;
                                 color: #333;
+                                background: white;
                             }
 
                             .seat_wrap {
@@ -58,6 +58,7 @@
                                 height: 60vh;
                                 border-radius: 0.28571rem;
                                 box-shadow: 1px 1px 5px #ddd;
+                                position: relative;
                             }
 
                             .add_btn {
@@ -102,7 +103,7 @@
 
                             .seatinfo_bar {
                                 height: 35px;
-                                position: relative;
+                                
                                 display: inline-block;
                                 width: 6px;
                                 margin-left: -3px;
@@ -160,15 +161,12 @@
                                 cursor: pointer;
                                 text-align: center;
                                 position: absolute;
-                                top: 40%;
-                                left: 20%;
+                     
                             }
 
                             .box:hover {
-                                transform: translate(0, 0);
-                                z-index: 400;
-                                width: 50px;
-                                height: 50px;
+                                background: gray;
+                                display:flex
                             }
 
                             .seat_color1 {
@@ -433,33 +431,7 @@
 
                                             <!-- 좌석 리스트 -->
                                             <div class="seat_list">
-                                                <c:forEach var="vo" items="${seat }" varStatus="status">
-
-                                                    <!-- 사용자 본인 자리 확인 -->
-                                                    <c:choose>
-
-                                                        <c:when test="${loginUser.user_id eq vo.userId && vo.seatType=='N'}">
-
-                                                            <div 
-                                                                class="box myseat"
-                                                                data-id="${vo.seatId}"
-                                                                data-type="${vo.seatType}"
-                                                                data-name="${vo.seatName }"
-                                                                data-reserv="${vo.reservationId}"
-                                                                data-index="${status.index}" style="top:${vo.y}px; left: ${vo.x}px;">${vo.seatName}</div>
-                                                        </c:when>
-                                                        <c:otherwise>
-
-                                                            <div
-                                                                class="box"
-                                                                data-id="${vo.seatId}"
-                                                                data-type="${vo.seatType}"
-                                                                data-name="${vo.seatName }"
-                                                                data-index="${status.index}" style="top:${vo.y}px; left: ${vo.x}px;" >${vo.seatName}</div>
-
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
+                                              
 
                                             </div>
 
@@ -475,7 +447,7 @@
                                         </div>
                                     </div>
                                 <div
-                                    class="modal fade mdoal-del"
+                                    class="modal fade modal-del"
                                     id="exampleModal"
                                     tabindex="-1"
                                     role="dialog"
@@ -541,80 +513,129 @@
                                         
 
                                         const seatList = new Array();
-
+                                        let newSeat;
                                         <c:forEach var="vo" items="${seat}" varStatus="status">
-                                            if("1"==="1"){
-                                                let newSeat = new Object();
-                                                    newSeat.seatId= "${vo.seatId}";
-                                                    newSeat.seatName= "${vo.seatName}";
-                                                    newSeat.storeId= "${vo.storeId}";
-                                                    newSeat.seatType= "${vo.seatType}";
-                                                    newSeat.x= "${vo.x}";
-                                                    newSeat.y= "${vo.y}";
+                                            
+                                                newSeat = new Object();
+                                                newSeat.seatId= "${vo.seatId}";
+                                                newSeat.seatName= "${vo.seatName}";
+                                                newSeat.storeId= "${vo.storeId}";
+                                                newSeat.seatType= "${vo.seatType}";
+                                                newSeat.x= "${vo.x}";
+                                                newSeat.y= "${vo.y}";
                                                 
 
                                                 index++;
                                                 seatList.push(newSeat);
 
-                                            }
+                                                createSeat(index-1);
+                                            
                                         </c:forEach>
                                         let storeId= seatList[0].storeId;
-                                      
+                                        
+                                        function createSeat(i){
 
-                                        function addMoveEvent() {
+                                            let newBox = document.createElement("div");+i
 
-                                            document.querySelectorAll(".box").forEach(
-                                                (el) => el.addEventListener("mousedown", function (e) {
+
+                                            newBox.classList.add("box");
+                                            newBox.classList.add("box"+i);
+                                            if("${loginUser.user_id eq vo.userId && vo.seatType=='N'}"){
+                                                newBox.classList.add("myseat");
+                                            }
+                                            
+                                            newBox.setAttribute("data-id",seatList[i].seatId);
+                                            newBox.setAttribute("data-name",seatList[i].seatName);
+                                            newBox.setAttribute("data-type",seatList[i].seatType);
+                                            
+                                            newBox.setAttribute("data-index",i);
+                                            newBox.innerText=newSeat.seatName;
+                                            
+                                            $(".seat_list").append(newBox);
+                                   
+                                            $(".box"+i).css("top",seatList[i].y+"px");
+                                            $(".box"+i).css("left",seatList[i].x+"px");
+
+                                            refreshTypeClass(".box"+i)
+                                            addDbClickEvent(".box"+i);
+                                            addMoveEvent(".box"+i);
+
+
+                                        }
+                                        
+                                        function addDbClickEvent(newBox) {
+
+                                            
+                                            $(newBox).dblclick(function (e) {
+
+                                               
+                                                e.preventDefault();
+
+                                                $(".modal-del").toggleClass("show");
+                                                
+                                                targetSeat = this;
+
+                                            })
+
+                                        }
+
+
+
+
+                                        function addMoveEvent(newBox) {
+
+                                            
+                                            $(newBox).mousedown(function(eq){
+                                              
+                                                eq.preventDefault();
+                                                console.log("mousedown");
+
+                                                startPosX = eq.clientX;
+                                                startPosY = eq.clientY;
+                                               
+
+                                                $(document).mousemove(moveSeat)
+                                                $(document).mouseup(function(){
+                                                    console.log("mouseup");
+                                                    $(document).off("mousemove")
+                                                })
+
+                                            
+
+
+                                                function moveSeat(e) {
                                                     e.preventDefault();
                                                     
-
+                                                    newPosX = startPosX - e.clientX;
+                                                    newPosY = startPosY - e.clientY;
                                                   
 
-                                                    e.preventDefault();
-                                                    console.log("mousedown");
-
+                                                    let offsetTop = ($(newBox).offset().top - newPosY);
+                                                    let offsetLeft = ($(newBox).offset().left - newPosX);
+                                           
+                                                   
+                                                    curY = e.clientY-20-134;
+                                                    curX = (e.clientX-20-317);
+                                                    $(newBox).css("top",curY+ "px") 
+                                                    $(newBox).css("left",curX+ "px") 
+                                                
+                                                
                                                     startPosX = e.clientX;
                                                     startPosY = e.clientY;
-                                                    console.log("start : " + startPosX);
-                                                    // 드래그 함수 콜
 
-                                                    document.addEventListener("mousemove", moveSeat);
-                                                    document.addEventListener("mouseup", function () {
-                                                        document.removeEventListener("mousemove", moveSeat);
-
-                                                    });
-
-
-                                                      function moveSeat(e) {
-                                                        newPosX = startPosX - e.clientX;
-                                                        newPosY = startPosY - e.clientY;
-                                                        
-                                                   
                                                     
 
-                                                        let offsetTop = (el.offsetTop - newPosY);
-                                                        let offsetLeft = (el.offsetLeft - newPosX);
+                                                    let targetIndex = $(newBox).data("index");
+                                                    
 
-                                                     
-                                                        el.style.top = e.clientY+ "px";
-                                                        el.style.left = e.clientX-220 + "px";
+                                                    seatList[targetIndex].y = curY;
+                                                    seatList[targetIndex].x = curX;
 
-                                                 
-                                                        startPosX = e.clientX;
-                                                        startPosY = e.clientY;
+                                                }      
 
-                                                      
 
-                                                        let targetIndex = el.dataset.index;
-                                                        console.log(targetIndex);
-
-                                                        seatList[targetIndex].x = e.clientX-220
-                                                        seatList[targetIndex].y = e.clientY
-
-                                                    }
-
-                                                })
-                                            )
+                                            })
+                                            
 
                                         }
 
@@ -648,17 +669,17 @@
                                             $(".btn-del").click(function () {
 
                                                 delSeat()
-                                                $("mdoal-del").toggleClass("show");
+                                                $(".modal-del").toggleClass("show");
                                             })
 
                                             $(".btn-change").click(function () {
 
                                                 changeState();
-                                                $("mdoal-del").toggleClass("show");
+                                                $(".modal-del").toggleClass("show");
 
                                             })
                                             $(".del-close").click(function () {
-                                                $("mdoal-del").toggleClass("show");
+                                                $(".modal-del").toggleClass("show");
                                                
 
                                             })
@@ -667,15 +688,24 @@
 
                                             $(".btn-new").click(function () {
                                                 
-                                                newSeat()
-                                                 $(".modal-new").toggleClass("show");
-                                                refreshTypeClass()
-                                                addMoveEvent();
-                                                addDbClickEvent();
+                                                newSeat = new Object();
+                                                newSeat.seatId= "0";
+                                                newSeat.seatName= $('input[name=seatName]').val();
+                                                newSeat.storeId= storeId;
+                                                newSeat.seatType= "Y";
+                                                newSeat.x= "50";
+                                                newSeat.y= "50";
+                                                
+
+                                                index++;
+                                                seatList.push(newSeat);
+                                                createSeat(index-1)
+                                                $(".modal-new").toggleClass("show");
+                                      
                                             })
 
                                             $(".btn_close").click(function () {
-                                                 $(".modal-new").toggleClass("show");
+                                                $(".modal-new").toggleClass("show");
                     
 
                                             })
@@ -723,38 +753,26 @@
 
                                         }
 
-                                        function addDbClickEvent() {
 
-                                            $(".box").dblclick(function (e) {
-                                                e.preventDefault();
+                                        function refreshTypeClass(newBox) {
 
-                                                $("mdoal-del").toggleClass("show");
+                                           
 
-                                                targetSeat = this;
+                                                let seatType = $(newBox).data("type");
 
-                                            })
-
-                                        }
-
-                                        function refreshTypeClass() {
-
-                                            $(".box").each(function (i, seat) {
-
-                                                let seatType = $(this).data("type");
-
-                                                $(this).removeClass('seat_color1');
-                                                $(this).removeClass('seat_color2');
-                                                $(this).removeClass('seat_color3');
+                                                $(newBox).removeClass('seat_color1');
+                                                $(newBox).removeClass('seat_color2');
+                                                $(newBox).removeClass('seat_color3');
 
                                                 if (seatType === "Y") {
-                                                    $(this).addClass('seat_color1');
+                                                    $(newBox).addClass('seat_color1');
                                                 } else if (seatType === "N") {
-                                                    $(this).addClass('seat_color2');
+                                                    $(newBox).addClass('seat_color2');
                                                 } else if (seatType === "D") {
-                                                    $(this).addClass('seat_color3');
+                                                    $(newBox).addClass('seat_color3');
                                                 }
 
-                                            })
+                                      
 
                                         }
 
@@ -802,39 +820,7 @@
 
 
                                         }
-                                        function newSeat(){
-                                            
-                                            
-
-                                            let newSeat = new Object();
-                                            newSeat.seatId= "0";
-
-                                            newSeat.seatName= $('input[name=seatName]').val();
-                                            newSeat.storeId= storeId;
-                                            newSeat.seatType= "Y";
-                                            newSeat.x= "100";
-                                            newSeat.y= "200";
-                                            
-
-                                            index++;
-                                            seatList.push(newSeat);
-
-                                            let newBox = document.createElement("div");
-
-                                            newBox.classList.add("box");
-                                            newBox.setAttribute("data-id","0");
-                                            newBox.setAttribute("data-name",newSeat.seatName);
-                                            newBox.setAttribute("data-type","Y");
-                                            newBox.setAttribute("style","top:200px; left:100px;");
-                                            newBox.setAttribute("data-index",index-1);
-                                            newBox.innerText=newSeat.seatName;
-                                            console.log(seatList[index-1]);
-                                            $(".seat_list").append(newBox);
-       
-
-
-                                        }
-
+                                       
 
                                         $(document).ready(function () {
                                             addNewModalEvent();

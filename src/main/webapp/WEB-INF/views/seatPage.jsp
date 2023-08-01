@@ -32,14 +32,15 @@ div.wrapper {
 .seatinfo_wrap_1 {
 	box-sizing: border-box;
 	box-shadow: 1px 1px 5px #ddd;
-	height: 10vh;
+	height:auto;
 	margin-bottom: 10px;
 	text-align: center;
 	width: 90%;
 	display: inline-block;
 	font-size: 15px;
 	font-weight: 500;
-	color: #333
+	color: #333;
+	background: white;
 }
 
 .seat_wrap {
@@ -48,6 +49,7 @@ div.wrapper {
 	height: 60vh;
 	border-radius: 0.28571rem;
 	box-shadow: 1px 1px 5px #ddd;
+	position: relative;
 }
 
 .add_btn {
@@ -150,6 +152,8 @@ div.wrapper {
 	cursor: pointer;
 	text-align: center;
 	display: inline-block;
+	position: absolute;
+
 }
 
 .box:hover {
@@ -214,6 +218,8 @@ div.wrapper {
 
 .inner_modal {
 	display: block;
+	background: white;
+	max-height: 700px;
 }
 
 .container h1 {
@@ -279,6 +285,11 @@ div.wrapper {
 
 .menu-list-con {
 	display: none;
+}
+.menu-list-con p{
+
+	font-size: 16px;
+	margin-bottom: 5px;
 }
 
 .menu-list-con.dblock {
@@ -367,6 +378,8 @@ input[type="radio"] {
 
 							</c:forEach>
 
+
+
 						</datalist>
 						<button class="store_id">확인</button>	
 						</div>
@@ -412,17 +425,18 @@ input[type="radio"] {
 
 								<div class="box myseat" data-id="${vo.seatId}"
 									data-type="${vo.seatType}" data-name="${vo.seatName }"
-									data-reserv="${vo.reservationId}" onclick="checkOut(this)">${vo.seatName}</div>
+									data-reserv="${vo.reservationId}" onclick="checkOut(this)" style ="top:${vo.y}px;left:${vo.x}px;">${vo.seatName}</div>
 							</c:when>
 							<c:otherwise>
 
 								<div class="box" data-id="${vo.seatId}"
 									data-type="${vo.seatType}" data-name="${vo.seatName }"
-									onclick="addConfirm(this)">${vo.seatName}</div>
+									onclick="addConfirm(this)" style ="top:${vo.y}px;left:${vo.x}px;">${vo.seatName}</div>
 
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
+				
 
 				</div>
 
@@ -510,7 +524,8 @@ input[type="radio"] {
 
 
 	<Script>
-	
+			
+				
 				console.log("${stName}")
 				console.log("${seatCnt}")
 				let seat = "${loginUser.user_id}";
@@ -623,14 +638,14 @@ input[type="radio"] {
 
 
 						innerText +=
-							"	<div style='display: flex; width: 100%; margin-bottom: 3px;'>"
+							"	<div style='display: flex; width: 100%; margin-bottom: 10px;'>"
 							+ "		<input type='radio' class='pass timePass' name='menuId'"
 							+ "			 value='" + timePass.passId + "'>"
 							+ "		<p style='margin-right: 10px;'>" + timePass.passName + "</p>"
 							+ "		<p class='passState'>"
 							+  passState 
 							+ "		</p>"
-							+ "		<p class='passTime' style='font-size:12px;font-weight:700;margin-left:10px; padding-top:15px;'>"
+							+ "		<p class='passTime' style='font-size:12px;font-weight:700;margin-left:10px; padding-top:0px;'>"
 							+ " 남은 시간 : " + Math.floor(timePass.passTime/3600) +"시간 " + Math.floor(timePass.passTime%3600/60) + "분"
 							+ "		</p>";
 
@@ -660,10 +675,14 @@ input[type="radio"] {
 						let passState;
 
 						let exDate = "미정";
+			
 
 						if (dayPass.passState === "ACTIVE") {
 							passState = "사용중";
-							exDate = dayPass.passStart+ "~" + dayPass.passEnd;
+							let startDay = new Date(dayPass.passStart)
+							let endDay = new Date(dayPass.passEnd)
+							exDate = startDay.getFullYear()+"-"+(startDay.getMonth()+1)+"-"+(startDay.getDate()+1)+ " ~ "
+									+ endDay.getFullYear()+"-"+(endDay.getMonth()+1)+"-"+(endDay.getDate()+1);
 						} else if (dayPass.passState === "DEACTIVE") {
 							passState = "미사용";
 						} else if (dayPass.passState === "EXPIRED") {
@@ -675,14 +694,14 @@ input[type="radio"] {
 
 						innerText +=
 
-							"	<div style='display: flex; width: 100%; margin-bottom: 3px;'>"
+							"	<div style='display: flex; width: 100%; margin-bottom: 10px;'>"
 							+ "		<input type='radio' class='pass dayPass' name='menuId'"
 							+ "			 value='" + dayPass.passId + "'>"
 							+ "		<p style='margin-right: 10px;'>" + dayPass.passName + "</p>"
 							+ "		<p class='passState'>"
 							+ passState
 							+ "		</p>"
-							+ "		<p class='passTime' style='font-size:12px;font-weight:700;margin-left:10px; padding-top:15px;'>"
+							+ "		<p class='passTime' style='font-size:12px;font-weight:700;margin-left:10px; padding-top:0px;'>"
 							+ " 사용 기간 : " +exDate
 							+ "		</p>";
 
@@ -728,7 +747,6 @@ input[type="radio"] {
 						var reqUrl = "seatCheckOut.do";
 
 
-						console.log(reservId);
 						$.ajax({
 							url: reqUrl,
 							type: "POST",

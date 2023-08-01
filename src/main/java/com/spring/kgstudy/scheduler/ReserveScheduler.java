@@ -24,13 +24,14 @@ public class ReserveScheduler {
 	private final SeatService seatService;
  	
 	
-	   @Scheduled(cron = "0 * 9-22 * * * ")
+	   @Scheduled(cron = "0 * * * * * ")
 	    public void checkOut() {
 	       
 		   	
 		   
 		  for(Entry<Long, List<Integer>> checkInByTime : checkInList.entrySet()) {
 			
+			  System.out.println("scheduller");
 			  
 			  if(new Date().getTime() > checkInByTime.getKey()) {
 				  

@@ -86,7 +86,7 @@
    
    
      <select id="totalStar" resultType="int" parameterType="com.spring.kgstudy.common.vo.Criteria">
-   		select sum(review_star) from review
+   		select nvl(sum(review_star),0) from review
    		<include refid="search" />
    </select>
     <select id="cntByStar" resultType="com.spring.kgstudy.review.vo.CntByStarDTO" parameterType="com.spring.kgstudy.common.vo.Criteria">

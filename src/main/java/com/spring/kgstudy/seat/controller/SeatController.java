@@ -49,7 +49,7 @@ public class SeatController {
 			int seatCk = 0;
 			
 			for(SeatVO seat : seatList) {
-				System.out.println(seat.getSeatType().equals("Y"));
+			
 				if(seat.getSeatType().equals("N")) {
 					seatCnt++;
 				}else if(seat.getSeatType().equals("Y")) {

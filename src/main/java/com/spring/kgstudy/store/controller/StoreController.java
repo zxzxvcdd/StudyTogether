@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.kgstudy.common.search.Search;
+import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
 import com.spring.kgstudy.util.LoginUtil;
 
@@ -69,6 +71,21 @@ public class StoreController {
 		
 		
 		return "/store/store";
+		
+		
+	}
+	
+	
+	@GetMapping("goSeat.do")
+	public String goSeat(StoreVO store,Search search) {
+	
+		search.setType("name");
+		search.setKeyword(store.getStoreName());
+		store = storeService.findOneStore(search);
+		
+		
+		return "redirect:/seat/seat.do?storeId="+store.getStoreId();
+		
 		
 		
 	}

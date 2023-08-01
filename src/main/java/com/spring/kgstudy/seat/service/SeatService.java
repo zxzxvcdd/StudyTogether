@@ -116,9 +116,9 @@ public class SeatService{
 	
 	//좌석선택
 
-	public boolean seatChoise(SeatVO vo,PassVO pass) {
+	public ReservationVO seatChoise(SeatVO vo,PassVO pass) {
 
-    	boolean result = false;
+		ReservationVO reserv= null;
 		int seatId = vo.getSeatId();
 
 		Search search= new Search();
@@ -127,15 +127,17 @@ public class SeatService{
 		
 		pass = orderDao.findOnePass(search);
 		
+		vo =sdao.findSeatBySeatId(seatId);
+		vo.setUserId(pass.getUserId());
 		
 		
 		if(pass.getPassState()==PassState.EXPIRED) {
 			
-			return result;
+			return null;
 		}
 		
 		
-		String type = sdao.seatCheck(seatId);
+		String type = vo.getSeatType();
 		
 
 		System.out.println("type"+type);
@@ -170,7 +172,7 @@ public class SeatService{
 			}
 			
 			
-			ReservationVO reserv = new ReservationVO();
+			reserv = new ReservationVO();
 			
 			
 			
@@ -185,7 +187,7 @@ public class SeatService{
 			System.out.println(reserv);
 			
 			
-			if(!sdao.insertReserv(reserv)) return result;
+			if(!sdao.insertReserv(reserv)) return null;
 			
 			System.out.println(reserv);
 
@@ -194,9 +196,8 @@ public class SeatService{
 
 			System.out.println(vo);
 
-			result = sdao.updateSeat(vo);
+			if(!sdao.updateSeat(vo)) return null;
 			
-			System.out.println(result);
 
 			
 			
@@ -207,7 +208,7 @@ public class SeatService{
 				pass.setPassStart(now);
 			
 				System.out.println(pass);
-				 if(!orderDao.updatePass(pass))return result;
+				 if(!orderDao.updatePass(pass))return null;
 				
 				
 				
@@ -231,7 +232,7 @@ public class SeatService{
 					
 					
 				}
-				result = true;
+				
 				
 				
 				
@@ -248,7 +249,7 @@ public class SeatService{
 			
 		}
 		
-		return result;
+		return reserv;
 		
     }
     

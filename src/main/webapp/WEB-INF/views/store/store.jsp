@@ -31,6 +31,24 @@
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4053743493582ba95036931859f08a59&libraries=services"></script>
 		<link rel="stylesheet" href="/kgstudy/resources/css/store/store.css?ver=220610" type="text/css">
 		<script type="text/javascript" src="/kgstudy/resources/js/store/store.js" defer></script>
+		<style>
+				header nav.navbar {
+				
+					position: static;
+					display: block;
+					flex-wrap: wrap;
+					align-items: center;
+					justify-content: space-between;
+					padding-top: 0;
+					padding-bottom: 0;
+				}
+				header nav.navbar a{
+
+					display: block;
+				}
+
+
+		</style>
 	</head>
  
 

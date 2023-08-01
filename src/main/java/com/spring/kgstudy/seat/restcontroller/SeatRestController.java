@@ -108,12 +108,18 @@ public class SeatRestController {
 
 		
 		
-		boolean result = service.seatChoise(vo,pass);
+		ReservationVO reserv = service.seatChoise(vo,pass);
 		
 		
-		if(result) session.setAttribute("checkIn",now.getTime()+pass.getPassTime()*1000);
+		if(reserv!=null) {
+			
+			session.setAttribute("checkIn",now.getTime()+pass.getPassTime()*1000);
+			session.setAttribute("reservId", reserv.getReservationId());
+		
+			return "success";
+		}
 
-		return result ? "success" : "fail";
+		return "fail";
 
 	}
 

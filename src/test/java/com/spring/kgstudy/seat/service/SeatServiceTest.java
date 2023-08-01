@@ -165,16 +165,16 @@ class SeatServiceTest {
 		seat.setStoreId(2234);
 		seat.setSeatType("Y");
 
-		boolean result = service.seatChoise(seat, pass);
+		ReservationVO reserv = service.seatChoise(seat, pass);
 
-		System.out.println(result);
+		System.out.println(reserv);
 
 	}
 
 	@Test
 	void checkout() {
 
-		int reservId = 18;
+		int reservId = 5002;
 
 		boolean result = service.seatCheckOut(reservId);
 

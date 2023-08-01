@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <!-- @media query 사용하기 위해 viewport 설정 -->
+<script src="/kgstudy/resources/js/jquery.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 </head>
@@ -33,7 +34,7 @@
 					<div class="content">
 						<span class="con_span">고객의 취향을 맞춘 다양한 공간</span>
 						<h3 class="con_h3">STUDY<br>TOGETHER</h3>
-						<a href="#" class="btn_main">지점보기</a>
+						<a href="/kgstudy/store/find.do" class="btn_main">지점보기</a>
 					</div>
 				</div>
 				
@@ -41,7 +42,7 @@
 					<div class="content">
 						<span class="con_span">고객의 취향을 맞춘 다양한 공간</span>
 						<h3 class="con_h3">STUDY<br>TOGETHER</h3>
-						<a href="#" class="btn_main">지점보기</a>
+						<a href="/kgstudy/store/find.do" class="btn_main">지점보기</a>
 					</div>
 				</div>
 				
@@ -49,7 +50,7 @@
 					<div class="content">
 						<span class="con_span">고객의 취향을 맞춘 다양한 공간</span>
 						<h3 class="con_h3">STUDY<br>TOGETHER</h3>
-						<a href="#" class="btn_main">지점보기</a>
+						<a href="/kgstudy/store/find.do" class="btn_main">지점보기</a>
 					</div>
 				</div>
 				
@@ -94,7 +95,7 @@
 					<div class="content-courses">
 						<h3 class="c_h3">STUDY TOGETHER</h3>
 						<p class="c_p">스터디 및 협업을 할 수 있는<br>스터디룸 공간이 있습니다.</p>
-						<a href="#" class="btn_main">예약하기</a>
+						<a href="/kgstudy/seat/seat.do" class="btn_main">예약하기</a>
 					</div>
 				</div>
 				
@@ -106,7 +107,7 @@
 					<div class="content-courses">
 						<h3 class="c_h3">STUDY TOGETHER</h3>
 						<p class="c_p">쾌적하고, 넉넉한 좌석들로<br>편안한 스터디 환경을 제공합니다.</p>
-						<a href="#" class="btn_main">예약하기</a>
+						<a href="/kgstudy/seat/seat.do" class="btn_main">예약하기</a>
 					</div>
 				</div>
 				
@@ -118,7 +119,7 @@
 					<div class="content-courses">
 						<h3 class="c_h3">STUDY TOGETHER</h3>
 						<p class="c_p">주도적인 학습을 위해<br>마이페이지에서<br>학습시간을 확인하실 수 있습니다</p>
-						<a href="#" class="btn_main">예약하기</a>
+						<a href="/kgstudy/seat/seat.do" class="btn_main">예약하기</a>
 					</div>
 				</div>
 

@@ -239,7 +239,7 @@ function getListItem(index, places) {
         itemStr = 
         // '<span class="markerbg marker"></span>' +
             '<div class="info">' +
-            '   <h5> 스터디 투게더' + places.place_name.substr(6) + '</h5>';
+            '   <h5> 스터디투게더' + places.place_name.substr(6) + '</h5>';
 
     if (places.road_address_name) {
         itemStr += '    <p class ="road gray">' + places.road_address_name + '</p>'
@@ -335,7 +335,7 @@ function displayInfowindow(marker, places) {
 
     var content = '<div class="map_marker_pop_wrap">' +
         '<div class="map_marker_pop">' +
-        '<div class="map_marker_pop_header"> 스터디 투게더<br>' + places.place_name.substr(6) + '</div>' +
+        '<div class="map_marker_pop_header"> 스터디투게더<br>' + places.place_name.substr(6) + '</div>' +
         ' <div class="close" onclick="infowindow.close()" title="닫기"></div>' +
         '<article>' +
         '<div class="map_marker_pop_inner">' +
@@ -351,6 +351,7 @@ function displayInfowindow(marker, places) {
     content +=
         '<p class="tel">' + places.phone + '</p>' +
         '<a class="btn_marker_detail" href="https://map.kakao.com/link/to/' + places.place_name + ',' + places.y + ',' + places.x + '" target="_blank">길찾기</a>' +
+        '<a class="btn_marker_detail" href="goSeat.do?storeName='+ places.place_name+'>예약하기</a>' +
         '</div>' +
         '</div>' +
         '</article>' +
@@ -358,6 +359,7 @@ function displayInfowindow(marker, places) {
         '</div>';
 
         infowindow.setContent(content);
+        console.log(content);
         infowindow.open(map, marker);
         
         $(document).animate({scrollTop: ($('.window').height() / 2)}, 500);

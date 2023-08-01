@@ -1,12 +1,21 @@
 package com.spring.kgstudy.member.service;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.dao.MemberDAO;
 import com.spring.kgstudy.member.vo.MemberVO;
+import com.spring.kgstudy.order.dao.OrderDAO;
+import com.spring.kgstudy.order.vo.PassVO;
+import com.spring.kgstudy.scheduler.ReserveScheduler;
+import com.spring.kgstudy.seat.dao.SeatDAO;
+import com.spring.kgstudy.seat.vo.ReservationVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +26,9 @@ public class MemberService {
 	private final MemberDAO dao;
 
 	private final PasswordEncoder passwordEncoder;
+	
+	private final SeatDAO seatDao;
+	private final OrderDAO orderDao;
 
 	//메인 페이지로 이동
 	public String mainPage() {
@@ -78,6 +90,43 @@ public class MemberService {
 		
 		if (pwdSuccess) {
 			session.setAttribute("loginUser", memberVO); //성공하면 세션에 memberVO 넣어주기
+			System.out.println(memberVO);
+			
+			Search search = new Search();
+			search.setType("user");
+			search.setAmount(9999);
+			search.setKeyword(memberVO.getUser_id());
+			List<ReservationVO> reservList = seatDao.findAllReserv(search);
+			System.out.println(reservList);
+			
+			for(ReservationVO reserv : reservList) {
+				
+				if(reserv.getUseTime()==0) {
+			
+					System.out.println(reserv);
+					
+					search.setType("pass");
+					search.setKeyword(""+reserv.getPassId());
+					
+					PassVO pass =orderDao.findOnePass(search);
+					
+					Long endLine = reserv.getReservationDay().getTime()+pass.getPassTime()*1000;
+					
+					Date now = new Date();
+					if(now.getTime()>endLine) {
+						
+						ReserveScheduler.checkInList.add(endLine, reserv.getReservationId());
+					}else {
+					
+						session.setAttribute("checkIn",endLine);
+						session.setAttribute("reservId", reserv.getReservationId());
+						System.out.println(endLine);
+					}
+					break;
+				}
+				
+			}
+			
 			return true;
 		} else {
 			return false;

@@ -67,6 +67,7 @@ public class MemberController {
 	public String memberLogin(MemberVO memberVO, HttpSession session, Model model) {
 
 		boolean result = service.loginUser(memberVO, session);
+		
 
 		if (result) {
 			model.addAttribute("loginMsg", "로그인 성공");
@@ -85,6 +86,8 @@ public class MemberController {
 	public String memberLogout(HttpSession session, Model model) throws IOException {
 
 		session.removeAttribute("loginUser"); // 로그아웃
+		
+		session.invalidate();
 		
 		model.addAttribute("loginMsg", "로그아웃 하였습니다.");
 
