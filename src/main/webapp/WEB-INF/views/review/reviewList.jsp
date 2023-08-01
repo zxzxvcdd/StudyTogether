@@ -8,12 +8,17 @@
 <head profile="http://www.w3.org/2005/10/profile">
 <meta charset="UTF-8">
 <title>review</title>
+<!-- css 파일 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css?after">
 
 <!-- jquery -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -146,6 +151,7 @@
 											</div>
 										</div>
 					
+					
 
 					<div class="reviewView-line">
 						
@@ -194,7 +200,7 @@
 											<a href="#">
 												<span> <%-- 이미지 경로################################## --%>
 													<%-- <img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;"> --%>
-													<img src="${pageContext.request.contextPath}/resources/fileUpload/${rvo.review_filename}" style="width: 165px;">
+													<img src="/kgstudy/resources/fileUpload/${rvo.review_filename}" style="width: 165px;">
 												</span>
 											</a>
 										</li>
@@ -206,11 +212,50 @@
 						</div>
 						</c:forEach>
 					</div>
+					
+					
+					
+					
+					
+					
+				<!-- 페이징 처리 START -->
+				<div style="text-align: center">
+				 <ul class="pagination">
+				<!-- 이전 처리 -->
+				<c:if test="${pageMaker.prev}">
+					<li class="paginate_button previous">
+					<a href="/kgstudy/reviewListView.do?page=${pageMaker.startPage-1}">이전</a>
+				<%-- 	<a href="${cpath}/review/reviewListView.do?page=${pageMaker.startPage-1}">이전</a> --%>
+				<%-- 	<a href="${pageMaker.startPage-1}">이전</a> --%>
+				</c:if>
+				<!-- 페이지 번호 처리 -->
+				  <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	         		<li class="paginate_button ${pageMaker.cri.page==pageNum ? 'active' : ''}"><a href="/kgstudy/reviewListView.do?page=${pageNum}">${pageNum}</a></li>
+		  		  </c:forEach>
+				<!-- 다음 처리 -->
+				<c:if test="${pageMaker.next}">
+					<li class="paginate_button previous">
+					<a href="/kgstudyListView.do?page=${pageMaker.endPage+1}">다음</a>
+					<%-- <a href="${cpath}/review/reviewListView.do?page=${pageMaker.endPage+1}">다음</a> --%>
+				<%-- 	<a href="${pageMaker.endPage+1}">다음</a> --%>
+				</c:if>
+				
+				 </ul>
+				</div>
+				<!-- END -->
+				<%-- <form id="pageFrm" action="${cpath}/review/reviewListView.do" method="get"> --%>
+				<form id="pageFrm" action="/kgstudy/reviewListView.do" method="get">
+					<input type="hidden" id="page" name="page" value="${pageMaker.cri.page}" />
+					<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum}" />
+				</form>
+
 
 				</li>
 				<!-- reviewView end -->
 				<!-- --------------------------------------------------------------------- -->
-
+				
+				
+					
 
 			</ul>
 			<!-- modifyList end -->
@@ -263,6 +308,9 @@
 		})
 		
 	</script>
+	
+
+
 	
 	
 </body>

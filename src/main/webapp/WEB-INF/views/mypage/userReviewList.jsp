@@ -15,6 +15,9 @@
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
 /* 별점 css */
@@ -29,6 +32,20 @@
 .rate input:checked ~ .rate label:hover ~ label,  
 .rate label:hover ~ input:checked ~ label { height: 26px; background-color: #f27370 !important;} 
 </style>
+<script type="text/javascript">
+/* 버튼 JQuery */
+	$(document).ready(function() {
+		$("button").on("click", function(e) {
+			var formData = $("#frm");
+			var btn = $(this).data("btn");
+			if (btn == 'remove') {
+				formData.attr("action", "remove.do");
+				formData.attr("method", "get")
+			} 
+			formData.submit();
+		});
+	});
+</script>
 
 </head>
 <body>
@@ -130,6 +147,11 @@
 								<b class="cont-user-b"><fmt:formatDate value="${reviewList.review_date}" pattern="yyyy-MM-dd"/> | </b> 
 								<b class="cont-user-b">지점명 : ${reviewList.store_name}</b>
 								<input class="starNum" type="hidden" data-index="${status.index}" value="${reviewList.review_star}" >
+								
+								
+								
+								<a href="remove.do?review_id=${reviewList.review_id}" class="btn btn-warning btn-sm" style="float:right;">삭제</a>
+								
 							</div>
 							
 							<div class="r-cont-text">

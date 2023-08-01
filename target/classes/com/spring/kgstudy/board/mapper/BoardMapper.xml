@@ -47,7 +47,7 @@
 		ORDER BY boardGroup DESC, boardSequence ASC) b
 		)
 		WHERE rnum BETWEEN
-		#{pageStart} AND #{pageStart} + #{perPageNum} - 1
+		#{pageStart}+1  AND #{pageStart} + #{perPageNum}
 
 	</select>
 
