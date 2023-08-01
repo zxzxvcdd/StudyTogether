@@ -27,8 +27,13 @@
 	UPDATE seat SET  
 
 	seat_name=#{seatName},  x=#{x}, y=#{y},
-
-	reservation_id = #{reservationId}, user_id=#{userId},  seat_type=#{seatType} WHERE seat_id=#{seatId}
+	<if test="reservationId!=0">
+	reservation_id = #{reservationId}, 
+	</if>
+	<if test="userId!=0">
+	user_id=#{userId},
+	</if>
+	  seat_type=#{seatType} WHERE seat_id=#{seatId}
 </update>
 
 <select id="seatCheck" resultType="String">
@@ -102,6 +107,11 @@ update reservation_table set use_time = #{useTime} where reservation_id =#{reser
 </update>
 	
 <delete id="deleteResrv">
+
+</delete>
+
+<delete id="deleteSeat">
+delete from seat where seat_id =#{seatId}
 
 </delete>
 

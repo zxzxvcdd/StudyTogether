@@ -47,18 +47,35 @@ class MenuServiceTest {
 		
 		
 	
-		
-       SimpleDateFormat form = new SimpleDateFormat("YY/MM/dd");
 
-      
-        
-        Calendar now = Calendar.getInstance();
+		int startX= 400;
+		int startY=250;
+		
+		int endX = 1300;
+		int endY = 650;
+		
+		int width=40;
+		int height=40;
+		
+		String sql = "update seat set x = ";
+		String sql2 = " , y = ";
+		String sql3 = " where seat_name='";
+		for(int i=1; i<=30; i++) {
+		
+		if(i==11||i==21) {
+			startX=400;
+			startY+=200;
+		}
+			
+		System.out.println(sql + startX + sql2 + startY + sql3 + i + "\';");
+		
+		startX += 40+55;
 		
 		
-		System.out.println(form.format(now.getTime()));
-		now.add(Calendar.DATE, -7);
-		System.out.println(form.format(now.getTime()));
-		
+			
+		}
+			
+
 
 	}
 

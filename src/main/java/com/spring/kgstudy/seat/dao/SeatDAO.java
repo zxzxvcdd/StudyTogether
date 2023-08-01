@@ -35,6 +35,8 @@ public interface SeatDAO {
 	
 	
 	boolean deleteResrv(ReservationVO vo);
+
+	boolean deleteSeat(int seatId);
 	
 	
 	

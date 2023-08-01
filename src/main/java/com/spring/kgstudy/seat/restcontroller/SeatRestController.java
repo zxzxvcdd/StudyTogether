@@ -2,11 +2,14 @@ package com.spring.kgstudy.seat.restcontroller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -146,6 +149,78 @@ public class SeatRestController {
 	
 	
 	
+	@PostMapping("updateSeat.do")
+	public Map<String, Object> updateSeatt(HttpSession session, @RequestBody List<SeatVO> seatList){
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+//		if(!LoginUtil.isLogin(session)||LoginUtil.getCurrentMemberAuth(session).equals("user")) {
+//			resMap.put("msg", "권한없음");
+//			return resMap;
+//		}
+//			
+		
+	
+		System.out.println("list : "+seatList);
+
+
+		int flag =service.insertSeat(seatList);
+		
+		
+		if(flag==0) {
+		resMap.put("msg", "수정성공");
+		}else {
+			
+			resMap.put("msg", "수정실패");
+			
+		}
+		
+		
+		
+		System.out.println(resMap.get("msg"));
+		return resMap;
+		
+
+		
+	}
+	
+	
+	@GetMapping("deleteSeat.do")
+	public Map<String, Object> deleteSeat(HttpSession session,Search search, int seatId){
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+//		if(!LoginUtil.isLogin(session)||LoginUtil.getCurrentMemberAuth(session).equals("user")) {
+//			resMap.put("msg", "권한없음");
+//			return resMap;
+//		}
+//			
+		
+		String msg = "";
+		int flag =0;
+		if(service.deleteSeat(seatId)) {
+			
+			flag=1;
+			msg="삭제 성공";
+		}else {
+			msg="삭제 실패";
+		
+		}
+		
+		
+		
+		
+		
+		resMap.put("msg", msg);
+		resMap.put("flag", flag);
+		
+		
+		
+		return resMap;
+		
+
+		
+	}
 	
 	
 	

@@ -84,10 +84,38 @@ public class SeatController {
 	
 	
 	@GetMapping("seatUpdate.do")
-	public String seatUpdateForm(Model model, String storeId)  {
+	public String seatUpdateForm(Model model, String storeId, Search search)  {
 		
-		storeId="2324";
-		model.addAttribute("seat", service.test(Integer.parseInt(storeId)));
+		if(storeId==null) return "seatPage";
+		ArrayList<SeatVO> seatList = service.test(Integer.parseInt(storeId));
+		
+		search.setType("store");
+		search.setKeyword(storeId);
+		
+		StoreVO store = storeService.findOneStore(search);
+		System.out.println(store.getStoreName());
+		
+		model.addAttribute("stName", store.getStoreName());
+		
+		
+		int seatCnt = 0;
+		int seatCk = 0;
+		
+		for(SeatVO seat : seatList) {
+			
+			if(seat.getSeatType().equals("N")) {
+				seatCnt++;
+			}else if(seat.getSeatType().equals("Y")) {
+				seatCk++;
+			}
+		}
+	
+		model.addAttribute("seatCnt", seatCnt);
+		model.addAttribute("seatCk", seatCk);
+		
+		model.addAttribute("totalSeat", seatList.size());
+		
+		model.addAttribute("seat", seatList);
 		
 		return "seatUpdateForm";
 		
