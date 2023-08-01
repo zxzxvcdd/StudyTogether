@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -100,6 +101,38 @@ public class MypageController {
 		
 		
 		return "/mypage/userReviewList";
+	}
+	
+	
+	@RequestMapping(value = "/studyData.do")
+	public String studyDataForm(Search search, HttpSession session, Model model, HttpServletRequest rq) throws Exception {
+
+
+		//if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+		//String user_id = (LoginUtil.getCurrentMemberAccount(session));
+
+		String user_id="user32";
+
+		search.setType("tc");
+		search.setKeyword(user_id);
+		search.setAmount(9999);
+		
+		
+		//String startDate = rq.getParameter("startDate");
+		//String endDate = rq.getParameter("endDate");
+		
+		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+       // Date startDate2 = format.parse(startDate);
+        //Date endDate2 = format.parse(endDate);
+		
+		//search.setStartDate(startDate2);
+		//search.setEndDate(endDate2);
+		
+		
+		model.addAttribute("resMap", service.mypageFindReserv(search));
+		//model.addAttribute("search",search);
+
+		return "/mypage/userStudyChart";
 	}
 	
 
