@@ -15,6 +15,7 @@
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css?after">
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -33,7 +34,7 @@
 .rate label:hover ~ input:checked ~ label { height: 26px; background-color: #f27370 !important;} 
 </style>
 <script type="text/javascript">
-/* 버튼 JQuery */
+/* 삭제버튼 JQuery */
 	$(document).ready(function() {
 		$("button").on("click", function(e) {
 			var formData = $("#frm");
@@ -45,6 +46,20 @@
 			formData.submit();
 		});
 	});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	//페이지 번호 클릭시 이동 하기
+	var pageFrm=$("#pageFrm");
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault(); // a tag의 기능을 막는 부분
+		var page=$(this).attr("href"); // 페이지번호
+		pageFrm.find("#page").val(page);
+		pageFrm.submit(); 		
+	});
+});
 </script>
 
 </head>
@@ -184,6 +199,40 @@
 								</div>
 							</c:when>
 						</c:choose>
+						
+						
+					<!-- 페이징 처리 START -->
+					<div style="text-align: center">
+						<ul class="pagination">
+							<!-- 이전 처리 -->
+							<c:if test="${pageMaker.prev}">
+								<li class="paginate_button previous"><a
+									href="${pageMaker.startPage-1}">이전</a>
+									<%-- 	<a href="${cpath}/review/reviewListView.do?page=${pageMaker.startPage-1}">이전</a> --%>
+									<%-- 	<a href="${pageMaker.startPage-1}">이전</a> --%>
+							</c:if>
+							<!-- 페이지 번호 처리 -->
+							<c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+								<li class="paginate_button ${pageMaker.cri.page==pageNum ? 'active' : ''}">
+								<a href="${pageNum}">${pageNum}</a></li>
+							</c:forEach>
+							<!-- 다음 처리 -->
+							<c:if test="${pageMaker.next}">
+								<li class="paginate_button previous">
+								<a href="${pageMaker.endPage+1}">다음</a> 
+								<%-- <a href="${cpath}/review/reviewListView.do?page=${pageMaker.endPage+1}">다음</a> --%>
+									<%-- 	<a href="${pageMaker.endPage+1}">다음</a> --%>
+							</c:if>
+
+						</ul>
+					</div> <!-- END --> <%-- <form id="pageFrm" action="${cpath}/review/reviewListView.do" method="get"> --%>
+					<form id="pageFrm" action="/kgstudy/userReviewView.do" method="get">
+						<input type="hidden" id="page" name="page" value="${pageMaker.cri.page}" /> 
+						<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum}" />
+					</form>
+						
+						
+						
 						
 					</div>
 

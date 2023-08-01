@@ -17,10 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.review.dao.ReviewDAO;
+import com.spring.kgstudy.review.vo.CntByStarDTO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
+import com.spring.kgstudy.store.VO.StoreVO;
+import com.spring.kgstudy.store.dao.StoreDAO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class ReviewService {
 
 	private final ReviewDAO reviewdao;
+
 	
 
 	@Resource(name="uploadPath")  //properties에 있는 uploadPath값 가져오기
@@ -42,6 +47,7 @@ public class ReviewService {
 		Rlist = reviewdao.getAllReview(cri);
 		return Rlist;
 	}
+	
 
 	// 마이페이지 나의 리뷰 보기
 	public Map<String, Object> userReviewView(Criteria cri) {
@@ -127,7 +133,33 @@ public class ReviewService {
 	}
 	
 	
+	public ArrayList<StoreVO> findMap(Criteria cri){
+		
+		ArrayList<StoreVO> result = null;
+		
+		
+		
+		
+		
+		result= reviewdao.findAllStore(cri);
+		
+		
+		return result;
+		
+		
+		
+	}
 	
+	public int getTotalStar(Criteria cri) {
+		
+		return reviewdao.totalStar(cri);
+		
+	}
+	public List<CntByStarDTO> getCntByStar(Criteria cri){
+		
+		return reviewdao.cntByStar(cri);
+		
+	}
 	
 	
 	

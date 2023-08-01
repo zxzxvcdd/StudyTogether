@@ -184,9 +184,11 @@
 				 </ul>
 				</div>
 				<!-- END -->
-				<form id="pageFrm" action="${cpath}/board/list.do" method="get">
+				<form id="pageFrm" action="${cpath}/board/list.do?type=${cri}" method="get">
 					<input type="hidden" id="page" name="page" value="${pageMaker.cri.page}" />
 					<input type="hidden" name="perPageNum" value="${pageMaker.cri.perPageNum}" />
+					<input type="hidden" id="type" name="type" value="${pageMaker.cri.type}" />
+					<input type="hidden" id="keyword" name="keyword" value="${pageMaker.cri.keyword}" />
 				</form>
 
 

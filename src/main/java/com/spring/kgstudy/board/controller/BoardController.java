@@ -30,8 +30,13 @@ public class BoardController {
 
 	@RequestMapping("/list.do")
 	public String getlist(Criteria cri, Model model) throws Exception {
-		List<BoardVO> list = boardService.getList(cri);
-		model.addAttribute("list", list); // Model
+		
+		if(cri != null) {
+		
+			List<BoardVO> list = boardService.getList(cri);
+			model.addAttribute("list", list); // Model
+			model.addAttribute("type", cri);
+		}
 		// 페이징 처리에 필요한 부분
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -41,7 +46,8 @@ public class BoardController {
 		return "/board/boardList"; // view
 	}
 
-	@GetMapping("/register.do")
+	@GetMapping("/register."
+			+ "do")
 	public String register(MemberVO vo) {
 
 		return "board/register";
