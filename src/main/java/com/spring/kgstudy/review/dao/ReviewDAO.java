@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.common.vo.Criteria;
-import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
 
@@ -24,7 +22,7 @@ public interface ReviewDAO {
 
 	public ReservationVO revIdfind(String user_id);
 
-	public String findReservId(int reservationId);
+	public int findReservId(int reservationId);
 
 	public void reviewInsert(ReviewVO vo);
 	

@@ -13,14 +13,11 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.kgstudy.common.vo.Criteria;
-import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.dao.ReviewDAO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;

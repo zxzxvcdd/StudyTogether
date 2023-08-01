@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.common.vo.PageMaker;
-import com.spring.kgstudy.reservation.vo.ReservationVO;
 import com.spring.kgstudy.review.service.ReviewService;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
@@ -92,8 +91,7 @@ public class ReviewController {
 		
 		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
 		
-		reviewVO.setUser_id(LoginUtil.getCurrentMemberAccount(session));
-		
+
 
 		String userId= (LoginUtil.getCurrentMemberAccount(session));
 		
