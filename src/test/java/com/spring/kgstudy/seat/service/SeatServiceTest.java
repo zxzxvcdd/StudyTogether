@@ -1,5 +1,7 @@
 package com.spring.kgstudy.seat.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -55,9 +57,16 @@ class SeatServiceTest {
 
 	@Test
 	public void reservDummy() {
-
+		LocalDate now1 = LocalDate.now();
+		
+		LocalDate start = now1.minusYears(40);
+		
 		for (int i = 1; i <=4000; i++) {
-
+	
+			 Random random1 = new Random();
+			 Long ranDay = (long) (random1.nextInt((int) (now1.toEpochDay() -start.toEpochDay()+1)) + start.toEpochDay());
+			 
+			 Date now = 	Date.from(LocalDate.ofEpochDay(ranDay).atStartOfDay(ZoneId.systemDefault()).toInstant());
 			SeatVO vo = new SeatVO();
 
 			vo.setSeatId(i + 720);
@@ -76,7 +85,7 @@ class SeatServiceTest {
 
 			if (vo.getSeatType().equals("Y")) {
 
-				Date now = new Date();
+			
 
 				if (pass.getPassState() == PassState.DEACTIVE) {
 

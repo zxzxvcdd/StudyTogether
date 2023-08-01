@@ -71,12 +71,12 @@ class MemberServiceTest {
 			
 			 Random random = new Random();
 			 Long ranDay = (long) (random.nextInt((int) (now.toEpochDay() -start.toEpochDay()+1)) + start.toEpochDay());
-			 
+				Date birthday = 	Date.from(LocalDate.ofEpochDay(ranDay).atStartOfDay(ZoneId.systemDefault()).toInstant());
+				
 			MemberVO member = new MemberVO("user"+i, "user"+i, "유저"+i, "user"+i+"@kgstudy.com","010-4545-4444","M",new Date(),"admin");
 			
 			String userName = "user"+i;
-			Date birthday = 	Date.from(LocalDate.ofEpochDay(ranDay).atStartOfDay(ZoneId.systemDefault()).toInstant());
-			
+		
 	
 
 			String email = userName+"@kgstudy.com";
