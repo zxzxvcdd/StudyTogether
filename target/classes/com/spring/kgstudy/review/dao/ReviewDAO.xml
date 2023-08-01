@@ -26,17 +26,31 @@
 			 where user_id = #{keyword} ORDER BY review_date DESC
 		</if>
 		
+		
 		<if test="type==null or type.equals('')">
 			ORDER BY review_date DESC
 		</if>
-		
+		 <!--  <if test="type == 'store_id'">
+		  	WHERE store_id = #{keyword}
+		  </if> -->
 	</sql>
+
+
+	<select id="findAllStore" resultType="com.spring.kgstudy.store.VO.StoreVO">
+
+
+		select A.* from store_table A
+		<!-- <include refid="search" /> -->
+
+		order by store_id
+
+	</select>
 	
 	
 	<select id="getAllReview" resultMap="ReviewVO">
-		SELECT * FROM (SELECT A.*, Row_Number() over (order by review_date desc) rn from review A
+		SELECT * FROM ( select A.*, rownum rn from(SELECT * from review 
 		 <include refid="search"/>
-		)where rn between #{pageStart}+1 AND #{pageStart} + #{perPageNum}
+		) A)where rn between #{pageStart}+1 AND #{pageStart} + #{perPageNum}
 	</select>
 	
 
@@ -69,6 +83,32 @@
    		select count(*) from review
    		<include refid="search" />
    </select>
+   
+   
+     <select id="totalStar" resultType="int" parameterType="com.spring.kgstudy.common.vo.Criteria">
+   		select sum(review_star) from review
+   		<include refid="search" />
+   </select>
+    <select id="cntByStar" resultType="com.spring.kgstudy.review.vo.CntByStarDTO" parameterType="com.spring.kgstudy.common.vo.Criteria">
+   		select review_star star_num, count(review_star) star_cnt from review 
+   		<include refid="search2" />
+   		group by review_star
+   		order by review_star
+   </select>
+   
+   
+   	<sql id="search2">
+		<if test="type=='review_star'">
+			where store_name like '%' || #{keyword} || '%' 
+		</if>
+		<if test="type=='review_date'">
+			where store_name like '%' || #{keyword} || '%' 
+		</if> 
+		<if test="type=='user'">
+			 where user_id = #{keyword} 
+		</if>
+   </sql>
+ 
 	
 
 </mapper>

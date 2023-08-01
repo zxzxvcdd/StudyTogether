@@ -20,8 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.common.vo.PageMaker;
 import com.spring.kgstudy.review.service.ReviewService;
+import com.spring.kgstudy.review.vo.CntByStarDTO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
+import com.spring.kgstudy.store.VO.StoreVO;
+import com.spring.kgstudy.store.service.StoreService;
 import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -38,40 +41,44 @@ public class ReviewController {
 
 	private final ReviewService reviewService;
 
+	
+
 	// 전체 리스트 보기
 	@RequestMapping(value = "/reviewListView.do")
 	public String reviewList(Model model, Criteria cri) throws Exception {
 		
 		System.out.println(cri);
+		
+		ArrayList<StoreVO> storeList = reviewService.findMap(cri);
+		
 		List<ReviewVO> Rlist = reviewService.getAllReview(cri);
+		
+		if(cri!= null) {
+			model.addAttribute("type", cri);
+			model.addAttribute("Rlist", Rlist);
+		}
 		
 		model.addAttribute("Rlist", Rlist);
 		
+		
 		// 총별점, 별점 평균 계산---------------------------------------------
+		int reviewCnt = reviewService.totalCount(cri);
+		model.addAttribute("reviewCnt",reviewCnt); //리뷰 갯수
 		
-		model.addAttribute("reviewCnt",Rlist.size()); //리뷰 갯수
 		
-		double avgStar = 0;
+
+		double avgStar = reviewService.getTotalStar(cri);
+		List<CntByStarDTO> starMap = reviewService.getCntByStar(cri);
 		
-		Map<String,Integer> starMap = new HashMap<String, Integer>();
 		
-		for(int i=1;i<6;i++) {
-			starMap.put("starCnt"+i,0);
-		}
-		
-		for(ReviewVO rv : Rlist) {
-			
-			int star =  (int) rv.getReview_star();
-			
-			starMap.put("starCnt"+star, starMap.get("starCnt"+star)+1);
-			
-			avgStar += star;
-		}
-		
-		avgStar /= Rlist.size();
+		System.out.println(avgStar);
+		System.out.println(reviewCnt);
+		avgStar /= reviewCnt;
 		
 		model.addAttribute("avgStar", avgStar);
 		model.addAttribute("starMap", starMap);
+		model.addAttribute("storeList", storeList );
+		
 		
 		// 페이징 처리에 필요한 부분
 		PageMaker pageMaker = new PageMaker();
@@ -112,6 +119,13 @@ public class ReviewController {
 		} else {
 			model.addAttribute("reviewList", reviewList);
 		}
+		
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(reviewService.totalCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		
 
 		
 		return "/mypage/userReviewList";
