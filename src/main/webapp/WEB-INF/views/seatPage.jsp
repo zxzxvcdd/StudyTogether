@@ -339,8 +339,9 @@ input[type="radio"] {
 }
 
 .store_check {
-	text-align:center;
-	margin-bottom: 20px;
+	margin: 0 auto 20px;
+    width: 1000px;
+    text-align: left;
 }
 
 .store_check input {
