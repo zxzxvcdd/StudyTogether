@@ -61,7 +61,7 @@ class SeatServiceTest {
 		
 		LocalDate start = now1.minusYears(40);
 		
-		for (int i = 1; i <=4000; i++) {
+		for (int i = 1; i <=3800; i++) {
 	
 			 Random random1 = new Random();
 			 Long ranDay = (long) (random1.nextInt((int) (now1.toEpochDay() -start.toEpochDay()+1)) + start.toEpochDay());

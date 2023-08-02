@@ -51,7 +51,7 @@ class MenuServiceTest {
 		int startX= 100;
 		int startY=100;
 		
-		int endX = 900;
+		int endX = 1000;
 		int endY = 500;
 		
 		int width=40;

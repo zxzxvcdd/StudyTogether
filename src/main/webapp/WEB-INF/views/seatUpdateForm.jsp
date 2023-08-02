@@ -166,7 +166,8 @@
 
                             .box:hover {
                                 background: gray;
-                                display:flex
+                                transform: translate(0, 0);
+                               
                             }
 
                             .seat_color1 {
@@ -540,7 +541,7 @@
 
                                             newBox.classList.add("box");
                                             newBox.classList.add("box"+i);
-                                            if("${loginUser.user_id eq vo.userId && vo.seatType=='N'}"){
+                                            if("${loginUser.user_id}"===seatList[i].userId && seatList[i].seatType=='N'){
                                                 newBox.classList.add("myseat");
                                             }
                                             
@@ -640,15 +641,18 @@
                                         }
 
                                         function changeState() {
-
+                                            
                                             let targetType = $(targetSeat).data("type");
                                             let targetIndex = $(targetSeat).data("index") ;
+                                            
                                             let changeType;
                                             if (targetType === "Y") {
 
+                                                console.log("비활성화")
                                                 changeType = "D"
                                             } else if (targetType === "D") {
-
+                                                
+                                                console.log("활성화")
                                                 changeType = "Y"
 
                                             } else if (targetType === "N") {
@@ -657,10 +661,16 @@
                                                 return;
                                             }
 
+                                   
                                             $(targetSeat).data("type", changeType);
+                                            
+                                            console.log($(targetSeat).data("type"));
+                                            console.log($(targetSeat));
+
+
                                             seatList[targetIndex].seatType = changeType;
                                             console.log(seatList[targetIndex].seatType);
-                                            refreshTypeClass();
+                                            refreshTypeClass(targetSeat);
 
                                         }
 
@@ -757,10 +767,12 @@
                                         function refreshTypeClass(newBox) {
 
                                            
-
                                                 let seatType = $(newBox).data("type");
 
+                                           
+
                                                 $(newBox).removeClass('seat_color1');
+
                                                 $(newBox).removeClass('seat_color2');
                                                 $(newBox).removeClass('seat_color3');
 
@@ -825,10 +837,9 @@
                                         $(document).ready(function () {
                                             addNewModalEvent();
                                             addDelModalEvent(); 
-                                            refreshTypeClass();
+                                         
 
-                                            addMoveEvent();
-                                            addDbClickEvent();
+                                          
                                            
 
                                         })
