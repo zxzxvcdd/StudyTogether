@@ -545,6 +545,8 @@
                                             targetSeat;
                                         
 
+
+
                                         const seatList = new Array();
                                         let newSeat;
                                         <c:forEach var="vo" items="${seat}" varStatus="status">
@@ -839,16 +841,15 @@
                                                 url: reqUrl,
                                                 type: "POST",
                                                 contentType: "application/json;charset=UTF-8",
-                                                dataType:JSON,
                                                 data: postData, 
                                                 success: function(data){
                                                     
-                                                    alert("asdasd");
+                                          
                                                     console.log(data);
 
-                                                    // let resMap= JSON.parse(data)
+                                                    let resMap= data
 
-                                                    // alert(resMap.msg);
+                                                    alert(resMap.msg);
                        
                                                 }
                                             })

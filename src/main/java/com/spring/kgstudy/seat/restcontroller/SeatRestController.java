@@ -172,14 +172,16 @@ public class SeatRestController {
 
 		int flag =service.insertSeat(seatList);
 		
-		
+		String msg = "";
 		if(flag==0) {
-		resMap.put("msg", "수정성공");
+			msg="수정성공";
 		}else {
-			
-			resMap.put("msg", "수정실패");
+			msg="수정실패";
 			
 		}
+		
+		
+		resMap.put("msg",msg);
 		
 		
 		
