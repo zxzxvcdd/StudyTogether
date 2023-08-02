@@ -24,20 +24,25 @@ public class ReserveScheduler {
 	private final SeatService seatService;
  	
 	
-	   @Scheduled(cron = "0 * * * * * ")
+	   @Scheduled(cron = "1 * * * * * ")
 	    public void checkOut() {
 	       
-		   	
+		   System.out.println("scheduller");
 		   
 		  for(Entry<Long, List<Integer>> checkInByTime : checkInList.entrySet()) {
 			
-			  System.out.println("scheduller");
+			  
+			  System.out.println(checkInByTime.getKey());
+			  System.out.println(checkInByTime.getValue());
 			  
 			  if(new Date().getTime() > checkInByTime.getKey()) {
 				  
 				  System.out.println("이용권 시간 만료 퇴실 처리");
 				  for(int reservId : checkInByTime.getValue()) {
 					  
+					  System.out.println("만료키"+checkInByTime.getKey());
+					  System.out.println("현재"+new Date().getTime());
+					  System.out.println(reservId);
 					  
 					  if(!seatService.seatCheckOut(reservId)) {
 						  

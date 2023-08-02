@@ -189,8 +189,7 @@ public class SeatService{
 			
 			if(!sdao.insertReserv(reserv)) return null;
 			
-			System.out.println(reserv);
-
+			
 			vo.setReservationId(reserv.getReservationId());			
 			vo.setSeatType("N");
 
@@ -212,8 +211,7 @@ public class SeatService{
 				
 				
 				
-				System.out.println(5);
-
+				
 				Calendar cal=Calendar.getInstance();
 				
 				cal.setTime(now);
@@ -223,7 +221,7 @@ public class SeatService{
 				
 				Date deadLine = cal.getTime();
 				
-				System.out.println(deadLine);
+				
 			
 				if(deadLine.getTime()>endTime) {
 				
@@ -303,9 +301,35 @@ public class SeatService{
 			if(!orderDao.updatePass(pass))return false;
 			
 			System.out.println(pass);
+			System.out.println("엔드타임" + pass.getPassEnd().getTime());
 			
 			
-			ReserveScheduler.checkInList.remove(pass.getPassEnd().getTime());
+			List<Integer> checkInListByTime = ReserveScheduler.checkInList.get(pass.getPassEnd().getTime());
+			
+			if(checkInListByTime!=null ) {
+				if(checkInListByTime.size() ==1) {
+				System.out.println(ReserveScheduler.checkInList.remove(pass.getPassEnd().getTime()));
+				
+				}else {
+					
+					for(int i=0; i<checkInListByTime.size();i++) {
+						
+						if(checkInListByTime.get(i) == pass.getPassEnd().getTime()) {
+							
+							System.out.println(checkInListByTime.remove(i));
+							
+							}
+						
+							}
+				
+				
+				
+					}
+			}
+			
+			
+			
+			
 			
 			
 			

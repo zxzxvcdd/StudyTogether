@@ -95,6 +95,9 @@ public class SeatRestController {
 
 			Long checkIn = (Long) session.getAttribute("checkIn");
 			
+			System.out.println("만료"+checkIn);
+			System.out.println("현재"+now.getTime());
+			System.out.println(checkIn < now.getTime());
 			if (checkIn < now.getTime())return "checkedIN";
 			else session.removeAttribute("checkIn");
 			
@@ -112,7 +115,6 @@ public class SeatRestController {
 		
 		
 		if(reserv!=null) {
-			
 			session.setAttribute("checkIn",now.getTime()+pass.getPassTime()*1000);
 			session.setAttribute("reservId", reserv.getReservationId());
 		

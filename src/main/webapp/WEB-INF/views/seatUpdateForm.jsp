@@ -574,6 +574,7 @@
 
 
                                             newBox.classList.add("box");
+                                            
                                             newBox.classList.add("box"+i);
                                             if("${loginUser.user_id}"===seatList[i].userId && seatList[i].seatType=='N'){
                                                 newBox.classList.add("myseat");
@@ -614,21 +615,22 @@
 
                                         }
 
-
+                    
 
 
                                         function addMoveEvent(newBox) {
 
                                             
                                             $(newBox).mousedown(function(eq){
-                                              
-                                                eq.preventDefault();
-                                                console.log("mousedown");
-
+                                                
                                                 startPosX = eq.clientX;
                                                 startPosY = eq.clientY;
-                                               
+                                                eq.preventDefault();
+                                                console.log(startPosX);
+                                                console.log("mousedown");
 
+                                      
+                                                
                                                 $(document).mousemove(moveSeat)
                                                 $(document).mouseup(function(){
                                                     console.log("mouseup");
@@ -643,29 +645,31 @@
                                                     
                                                     newPosX = startPosX - e.clientX;
                                                     newPosY = startPosY - e.clientY;
-                                                  
-
-                                                    let offsetTop = ($(newBox).offset().top - newPosY);
-                                                    let offsetLeft = ($(newBox).offset().left - newPosX);
-                                           
                                                    
-                                                    curY = e.clientY-20-134;
-                                                    curX = (e.clientX-20-317);
-                                                    $(newBox).css("top",curY+ "px") 
-                                                    $(newBox).css("left",curX+ "px") 
-                                                
-                                                
                                                     startPosX = e.clientX;
                                                     startPosY = e.clientY;
-
+                                        
+                                                    curY = e.clientY-20-50;
+                                                    curX = (e.clientX-20-317-240);
                                                     
+                                                    $(newBox).css("top",curY+ "px") 
+                                                    $(newBox).css("left",curX+ "px") 
+
+                                                    let offsetLeft = ($(newBox).offset().left - newPosX);
+                                                    let offsetTop = ($(newBox).offset().top - newPosY);
+                                                    
+                                                   
+
+
+                                       
+                                                                                   
 
                                                     let targetIndex = $(newBox).data("index");
                                                     
 
-                                                    seatList[targetIndex].y = curY;
                                                     seatList[targetIndex].x = curX;
-
+                                                    seatList[targetIndex].y = curY;
+                                                
                                                 }      
 
 
