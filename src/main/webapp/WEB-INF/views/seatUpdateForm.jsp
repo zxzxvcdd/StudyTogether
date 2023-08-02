@@ -44,18 +44,22 @@
                                 height:auto;
                                 margin-bottom: 10px;
                                 text-align: center;
-                                width: 90%;
+                                width: 1000px;
                                 display: inline-block;
                                 font-size: 15px;
                                 font-weight: 500;
                                 color: #333;
                                 background: white;
+                                margin: 10px auto;
+	                            display:block;
                             }
 
                             .seat_wrap {
+                                margin-top: 50px;
                                 background: white;
-                                width: 90%;
-                                height: 60vh;
+                                width: 1000px;
+                                height: 600px;
+                                margin: 0 auto;
                                 border-radius: 0.28571rem;
                                 box-shadow: 1px 1px 5px #ddd;
                                 position: relative;
@@ -295,6 +299,7 @@
                             .store_check {
 
                                 width: 400px;
+                                text-align:center;
 
                             }
 
@@ -380,14 +385,41 @@
                                 display:inline-block;
                                 
                             }
+                             header .navbar{
+
+                                display:block;
+                             }
+
+                            header .navbar a {
+                                display: block;
+                                font-size: 2rem;
+                                color: #fff;
+                                margin: 2rem 0;
+                                text-decoration:none;
+                            }
+                            header .navbar a:hover {
+                                letter-spacing: .2rem;
+                                color: var(--grean-color);
+                            }
+
+                            header .follow a {
+                                font-size: 2rem;
+                                color: #fff;
+                                margin: 0 .7rem;
+                            }
+
+                            header .follow a:hover {
+                                color: var(--grean-color);
+                            }
+
                         </style>
                     </head>
 
 
-                    <%@include file="./include/header.jsp"%>
+                   
 
                     <body>
-
+                    <%@include file="./include/header.jsp"%>
                   
                             <div class="wrapper">
                              

@@ -86,7 +86,7 @@ public class SeatController {
 	@GetMapping("seatUpdate.do")
 	public String seatUpdateForm(Model model, String storeId, Search search)  {
 		
-		if(storeId==null) return "seatPage";
+		if(storeId==null||storeId.length()<1) return "seatPage";
 		ArrayList<SeatVO> seatList = service.test(Integer.parseInt(storeId));
 		
 		search.setType("store");

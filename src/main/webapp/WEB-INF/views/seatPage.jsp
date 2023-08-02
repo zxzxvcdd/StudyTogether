@@ -35,22 +35,27 @@ div.wrapper {
 	height:auto;
 	margin-bottom: 10px;
 	text-align: center;
-	width: 90%;
+	width: 1000px;
 	display: inline-block;
 	font-size: 15px;
 	font-weight: 500;
 	color: #333;
 	background: white;
+	margin: 10px auto;
+	display:block;
 }
 
 .seat_wrap {
+	margin-top: 50px;
 	background: white;
-	width: 90%;
-	height: 60vh;
+	width: 1000px;
+	height: 600px;
+	margin: 0 auto;
 	border-radius: 0.28571rem;
 	box-shadow: 1px 1px 5px #ddd;
 	position: relative;
 }
+
 
 .add_btn {
 	background: gray;
@@ -134,6 +139,7 @@ div.wrapper {
 }
 
 .seat_check {
+	
 	text-align: center;
 }
 
@@ -333,6 +339,7 @@ input[type="radio"] {
 }
 
 .store_check {
+	text-align:center;
 	margin-bottom: 20px;
 }
 
