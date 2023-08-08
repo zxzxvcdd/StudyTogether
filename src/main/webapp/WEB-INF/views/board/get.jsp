@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%@ include file="../include/static-header.jsp" %> 
 <title>상세보기 페이지</title>
 <meta charset="utf-8">
 <!-- css 파일 -->

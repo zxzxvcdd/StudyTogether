@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<%@ include file="../include/static-header.jsp" %> 
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/login.css?after">
 

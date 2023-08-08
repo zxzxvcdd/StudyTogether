@@ -8,6 +8,10 @@
 	--logo-color:#a9d18e;
 }
 
+#seat{
+	cursor: pointer;
+}
+
 * {
 	font-family: 'Noto Sans KR', sans-serif; /* 구글폰트 */
 	margin: 0;
@@ -17,7 +21,7 @@
 	border:none;
 	text-decoration: none;
 
-	transition: all .2s linear;
+	/* transition: all .2s linear; */
 	line-height: 1.5;
 }
 

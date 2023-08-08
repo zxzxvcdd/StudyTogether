@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>계정정보 찾기</title>
 

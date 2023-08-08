@@ -6,6 +6,7 @@
 <html>
 
 <head>
+  <%@ include file="./include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"

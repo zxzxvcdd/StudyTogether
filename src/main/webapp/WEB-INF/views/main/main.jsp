@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>home</title>
 

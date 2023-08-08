@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-<<<<<<< HEAD
-=======
 .header_title{
 	
 	display: inline-block;
@@ -16,4 +14,395 @@
     font-weight: 700;
 	
 }
->>>>>>> branch 'syh' of https://github.com/zxzxvcdd/KGStudy.git
+
+
+html > body {
+    width: 100%;
+    font-family: 'Spoqa Han Sans Neo', sans-serif;
+    background-color: #f2ece4;
+}
+
+div.wrapper {
+    width: 100%;
+}
+
+.content_wrap {
+    width: 100%;
+    
+    margin: 0 auto;
+    padding: 20px;
+}
+.seatinfo_wrap_1 {
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px #ddd;
+    height:auto;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 1000px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    background: white;
+    margin: 10px auto;
+    display:block;
+}
+
+.seat_wrap {
+    margin-top: 50px;
+    background: white;
+    width: 1000px;
+    height: 600px;
+    margin: 0 auto;
+    border-radius: 0.28571rem;
+    box-shadow: 1px 1px 5px #ddd;
+    position: relative;
+}
+
+.add_btn {
+    background: gray;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 20%;
+    right: 10%;
+}
+
+.seatinfo {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 40px;
+    display: block;
+    border-bottom: 1px solid #ddd;
+    box-shadow-bottom: 1px 1px 5px #ddd;
+    color: gray;
+}
+
+.seatinfo div {
+    box-shadow-right: 1px 1px 5px #ddd;
+}
+
+.seatinfo div:last-child {
+    box-shadow-right: none;
+    border-right: none;
+}
+
+.seatinfo_title {
+    width: 24.3%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.seatinfo_content {
+    box-sizing: border-box;
+    width: 24.3%;
+    display: inline-block;
+}
+
+.seatinfo_bar {
+    height: 35px;
+    
+    display: inline-block;
+    width: 6px;
+    margin-left: -3px;
+    margin-right: -3px;
+    z-index: 10;
+    vertical-align: middle;
+    box-sizing: border-box;
+    border: 3px solid transparent;
+}
+
+.seat_wrap ul {
+    display: inline-flex;
+    margin: 0;
+    padding-left: 0;
+    cursor: inherit;
+    list-style: none;
+}
+
+.seat_wrap ul li {
+    list-style-type: none;
+    margin-right: 10px;
+    font-size: 0.1px;
+    font-weight: 500;
+    color: #575962;
+}
+
+.seat_wrap ul li span {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-top: 4px;
+    margin-right: 5px;
+    border-radius: 10px;
+    background-color: white;
+    vertical-align: top;
+    margin-right: 0;
+}
+
+.seat_check {
+    text-align: center;
+}
+
+.seat_list {
+    zoom: 0.9;
+}
+
+.box {
+    font-size: 0.75rem;
+    height: 40px;
+    width: 40px;
+    box-shadow: 1px 1px 5px #ddd;
+    border: solid 1px white;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+
+}
+
+.box:hover {
+    background: gray;
+    transform: translate(0, 0);
+   
+}
+
+.seat_color1 {
+    background-color: green;
+    cursor: default;
+}
+
+.seat_color2 {
+    background-color: red;
+    cursor: default;
+}
+
+.seat_color3 {
+    background-color: gray;
+    cursor: default;
+}
+
+.myseat {
+    cursor: pointer;
+    background-color: violet;
+}
+
+.box .active {
+    }
+
+.container {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 400px;
+    margin: 30px auto 10px;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 5px;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    top: 0;
+}
+
+.inner_modal {
+    display: block;
+}
+
+.container h1 {
+    font-size: 30px;
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 0;
+    background: #fff;
+}
+
+.form-group {
+    padding: 20px;
+    margin-bottom: 3px;
+    background: #fff;
+}
+
+.order-title {
+    display: block;
+    clear: both;
+}
+
+.order-title > div {
+    float: right;
+}
+
+.order-title > div:first-child {
+    float: left;
+    font-size: 20px;
+}
+
+.order-title div:last-child {
+    font-size: 20px;
+    font-weight: 550;
+    width: 100%;
+
+}
+
+.menu-list-form .font {
+    margin-bottom: 0;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.menu-list-form:has(div.show) {
+    padding-bottom: 10px;
+}
+
+.menu-list-form:has(div.show) .font {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out;
+}
+
+.menu-list-form:has(div.show) .open-menu {
+    border: 0;
+}
+
+.menu-list-form:has(div.show) .open-menu::after {
+    transform: rotate(-180deg);
+}
+
+.menu-list-con {
+    display: none;
+
+}
+
+.menu-list-con.dblock {
+    display: block;
+    box-shadow: 1px 1px 5px #ddd;
+}
+
+.buttons {
+    text-align: center;
+    /* margin: 20px 0; */
+    box-shadow: 1px 1px 5px #ddd;
+
+    padding: 20px;
+    background: #fff;
+
+}
+.store_check {
+
+    width: 400px;
+    text-align:center;
+
+}
+
+.store_check * {
+    display: inline-block;
+
+}
+
+.goChange,
+.store_id {
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #FDD000;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #F0F0F0;
+    color: #000;
+}
+
+input[type="text"],
+textarea {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+.modal.show {
+
+    display: block;
+    top: 0;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+
+}
+.modal.show .modal-dialog {
+
+    margin-top: 300px;
+
+}
+
+.modal.show * {
+
+    font-size: 14px;
+
+}
+
+.modal.show .modal-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.modal.show .modal-body {}
+
+.btn_wrap{
+
+ 
+
+}
+.btn-con{
+
+    display:block;
+    width:300px;
+    margin : 0 auto;
+    text-align:center;
+}
+.btn-con *{
+    display:inline-block;
+    
+}
+ header .navbar{
+
+    display:block;
+ }
+
+header .navbar a {
+    display: block;
+    font-size: 2rem;
+    color: #fff;
+    margin: 2rem 0;
+    text-decoration:none;
+}
+header .navbar a:hover {
+    letter-spacing: .2rem;
+    color: var(--grean-color);
+}
+
+header .follow a {
+    font-size: 2rem;
+    color: #fff;
+    margin: 0 .7rem;
+}
+
+header .follow a:hover {
+    color: var(--grean-color);
+}
+

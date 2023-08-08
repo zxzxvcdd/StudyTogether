@@ -35,6 +35,7 @@ function convertToStars(score) {
 <!DOCTYPE html>
 <html>
 <head>
+  <%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/rev_star.css?after">

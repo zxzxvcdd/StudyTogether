@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%@ include file="../include/static-header.jsp" %> 
   <title>register</title>
   <meta charset="utf-8">
 <!-- css 파일 -->
