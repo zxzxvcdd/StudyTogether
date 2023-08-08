@@ -1,10 +1,10 @@
 package com.spring.kgstudy.menu.service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -60,6 +60,9 @@ class MenuServiceTest {
 		int marginX = (endX-startX - width*10)/9+width;
 		int marginY = (endY-startY - height*3)/2+height;
 		
+		List<Integer> x = new ArrayList<Integer>();
+		List<Integer> y = new ArrayList<Integer>();
+		
 		String sql = "update seat set x = ";
 		String sql2 = " , y = ";
 		String sql3 = " where seat_name='";
@@ -71,8 +74,10 @@ class MenuServiceTest {
 				
 				System.out.println(sql + (startX+(marginX*(j-1))) + sql2 + startY + sql3 + (((i-1)*10)+j) + "\';");
 				
-				
+				x.add(startX+(marginX*(j-1)));
+				y.add(((i-1)*10)+j);
 			}
+			
 			
 		
 			startY+=marginY;
@@ -82,7 +87,9 @@ class MenuServiceTest {
 		}
 			
 
-
+		System.out.println(x);
+		System.out.println(y);
+		
 	}
 
 	

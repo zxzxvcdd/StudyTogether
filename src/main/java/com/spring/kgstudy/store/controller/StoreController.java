@@ -80,6 +80,8 @@ public class StoreController {
 	public String goSeat(StoreVO store,Search search) {
 	
 		search.setType("name");
+		
+		System.out.println(store);
 		search.setKeyword(store.getStoreName());
 		store = storeService.findOneStore(search);
 		
@@ -89,6 +91,7 @@ public class StoreController {
 		
 		
 	}
+	
 	
 	
 	

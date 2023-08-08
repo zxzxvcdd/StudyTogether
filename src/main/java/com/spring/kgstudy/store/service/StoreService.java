@@ -27,7 +27,9 @@ public class StoreService {
 		
 		List<StoreVO> resultList = kakaoMapService.saveMap();
 		
-		
+		int[] x = {100, 195, 290, 385, 480, 575, 670, 765, 860, 955, 100, 195, 290, 385, 480, 575, 670, 765, 860, 955, 100, 195, 290, 385, 480, 575, 670, 765, 860, 955};
+		int[] y	= {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
+
 
 		
 		System.out.println(resultList.size());
@@ -49,6 +51,8 @@ public class StoreService {
 					seat.setSeatName(""+i);
 					seat.setStoreId(store.getStoreId());
 					
+					seat.setX(x[i-1]);
+					seat.setY(y[i-1]);
 					seat.setSeatType("N");
 					seatList.add(seat);
 					

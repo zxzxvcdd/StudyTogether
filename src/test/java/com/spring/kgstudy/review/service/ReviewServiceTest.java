@@ -43,11 +43,12 @@ LocalDate now = LocalDate.now();
 				 SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd");
 				 
 				 String date = format.format(orderDate);
-		
+				 int storeId= random.nextInt(1595)+2233;
+				 
 				
 				String sql ="insert into review(review_id,user_id,store_id,store_name,reservation_id,review_date,review_content,review_filename,review_star)"
-						+ "      values (review_seq.NEXTVAL, 'user"+i+"', "+(2257+i)+ ", (select store_name from store_table where store_id = "+ (2257+i)+"), "
-						+ i*j+",' "+date+"', '리뷰입니다"+i*j+"', '파일1.jsp', "+((i*j)%5+1)+");" ;
+						+ "      values (review_seq.NEXTVAL, 'user"+i+"', "+storeId+ ", (select store_name from store_table where store_id = "+ storeId+"), "
+						+ (i*j)+",' "+date+"', '리뷰입니다"+(i*j)+"', '파일1.jsp', "+((i*j)%5+1)+");" ;
 				
 				System.out.println(sql);
 				

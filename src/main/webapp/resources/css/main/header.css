@@ -31,7 +31,7 @@ html {
 	scroll-behavior: smooth;
 }
 
-body {
+html > body {
 	background: #f2ece4;
 	padding-left: 30rem;
 }

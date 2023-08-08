@@ -39,7 +39,7 @@ class SeatServiceTest {
 	@Test
 	void test() {
 
-		/*
+		/* 
 		 * ArrayList<SeatVO> voList = new ArrayList<SeatVO>();
 		 * 
 		 * for(int i=1;i<=30;i++) { SeatVO vo = new SeatVO();

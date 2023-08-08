@@ -89,6 +89,7 @@ function centerSerach() {
         location: map.getCenter(),
         radius: 10000,
         sort: kakao.maps.services.SortBy.DISTANCE,
+        category_group_code:"CE7",
         
     };
     
@@ -127,12 +128,14 @@ function searchPlaces(location) {
         return false;
     }
 
-    keyword += "메가커피";
+    keyword = "투썸플레이스 " + keyword ;
 
-
+    var searchOptions = {
+        category_group_code:CE7,
+    }
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch(keyword, placesSearchCB);
+    ps.keywordSearch(keyword, placesSearchCB,searchOptions);
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -182,6 +185,32 @@ function displayPlaces(places) {
     for (var i = 0; i < places.length; i++) {
 
 
+        
+        let storeName = "스터디투게더" + places[i].place_name.substr(6);
+        
+        let reqUrl = "getStoreStar.do?storeName="+storeName;
+        let resMap;
+        $.ajax({
+            url: reqUrl,
+            type: "GET",
+
+            success: function (data) {
+
+
+                console.log(data);
+
+                resMap = data
+
+
+                
+
+            }
+        })
+
+        console.log(resMap)
+
+
+
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
             marker = addMarker(placePosition, i),
@@ -189,6 +218,12 @@ function displayPlaces(places) {
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
+
+
+
+
+
+
 
         bounds.extend(placePosition);
 
@@ -350,8 +385,8 @@ function displayInfowindow(marker, places) {
 
     content +=
         '<p class="tel">' + places.phone + '</p>' +
-        '<a class="btn_marker_detail" href="https://map.kakao.com/link/to/' + places.place_name + ',' + places.y + ',' + places.x + '" target="_blank">길찾기</a>' +
-        '<a class="btn_marker_detail" href="goSeat.do?storeName='+ places.place_name+'>예약하기</a>' +
+        '<a class="btn_marker_detail find_way" href="https://map.kakao.com/link/to/' + places.place_name + ',' + places.y + ',' + places.x + '" target="_blank">길찾기</a>' +
+        '<a class="btn_marker_detail reerv_seat" href="goSeat.do?storeName='+ '스터디투게더' + places.place_name.substr(6)+'">예약하기</a>' +
         '</div>' +
         '</div>' +
         '</article>' +
