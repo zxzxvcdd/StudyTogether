@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +24,6 @@ import com.google.gson.JsonParser;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.dao.MemberDAO;
 import com.spring.kgstudy.member.dto.KakaoDTO;
-import com.spring.kgstudy.member.repository.MemberRepository;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.order.dao.OrderDAO;
 import com.spring.kgstudy.order.vo.PassVO;
@@ -262,35 +262,44 @@ public class MemberService {
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("GET");
 				conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+				
 				int responseCode = conn.getResponseCode();
-				System.out.println("responseCode : " + responseCode);
+				//System.out.println("responseCode : " + responseCode);
+				
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				String line = "";
 				String result = "";
 				while ((line = br.readLine()) != null) {
 					result += line;
 				}
-				System.out.println("response body : " + result);
+				//System.out.println("response body : " + result);
+				
 				JsonParser parser = new JsonParser();
 				JsonElement element = parser.parse(result);
 				JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+				
 				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
+				String kakaoId = kakao_account.getAsJsonObject().get("email").getAsString();
+				
+				userInfo.put("kakaoId", kakaoId);
 				userInfo.put("nickname", nickname);
 				userInfo.put("email", email);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-			// catch 아래 코드 추가.
 			KakaoDTO result = dao.findkakao(userInfo);
 			// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-			System.out.println("S:" + result); //----------------------------------------여기 에러
+			System.out.println("S:" + result);
+			
 			if(result==null) {
 			// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
 				dao.kakaoinsert(userInfo);
-				// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
+				dao.kakaoinsertMember(userInfo);
+				// 위 코드가 정보를 저장하기 위해 dao로 보내는 코드임.
 				return dao.findkakao(userInfo);
 				// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
 				//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
@@ -300,8 +309,59 @@ public class MemberService {
 			}
 	        
 		}
+
+
+	public Boolean findOneKakao(KakaoDTO userInfo, HttpSession session) {
+		
+		MemberVO memberVO = dao.findOneKaKao(userInfo);
+		System.out.println("findOneKakao memberVO : " + memberVO);
+		
+		if(memberVO != null){
+			session.setAttribute("loginUser", memberVO); //성공하면 세션에 memberVO 넣어주기
+			System.out.println(memberVO);
+			
+			Search search = new Search();
+			search.setType("user");
+			search.setAmount(9999);
+			search.setKeyword(memberVO.getUser_id());
+			List<ReservationVO> reservList = seatDao.findAllReserv(search);
+			System.out.println(reservList);
+			
+			for(ReservationVO reserv : reservList) {
+				
+				if(reserv.getUseTime()==0) {
+			
+					System.out.println(reserv);
+					
+					search.setType("pass");
+					search.setKeyword(""+reserv.getPassId());
+					
+					PassVO pass =orderDao.findOnePass(search);
+					
+					Long endLine = reserv.getReservationDay().getTime()+pass.getPassTime()*1000;
+					
+					Date now = new Date();
+					if(now.getTime()>endLine) {
+						
+						ReserveScheduler.checkInList.add(endLine, reserv.getReservationId());
+					}else {
+					
+						session.setAttribute("checkIn",endLine);
+						session.setAttribute("reservId", reserv.getReservationId());
+						System.out.println(endLine);
+					}
+					break;
+				}
+				
+			}
+			
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 	
-	
-	
+
 	
 }//MemberService-end

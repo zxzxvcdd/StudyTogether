@@ -26,8 +26,11 @@ public interface MemberDAO {
 
 	// 카카오 로그인 정보 저장
 	public void kakaoinsert(HashMap<String, Object> userInfo);
+	public void kakaoinsertMember(HashMap<String, Object> userInfo);
 
 	// 카카오 로그인 정보 확인
 	public KakaoDTO findkakao(HashMap<String, Object> userInfo);
+
+	public MemberVO findOneKaKao(KakaoDTO userInfo);
 
 }

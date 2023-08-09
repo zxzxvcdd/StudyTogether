@@ -174,19 +174,26 @@ public class MemberController {
 	// =======================================================================
 	// 카카오 로그인
 	@RequestMapping(value="/kakaoLogin.do", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
-		System.out.println("###code####" + code);
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, MemberVO memberVO, HttpSession session, Model model) throws Exception {
+		//System.out.println("###code####" + code);
 		String access_Token = service.getAccessToken(code);
 		KakaoDTO userInfo = service.getUserInfo(access_Token);
-		System.out.println("###access_Token#### : " + access_Token);
+		//System.out.println("###access_Token#### : " + access_Token);
 	    
 		
-		session.setAttribute("kakaoN", userInfo.getK_name());
-		session.setAttribute("kakaoE", userInfo.getK_email());
-		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
-		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-	    
-		return "/main/main";
+		boolean result = service.findOneKakao(userInfo, session);
+		
+		
+		if (result) {
+			model.addAttribute("loginMsg", "카카오 로그인 성공");
+			
+			
+		} else {
+			model.addAttribute("loginMsg", "카카오 로그인 실패");
+		}
+
+		return result ? "/main/main" : "/member/login";
+		// 로그인 성공하면 메인페이지 : 실패하면 로그인 페이지를 보여주기
 	}
 	
 	
