@@ -1,7 +1,11 @@
 package com.spring.kgstudy.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.spring.kgstudy.common.search.Search;
+import com.spring.kgstudy.member.vo.MemberDTO;
 import com.spring.kgstudy.member.vo.MemberVO;
 
 @Mapper
@@ -20,5 +24,7 @@ public interface MemberDAO {
 	public MemberVO findPw(MemberVO memberVO); //비밀번호 찾기
 	
 	public boolean updatePw(MemberVO memberVO); //비밀번호 재설정
+	
+
 	
 }

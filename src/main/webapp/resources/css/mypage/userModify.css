@@ -61,6 +61,10 @@ body {
     vertical-align: inherit;
     border-color: inherit;
 }
+.modify-table tr{
+    border-bottom: 1px solid #ddd;
+
+}
 
 .modify-table th {
 	width: 100px;
@@ -68,21 +72,33 @@ body {
     text-align: left;
     white-space: nowrap;
     padding: 14px 30px;
-    border-bottom: 1px solid #ddd;
+    
 }
 
 .modify-table td {
 	border-left: 1px solid #ddd;
+    width: 80%;
 	padding: 14px 30px;
-    border-bottom: 1px solid #ddd;
+    
         display: table-cell;
     vertical-align: inherit;
 }
 
 
-.modify-table input {
+
+.modify-table select{
+
+    width: 100px;
+
+}
+.modify-table #store_list{
+    margin-left: 10px;
+    width: 200px;
+}
+
+.modify-table input{
 	border-bottom: solid 2px #747d8c;
-	width: 110px;
+	width: 200px;
 }
 
 .modify-table .user_pw {

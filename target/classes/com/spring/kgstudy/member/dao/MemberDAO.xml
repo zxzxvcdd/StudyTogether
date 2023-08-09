@@ -13,7 +13,7 @@
 		<result property="user_birthday" column="user_birthday" />
 		<result property="user_grant" column="user_grant" />
 	</resultMap>
-	
+
 	
 	<!-- 메인 홈으로 이동하는 테스트 -->
 	<select id="mainPage" resultType="String">

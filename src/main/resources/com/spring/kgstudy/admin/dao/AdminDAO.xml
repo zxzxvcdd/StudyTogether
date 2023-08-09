@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.kgstudy.admin.dao.AdminDAO">
+
+
+
+	<sql id="search">
+	        <if test="type == 'id'">WHERE A.user_id like  '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'name'">WHERE A.user_name like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'tel'">WHERE A.user_tel like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'email'">WHERE A.user_email like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'store'">WHERE A.store_name like '%'||#{keyword}||'%' and A.user_grant='manager'</if>
+
+	</sql>
+
+	
+	<select id="findAllMember" resultType="com.spring.kgstudy.member.vo.MemberDTO">
+
+	select * from	
+	(select A.*,B.store_name, B.store_id, row_number() over(order by A.user_id) rn from member A left join store_table B on A.user_id=B.user_id
+	<include refid="search"/>
+	order by A.user_id
+	) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
+	
+	</select>
+
+
+	<delete id="deleteMember">
+	
+	delete from member where user_id = #{userId}
+	</delete>
+
+
+	<select id="findMemberCnt" resultType="int">
+	
+	
+	select count(*) from member A left join store_table B on A.user_id=B.user_id
+	<include refid="search"/>
+	
+	
+	</select>
+
+
+	<select id="getOneMember" resultType="com.spring.kgstudy.member.vo.MemberDTO">
+	
+	select * from member where user_id = #{userId}
+	
+	
+	</select>
+
+	<update id="memberUpdate">
+		update member set user_name=#{userName}, user_email=#{userEmail}, 
+		user_tel=#{userTel}, user_birthday=#{userBirthday}, user_gender=#{userGender}, user_grant=#{userGrant}
+		where user_id=#{userId}
+	</update>
+
+
+	<update id="updateStore">
+		update store_table set user_id = #{userId} where storeId= #{storeId}; 
+	</update>
+
+
+
+</mapper>

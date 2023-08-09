@@ -19,6 +19,7 @@ public class Search extends Page {
 
 	private String type; // 검색 조건
     private String keyword; // 검색 키워드
+    private String grant;
     
     private SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd");
     
