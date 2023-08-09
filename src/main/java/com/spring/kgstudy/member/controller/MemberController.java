@@ -1,9 +1,8 @@
 package com.spring.kgstudy.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.kgstudy.member.dto.KakaoDTO;
 import com.spring.kgstudy.member.service.MemberService;
 import com.spring.kgstudy.member.vo.MemberVO;
 
@@ -23,7 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService service;
-
+	
+	
 	@GetMapping("main.do")
 	public String test(Model model) {
 
@@ -169,5 +170,28 @@ public class MemberController {
 
 		return result ? "/member/login" : "/member/findResultPw";
 	}
+	
+	// =======================================================================
+	// 카카오 로그인
+	@RequestMapping(value="/kakaoLogin.do", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
+		System.out.println("###code####" + code);
+		String access_Token = service.getAccessToken(code);
+		KakaoDTO userInfo = service.getUserInfo(access_Token);
+		System.out.println("###access_Token#### : " + access_Token);
+	    
+		
+		session.setAttribute("kakaoN", userInfo.getK_name());
+		session.setAttribute("kakaoE", userInfo.getK_email());
+		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
+		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
+	    
+		return "/main/main";
+	}
+	
+	
+	
+	
+	
 
 }

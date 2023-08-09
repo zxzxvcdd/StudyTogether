@@ -14,6 +14,11 @@
 		<result property="user_grant" column="user_grant" />
 	</resultMap>
 	
+	<resultMap type="kdto" id="kakao">
+		<result property="k_id" column="k_id" />
+		<result property="k_name" column="k_name" />
+		<result property="k_email" column="k_email" />
+	</resultMap>
 	
 	<!-- 메인 홈으로 이동하는 테스트 -->
 	<select id="mainPage" resultType="String">
@@ -59,5 +64,18 @@
 		update member set user_pw = #{user_pw}
 		where user_id = #{user_id}
 	</update>
+
+	<!-- 정보 저장 -->
+	<insert id="kakaoinsert" parameterType="java.util.HashMap">
+		insert into kakao_table(k_name, k_email)
+			values(#{nickname}, #{email})
+	</insert>
+	
+	<!-- 정보 찾기 -->
+	<select id="findkakao" resultMap="kakao">
+		select * from kakao_table where k_name=#{nickname} and k_email=#{email}
+	</select>
+
+
 
 </mapper>

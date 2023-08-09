@@ -25,6 +25,8 @@
 		
 		<typeAlias alias="ReviewVO" type="com.spring.kgstudy.review.vo.ReviewVO"/>
 		
+		<typeAlias alias="kdto" type="com.spring.kgstudy.member.dto.KakaoDTO"/>
+		
 	</typeAliases>
 
 
