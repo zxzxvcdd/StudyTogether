@@ -86,20 +86,30 @@ public class MemberService {
 
 	//로그인
 	public boolean loginUser(MemberVO memberVO, HttpSession session) {
-
-		String rawPw = memberVO.getUser_pw();
-
-		memberVO = dao.findOneMember(memberVO.getUser_id()); // db에서 login한 유저의 아이디를 가져와서
 		
-		if(memberVO == null) {
-			return false;
+		boolean pwdSuccess = false;
+		if(memberVO.getUser_email().length()>=1) {
+			
+			memberVO = ckMemberKakao(memberVO.getUser_email());
+			if(memberVO!=null) {
+				pwdSuccess = true;
+			}
+			
+			
+		}else {
+			String rawPw = memberVO.getUser_pw();
+	
+			memberVO = dao.findOneMember(memberVO.getUser_id()); // db에서 login한 유저의 아이디를 가져와서
+			
+			if(memberVO == null) {
+				return false;
+			}
+			
+			String encodedPw = memberVO.getUser_pw(); // login한 유저의 pw를 MemberVO pw안에 넣는다.
+	
+			pwdSuccess = passwordEncoder.matches(rawPw, encodedPw);
+												//matches(평문 pw, 암호화된 pw) 순서!!
 		}
-		
-		String encodedPw = memberVO.getUser_pw(); // login한 유저의 pw를 MemberVO pw안에 넣는다.
-
-		boolean pwdSuccess = passwordEncoder.matches(rawPw, encodedPw);
-											//matches(평문 pw, 암호화된 pw) 순서!!
-		
 		//System.out.println("평문 pw:" + rawPw);
 		//System.out.println("암호화된 pw:" + encodedPw);
 
@@ -255,7 +265,9 @@ public class MemberService {
 	
 	// 메서드 리턴타입 KakaoDTO로 변경 및 import.
 	public KakaoDTO getUserInfo(String access_Token) {
-			HashMap<String, Object> userInfo = new HashMap<String, Object>();
+			
+			KakaoDTO userInfo = null;
+		
 			String reqURL = "https://kapi.kakao.com/v2/user/me";
 			try {
 				URL url = new URL(reqURL);
@@ -283,84 +295,69 @@ public class MemberService {
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
 				String kakaoId = kakao_account.getAsJsonObject().get("email").getAsString();
 				
-				userInfo.put("kakaoId", kakaoId);
-				userInfo.put("nickname", nickname);
-				userInfo.put("email", email);
+				userInfo = new KakaoDTO(kakaoId,nickname,email);
+		
 				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			KakaoDTO result = dao.findkakao(userInfo);
-			// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-			System.out.println("S:" + result);
-			
-			if(result==null) {
-			// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
-				dao.kakaoinsert(userInfo);
-				dao.kakaoinsertMember(userInfo);
-				// 위 코드가 정보를 저장하기 위해 dao로 보내는 코드임.
-				return dao.findkakao(userInfo);
-				// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
-				//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-			} else {
-				return result;
-				// 정보가 이미 있기 때문에 result를 리턴함.
-			}
+				
+		
+			return userInfo;
 	        
 		}
 
 
-	public Boolean findOneKakao(KakaoDTO userInfo, HttpSession session) {
-		
-		MemberVO memberVO = dao.findOneKaKao(userInfo);
-		System.out.println("findOneKakao memberVO : " + memberVO);
-		
-		if(memberVO != null){
-			session.setAttribute("loginUser", memberVO); //성공하면 세션에 memberVO 넣어주기
-			System.out.println(memberVO);
+		public MemberVO ckMemberKakao(String email) {
 			
-			Search search = new Search();
-			search.setType("user");
-			search.setAmount(9999);
-			search.setKeyword(memberVO.getUser_id());
-			List<ReservationVO> reservList = seatDao.findAllReserv(search);
-			System.out.println(reservList);
+			MemberVO member = dao.findOneEmail(email);
 			
-			for(ReservationVO reserv : reservList) {
-				
-				if(reserv.getUseTime()==0) {
 			
-					System.out.println(reserv);
-					
-					search.setType("pass");
-					search.setKeyword(""+reserv.getPassId());
-					
-					PassVO pass =orderDao.findOnePass(search);
-					
-					Long endLine = reserv.getReservationDay().getTime()+pass.getPassTime()*1000;
-					
-					Date now = new Date();
-					if(now.getTime()>endLine) {
-						
-						ReserveScheduler.checkInList.add(endLine, reserv.getReservationId());
-					}else {
-					
-						session.setAttribute("checkIn",endLine);
-						session.setAttribute("reservId", reserv.getReservationId());
-						System.out.println(endLine);
-					}
-					break;
-				}
-				
-			}
+			return member;
 			
-			return true;
-		} else {
-			return false;
+			
+			
 		}
-		
-	}
+	
+	
+		/*
+		 * public Boolean findOneKakao(KakaoDTO userInfo, HttpSession session) {
+		 * 
+		 * MemberVO memberVO = dao.findOneKaKao(userInfo);
+		 * System.out.println("findOneKakao memberVO : " + memberVO);
+		 * 
+		 * if(memberVO != null){ session.setAttribute("loginUser", memberVO); //성공하면 세션에
+		 * memberVO 넣어주기 System.out.println(memberVO);
+		 * 
+		 * Search search = new Search(); search.setType("user"); search.setAmount(9999);
+		 * search.setKeyword(memberVO.getUser_id()); List<ReservationVO> reservList =
+		 * seatDao.findAllReserv(search); System.out.println(reservList);
+		 * 
+		 * for(ReservationVO reserv : reservList) {
+		 * 
+		 * if(reserv.getUseTime()==0) {
+		 * 
+		 * System.out.println(reserv);
+		 * 
+		 * search.setType("pass"); search.setKeyword(""+reserv.getPassId());
+		 * 
+		 * PassVO pass =orderDao.findOnePass(search);
+		 * 
+		 * Long endLine = reserv.getReservationDay().getTime()+pass.getPassTime()*1000;
+		 * 
+		 * Date now = new Date(); if(now.getTime()>endLine) {
+		 * 
+		 * ReserveScheduler.checkInList.add(endLine, reserv.getReservationId()); }else {
+		 * 
+		 * session.setAttribute("checkIn",endLine); session.setAttribute("reservId",
+		 * reserv.getReservationId()); System.out.println(endLine); } break; }
+		 * 
+		 * }
+		 * 
+		 * return true; } else { return false; }
+		 * 
+		 * }
+		 */
 	
 
 	

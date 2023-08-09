@@ -33,4 +33,6 @@ public interface MemberDAO {
 
 	public MemberVO findOneKaKao(KakaoDTO userInfo);
 
+	public MemberVO findOneEmail(String email);
+
 }

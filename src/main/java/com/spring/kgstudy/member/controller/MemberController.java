@@ -23,8 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService service;
-	
-	
+
 	@GetMapping("main.do")
 	public String test(Model model) {
 
@@ -68,12 +67,10 @@ public class MemberController {
 	public String memberLogin(MemberVO memberVO, HttpSession session, Model model) {
 
 		boolean result = service.loginUser(memberVO, session);
-		
 
 		if (result) {
 			model.addAttribute("loginMsg", "로그인 성공");
-			
-			
+
 		} else {
 			model.addAttribute("loginMsg", "로그인 실패");
 		}
@@ -87,11 +84,10 @@ public class MemberController {
 	public String memberLogout(HttpSession session, Model model) throws IOException {
 
 		session.removeAttribute("loginUser"); // 로그아웃
-		
-		session.invalidate();
-		
-		model.addAttribute("loginMsg", "로그아웃 하였습니다.");
 
+		session.invalidate();
+
+		model.addAttribute("loginMsg", "로그아웃 하였습니다.");
 
 		return "/main/main";
 	}
@@ -170,35 +166,39 @@ public class MemberController {
 
 		return result ? "/member/login" : "/member/findResultPw";
 	}
-	
+
 	// =======================================================================
 	// 카카오 로그인
-	@RequestMapping(value="/kakaoLogin.do", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, MemberVO memberVO, HttpSession session, Model model) throws Exception {
-		//System.out.println("###code####" + code);
+	@RequestMapping(value = "/kakaoLogin.do", method = RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code,
+			HttpSession session, Model model) throws Exception {
+		// System.out.println("###code####" + code);
+
 		String access_Token = service.getAccessToken(code);
 		KakaoDTO userInfo = service.getUserInfo(access_Token);
-		//System.out.println("###access_Token#### : " + access_Token);
-	    
+		// System.out.println("###access_Token#### : " + access_Token);
+		String email = userInfo.getK_email();
+
+		MemberVO member = new MemberVO();
 		
-		boolean result = service.findOneKakao(userInfo, session);
+		member.setUser_email(email);
 		
+		boolean flag = service.loginUser(member, session);
+				
+		// 이메일이 멤버테이블에 있는지 확인하고
+		// boolean result = service.findOneKakao(userInfo, session);
+
 		
-		if (result) {
-			model.addAttribute("loginMsg", "카카오 로그인 성공");
+		if (flag) {
 			
-			
+			model.addAttribute("loginMsg", "로그인 성공");
+			return "/main/main";
 		} else {
-			model.addAttribute("loginMsg", "카카오 로그인 실패");
+			model.addAttribute("vo", userInfo);
+			return "/member/join";
 		}
 
-		return result ? "/main/main" : "/member/login";
-		// 로그인 성공하면 메인페이지 : 실패하면 로그인 페이지를 보여주기
+		
 	}
-	
-	
-	
-	
-	
 
 }

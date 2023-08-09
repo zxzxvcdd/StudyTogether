@@ -26,7 +26,7 @@
 
 				<div class="input-box">
 					<label class="join-label" id="checkId"></label> 
-					<input type="text" name="user_id" id="id" placeholder="아이디" class="input_id" required>
+					<input type="text" name="user_id" id="id" value="${vo.k_id}" placeholder="아이디" class="input_id" required>
 				</div>
 
 				<div class="input-box">
@@ -34,11 +34,11 @@
 				</div>
 
 				<div class="input-box">
-					<input type="text" name="user_name" id="name" placeholder="이름" required>
+					<input type="text" name="user_name" id="name" value="${vo.k_name}" placeholder="이름" required>
 				</div>
 
 				<div class="input-box">
-					<input type="text" name="user_email" id="email" placeholder="이메일" required>
+					<input type="text" name="user_email" id="email" value="${vo.k_email}" placeholder="이메일" required>
 				</div>
 
 				<div class="input-box">
