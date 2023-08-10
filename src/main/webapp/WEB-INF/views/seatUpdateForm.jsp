@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                  <div
+                                <div
                                     class="modal fade modal-new"
                                     id="exampleModal"
                                     tabindex="-1"

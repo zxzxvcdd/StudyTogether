@@ -1,38 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-		<!-- nav-start ------------------------------------------------------- -->
-			<section class="nav_section">
-			<div class="nav_wrap">
-				<div class="nav">
-
-					<ul class="nav_menu">
-
-						<a href="/kgCoffee/view/user/index.jsp"> <img
-							src="/kgCoffee/img/logo-removebg.png" width="200">
-						</a>
-
-						<a class="nav_page">관리자 페이지</a>
-
-						<li id="admin_menu"><a href="/kgCoffee/admin/adminMenu.do" class="nav_list">이용권관리</a></li>
-						<li id="user_management"><a href="/kgCoffee/admin/getAllMember.do" class="nav_list" >회원관리</a></li>
-						<li id="order_report"><a href="/kgCoffee/admin/getOrderReport" class="nav_list" >주문데이터분석</a>
-							<ul class="select-chart">
-								<li data-type="chart-age" class="chart-age"><a
-									class="nav_list_s">연령별 분석</a></li>
-								<li data-type="chart-menu" class="chart-menu"><a
-									class="nav_list_s">메뉴별 분석</a></li>
-								<li data-type="chart-store" class="chart-store"><a
-									class="nav_list_s">매장 분석</a></li>
-							</ul></li>
-					</ul>
 
 
-				</div>
-			</div>
-		</section>
-		<!-- nav-end -------------------------------------------------------- -->
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+	<!-- header section -->
+	<div id="menu-bars" class="fas fa-bars"></div> <!-- 창이 작아지면 메뉴바 생김 -->
+
+	<header>
+		
+		<div>
+			
+			
 	
-
+			<a href="/kgstudy/main.do" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" width="180" style="margin-bottom: 5px;"></a><br>
+				
+				<div style="font-size:20px; color:#badc58;">(관리자 페이지)</div>
+		</div>
+		
+		<nav class="navbar">
+			<a href="/kgstudy/getMemberList.do">사용자관리</a>
+			<a href="/kgstudy/store/getMenuList.do">이용권 관리</a>
+			<a href="/kgstudy/board/getOrderList.do">결제관리</a>
+			<a href="/kgstudy/reviewListView.do">이용 통계 분석</a>
+		</nav>
+		
+		
+		<div class="follow"> <!-- 아이콘 -->
+		
+		<c:choose>
+			<c:when test="${loginUser.user_grant == 'user'}">
+					<a href="/kgstudy/userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
+					<a href="/kgstudy/logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
+				</c:when> 
+				<c:when test="${loginUser.user_grant == 'admin'}">
+					<a href="#" id="admin_page" class='fas fa-user-cog'></a> <!-- 관리자페이지 -->
+					<a href="/kgstudy/userStudyChartView.do" id="user_page" class='fa fa-user'></a> <!-- 마이페이지 -->
+					<a href="/kgstudy/logout.do" id="logout" class='fas fa-user-slash'></a> <!-- 로그아웃 -->
+					<!-- <a href="#" id="ask" class='fas fa-headphones-alt'></a> 고객센터(문의) -->
+				</c:when> 
+				<c:otherwise> 
+					<a href="/kgstudy/loginPageView.do" id="login" class='fa fa-unlock'></a> <!-- 로그인 -->
+				</c:otherwise>
+		</c:choose>
+		</div>
+		
+	</header>

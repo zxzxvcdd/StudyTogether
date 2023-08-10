@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%-- <%@ include file="../include/static-header.jsp" %>  --%>
+  <%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>modify</title>
 
@@ -25,7 +25,7 @@
 </head>
 <body>
 
-	<%-- <%@include file="sidebar.jsp"%> --%>
+	<%@include file="sidebar.jsp"%>
 
 
 

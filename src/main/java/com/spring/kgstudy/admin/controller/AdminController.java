@@ -16,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.kgstudy.admin.service.AdminService;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberDTO;
+import com.spring.kgstudy.order.service.OrderService;
 import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
+import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +31,7 @@ public class AdminController {
 		
 	private final AdminService service;
 	private final StoreService storeService;
+	private final OrderService orderService;
 	
 	@GetMapping("getMemberList.do")
 	public String getMemberList(Model model, Search search) {
@@ -133,6 +136,23 @@ public class AdminController {
 
 	}
 	
+	@GetMapping("getMenuList.do")
+	public String getMenuList(Model model, HttpSession session) {
+		
+		
+		
+		Search search = new Search();
+
+		
+		search.setAmount(100);
+
+		Map<String, Object> resMap = orderService.getMenuList(search);
+
+		model.addAttribute("resMap",resMap);
+		
+
+		return "/admin/menuManager";
+	}
 	
 	
 	

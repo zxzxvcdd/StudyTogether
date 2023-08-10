@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "pthorsson.vscode-jsp"
+        "pthorsson.vscode-jsp",
+        "formulahendry.auto-rename-tag"
     ]
 }
