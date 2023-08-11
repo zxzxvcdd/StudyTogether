@@ -155,7 +155,7 @@
 					이용권 시간: <input type="text" class="new-pass" name="passTime"><br>
 					<div class="modal-footer">
 						
-						<div class="btn btn-primary btn-new">생성</div>
+						<div class="btn btn-primary btn-add">생성</div>
 						<div class="btn btn-primary btn_close" data-dismiss="modal">취소</div>
 					
 					</div>
@@ -227,6 +227,8 @@
 			$("#btn-new").click(function () {
 
 
+
+				
 				$(".modal-new").toggleClass("show");
 
 			})
@@ -237,11 +239,28 @@
 
 			})
 
+			$(".btn-add").click(function(){
+
+
+
+				const $newPass = $(".new-pass");
+				let menuId = "menuId="+ $newPass.eq(0).val()
+				let menuName = "menuName="+ $newPass.eq(1).val()
+				let menuPrice = "menuPrice="+ $newPass.eq(2).val()
+				let menuType = "menuType="+ $newPass.eq(3).val()
+				let menuTime = "menuTime="+ $newPass.eq(4).val()
+
+
+				location.href="addMenu.do?"+menuId+"&"+menuName+"&"+menuPrice+"&"+MenuType+"&"+menuTime;
+
+
+			})
+
 		}
 
 
 		function addModifyModalEvent(){
-
+			
 			$(".menu-list-con a").click(function(e){
 				e.preventDefault();
 				let pass = ".pass_con."+$(this).data("value");
@@ -261,7 +280,25 @@
 				$(".modify-pass").eq(4).val(passType);
 
 
+
 			})
+
+			$(".btn-modify").click(function(){
+				
+
+				const $updateList = $(".modify-pass");
+				
+
+				let menuId = "menuId="+ $updateList.eq(0).val()
+				let menuName = "menuName="+ $updateList.eq(1).val()
+				let menuPrice = "menuPrice="+ $updateList.eq(2).val()
+				let menuType = "menuType="+ $updateList.eq(3).val()
+				let menuTime = "menuTime="+ $updateList.eq(4).val()
+
+				location.href="updateMenu.do?"+menuId+"&"+menuName+"&"+menuPrice+"&"+MenuType+"&"+menuTime;
+				
+				
+				})
 			
 
 

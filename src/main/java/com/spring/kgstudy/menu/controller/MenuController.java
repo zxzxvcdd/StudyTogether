@@ -1,9 +1,9 @@
 package com.spring.kgstudy.menu.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -135,23 +135,16 @@ public class MenuController {
 
 	
 	@DeleteMapping("delete.do")
-	public String deleteMenu(Model model,MenuVO menu, HttpServletRequest request) {
+	public String deleteMenu(Model model,List<Integer> menuId ,HttpServletRequest request) {
 		
-		boolean flag = menuService.deleteMenu(menu);
+		String msg= menuService.deleteMenu(menuId)+"건 삭제되었습니다.";
 		
 		
 		String redirectURI = request.getHeader("Referer");
 
-		if(flag) {
 
-			model.addAttribute("msg", "메뉴가 삭제되었습니다.");
-			
-			
-		}else {
-			model.addAttribute("msg", "이미 삭제 된 메뉴입니다.");
-			
-		}
-		
+			model.addAttribute("msg", msg);
+
 
 		return "redirect:"+redirectURI;
 		

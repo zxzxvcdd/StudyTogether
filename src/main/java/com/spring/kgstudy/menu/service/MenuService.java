@@ -2,6 +2,7 @@ package com.spring.kgstudy.menu.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -47,15 +48,21 @@ public class MenuService {
 		return flag;
 		
 	}
-	public boolean deleteMenu(MenuVO vo) {
+	public int deleteMenu(List<Integer> menuId) {
 		
-		boolean flag = false;
+		int result=0;
+		
+		for(int id : menuId) {
+			
+			if(dao.deleteMenu(id)) {
+				result++;
+			}
+			
+		}
 		
 		
-		flag = dao.deleteMenu(vo.getMenuId());
 		
-		
-		return flag;
+		return result;
 		
 		
 	}
