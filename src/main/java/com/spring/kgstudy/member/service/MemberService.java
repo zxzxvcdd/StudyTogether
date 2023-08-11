@@ -297,14 +297,11 @@ public class MemberService {
 				
 				userInfo = new KakaoDTO(kakaoId,nickname,email);
 		
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 				
-		
 			return userInfo;
-	        
 		}
 
 
@@ -312,53 +309,8 @@ public class MemberService {
 			
 			MemberVO member = dao.findOneEmail(email);
 			
-			
 			return member;
-			
-			
-			
 		}
 	
-	
-		/*
-		 * public Boolean findOneKakao(KakaoDTO userInfo, HttpSession session) {
-		 * 
-		 * MemberVO memberVO = dao.findOneKaKao(userInfo);
-		 * System.out.println("findOneKakao memberVO : " + memberVO);
-		 * 
-		 * if(memberVO != null){ session.setAttribute("loginUser", memberVO); //성공하면 세션에
-		 * memberVO 넣어주기 System.out.println(memberVO);
-		 * 
-		 * Search search = new Search(); search.setType("user"); search.setAmount(9999);
-		 * search.setKeyword(memberVO.getUser_id()); List<ReservationVO> reservList =
-		 * seatDao.findAllReserv(search); System.out.println(reservList);
-		 * 
-		 * for(ReservationVO reserv : reservList) {
-		 * 
-		 * if(reserv.getUseTime()==0) {
-		 * 
-		 * System.out.println(reserv);
-		 * 
-		 * search.setType("pass"); search.setKeyword(""+reserv.getPassId());
-		 * 
-		 * PassVO pass =orderDao.findOnePass(search);
-		 * 
-		 * Long endLine = reserv.getReservationDay().getTime()+pass.getPassTime()*1000;
-		 * 
-		 * Date now = new Date(); if(now.getTime()>endLine) {
-		 * 
-		 * ReserveScheduler.checkInList.add(endLine, reserv.getReservationId()); }else {
-		 * 
-		 * session.setAttribute("checkIn",endLine); session.setAttribute("reservId",
-		 * reserv.getReservationId()); System.out.println(endLine); } break; }
-		 * 
-		 * }
-		 * 
-		 * return true; } else { return false; }
-		 * 
-		 * }
-		 */
-	
-
 	
 }//MemberService-end

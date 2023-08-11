@@ -172,11 +172,10 @@ public class MemberController {
 	@RequestMapping(value = "/kakaoLogin.do", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code,
 			HttpSession session, Model model) throws Exception {
-		// System.out.println("###code####" + code);
 
 		String access_Token = service.getAccessToken(code);
 		KakaoDTO userInfo = service.getUserInfo(access_Token);
-		// System.out.println("###access_Token#### : " + access_Token);
+
 		String email = userInfo.getK_email();
 
 		MemberVO member = new MemberVO();
@@ -184,13 +183,8 @@ public class MemberController {
 		member.setUser_email(email);
 		
 		boolean flag = service.loginUser(member, session);
-				
-		// 이메일이 멤버테이블에 있는지 확인하고
-		// boolean result = service.findOneKakao(userInfo, session);
-
 		
 		if (flag) {
-			
 			model.addAttribute("loginMsg", "로그인 성공");
 			return "/main/main";
 		} else {
@@ -198,7 +192,6 @@ public class MemberController {
 			return "/member/join";
 		}
 
-		
 	}
 
 }

@@ -40,10 +40,11 @@ public class OrderController {
 	public String orderForm(Model model, HttpSession session) {
 		
 		
-		if(!LoginUtil.isLogin(session)) {
-			
-			return "redirect:/loginPageView.do";
-		}
+		/*
+		 * if(!LoginUtil.isLogin(session)) {
+		 * 
+		 * return "redirect:/loginPageView.do"; }
+		 */
 		
 		Search search = new Search();
 
