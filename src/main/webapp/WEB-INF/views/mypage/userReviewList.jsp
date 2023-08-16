@@ -72,12 +72,30 @@ $(document).ready(function() {
 
 		<div class="modify-mg">
 
-			<ul class="modifyList">
-				<li class="review_name">
-					<h3>나의 리뷰 관리</h3>
+			<ul class="paymentList">
+				<li class="select_btn_list">
+					<div class="select_btn">
+						<button type="button" class="btn_select_list" onclick="location.href='userStudyChartView.do'">
+							나의 학습 정보
+						</button>
+					</div>
+					<div class="select_btn">
+						<button type="button" class="btn_select_list" onclick="location.href='userModifyCkView.do'">
+							개인정보 확인/수정
+						</button>
+					</div>
+					<div class="select_btn active">
+						<button type="button" class="btn_select_list" onclick="location.href='userReviewView.do?user_id=${loginUser.user_id}'">
+							나의 리뷰 관리
+						</button>
+					</div>
+					<div class="select_btn">
+						<button type="button" class="btn_select_list" onclick="location.href='myOrderList.do'">
+							결제 목록 확인
+						</button>
+					</div>
 				</li>
 			</ul>
-
 
 			<ul class="modifyList">
 				

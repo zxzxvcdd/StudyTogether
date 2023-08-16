@@ -64,13 +64,13 @@ public class OrderAPIController {
 	
 	
 	@PostMapping("refund.do")
-	public String orderRefund(PassVO pass, HttpSession session) {
+	public String orderRefund(OrderVO order, HttpSession session) {
 		
 		
 		
 		String userId = LoginUtil.getCurrentMemberAccount(session);
-		pass.setUserId(userId);
-		String msg = orderService.orderRefund(pass);
+		order.setUserId(userId);
+		String msg = orderService.orderRefund(order);
 		
 		
 

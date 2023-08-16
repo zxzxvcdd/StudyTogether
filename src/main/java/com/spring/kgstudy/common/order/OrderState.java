@@ -2,6 +2,6 @@ package com.spring.kgstudy.common.order;
 
 public enum OrderState {
 
-	PAID,REFUNDED;
+	PAID,REFUNDED,PENDING_REFUND;
 	
 }

@@ -15,6 +15,74 @@ body {
     margin: 30px auto;
 }
 
+
+
+div .select_btn {
+	display: inline-block;
+	vertical-align: middle;
+	box-sizing:border-box;
+	width: 20%;
+    margin: 0 5px
+
+}
+
+
+
+div.select_btn:first-child{
+	
+	margin-left: 0;
+}
+div.select_btn:last-child{
+	
+	margin-right: 0;
+}
+
+
+.select_btn_list {
+	display: inline-block;
+	width: 700px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px, rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 20px 0px;
+	text-align: center;
+}
+
+.btn_select_list { 
+	font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -.3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 8px 6px 7px;
+    border-radius: 6px;
+    background-color: #ecf0f1;
+    font-weight: 500;
+    color: #2f3640;
+}
+
+.btn_select_list:hover,.active>.btn_select_list{ 
+	font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -.3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 8px 6px 7px;
+    border-radius: 6px;
+    background-color: #f9ca24;
+    font-weight: 500;
+    color: #fff;
+}
+
 .modify_name {
     display: inline-block;
     width: 700px;

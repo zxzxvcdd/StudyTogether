@@ -1,10 +1,14 @@
 package com.spring.kgstudy.order.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.spring.kgstudy.common.order.OrderState;
+import com.spring.kgstudy.common.paging.Page;
+import com.spring.kgstudy.common.paging.PageMaker;
 import com.spring.kgstudy.common.pass.PassState;
 import com.spring.kgstudy.common.pass.PassType;
 import com.spring.kgstudy.common.search.Search;
@@ -131,20 +135,46 @@ public class OrderService {
 			
 	}
 
-	public String orderRefund(PassVO pass) {
+	public String orderRefund(OrderVO order) {
 		
 		Search search = new Search();
 
-		search.setType("pass");
-		search.setKeyword(""+pass.getPassId());
+		search.setType("order");
+		search.setKeyword(""+order.getOrderId());
 		
-		pass = dao.findOnePass(search);
+		System.out.println(order);
+		PassVO pass = dao.findOnePass(search);
 		
+		System.out.println(pass);
 		if(pass.getPassState()!=PassState.DEACTIVE) {
 			
 		return "사용하지 않은 이용권만 환불이 가능합니다.\n 관리자에게 문의 해주세요";	
 		
 		}
+		
+		search.setType("order");
+		search.setKeyword(""+order.getOrderId());
+		
+		order = dao.findOneOrder(search);
+		
+		if(order.getOrderState()!=OrderState.PAID) return "결제완료 상태의 주문만 환불 가능합니다.";
+		
+		
+	
+			
+			
+			
+		order.setOrderState(OrderState.PENDING_REFUND);
+		dao.updateOrder(order);
+		
+		return "환불 승인 대기중";
+		
+
+		
+	}
+
+
+	public int orderRefundComplete(OrderVO order) {
 		
 		
 		String accessToken="";
@@ -153,31 +183,49 @@ public class OrderService {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		} 
 		
-		
+		Search search = new Search();
 		search.setType("order");
-		search.setKeyword(""+pass.getOrderId());
+		search.setKeyword(""+order.getOrderId());
 		
-		OrderVO order = dao.findOneOrder(search);
+		order = dao.findOneOrder(search);
+		
 		
 		int impResult = iamportService.refundOrder(order, accessToken);
 		
-		if(impResult==0) {
-			
-			order.setOrderState(OrderState.REFUNDED);
-			dao.updateOrder(order);
-			
-			return "환불 완료";
-			
+		if(impResult!=0) return 0;
+		
+		order.setOrderState(OrderState.REFUNDED);
+		if(dao.updateOrder(order)) 		return 1;
+;
+		return 2;
+		
+		
+				
+		
 		}
+
+	public Map<String,Object> getOrderList(Search search){
 		
 		
-		return "환불 완료 삭제 실패";
+		List<OrderVO> orderList = dao.findOrder(search);
+		
+		int cnt = dao.findOrderCnt(search);
+		
+		PageMaker page = new PageMaker(new Page(search.getPageNum(),search.getAmount()), cnt);
+		
+		
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		
+		resMap.put("orderList", orderList);
+		resMap.put("paging",page);
+		
+		return resMap;
+		
+		
 		
 	}
-	
-
-	
 
 }

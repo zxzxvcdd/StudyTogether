@@ -1,8 +1,6 @@
 package com.spring.kgstudy.mypage.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,12 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberVO;
 import com.spring.kgstudy.mypage.service.MypageService;
-import com.spring.kgstudy.order.vo.PassVO;
+import com.spring.kgstudy.order.service.OrderService;
 import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 
 	private final MypageService service;
+	private final OrderService orderService;
 
 	
 	// 마이페이지 버튼을 누르면 나의 학습 정보 페이지로 이동
@@ -122,6 +120,25 @@ public class MypageController {
 		model.addAttribute("search",search);
 
 		return "/mypage/userStudyChart";
+	}
+	
+	@RequestMapping(value = "/myOrderList.do")
+	public String getOrderList(Search search, HttpSession session, Model model) throws Exception {
+
+
+
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+		
+		search.setType("user");
+		search.setKeyword(userId);
+		
+		Map<String, Object> resMap = orderService.getOrderList(search);
+		
+		resMap.put("search", search);
+		
+		model.addAttribute("resMap", resMap);
+
+		return "/mypage/userOrderList";
 	}
 	
 

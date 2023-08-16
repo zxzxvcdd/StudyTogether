@@ -79,10 +79,10 @@ delete pass_table where pass_id=#{passId}
 
 
 <sql id="searchOrder">
-        <if test="type == 'order'">WHERE order_id = #{keyword}</if>
-        <if test="type == 'imp'">WHERE imp_uid = #{keyword}</if>
-        <if test="type == 'user'">WHERE user_id = #{keyword}</if>
-        <if test="type == 'date'">WHERE order_date LIKE '%'||#{keyword}||'%'</if>
+        <if test="type == 'order'">WHERE order_id = #{keyword} and order_state like '%'||#{grant}||'%' </if>
+        <if test="type == 'imp'">WHERE imp_uid = #{keyword} and order_state like '%'||#{grant}||'%'</if>
+        <if test="type == 'user'">WHERE user_id = #{keyword} and order_state like '%'||#{grant}||'%'</if>
+        <if test="type == 'date'">WHERE order_date LIKE '%'||#{keyword}||'%' and order_state like '%'||#{grant}||'%'</if>
 </sql>
 
 
@@ -109,10 +109,10 @@ insert into order_table(order_id, imp_uid, user_id, order_state, order_name, ord
 
 
 select * from
-(select A.*, row_number() over(order by order_id desc) rn from order_table A
+(select A.*, row_number() over(order by order_date desc) rn from order_table A
 <include refid="searchOrder"/>
 
-order by order_id desc
+order by order_date desc
 ) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
 
 </select>
@@ -141,7 +141,7 @@ select count(*) from order_table
 
 <update id="updateOrder">
 
-update order_table set order_state = #{orderState}
+update order_table set order_state = #{orderState} where order_id = #{orderId}
 
 </update>
 

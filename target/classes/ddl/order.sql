@@ -8,7 +8,7 @@ order_id number constraint order_id_pk primary key
 ,order_price number 
 ,order_date DATE DEFAULT SYSDATE
 , constraint oder_user_fk foreign key (user_id) references member(user_id) on delete cascade
-, constraint order_state check(order_state in('PAID','REFUNDED'))
+, constraint order_state_ck check(order_state in('PAID','REFUNDED','PENDING_REFUND'))
 );
 
 create sequence order_seq

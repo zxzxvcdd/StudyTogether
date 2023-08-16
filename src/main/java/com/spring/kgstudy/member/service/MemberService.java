@@ -97,7 +97,7 @@ public class MemberService {
 			search.setAmount(9999);
 			search.setKeyword(memberVO.getUser_id());
 			List<ReservationVO> reservList = seatDao.findAllReserv(search);
-			System.out.println(reservList);
+	
 			
 			for(ReservationVO reserv : reservList) {
 				

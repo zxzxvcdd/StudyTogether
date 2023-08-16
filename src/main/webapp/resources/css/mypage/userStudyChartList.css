@@ -104,12 +104,18 @@ div .select_btn {
 	display: inline-block;
 	vertical-align: middle;
 	box-sizing:border-box;
-	width: 30%;
+	width: 20%;
+    margin: 0 5px
+
 }
 
 
 
-div .select_btn:first-child{
+div.select_btn:first-child{
+	
+	margin-left: 0;
+}
+div.select_btn:last-child{
 	
 	margin-right: 0;
 }

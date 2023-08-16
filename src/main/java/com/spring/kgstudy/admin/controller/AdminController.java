@@ -1,6 +1,7 @@
 package com.spring.kgstudy.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberDTO;
 import com.spring.kgstudy.menu.service.MenuService;
 import com.spring.kgstudy.menu.vo.MenuVO;
+import com.spring.kgstudy.order.service.OrderService;
+import com.spring.kgstudy.order.vo.OrderVO;
 import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
 
@@ -32,6 +35,7 @@ public class AdminController {
 	private final AdminService service;
 	private final StoreService storeService;
 	private final MenuService menuService;
+	private final OrderService orderService;
 	
 	@GetMapping("getMemberList.do")
 	public String getMemberList(Model model, Search search) {
@@ -204,5 +208,85 @@ public class AdminController {
 
 		return "/admin/menuManager";
 	}
+	
+	
+	
+	@GetMapping("orderList.do")
+	public String getOrderList(Model model, Search search) {
+		
+		
+		
+		
+		
+		
+		
+		Map<String, Object> resMap = orderService.getOrderList(search);
+		
+		
+		resMap.put("search", search);
+		
+		model.addAttribute("resMap",resMap);
+		
+
+		return "/admin/orderList";
+	}
+	
+	@PostMapping("orderRefund.do")
+	public String getOrderList(List<Integer> orderId, Model model, HttpServletRequest request) {
+		
+		
+		
+		OrderVO order= new OrderVO();
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		int suc=0;
+		int fail=0;
+		int updateFail=0;
+		List<Integer> failList= new ArrayList<Integer>();
+		for(int i : orderId) {
+			
+			
+			order.setOrderId(i);
+			
+			int flag = orderService.orderRefundComplete(order);
+			
+			if(flag==1) {
+			
+				suc++;
+				
+			}else if(flag==0) {
+				fail++;
+				
+			}else if(flag==2) {
+				updateFail++;
+				failList.add(i);
+				
+			}
+		
+		}
+
+		String msg = "환불 성공 : " + suc;
+		
+					
+		if(fail>0) {
+			msg +=	"\n환불 실패 : " + fail;
+					
+		}
+		if(updateFail>0) {
+			msg+="\n환불완료, 상태변경 오류 : " + updateFail;
+			resMap.put("failList", failList);
+		}
+				
+		resMap.put("msg", msg);
+		
+		String redirectURI=(String)request.getHeader("Referer");
+		
+		model.addAttribute("resMap",resMap);
+		
+
+		return redirectURI;
+	}
+	
+	
+	
 	
 }
