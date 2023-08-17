@@ -121,7 +121,7 @@
 
 							<div class="modify-button">
 								<button type="submit" class="btn_design" >확인</button>&nbsp;&nbsp;&nbsp;
-								<button type="button" class="btn_design" onclick="location.href='document.referer'">취소</button>
+								<button type="button" class="btn_design" onclick="location.href=document.referrer">취소</button>
 							</div>
 
 						</form>
