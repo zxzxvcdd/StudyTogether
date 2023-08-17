@@ -110,7 +110,7 @@ public class AdminController {
 	
 	
 	@PostMapping("modifyMember.do")
-	public String modifyMember(RedirectAttributes ra, String userId,  HttpServletRequest request,MemberDTO member) {
+	public String modifyMember(RedirectAttributes ra,  HttpServletRequest request,MemberDTO member) {
 		
 	
 		String redirectURI="";

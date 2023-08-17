@@ -100,19 +100,21 @@
 										<option value="manager">manager</option>
 										<option value="admin">admin</option>
 									</select>
-										<input id="store_list" name="store_list" list="store_list_data" type="text" style="display:none;" placeholder="매장을 선택해 주세요">
+										<input id="store_list" name="storeName" list="store_list_data" type="text" style="display:none;" placeholder="매장을 선택해 주세요">
 										<datalist id="store_list_data" class="store_list_data">
 										<c:forEach var="store" items="${storeList}" varStatus="status">
 											<c:set var="storeName" value="${store.storeName}" />
 											<c:set var="sLen" value="${fn:length(storeName)}" />
 
-											<option data-val="${store.storeId }" id="${fn:substring(storeName,7,sLen)}"
+											<option data-val="${store.storeId}" id="${fn:substring(storeName,7,sLen)}"
 												value="${fn:substring(storeName,7,sLen)}"
 												label="${store.storeRoadAddress }">
 															</option>
 
 										</c:forEach>
 										</datalist>
+									<input type="hidden" id="storeId" name="storeId" value="0">
+
 									</td>
 							
 								</tr>
@@ -120,7 +122,7 @@
 							</table>
 
 							<div class="modify-button">
-								<button type="submit" class="btn_design" >확인</button>&nbsp;&nbsp;&nbsp;
+								<button type="button" onclick="modify()" class="btn_design" >확인</button>&nbsp;&nbsp;&nbsp;
 								<button type="button" class="btn_design" onclick="location.href=document.referrer">취소</button>
 							</div>
 
@@ -184,10 +186,29 @@
 
 			$("option[value="+grant+"]").attr("selected","selected");
 
+			if(grant==="manager"){
+				$("#store_list").css("display","inline-block");
+				$("#store_list").val("${member.storeName}");
+			}
 
 		}
 
 
+		function modify(){
+			
+			if($("#select_grant option:selected").val()==="manager"){
+			console.log($("option[value="+$("#store_list").val()+"]").data("val"));
+
+			$("#storeId").val($("option[value="+$("#store_list").val()+"]").data("val"))
+
+			}
+			
+			$("#f1").submit();
+	
+
+			
+
+		}
 
 
 
