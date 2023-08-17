@@ -88,7 +88,7 @@ public class MemberService {
 	public boolean loginUser(MemberVO memberVO, HttpSession session) {
 		
 		boolean pwdSuccess = false;
-		if(memberVO.getUser_email().length()>=1) {
+		if(memberVO.getUser_email()!=null) {
 			
 			memberVO = ckMemberKakao(memberVO.getUser_email());
 			if(memberVO!=null) {

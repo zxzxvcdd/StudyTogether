@@ -30,7 +30,7 @@ public class MypageController {
 	@RequestMapping(value = "/userStudyChartView.do")
 	public String mypageStudyChartForm(Search search, HttpSession session, Model model) throws Exception {
 		
-		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
+//		if(!LoginUtil.isLogin(session))return "redirect:/loginPageView.do";
 		
 		String user_id = (LoginUtil.getCurrentMemberAccount(session));
 

@@ -297,7 +297,7 @@ div.wrapper {
 
 }
 
-.store_check * {
+.store_check>* {
     display: inline-block;
 
 }

@@ -352,18 +352,23 @@ input[type="radio"] {
 
                              
 
-                            }
-                            .btn-con{
+		}
+		.btn-con{
 
-                                display:block;
-                                width:300px;
-                                margin : 0 auto;
-                                text-align:center;
-                            }
-                            .btn-con *{
-                                display:inline-block;
-                                
-                            }
+			display:block;
+			width:300px;
+			margin : 0 auto;
+			text-align:center;
+		}
+		.btn-con *{
+			display:inline-block;
+			
+		}
+
+#store_list_data{
+	display:none;
+}
+
 </style>
 </head>
 
@@ -386,8 +391,6 @@ input[type="radio"] {
 												</option>
 
 							</c:forEach>
-
-
 
 						</datalist>
 						<button class="store_id">확인</button>	
