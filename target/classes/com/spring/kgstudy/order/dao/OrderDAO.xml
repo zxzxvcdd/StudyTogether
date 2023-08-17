@@ -79,9 +79,10 @@ delete pass_table where pass_id=#{passId}
 
 
 <sql id="searchOrder">
-        <if test="type == 'order'">WHERE order_id = #{keyword} and order_state like '%'||#{grant}||'%' </if>
+        <if test="type == 'order'">WHERE order_id LIKE '%'||#{keyword}||'%' and order_state like '%'||#{grant}||'%' </if>
         <if test="type == 'imp'">WHERE imp_uid = #{keyword} and order_state like '%'||#{grant}||'%'</if>
-        <if test="type == 'user'">WHERE user_id = #{keyword} and order_state like '%'||#{grant}||'%'</if>
+        <if test="type == 'user'">WHERE A.user_id LIKE '%'||#{keyword}||'%' and order_state like '%'||#{grant}||'%'</if>
+        <if test="type == 'name'">WHERE order_name LIKE '%'||#{keyword}||'%' and order_state like '%'||#{grant}||'%'</if>
         <if test="type == 'date'">WHERE order_date LIKE '%'||#{keyword}||'%' and order_state like '%'||#{grant}||'%'</if>
 </sql>
 
@@ -105,15 +106,15 @@ insert into order_table(order_id, imp_uid, user_id, order_state, order_name, ord
 
 
 
-<select id="findOrder" resultType="com.spring.kgstudy.order.vo.OrderVO">
+<select id="findOrder" resultType="com.spring.kgstudy.order.dto.OrderDTO">
 
-
-select * from
-(select A.*, row_number() over(order by order_date desc) rn from order_table A
+select * from(
+select  row_number() over(order by order_date desc) rn, C.* from
+(select * from order_table A Left Join pass_table B on A.order_id=B.order_id
 <include refid="searchOrder"/>
 
-order by order_date desc
-) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
+order by A.order_date desc
+)C) where rn between (#{pageNum}-1)*#{amount}+1 and  #{pageNum}*#{amount}
 
 </select>
 
@@ -134,7 +135,7 @@ select order_seq.currval from dual
 
 <select id="findOrderCnt" resultType="int">
 
-select count(*) from order_table
+select count(*) from order_table A
 <include refid="searchOrder"/>
 
 </select>

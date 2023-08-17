@@ -15,6 +15,7 @@ import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.menu.service.MenuService;
 import com.spring.kgstudy.menu.vo.MenuVO;
 import com.spring.kgstudy.order.dao.OrderDAO;
+import com.spring.kgstudy.order.dto.OrderDTO;
 import com.spring.kgstudy.order.vo.OrderVO;
 import com.spring.kgstudy.order.vo.PassVO;
 
@@ -210,8 +211,9 @@ public class OrderService {
 	public Map<String,Object> getOrderList(Search search){
 		
 		
-		List<OrderVO> orderList = dao.findOrder(search);
+		List<OrderDTO> orderList = dao.findOrder(search);
 		
+		System.out.println(orderList);
 		int cnt = dao.findOrderCnt(search);
 		
 		PageMaker page = new PageMaker(new Page(search.getPageNum(),search.getAmount()), cnt);

@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원관리페이지</title>
+<title>주문
+관리페이지</title>
 
  <%@ include file="../include/static-header.jsp" %> 
 
@@ -14,7 +15,7 @@
 
 
 <!-- css 파일 -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/memberManager.css?after">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/orderManager.css?after">
 
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
@@ -48,7 +49,7 @@
 				<div class="board_wrap">
 
 					<div>
-						<form id="frm1" action="getMemberList.do"
+						<form id="frm1" action="orderList.do"
 							method="get" enctype="multipart/form-data">
 							<div class="board_search_wrap">
                          
@@ -62,6 +63,7 @@
 
                                                 <option value="id">아이디</option>
                                                 <option value="order">주문번호</option>
+                                                <option value="name">주문명</option>
                                                 <option value="date">주문날짜</option>
 											</select>
 										</div>
@@ -73,9 +75,9 @@
 											</label>
 										</div>
 									</li>
-									<li class=bt_wrap><a href="#" onclick="searchMember();"
-										class="on">검색</a> <a href="#" onclick="deleteMember()"
-										class="on">삭제</a>
+									<li class=bt_wrap><a href="#" onclick="searchOrder();"
+										class="on">검색</a> <a href="#" onclick="refundOrder()"
+										class="on">환불</a>
                                     </li>
                                     <li class="grant_wrap">
                                         <div class="grant_radio">
@@ -92,8 +94,8 @@
 					</div>
 
 	
-					<form id="frm2" action="deleteMember.do"
-						method="get" enctype="multipart/form-data">
+					<form id="frm2" action="orderRefund.do"
+						method="post" enctype="multipart/form-data">
 
 						<div class="board_list_wrap">
 							<div class="board_list">
@@ -102,30 +104,54 @@
 										<input type="checkbox" class="check" name="checkIdAll"
 											id="allCheck">
 									</div>
-									<div class="id">주문번호</div>
-									<div class="name">아이디</div>
-									<div class="email">주문이름</div>
-									<div class="tel">금액</div>
-									<div class="storeName">주문날짜</div>
-									<div class="grant">주문상태</div>
+									<div class="order_id">주문번호</div>
+									<div class="id">아이디</div>
+									<div class="order_name">주문이름</div>
+									<div class="pass_state">이용권상태</div>
+									<div class="pass_time">이용권 남은시간</div>
+									<div class="order_price">금액</div>
+									<div class="order_date">주문날짜</div>
+									<div class="order_state">주문상태</div>
 								</div>
 
-                                <c:forEach var="member" items="${resMap.memberList}">
-								<div>
+                                <c:forEach var="order" items="${resMap.orderList}">
+								<div class="order_content">
 									
 										<div class="check">
-											<input type="checkbox" class="check" name="checkId"
-												value="${member.userId}">
+											<input type="checkbox" class="check" name="orderId"
+												value="${order.orderId}">
 										</div>
-										<div class="id">
-											<a href="modifyMember.do?userId=${member.userId}">${member.userId}</a>
+										<div class="order_id">
+											${order.orderId}
 										</div>
-										<div class="name">${member.userName}</div>
-										<div class="gender">${member.userEmail}</div>
-										<div class="tel">${member.userTel}</div>
-										<div class="storeName">${member.storeName}</div>
-										<div class="grant">
-											${member.userGrant}
+										<div class="id">${order.userId}</div>
+										<div class="order_name">${order.orderName}</div>
+										<div class="pass_state">${order.passState}</div>
+										<div class="pass_time">
+										
+										<c:if test="${order.passType=='TIME'}">
+										<fmt:parseNumber var="format_hh" value="${order.passTime/3600}"  integerOnly="true"/>
+										<fmt:formatNumber var="format_mm" value="${order.passTime%3600/60}" pattern="0"/>
+										${format_hh}시간 ${format_mm}분
+										</c:if>
+										<c:if test="${order.passType=='SEASON'}">
+										<fmt:formatDate value="${order.passStart}" pattern="yyyy-MM-dd"/> 
+										~ 
+										<fmt:formatDate value="${order.passEnd}" pattern="yyyy-MM-dd"/>
+										</c:if>
+										</div>
+										<div class="order_price">${order.orderPrice}원</div>
+										<div class="order_date"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></div>
+										<div class="order_state">
+											<c:if test="${order.orderState=='PAID'}">
+												결제완료
+											</c:if>
+											<c:if test="${order.orderState=='PENDING_REFUND'}">
+												환불 대기중
+											</c:if>	
+											<c:if test="${order.orderState=='REFUNDED'}">
+												환불완료
+											</c:if>
 										</div>
 									
 								</div>
@@ -134,7 +160,7 @@
 						</div>
 					</form>
 
-                    <c:set var="action" value="getMemberList.do?type=${resMap.search.type}&keyword=${resMap.search.keyword}"/>
+                    <c:set var="action" value="orderList.do?type=${resMap.search.type}&keyword=${resMap.search.keyword}"/>
 
 					<div id="paging" class="board_page">
 						<!-- 1~10까지 있는 페이지의 페이징 -->
@@ -182,10 +208,13 @@
     let url = "getMemberList.do";
 
     let searchType = "${resMap.search.type}"
+	let orderState= "${resMap.search.grant}"
 
+	
     if(searchType){
 
         $("option[value="+searchType+"]").attr("selected","selected");
+        $("input:radio[name='grant']:input[value='"+orderState+"']").attr("checked","true");
 
 
     }
@@ -207,13 +236,13 @@
 
 
 
-    function searchMember(){
+    function searchOrder(){
 
         document.getElementById("frm1").submit();
     }
 
-    function deleteMember(){
-        var temp=confirm("정말 삭제하시겠습니까?");
+    function refundOrder(){
+        var temp=confirm("정말 환불하시겠습니까?");
 
         if(temp){
         document.getElementById("frm2").submit();

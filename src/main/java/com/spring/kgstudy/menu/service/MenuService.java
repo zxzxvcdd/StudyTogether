@@ -48,7 +48,7 @@ public class MenuService {
 		return flag;
 		
 	}
-	public int deleteMenu(List<Integer> menuId) {
+	public int deleteMenu(int[] menuId) {
 		
 		int result=0;
 		

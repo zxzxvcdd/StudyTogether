@@ -19,9 +19,9 @@
 		</div>
 		
 		<nav class="navbar">
-			<a href="/kgstudy/getMemberList.do">사용자관리</a>
-			<a href="/kgstudy/store/getMenuList.do">이용권 관리</a>
-			<a href="/kgstudy/board/getOrderList.do">결제관리</a>
+			<a href="/kgstudy/admin/getMemberList.do">사용자관리</a>
+			<a href="/kgstudy/admin/getMenuList.do">이용권 관리</a>
+			<a href="/kgstudy/admin/orderList.do">결제관리</a>
 			<a href="/kgstudy/reviewListView.do">이용 통계 분석</a>
 		</nav>
 		

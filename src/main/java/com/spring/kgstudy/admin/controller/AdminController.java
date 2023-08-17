@@ -176,7 +176,7 @@ public class AdminController {
 	}
 
 	@PostMapping("deleteMenu.do")
-	public String deleteMenu(Model model, List<Integer> menuId) {
+	public String deleteMenu(Model model, int[] menuId) {
 		
 		
 		String msg =  menuService.deleteMenu(menuId) + "건 삭제 완료";
@@ -228,13 +228,14 @@ public class AdminController {
 		model.addAttribute("resMap",resMap);
 		
 
-		return "/admin/orderList";
+		return "/admin/orderManager";
 	}
 	
 	@PostMapping("orderRefund.do")
-	public String getOrderList(List<Integer> orderId, Model model, HttpServletRequest request) {
+	public String getOrderList(int[] orderId, RedirectAttributes ra, HttpServletRequest request) {
 		
 		
+		System.out.println(orderId);
 		
 		OrderVO order= new OrderVO();
 		Map<String, Object> resMap = new HashMap<String, Object>();
@@ -280,10 +281,10 @@ public class AdminController {
 		
 		String redirectURI=(String)request.getHeader("Referer");
 		
-		model.addAttribute("resMap",resMap);
+		ra.addFlashAttribute("resMap",resMap);
 		
 
-		return redirectURI;
+		return "redirect:"+redirectURI;
 	}
 	
 	

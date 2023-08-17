@@ -135,7 +135,7 @@ public class MenuController {
 
 	
 	@DeleteMapping("delete.do")
-	public String deleteMenu(Model model,List<Integer> menuId ,HttpServletRequest request) {
+	public String deleteMenu(Model model,int[] menuId ,HttpServletRequest request) {
 		
 		String msg= menuService.deleteMenu(menuId)+"건 삭제되었습니다.";
 		

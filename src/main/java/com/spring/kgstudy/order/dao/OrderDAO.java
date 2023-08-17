@@ -1,13 +1,11 @@
 package com.spring.kgstudy.order.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.spring.kgstudy.common.paging.Page;
 import com.spring.kgstudy.common.search.Search;
+import com.spring.kgstudy.order.dto.OrderDTO;
 import com.spring.kgstudy.order.vo.OrderVO;
 import com.spring.kgstudy.order.vo.PassVO;
 
@@ -23,7 +21,7 @@ public interface OrderDAO {
 
 	public int insertOrder(OrderVO order);
 
-	public ArrayList<OrderVO> findOrder(Search search) ;
+	public ArrayList<OrderDTO> findOrder(Search search) ;
 
 	public int findOrderCnt(Search search);
 
