@@ -172,7 +172,7 @@ public class AdminController {
 		model.addAttribute("msg",msg);
 		
 
-		return "/admin/menuManager";
+		return "redirect:/admin/getMenuList.do";
 	}
 
 	@PostMapping("deleteMenu.do")
@@ -186,7 +186,7 @@ public class AdminController {
 		model.addAttribute("msg",msg);
 		
 
-		return "/admin/menuManager";
+		return "redirect:/admin/getMenuList.do";
 	}
 
 	@GetMapping("updateMneu.do")
@@ -206,7 +206,7 @@ public class AdminController {
 		model.addAttribute("msg",msg);
 		
 
-		return "/admin/menuManager";
+		return "redirect:/admin/getMenuList.do";
 	}
 	
 	
