@@ -1,9 +1,8 @@
 package com.spring.kgstudy.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.kgstudy.member.dto.KakaoDTO;
 import com.spring.kgstudy.member.service.MemberService;
 import com.spring.kgstudy.member.vo.MemberVO;
 
@@ -67,12 +67,10 @@ public class MemberController {
 	public String memberLogin(MemberVO memberVO, HttpSession session, Model model) {
 
 		boolean result = service.loginUser(memberVO, session);
-		
 
 		if (result) {
 			model.addAttribute("loginMsg", "로그인 성공");
-			
-			
+
 		} else {
 			model.addAttribute("loginMsg", "로그인 실패");
 		}
@@ -86,11 +84,10 @@ public class MemberController {
 	public String memberLogout(HttpSession session, Model model) throws IOException {
 
 		session.removeAttribute("loginUser"); // 로그아웃
-		
-		session.invalidate();
-		
-		model.addAttribute("loginMsg", "로그아웃 하였습니다.");
 
+		session.invalidate();
+
+		model.addAttribute("loginMsg", "로그아웃 하였습니다.");
 
 		return "/main/main";
 	}
@@ -168,6 +165,33 @@ public class MemberController {
 		}
 
 		return result ? "/member/login" : "/member/findResultPw";
+	}
+
+	// =======================================================================
+	// 카카오 로그인
+	@RequestMapping(value = "/kakaoLogin.do", method = RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code,
+			HttpSession session, Model model) throws Exception {
+
+		String access_Token = service.getAccessToken(code);
+		KakaoDTO userInfo = service.getUserInfo(access_Token);
+
+		String email = userInfo.getK_email();
+
+		MemberVO member = new MemberVO();
+		
+		member.setUser_email(email);
+		
+		boolean flag = service.loginUser(member, session);
+		
+		if (flag) {
+			model.addAttribute("loginMsg", "로그인 성공");
+			return "/main/main";
+		} else {
+			model.addAttribute("vo", userInfo);
+			return "/member/join";
+		}
+
 	}
 
 }

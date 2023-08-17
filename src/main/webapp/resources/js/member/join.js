@@ -24,11 +24,8 @@ function check() {
 
 	/* 아이디 */
 	/* 영문,숫자 혼합 */
-	if(id.length < 5 || id.length > 10) {
-		alert("아이디를 5자리 ~ 10자리 이내로 입력해주세요.");
-		return false;
-	} else if(checkNumber < 0 || checkEnglish < 0){
-		alert("아이디에 숫자와 영문자를 혼합하여 입력해주세요.");
+	if(id.length < 5) {
+		alert("아이디를 5자리 이상으로 입력해주세요.");
 		return false;
 	}
 	

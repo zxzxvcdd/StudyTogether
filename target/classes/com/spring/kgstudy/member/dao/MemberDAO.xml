@@ -13,7 +13,12 @@
 		<result property="user_birthday" column="user_birthday" />
 		<result property="user_grant" column="user_grant" />
 	</resultMap>
-
+	
+	<resultMap type="kdto" id="kakao">
+		<result property="k_id" column="k_id" />
+		<result property="k_name" column="k_name" />
+		<result property="k_email" column="k_email" />
+	</resultMap>
 	
 	<!-- 메인 홈으로 이동하는 테스트 -->
 	<select id="mainPage" resultType="String">
@@ -22,9 +27,9 @@
 
 	<!-- 회원가입 -->
 	<insert id="insertUser">
-		insert into member
+		insert into member (user_id, user_pw, user_name, user_email, user_tel,user_gender, user_birthday)
 		values (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, 
-					#{user_tel}, #{user_gender}, #{user_birthday}, #{user_grant})
+					#{user_tel}, #{user_gender}, #{user_birthday})
 	</insert>
 
 	<!-- 아이디 중복체크 -->
@@ -59,5 +64,32 @@
 		update member set user_pw = #{user_pw}
 		where user_id = #{user_id}
 	</update>
+
+	<!-- 정보 저장 -->
+	<insert id="kakaoinsert" parameterType="java.util.HashMap">
+		insert into kakao_table
+			values(#{kakaoId},#{nickname}, #{email})
+	</insert>
+	
+	<!-- 정보 저장 -->
+	<insert id="kakaoinsertMember" parameterType="java.util.HashMap">
+		insert into member(USER_ID, USER_NAME, USER_EMAIL)
+			values(#{kakaoId},#{nickname}, #{email})
+	</insert>
+	
+	<!-- 정보 찾기 -->
+	<select id="findkakao" resultMap="kakao">
+		select * from kakao_table where k_name=#{nickname} and k_email=#{email}
+	</select>
+
+	<!-- 정보 찾기 -->
+	<select id="findOneKaKao" resultMap="member">
+		select * from member where USER_ID=#{k_id}
+	</select>
+	
+	
+	<select id="findOneEmail" resultMap="member">
+		select * from member where user_email=#{email}
+	</select>
 
 </mapper>

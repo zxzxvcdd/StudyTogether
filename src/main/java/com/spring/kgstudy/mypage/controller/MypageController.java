@@ -79,12 +79,14 @@ public class MypageController {
 	
 	// 마이페이지에서 회원수정
 	@RequestMapping(value = "/userUpdate.do", method = RequestMethod.POST)
-	public String mypageUserUpdate(MemberVO memberVO, Model model) {
+	public String mypageUserUpdate(MemberVO memberVO, Model model,HttpSession session) {
 
 		boolean result = service.mypageUserUpdate(memberVO);
 
 		if (result) {
 			model.addAttribute("msg", "수정이 완료되었습니다. 다시 로그인해주세요");
+			session.removeAttribute("loginUser");
+			
 		} else {
 			model.addAttribute("msg", "수정 실패");
 		}

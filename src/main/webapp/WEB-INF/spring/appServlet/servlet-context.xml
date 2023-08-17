@@ -35,11 +35,22 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		
 	</beans:bean>
 	
-	<context:component-scan base-package="com.spring.kgstudy" />
-
+	<!-- 인터셉터 객체 생성 -->
+    <beans:bean id="authenticationInterceptor" class="com.spring.kgstudy.common.interceptor.AuthenticationInterceptor">
+    </beans:bean>
+    <!-- Interceptor 설정 -->
+    <interceptors>
+        <interceptor>
+            <!-- <mapping path="/reviewListView.do"/> 테스트용 -->
+            <mapping path="/userStudyChartView.do"/>
+            <mapping path="/order/passOrder.do"/>
+            <beans:ref bean="authenticationInterceptor"/>
+        </interceptor>
+    </interceptors>
 	
+	
+	<context:component-scan base-package="com.spring.kgstudy" />
 
 </beans:beans>
