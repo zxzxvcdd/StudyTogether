@@ -1,5 +1,7 @@
 package com.spring.kgstudy.chat.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,21 +14,13 @@ public class ChatRoomVO {
 
 	private int chatRoomId;
 	private String chatRoomTitle;
-	private String chatRoomGoal;
 	private String chatRoomComment;
-	private int chatRoomAttendanceCnt;
-	private int chatRoomRanking;
-	private String attendDay;
-	private String attendTime;
-	private int forcedExitOpt;
-	private char forcedExitYN;
-	
-	private int category;
-	private String sCategory;
-	private String userId;
-	private String wId;
-	private String status;
-	private char sleader;
+	private String chatRoomGoal;
+	private int chatRoomCategory;
+
+	private int exitOpt;
+	private char exitYN;
+
 	
 
 	
