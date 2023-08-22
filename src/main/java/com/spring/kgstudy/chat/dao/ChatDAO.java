@@ -20,18 +20,30 @@ public interface ChatDAO {
 	
 	public int findAllRoomCnt(Search search);
 	
-	
 	public int findAllChat(Search search);
 	
 	
+
+	public boolean insertChatRoom(ChatRoomVO chatRoom);
 	
-	public boolean updateChatUser(ChatUserVO chatUser);
+	public boolean insertChatUser(ChatUserVO chatUser);
 	
+	public boolean insertChat(ChatVO chat);
+	
+		
 	
 	public boolean updateChatRoom(ChatRoomVO chatRoom);
 	
-	public boolean updateChat(ChatVO chat);
+	public boolean updateChatUser(ChatUserVO chatUser);
 	
+	public boolean updateChat(ChatVO chat, Search search);
+	
+	
+	public boolean deleteChatRoom(ChatRoomVO chatRoom);
+	
+	public boolean deleteChatUser(ChatUserVO chatUser);
+	
+	public boolean deleteChat(ChatVO chat);
 	
 	
 	

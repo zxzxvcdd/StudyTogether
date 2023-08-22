@@ -19,6 +19,8 @@
 
 <select id="findAllRoom" resultType="com.spring.kgstudy.chat.dto.ChatInfoDTO">
 
+
+
 </select>
 
 <select id="findOneRoom">
@@ -36,6 +38,8 @@
 
 
 <insert id="insertChatRoom">
+
+
 
 </insert>
 
