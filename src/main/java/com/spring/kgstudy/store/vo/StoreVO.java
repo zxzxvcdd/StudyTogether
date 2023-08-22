@@ -1,4 +1,4 @@
-package com.spring.kgstudy.store.VO;
+package com.spring.kgstudy.store.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.seat.service.SeatService;
 import com.spring.kgstudy.seat.vo.SeatVO;
-import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.dao.StoreDAO;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
 

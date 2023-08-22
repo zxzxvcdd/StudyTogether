@@ -1,5 +1,7 @@
 package com.spring.kgstudy.store.controller;
 
+import java.util.Scanner;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.kgstudy.common.search.Search;
-import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
+import com.spring.kgstudy.store.vo.StoreVO;
 import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,7 @@ public class StoreController {
 	@GetMapping("find.do")
 	public String storeIndex() {
 		
-	
+
 		
 		return "/store/store";
 		

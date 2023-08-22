@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.seat.service.SeatService;
 import com.spring.kgstudy.seat.vo.SeatVO;
-import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
 

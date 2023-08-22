@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.review.service.ReviewService;
-import com.spring.kgstudy.store.VO.StoreVO;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
 

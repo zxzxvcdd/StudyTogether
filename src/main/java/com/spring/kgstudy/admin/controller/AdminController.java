@@ -21,8 +21,8 @@ import com.spring.kgstudy.menu.service.MenuService;
 import com.spring.kgstudy.menu.vo.MenuVO;
 import com.spring.kgstudy.order.service.OrderService;
 import com.spring.kgstudy.order.vo.OrderVO;
-import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
 

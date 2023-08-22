@@ -16,7 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.spring.kgstudy.store.VO.StoreVO;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
 

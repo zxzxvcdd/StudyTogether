@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.kgstudy.common.search.Search;
-import com.spring.kgstudy.store.VO.StoreVO;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 @Mapper
 public interface StoreDAO {

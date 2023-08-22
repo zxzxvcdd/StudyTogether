@@ -23,8 +23,8 @@ import com.spring.kgstudy.review.service.ReviewService;
 import com.spring.kgstudy.review.vo.CntByStarDTO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
-import com.spring.kgstudy.store.VO.StoreVO;
 import com.spring.kgstudy.store.service.StoreService;
+import com.spring.kgstudy.store.vo.StoreVO;
 import com.spring.kgstudy.util.LoginUtil;
 
 import lombok.RequiredArgsConstructor;

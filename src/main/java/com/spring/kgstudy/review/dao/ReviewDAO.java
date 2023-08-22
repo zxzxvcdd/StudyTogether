@@ -9,7 +9,7 @@ import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.review.vo.CntByStarDTO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
-import com.spring.kgstudy.store.VO.StoreVO;
+import com.spring.kgstudy.store.vo.StoreVO;
 
 
 //ReviewDAO --> src/main/resources/mapper 로 감

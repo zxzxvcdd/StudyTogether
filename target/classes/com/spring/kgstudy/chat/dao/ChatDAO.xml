@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.kgstudy.chat.dao.ChatDAO">
+
+
+
+	<sql id="searchRoom">
+	        <if test="type == 'id'">WHERE A.user_id like  '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'name'">WHERE A.user_name like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'tel'">WHERE A.user_tel like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'email'">WHERE A.user_email like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
+	        <if test="type == 'store'">WHERE A.store_name like '%'||#{keyword}||'%' and A.user_grant='manager'</if>
+
+	</sql>
+
+
+
+
+
+<select id="findAllRoom" resultType="com.spring.kgstudy.chat.dto.ChatInfoDTO">
+
+</select>
+
+<select id="findOneRoom">
+
+</select>
+
+<select id="findAllRoomCnt">
+
+</select>
+
+
+<select id="findAllChat">
+
+</select>
+
+
+<insert id="insertChatRoom">
+
+</insert>
+
+<insert id="insertChatUser">
+
+</insert>
+
+<insert id="insertChat">
+
+</insert>
+
+
+<update id="updateChatRoom">
+
+</update>
+
+<update id="updateChatUser">
+
+</update>
+
+<update id="updateChat">
+
+</update>
+
+
+<delete id="deleteChatRoom">
+
+</delete>
+
+<delete id="deleteChatUser">
+
+</delete>
+
+<delete id="deleteChat">
+
+</delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
