@@ -12,7 +12,6 @@ import com.spring.kgstudy.common.paging.PageMaker;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberDTO;
 import com.spring.kgstudy.store.dao.StoreDAO;
-import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
 

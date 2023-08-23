@@ -36,7 +36,7 @@
 	</sql>
 
 
-	<select id="findAllStore" resultType="com.spring.kgstudy.store.VO.StoreVO">
+	<select id="findAllStore" resultType="com.spring.kgstudy.store.vo.StoreVO">
 
 
 		select A.* from store_table A
