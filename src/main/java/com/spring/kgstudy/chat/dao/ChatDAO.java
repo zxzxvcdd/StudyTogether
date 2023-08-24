@@ -14,14 +14,15 @@ import com.spring.kgstudy.common.search.Search;
 public interface ChatDAO {
 	
 	
-	public List<ChatInfoDTO> findAllRoom(Search search);
+	public List<ChatRoomVO> findAllRoom(Search search);
 	
 	public ChatInfoDTO findOneRoom(Search search);
 	
-	public int findAllRoomCnt(Search search);
+	public int findAllRoomCnt(int chatRoomId, Search search);
 	
-	public int findAllChat(Search search);
+	public int findAllChat(int chatRoomId,Search search);
 	
+	public ChatUserVO findOneChatUser(ChatUserVO user);
 	
 
 	public boolean insertChatRoom(ChatRoomVO chatRoom);
@@ -37,6 +38,7 @@ public interface ChatDAO {
 	public boolean updateChatUser(ChatUserVO chatUser);
 	
 	public boolean updateChat(ChatVO chat, Search search);
+	public boolean updateChatCnt(int chatRoomId);
 	
 	
 	public boolean deleteChatRoom(ChatRoomVO chatRoom);

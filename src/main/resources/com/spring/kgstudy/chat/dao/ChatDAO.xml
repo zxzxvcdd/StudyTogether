@@ -5,77 +5,237 @@
 
 
 	<sql id="searchRoom">
-	        <if test="type == 'id'">WHERE A.user_id like  '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
-	        <if test="type == 'name'">WHERE A.user_name like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
-	        <if test="type == 'tel'">WHERE A.user_tel like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
-	        <if test="type == 'email'">WHERE A.user_email like '%'||#{keyword}||'%' and A.user_grant like '%'||#{grant}||'%'</if>
-	        <if test="type == 'store'">WHERE A.store_name like '%'||#{keyword}||'%' and A.user_grant='manager'</if>
+		<if test="type == 'user'">WHERE A.user_id = #{keyword}</if>
+		<if test="type == 'title'">WHERE A.chat_room_title like '%'||#{keyword}||''</if>
+		<if test="type == 'goal'">WHERE A.chat_room_goal like '%'||#{keyword}||'</if>
+		<if test="type == 'category'">WHERE A.chat_room_goal like '%'||#{keyword}||'</if>
+		<if test="type == ''">WHERE A.chat_room_title like '%'||#{keyword}||'%' or
+			A.chat_room_comment like '%'||#{keyword}||'%' or
+			A.chat_room_goal like '%'||#{keyword}||'%' or A.chat_room_category like
+			'%'||#{keyword}||'%'
+		</if>
+
 
 	</sql>
 
+	<sql id="ckFull">
+		<if test="grant=='free'">
+			and A.chat_room_max != B.chatRoomCnt
+		</if>
+
+		<if test="grant=='full'">
+			and A.chat_room_max = B.chatRoomCnt
+		</if>
+	</sql>
+
+
+	<sql id="searchChat">
+		<if test="type == 'content'">WHERE A.chat_content like '%'||#{keyword}||'</if>
+		<if test="type == ''">WHERE A.chat_content like '%'||#{keyword}||'%' or user_id
+			like '%'||#{keyword}||'%'
+		</if>
+
+
+	</sql>
+
+	<resultMap type="com.spring.kgstudy.chat.dto.ChatInfoDTO"
+		id="roomInfo">
+
+		<collection property="chatUserList" column="chat_room_id"
+			javaType="java.util.ArrayList"
+			ofType="com.spring.kgstudy.chat.vo.ChatUserVO" select="findAllChatUser" />
+		<collection property="chatList" column="chat_room_id"
+			javaType="java.util.ArrayList"
+			ofType="com.spring.kgstudy.chat.vo.ChatUserVO" select="findAllChat" />
+
+
+	</resultMap>
+
+<!--  ########################################-->
+
+
+	<select id="findAllRoom"
+		resultType="com.spring.kgstudy.chat.vo.ChatRoomVO">
+		select * from(
+		select A.*, B.chatRoomCnt, row_number() over(order by B.chatRoomcnt ASC) rn
+		from chat_room_table A join
+		(select chat_room_id, count(*) chatRoomCnt from chat_user_table group by
+		chat_room_id) B
+		on A.chat_room_id = B.chat_room_id
+
+		<include refid="searchRoom" />
+		<include refid="ckFull" />
+		order by B.chatRoomcnt)
+		where rn between (#{pageNum}-1)*#{amount}+1 and #{pageNum}*#{amount}
+
+
+
+	</select>
+
+
+
+	<select id="findOneRoom" resultMap="roomInfo">
+
+		select * from chat_room_table where chat_room_id = #{chatRoomId}
+
+	</select>
+
+	<select id="findAllChatUser"
+		resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
+
+		select * from chat_user_table where chat_room_id = #{chatRoomId}
+
+	</select>
+	
+	<select id="findOneChatUser" resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
+	
+	select * from chat_user_table where user_id=#{userId} and chat_room_id=#{chatRoomId}
+	
+	</select>
+
+
+	<select id="findAllChat"
+		resultType="com.spring.kgstudy.chat.vo.ChatVO">
+
+		select * from chat_table A
+
+		<include refid="searchChat" />
+		and chat_room_id = #{chatRoomId} and (chat_date between #{startDate}
+		and #{endDate})
+
+
+	</select>
+	
+	
+	
+		<select id="findAllRoomCnt" resultType="int">
+
+		select count(*) from room_table
+		<include refid="searchRoom" />
+
+	</select>
+	
+
+<!--  ########################################-->
+
+	<insert id="insertChatRoom">
+	
+	insert into chat_room_table 
+	(chat_room_id, chat_room_title, chat_room_comment, chat_room_goal, chat_room_max, chat_room_category, chat_room_img, chat_room_state, user_id, exit_opt, exit_ck, chat_room_date)
+values(chat_room_seq.nextval, #{chatRoomTitle}, #{chatRoomComment}, #{chatRoomGoal}, #{chatRoomMax}, #{chatRoomCategory}, #{chatRoomimg}, #{chatRoomState}, #{userId}, #{exitOpt}, #{exitCk}, #{chatRoomDate})
+
+	</insert>
+	
+
+	
+
+	<insert id="insertChatUser">
+	insert into chat_user_table
+	(chat_room_id, user_id, room_auth, chat_user_stamp)
+values(#{chatRoomId}, #{userId}, #{roomAuth}, #{chatUserStamp})
+
+	</insert>
+
+
+
+	<insert id="insertChat">
+	
+		<selectKey keyProperty="chatCkCnt" order="BEFORE" resultType="com.spring.kgstudy.chat.vo.ChatVO">
+				select ((select count(*) from chat_user_table where chat_room_id =#{chatRoomId})-(select count(*) from chat_user_table where chat_room_id =#{chatRoomId} and chat_user_stamp > #{chatDate}) ) form dual 
+		</selectKey>
+	
+	insert into chat_table
+	(chat_id, chat_room_id, user_id, chat_contnent, chat_date, chat_state, chat_ck_cnt, chat_file)
+values(chat_seq.nextval, #{chatRoomId}, #{userId}, #{chatContent}, #{chatDate}, #{chatState}, #{chatCkCnt}, #{chatFile} )
+
+	</insert>
 
 
 
 
-<select id="findAllRoom" resultType="com.spring.kgstudy.chat.dto.ChatInfoDTO">
+
+	
+<!--  ########################################-->
+
+	<update id="updateChatRoom">
+	
+		update chat_room_table set
+			
+			chat_room_title = NVL(#{chatRoomTitle},chat_room_title),
+			chat_room_comment = NVL(#{chatRoomComment},chat_room_comment),
+			chat_room_goal = NVL(#{chatRoomGoal},chat_room_goal),
+			chat_room_max = NVL(#{chatRoomMax},chat_room_max),
+			chat_room_category = NVL(#{chatRoomCategory},chat_room_category),
+			chat_room_img = NVL(#{chatRoomImg},chat_room_img),
+			chat_room_state = NVL(#{chatRoomState},chat_room_state),
+			exit_opt = NVL(#{exitOpt},exit_opt),
+			exit_ck = NVL(#{exitCk},exit_ck)
+			
+			where chat_room_id=#{chatRoomId}
+
+   		
+
+	</update>
+
+	
+
+	<update id="updateChatUser">
+		update chat_user_table set
+		
+			room_auth = NVL(#{roomAuth},room_auth),
+			chat_user_stamp = NVL(#{chatUserStamp},chat_user_stamp)
+			
+			where chat_room_id=#{chatRoomId} and user_id = #{userId}
+
+	</update>
+
+	<update id="updateChat">
+		update chat_table set
+
+			chat_state = NVL(#{chatUserStamp},chat_state),
+
+			where chat_room_id=#{chatRoomId} and user_id = #{userId}
+	
+	
+
+	</update>
+
+	<update id="updateChatCnt">
+	
+	update chat_table set
+	
+	chat_ck_cnt = ((select count(*) from chat_user_table where chat_room_id =#{chatRoomId}) -
+					(select count(*) from chat_user_table where chat_room_id =#{chatRoomId} and chat_user_stamp > chat_date) )
+	
+	where chat_room_id=#{chatRoomId}
+	</update>
+
+
+	
+<!--  ########################################-->
 
 
 
-</select>
 
-<select id="findOneRoom">
+	<delete id="deleteChatRoom">
+	
+	delete from chat_room_table where chat_room_id= #{chatRoomId}	
+	
 
-</select>
+	</delete>
 
-<select id="findAllRoomCnt">
+	<delete id="deleteChatUser">
+	delete from chat_user_table where chat_room_id = #{chatRoomId} and user_id =#{userId}	
+	
 
-</select>
+	</delete>
 
+	<delete id="deleteChat">
 
-<select id="findAllChat">
+	delete from chat_table where chat_id = #{chatId}
+	
 
-</select>
-
-
-<insert id="insertChatRoom">
-
-
-
-</insert>
-
-<insert id="insertChatUser">
-
-</insert>
-
-<insert id="insertChat">
-
-</insert>
-
-
-<update id="updateChatRoom">
-
-</update>
-
-<update id="updateChatUser">
-
-</update>
-
-<update id="updateChat">
-
-</update>
-
-
-<delete id="deleteChatRoom">
-
-</delete>
-
-<delete id="deleteChatUser">
-
-</delete>
-
-<delete id="deleteChat">
-
-</delete>
+	</delete>
 
 
 

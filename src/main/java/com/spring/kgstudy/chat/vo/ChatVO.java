@@ -19,7 +19,7 @@ public class ChatVO {
 	private Date chatDate;
 	private String chatState;
 	private int chatCkCnt;
-	
+	private String chatFile;
 	
 	
 }
