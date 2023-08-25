@@ -16,13 +16,13 @@ public class ChatRoomVO {
 	private String chatRoomTitle;
 	private String chatRoomComment;
 	private String chatRoomGoal;
-	private int chatRommMax;
+	private int chatRoomMax;
 	private int chatRoomCategory;
 	private String chatRoomImg;
 	private String chatRoomState;
 	private String userId;
 	private int exitOpt;
-	private char exitYN;
+	private String exitCk;
 	private Date chatRoomDate;
 	
 

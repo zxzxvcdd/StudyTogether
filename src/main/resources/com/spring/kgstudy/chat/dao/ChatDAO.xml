@@ -38,19 +38,7 @@
 
 	</sql>
 
-	<resultMap type="com.spring.kgstudy.chat.dto.ChatInfoDTO"
-		id="roomInfo">
-
-		<collection property="chatUserList" column="chat_room_id"
-			javaType="java.util.ArrayList"
-			ofType="com.spring.kgstudy.chat.vo.ChatUserVO" select="findAllChatUser" />
-		<collection property="chatList" column="chat_room_id"
-			javaType="java.util.ArrayList"
-			ofType="com.spring.kgstudy.chat.vo.ChatUserVO" select="findAllChat" />
-
-
-	</resultMap>
-
+\
 <!--  ########################################-->
 
 
@@ -74,17 +62,24 @@
 
 
 
-	<select id="findOneRoom" resultMap="roomInfo">
+	<select id="findOneRoom" resultType="com.spring.kgstudy.chat.dto.ChatInfoDTO" >
 
 		select * from chat_room_table where chat_room_id = #{chatRoomId}
 
 	</select>
 
-	<select id="findAllChatUser"
+	<select id="findAllChatUser" parameterType="Integer"
 		resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
 
 		select * from chat_user_table where chat_room_id = #{chatRoomId}
 
+	</select>
+	
+	<select id="findAllUser" parameterType="Integer" resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
+	
+	select user_id from member where user_id not in(select user_id from chat_user_table where chat_room_id = #{chatRoomId})
+
+	
 	</select>
 	
 	<select id="findOneChatUser" resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
@@ -94,7 +89,7 @@
 	</select>
 
 
-	<select id="findAllChat"
+	<select id="findAllChat" parameterType="Map"
 		resultType="com.spring.kgstudy.chat.vo.ChatVO">
 
 		select * from chat_table A
@@ -108,7 +103,7 @@
 	
 	
 	
-		<select id="findAllRoomCnt" resultType="int">
+	<select id="findAllRoomCnt" resultType="int">
 
 		select count(*) from room_table
 		<include refid="searchRoom" />
@@ -120,9 +115,15 @@
 
 	<insert id="insertChatRoom">
 	
+
+	
 	insert into chat_room_table 
 	(chat_room_id, chat_room_title, chat_room_comment, chat_room_goal, chat_room_max, chat_room_category, chat_room_img, chat_room_state, user_id, exit_opt, exit_ck, chat_room_date)
-values(chat_room_seq.nextval, #{chatRoomTitle}, #{chatRoomComment}, #{chatRoomGoal}, #{chatRoomMax}, #{chatRoomCategory}, #{chatRoomimg}, #{chatRoomState}, #{userId}, #{exitOpt}, #{exitCk}, #{chatRoomDate})
+values(chat_room_seq.nextval, #{chatRoomTitle}, #{chatRoomComment}, #{chatRoomGoal}, #{chatRoomMax}, #{chatRoomCategory}, #{chatRoomImg}, #{chatRoomState}, #{userId}, #{exitOpt}, #{exitCk}, #{chatRoomDate})
+		<selectKey keyProperty="chatRoomId" order="AFTER" resultType="int">
+				select chat_room_seq.currval from dual
+		</selectKey>
+
 
 	</insert>
 	
@@ -140,12 +141,12 @@ values(#{chatRoomId}, #{userId}, #{roomAuth}, #{chatUserStamp})
 
 	<insert id="insertChat">
 	
-		<selectKey keyProperty="chatCkCnt" order="BEFORE" resultType="com.spring.kgstudy.chat.vo.ChatVO">
-				select ((select count(*) from chat_user_table where chat_room_id =#{chatRoomId})-(select count(*) from chat_user_table where chat_room_id =#{chatRoomId} and chat_user_stamp > #{chatDate}) ) form dual 
+		<selectKey keyProperty="chatCkCnt" order="BEFORE" resultType="int">
+				select ((select count(*) from chat_user_table where chat_room_id =#{chatRoomId})-(select count(*) from chat_user_table where chat_room_id =#{chatRoomId} and chat_user_stamp > #{chatDate}) ) from dual 
 		</selectKey>
 	
 	insert into chat_table
-	(chat_id, chat_room_id, user_id, chat_contnent, chat_date, chat_state, chat_ck_cnt, chat_file)
+	(chat_id, chat_room_id, user_id, chat_content, chat_date, chat_state, chat_ck_cnt, chat_file)
 values(chat_seq.nextval, #{chatRoomId}, #{userId}, #{chatContent}, #{chatDate}, #{chatState}, #{chatCkCnt}, #{chatFile} )
 
 	</insert>
@@ -192,7 +193,7 @@ values(chat_seq.nextval, #{chatRoomId}, #{userId}, #{chatContent}, #{chatDate}, 
 	<update id="updateChat">
 		update chat_table set
 
-			chat_state = NVL(#{chatUserStamp},chat_state),
+			chat_state = NVL(#{chatState},chat_state),
 
 			where chat_room_id=#{chatRoomId} and user_id = #{userId}
 	
