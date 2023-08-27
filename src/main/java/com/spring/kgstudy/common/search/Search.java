@@ -35,8 +35,11 @@ public class Search extends Page {
 		Calendar now = Calendar.getInstance();
 		
 		
+		now.add(Calendar.DATE, 1);
 		this.endDate = form.format(now.getTime());
-		now.add(Calendar.DATE, -7);
+		
+	
+		now.add(Calendar.DATE, -8);
 		this.startDate= form.format(now.getTime());
 		
 

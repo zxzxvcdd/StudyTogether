@@ -26,7 +26,7 @@ public interface ChatDAO {
 	public ChatUserVO findOneChatUser(ChatUserVO user);
 	public List<ChatUserVO> findAllChatUser(ChatUserVO user);
 	
-	public List<ChatUserVO> findAllUser(int chatRoomId);
+	public List<ChatUserVO> findAllUser(ChatUserVO chatUser);
 
 	
 	

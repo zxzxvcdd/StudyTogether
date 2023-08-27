@@ -1,13 +1,19 @@
 package com.spring.kgstudy.chat.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.kgstudy.chat.dao.ChatDAO;
 import com.spring.kgstudy.chat.dto.ChatInfoDTO;
@@ -27,11 +33,13 @@ public class ChatService {
 
 	private final ChatDAO chatDao;
 	
+	@Resource(name="uploadPath")
+	private String uploadPath;  
 	
-	public List<ChatUserVO> getAllMember(int chatRoomId){
+	public List<ChatUserVO> getAllMember(ChatUserVO chatUser){
 		
 		
-		return chatDao.findAllUser(chatRoomId);
+		return chatDao.findAllUser(chatUser);
 		
 		
 		
@@ -118,7 +126,6 @@ public class ChatService {
 		
 		ChatInfoDTO chatInfo = chatDao.findOneRoom(user.getChatRoomId());
 		
-		System.out.println(chatInfo);
 		List<ChatVO> chatList = chatDao.findAllChat(roomId, search);
 		
 		List<ChatUserVO> userList = chatDao.findAllChatUser(user);
@@ -128,10 +135,9 @@ public class ChatService {
 		chatInfo.setChatList(chatList);
 		chatInfo.setChatUserList(userList);
 		
+	
 		
 		
-		
-		System.out.println(chatInfo);
 
 		resMap.put("chatInfo", chatInfo);
 		
@@ -145,29 +151,59 @@ public class ChatService {
 	
 	
 	
-	public Map<String, Object> createChatRoom(ChatRoomVO chatRoom,String[] userList) {
+	public Map<String, Object> createChatRoom(ChatRoomVO chatRoom,String[] userList,MultipartFile file) {
 		
 		Map<String,Object> resMap = new HashMap<String,Object>();
 		
-		String flag="방 생성 실패";
+		String msg="방 생성 실패";
+		String newPath="\\studyBanner";
+		String fullPath="/studyBanner/defaultImg.jsp";
+		
 		
 		String inviteList = "";
 		List<String> inviteFail = new ArrayList<String>();
 		resMap.put("inviteFail", inviteFail);
+		resMap.put("msg", msg);
 	
+		if(file!=null) {
+		
+        String newFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+
+        
+        File f = new File(uploadPath + newPath, newFileName);
+
+        
+        try {
+			file.transferTo(f);
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return resMap;
+		}
+        
+        fullPath = newPath + "\\" + newFileName;
+
+        fullPath = fullPath.replace("\\", "/");
+   
+        
+		}
+		chatRoom.setChatRoomImg(fullPath);
+		
+		
 		if(chatDao.insertChatRoom(chatRoom)) {
 			
-			flag="방 생성 완료";
+			msg="방 생성 완료";
 			
 			ChatVO chat = null;
 			
-			if(userList.length>0) {
+			if(userList!=null&&userList.length>0) {
 				
 				ChatUserVO chatUser = new ChatUserVO();
 				chatUser.setChatRoomId(chatRoom.getChatRoomId());
 				
 
 
+		        
 				for(String user : userList) {
 					
 					
@@ -198,7 +234,7 @@ public class ChatService {
 			
 			
 		}
-		resMap.put("flag", flag);
+
 		
 		return resMap;
 		

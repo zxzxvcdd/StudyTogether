@@ -3,7 +3,6 @@
 <mapper namespace="com.spring.kgstudy.chat.dao.ChatDAO">
 
 
-
 	<sql id="searchRoom">
 		<if test="type == 'user'">WHERE A.user_id = #{keyword}</if>
 		<if test="type == 'title'">WHERE A.chat_room_title like '%'||#{keyword}||''</if>
@@ -30,15 +29,15 @@
 
 
 	<sql id="searchChat">
-		<if test="type == 'content'">WHERE A.chat_content like '%'||#{keyword}||'</if>
-		<if test="type == ''">WHERE A.chat_content like '%'||#{keyword}||'%' or user_id
-			like '%'||#{keyword}||'%'
+		<if test="search.type == 'content'">WHERE A.chat_content like '%'||#{search.keyword}||'</if>
+		<if test="search.type == null">WHERE (A.chat_content like '%'||#{search.keyword}||'%' or user_id
+			like '%'||#{search.keyword}||'%')
 		</if>
 
 
 	</sql>
 
-\
+
 <!--  ########################################-->
 
 
@@ -75,9 +74,9 @@
 
 	</select>
 	
-	<select id="findAllUser" parameterType="Integer" resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
+	<select id="findAllUser" resultType="com.spring.kgstudy.chat.vo.ChatUserVO">
 	
-	select user_id from member where user_id not in(select user_id from chat_user_table where chat_room_id = #{chatRoomId})
+	select user_id from member where user_id not in(select user_id from chat_user_table where chat_room_id = #{chatRoomId}) and user_id != #{userId} order by user_id
 
 	
 	</select>
@@ -95,8 +94,8 @@
 		select * from chat_table A
 
 		<include refid="searchChat" />
-		and chat_room_id = #{chatRoomId} and (chat_date between #{startDate}
-		and #{endDate})
+		and chat_room_id = #{chatRoomId} and chat_date between #{search.startDate}
+		and #{search.endDate}
 
 
 	</select>
@@ -105,7 +104,7 @@
 	
 	<select id="findAllRoomCnt" resultType="int">
 
-		select count(*) from room_table
+		select count(*) from chat_room_table
 		<include refid="searchRoom" />
 
 	</select>

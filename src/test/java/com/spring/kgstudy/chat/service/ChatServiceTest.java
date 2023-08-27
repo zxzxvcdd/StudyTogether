@@ -70,7 +70,7 @@ class ChatServiceTest {
 //		}
 //		
 //	}
-	
+//	
 	@Test
 	void getChatRoomInfoTest() {
 		
@@ -81,7 +81,7 @@ class ChatServiceTest {
 		
 		
 		
-		user.setChatRoomId(12);
+		user.setChatRoomId(2);
 		
 		user.setUserId("user11");
 		

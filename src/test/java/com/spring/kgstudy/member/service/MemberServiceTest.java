@@ -1,11 +1,6 @@
 package com.spring.kgstudy.member.service;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.rosuda.REngine.REXP;
-import org.rosuda.REngine.REXPMismatchException;
-import org.rosuda.REngine.Rserve.RConnection;
-import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -18,43 +13,6 @@ class MemberServiceTest {
 
 	@Autowired
 	MemberService service;
-	
-	@Test
-	void testR() {
-		
-		 RConnection r;
-		try {
-			r = new RConnection();
-	
-		 REXP x = null;
-
-		 
-//		 x=r.eval("source('D:/rfolder/kk.R')");
-		 
-		 x = r.eval("ls()");
-		
-		 for(String s : x.asStrings()) {
-			 
-			 System.out.println(s+"");
-		 }
-		 
-
-		
-		 r.voidEval("ageGraph()");
-//		 x = r.eval("ss(1,6)");
-
-//		
-		 r.eval("makeGraph()");
-//		 System.out.println(x.asNativeJavaObject());
-//		
-		 
-		 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-	}
 	
 //	@Test
 //	void adminInsertTest() {
