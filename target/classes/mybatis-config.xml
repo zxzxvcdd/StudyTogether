@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+
+  	   <!-- 카멜 케이스 VO 매핑       --> 
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        
+       <!--  쿼리 결과 필드가 null인 경우, 누락이 되서 나오지 않게 설정 -->
+        <setting name="callSettersOnNulls" value="true"/>
+        
+       <!--  쿼리에 보내는 파라미터가 null인 경우, 오류가 발생하는 것 방지 -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+    
+        
+    <typeAliases>
+	
+		<typeAlias alias="BoardVO" type="com.spring.kgstudy.board.vo.BoardVO"/>
+
+		<typeAlias alias="memberVO" type="com.spring.kgstudy.member.vo.MemberVO"/>
+		
+		<typeAlias alias="ReviewVO" type="com.spring.kgstudy.review.vo.ReviewVO"/>
+		
+		<typeAlias alias="kdto" type="com.spring.kgstudy.member.dto.KakaoDTO"/>
+		
+	</typeAliases>
+
+
+</configuration>
