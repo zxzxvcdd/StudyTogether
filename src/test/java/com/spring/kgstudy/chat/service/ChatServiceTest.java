@@ -27,50 +27,50 @@ class ChatServiceTest {
 	ChatService service;
 	
 	
-//	@Test
-//	void insertChatRoomListTest() {
-//	
-//		
-//		for(int j=1;j<=100;j++ ) {
-//			ChatRoomVO chatRoom= new ChatRoomVO();
-//			
-//			chatRoom.setChatRoomTitle("스터디 투게더"+j);
-//			chatRoom.setChatRoomMax(j+5);
-//			chatRoom.setChatRoomCategory(0);
-//			chatRoom.setChatRoomDate(new Date());
-//			chatRoom.setChatRoomComment("함께 공부해요"+j);
-//			chatRoom.setChatRoomGoal("시험합격"+j);
-//			chatRoom.setChatRoomImg(j+".jpg");
-//			chatRoom.setChatRoomState("public");
-//			chatRoom.setExitOpt(0);
-//			chatRoom.setExitCk("Y");
-//			chatRoom.setUserId("admin");
-//			List<String> users = new ArrayList<String>();
-//			
-//			for(int i=1; i<=10; i++) {
-//			
-//				int k = j*10 +i;
-//				
-//				users.add("user"+k);
-//				
-//				
-//				
-//			}
-//			
-//	
-//			
-//			String[] userList = users.toArray(new String[users.size()]);
-//			
-//			
-//			Map<String,Object> resMap = service.createChatRoom(chatRoom, userList);
-//			
-//			
-//			System.out.println(resMap);
-//		
-//		}
-//		
-//	}
-//	
+	@Test
+	void insertChatRoomListTest() {
+	
+		
+		for(int j=1;j<=100;j++ ) {
+			ChatRoomVO chatRoom= new ChatRoomVO();
+			
+			chatRoom.setChatRoomTitle("스터디 투게더"+j);
+			chatRoom.setChatRoomMax(j+10);
+			chatRoom.setChatRoomCategory(0);
+			chatRoom.setChatRoomDate(new Date());
+			chatRoom.setChatRoomComment("함께 공부해요"+j);
+			chatRoom.setChatRoomGoal("시험합격"+j);
+			chatRoom.setChatRoomImg(j+".jpg");
+			chatRoom.setChatRoomState("public");
+			chatRoom.setExitOpt(0);
+			chatRoom.setExitCk("Y");
+			chatRoom.setUserId("admin");
+			List<String> users = new ArrayList<String>();
+			
+			for(int i=1; i<=10; i++) {
+			
+				int k = j*10 +i;
+				
+				users.add("user"+k);
+				
+				
+				
+			}
+			
+	
+			
+			String[] userList = users.toArray(new String[users.size()]);
+			
+			
+			Map<String,Object> resMap = service.createChatRoom(chatRoom, userList,null);
+			
+			
+			System.out.println(resMap);
+		
+		}
+		
+	}
+	
 	@Test
 	void getChatRoomInfoTest() {
 		

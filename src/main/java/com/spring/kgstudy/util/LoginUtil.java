@@ -1,11 +1,7 @@
 package com.spring.kgstudy.util;
 
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.web.util.WebUtils;
 
 import com.spring.kgstudy.member.vo.MemberVO;
 
@@ -21,7 +17,7 @@ public class LoginUtil {
     }
 
     // 로그인한 사용자 계정 가져오기
-    public static String getCurrentMemberAccount(HttpSession session) {
+    public static String getCurrentMemberAccount(HttpSession session) throws NullPointerException {
     	MemberVO member = (MemberVO) session.getAttribute(LOGIN_FLAG);
         return member.getUser_id();
     }

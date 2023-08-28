@@ -34,7 +34,7 @@ public class ChatController {
 	public String getAllChatRoom(Model model, Search search) {
 		
 		
-	
+		search.setAmount(20);
 		Map<String,Object> resMap= chatService.getAllChatRoom(search);
 		
 		
@@ -55,8 +55,13 @@ public class ChatController {
 	
 	
 		
-		user.setUserId(LoginUtil.getCurrentMemberAccount(session));
 		
+		String userId= LoginUtil.getCurrentMemberAccount(session);
+		
+		if(userId==null) {
+			userId= "admin";
+		}
+		user.setUserId(userId);
 		Map<String,Object> resMap= chatService.getChatRoomInfo(user, search);
 		
 		model.addAttribute("resMap",resMap);
@@ -111,7 +116,7 @@ public class ChatController {
 		Map<String,Object> resMap = chatService.createChatRoom(chatRoom, userList,file);
 		
 
-	
+		boolean flag = (boolean) resMap.get("flag");
 
 		
 		model.addAttribute("resMap",resMap);
@@ -119,7 +124,7 @@ public class ChatController {
 		
 		//웹소켓 생성
 		
-		return "/chat/createChatRoom";
+		return flag? "redirect:/chat/getAllChatRoom":"/chat/createChatRoom";
 		
 		
 		

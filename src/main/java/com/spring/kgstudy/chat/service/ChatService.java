@@ -80,7 +80,8 @@ public class ChatService {
 	
 	public Map<String, Object> getChatRoomInfo(ChatUserVO user, Search search) {
 		
-
+		
+		
 		
 		Map<String,Object> resMap = new HashMap<String,Object>();
 		Calendar cal = Calendar.getInstance();
@@ -96,7 +97,7 @@ public class ChatService {
 		if(chat!=null) {
 			
 			
-			chat.setChatContent(user+"님이 입장하였습니다.");
+			chat.setChatContent(userId+"님이 입장하였습니다.");
 	
 			
 			insertChat(chat);
@@ -149,21 +150,37 @@ public class ChatService {
 	}
 	
 	
+	public void setMsg(Map<String, Object> resMap, String str, boolean flag ) {
+		
+		resMap.put("flag", flag);
+		resMap.put("msg", str);
+	}
 	
 	
 	public Map<String, Object> createChatRoom(ChatRoomVO chatRoom,String[] userList,MultipartFile file) {
+	
 		
 		Map<String,Object> resMap = new HashMap<String,Object>();
-		
-		String msg="방 생성 실패";
+	
 		String newPath="\\studyBanner";
-		String fullPath="/studyBanner/defaultImg.jsp";
+		String fullPath="/studyBanner/defaultImg.jpg";
+
+
+		setMsg(resMap,"방 생성 실패",false);
 		
+		if(userList!=null){
+			
+			if(userList.length>chatRoom.getChatRoomMax()) {
+				setMsg(resMap,"최대 인원수 초과",false);
+				return resMap;
+			}
+		}
+	
 		
 		String inviteList = "";
 		List<String> inviteFail = new ArrayList<String>();
 		resMap.put("inviteFail", inviteFail);
-		resMap.put("msg", msg);
+
 	
 		if(file!=null) {
 		
@@ -192,7 +209,7 @@ public class ChatService {
 		
 		if(chatDao.insertChatRoom(chatRoom)) {
 			
-			msg="방 생성 완료";
+			setMsg(resMap,"방 생성 완료",true);
 			
 			ChatVO chat = null;
 			
@@ -228,6 +245,8 @@ public class ChatService {
 				
 				
 				//websocket 검색
+				
+				setMsg(resMap,"방생성 및 회원 초대 완료",true);
 				
 			}
 			

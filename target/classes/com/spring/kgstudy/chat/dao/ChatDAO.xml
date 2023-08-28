@@ -8,10 +8,10 @@
 		<if test="type == 'title'">WHERE A.chat_room_title like '%'||#{keyword}||''</if>
 		<if test="type == 'goal'">WHERE A.chat_room_goal like '%'||#{keyword}||'</if>
 		<if test="type == 'category'">WHERE A.chat_room_goal like '%'||#{keyword}||'</if>
-		<if test="type == ''">WHERE A.chat_room_title like '%'||#{keyword}||'%' or
+		<if test="type == null || type==''">WHERE (A.chat_room_title like '%'||#{keyword}||'%' or
 			A.chat_room_comment like '%'||#{keyword}||'%' or
 			A.chat_room_goal like '%'||#{keyword}||'%' or A.chat_room_category like
-			'%'||#{keyword}||'%'
+			'%'||#{keyword}||'%')
 		</if>
 
 
@@ -52,7 +52,8 @@
 
 		<include refid="searchRoom" />
 		<include refid="ckFull" />
-		order by B.chatRoomcnt)
+		and A.chat_room_state='public'
+		order by B.chatRoomcnt, A.chat_room_id)
 		where rn between (#{pageNum}-1)*#{amount}+1 and #{pageNum}*#{amount}
 
 
@@ -96,6 +97,7 @@
 		<include refid="searchChat" />
 		and chat_room_id = #{chatRoomId} and chat_date between #{search.startDate}
 		and #{search.endDate}
+		order by A.chat_date
 
 
 	</select>
@@ -104,9 +106,9 @@
 	
 	<select id="findAllRoomCnt" resultType="int">
 
-		select count(*) from chat_room_table
+		select count(*) from chat_room_table A
 		<include refid="searchRoom" />
-
+		and A.chat_room_state='public'
 	</select>
 	
 
