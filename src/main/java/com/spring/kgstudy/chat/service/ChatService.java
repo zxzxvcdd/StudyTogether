@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,7 +34,7 @@ public class ChatService {
 
 	private final ChatDAO chatDao;
 	
-	@Resource(name="uploadPath")
+	@Value("${file.path}")
 	private String uploadPath;  
 	
 	public List<ChatUserVO> getAllMember(ChatUserVO chatUser){

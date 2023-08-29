@@ -56,11 +56,9 @@ public class ChatController {
 	
 		
 		
-		String userId= LoginUtil.getCurrentMemberAccount(session);
+//		String userId= LoginUtil.getCurrentMemberAccount(session);
 		
-		if(userId==null) {
-			userId= "admin";
-		}
+		String userId="user11";
 		user.setUserId(userId);
 		Map<String,Object> resMap= chatService.getChatRoomInfo(user, search);
 		

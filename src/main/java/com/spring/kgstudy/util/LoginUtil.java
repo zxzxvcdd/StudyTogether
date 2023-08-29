@@ -17,7 +17,7 @@ public class LoginUtil {
     }
 
     // 로그인한 사용자 계정 가져오기
-    public static String getCurrentMemberAccount(HttpSession session) throws NullPointerException {
+    public static String getCurrentMemberAccount(HttpSession session){
     	MemberVO member = (MemberVO) session.getAttribute(LOGIN_FLAG);
         return member.getUser_id();
     }

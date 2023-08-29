@@ -11,19 +11,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.common.vo.Criteria;
 import com.spring.kgstudy.review.dao.ReviewDAO;
 import com.spring.kgstudy.review.vo.CntByStarDTO;
 import com.spring.kgstudy.review.vo.ReviewVO;
 import com.spring.kgstudy.seat.vo.ReservationVO;
-import com.spring.kgstudy.store.dao.StoreDAO;
 import com.spring.kgstudy.store.vo.StoreVO;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +33,7 @@ public class ReviewService {
 
 	
 
-	@Resource(name="uploadPath")  //properties에 있는 uploadPath값 가져오기
+	@Value("${file.path}")  //properties에 있는 uploadPath값 가져오기
 	private String uploadPath;  
 	
 	// 리뷰 전체 보기

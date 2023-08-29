@@ -378,6 +378,32 @@ background: none;
 /*스크롤바 뒷 배경 색상*/
 
 }
+
+button{
+    
+    margin-top: 10px;
+    font-size: 16px;
+    letter-spacing: -.3px;
+    overflow: hidden;
+    width: 50px;
+    padding: 8px 6px 7px;
+    border-radius: 6px;
+    background-color: #ecf0f1;
+    font-weight: 500;
+    color: #2f3640;
+
+    cursor: pointer;
+
+}
+
+button:hover{
+
+    background-color: #f9ca24;
+    color: #fff;
+
+
+}
+
 </style>
 
 </head>
@@ -410,10 +436,10 @@ background: none;
 
                 <div class="header_btn_wrap">
                     <div class="search_btn_wrap">
-                        <button type="button" class="search_btn"></button>
+                        <button type="button" class="search_btn">검색</button>
                     </div>
                     <div class="user_btn_wrap">
-                        <button type="button" class="user_btn"></button>
+                        <button type="button" class="user_btn">목록</button>
                     </div>
                 </div>
                 
@@ -476,7 +502,7 @@ background: none;
                     <div class="send_btn_wrap">
 
                         <button type="button" class="send">
-
+                            전송
                         </button>
 
                     </div>
@@ -511,7 +537,7 @@ background: none;
 
             
             let userId="${loginUser.user_id}";
-            userId="user1";
+            userId="user11";
             console.log(userId);
             function ckOwn(){
 
