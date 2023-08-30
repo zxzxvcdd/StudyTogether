@@ -38,11 +38,11 @@ public class MessageController {
 	public void close(ChatUserVO user) {
 		
 		
-		System.out.println(user);
 		
 		
 		user= chatService.findOneChatUser(user);
 		
+		System.out.println(user);
 		
 		user.setChatUserStamp(new Date());
 
