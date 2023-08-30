@@ -45,7 +45,10 @@
 	  <bean id="uploadPath" class="java.lang.String">
 	    <constructor-arg value="C:\Users\shinj\git\KGStudy\src\main\webapp\resources\fileUpload"/>
 	  </bean>
-
+	
+	  <bean id="chartPath" class="java.lang.String">
+	    <constructor-arg value="C:\Users\shinj\git\KGStudy\src\main\webapp\resources\fileUpload\rGraph"/>
+	  </bean>
 
 	<!-- MultipartResolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

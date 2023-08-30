@@ -11,8 +11,9 @@ import com.spring.kgstudy.common.paging.Page;
 import com.spring.kgstudy.common.paging.PageMaker;
 import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberDTO;
-import com.spring.kgstudy.store.VO.StoreVO;
+
 import com.spring.kgstudy.store.dao.StoreDAO;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -120,6 +121,9 @@ public class AdminService {
 		
 	}
 
+
+	
+	
 
 
 	

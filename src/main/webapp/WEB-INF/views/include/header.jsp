@@ -30,6 +30,7 @@
 			<a href="/kgstudy/reviewListView.do">리뷰</a>
 			<a href="/kgstudy/order/passOrder.do">이용권구매</a>
 			<a href="/kgstudy/seat/seat.do">예약</a>
+			<a href="/kgstudy/calendar/calendar.do">캘린더</a>
 		</nav>
 		
 		

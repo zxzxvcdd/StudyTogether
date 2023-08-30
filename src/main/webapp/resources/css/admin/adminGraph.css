@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+.select_btn_list {
+    display: inline-block;
+    width: 700px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px, rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 20px 0px;
+    text-align: center;
+}
+
+div .select_btn:first-child {
+    margin-right: 0;
+}
+
+div .select_btn {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 45%;
+    margin: 0 calc(5%/3);
+}
+
+.btn_select_list {
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -.3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 8px 6px 7px;
+    border-radius: 6px;
+    background-color: #ecf0f1;
+    font-weight: 500;
+    color: #2f3640;
+}
+
+.btn_select_list:hover { 
+    background-color: #f9ca24;
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+.content_graph_section {
+    padding: 50px 0;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.content_wrap {
+    width: 700px;
+    margin: 0 auto;
+    border: none;
+}
+
+
+.base_content_box {
+    display: inline-block;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    background-color: #fff;
+    padding: 15px 0;
+    width: 700px;
+    text-align: center;
+}
+
+.content_container_sub {
+    display: inline-block;
+}
+
+.yyyy_btn {
+    font-size: 16px;
+    letter-spacing: -.3px;
+    overflow: hidden;
+    padding: 8px 6px 7px;
+    border-radius: 6px;
+    background-color: #b8e994;
+    font-weight: 500;
+    color: #2f3640;
+    width: 100px;
+}
+
+.yyyy_btn:hover { 
+    background-color: #78e08f;
+}
+
+.con-date {
+    margin-right: 30px;
+}
+
+.con-label {
+    margin-right: 6px;
+    padding: 0 5px;
+    font-size: 17px;
+}
+
+#date {
+    padding: 5px;
+    border: solid 1px;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+.chart_content_bax {
+    display: inline-block;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    border-radius: 25px;
+    background-color: #fff;
+    padding: 30px 30px;
+    width: 700px;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.info_h1 {
+    margin: 150px 0;
+    font-size: 20px;
+    color: #b2bec3;
+}
+
+h2 {
+	font-size: 20px;
+    margin-bottom: 10px
+}
+
+select#year {
+    font-size: 17px;
+    padding: 5px 18px;
+    border: solid 1px #535c68;
+    border-radius: 18px;
+    width: 100px;
+}

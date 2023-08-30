@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>review</title>
 
@@ -16,6 +15,8 @@
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage/userModify.css?after">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review/reviewList.css?after">
+
+<%@ include file="../include/static-header.jsp"%>
 
 </head>
 <body>
