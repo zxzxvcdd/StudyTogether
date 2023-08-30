@@ -44,7 +44,7 @@
 	<select id="findAllRoom"
 		resultType="com.spring.kgstudy.chat.vo.ChatRoomVO">
 		select * from(
-		select A.*, B.chatRoomCnt, row_number() over(order by B.chatRoomcnt ASC) rn
+		select A.*, B.chatRoomCnt, row_number() over(order by B.chatRoomcnt desc, A.chat_room_id) rn
 		from chat_room_table A join
 		(select chat_room_id, count(*) chatRoomCnt from chat_user_table group by
 		chat_room_id) B
@@ -53,7 +53,7 @@
 		<include refid="searchRoom" />
 		<include refid="ckFull" />
 		and A.chat_room_state='public'
-		order by B.chatRoomcnt, A.chat_room_id)
+		order by B.chatRoomcnt desc, A.chat_room_id)
 		where rn between (#{pageNum}-1)*#{amount}+1 and #{pageNum}*#{amount}
 
 

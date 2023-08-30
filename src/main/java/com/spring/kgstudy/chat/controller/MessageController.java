@@ -18,6 +18,8 @@ public class MessageController {
 
 	private final ChatService chatService;
 	
+	
+	
 
 	@MessageMapping("/chat/message")
 	public void chat(ChatVO chat) {

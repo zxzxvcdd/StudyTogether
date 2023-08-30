@@ -91,7 +91,7 @@ public class ChatService {
 		Date now = new Date();
 		
 		
-		user = findOneChatUser(user);
+
 		String userId = user.getUserId();
 		int roomId = user.getChatRoomId();
 		
@@ -108,7 +108,7 @@ public class ChatService {
 		
 		
 		ChatVO chat = insertUser(user);
-		
+		user = findOneChatUser(user);
 		
 		if(chat!=null) {
 			
@@ -126,7 +126,7 @@ public class ChatService {
 		Date lastStamp = user.getChatUserStamp();
 		
 		System.out.println(lastStamp);
-		System.out.println(user);
+		
 		
 		if(lastStamp!=null && lastStamp.getDate()<=now.getDate()) {
 			
@@ -145,31 +145,31 @@ public class ChatService {
 		user.setChatUserStamp(cal.getTime());
 		chatDao.updateChatUser(user);
 		
-		updateChatCnt(user.getChatRoomId());
+		List<ChatVO> chatList = updateChatCnt(roomId, search);
 		
 		ChatInfoDTO chatInfo = chatDao.findOneRoom(user.getChatRoomId());
 		
-		List<ChatVO> chatList = chatDao.findAllChat(roomId, search);
+		
 		
 		List<ChatUserVO> userList = chatDao.findAllChatUser(user);
 		
-		
-		System.out.println(lastStamp);
+
 		if(lastStamp!=null) {
 			for(int i=0; i<chatList.size();i++) {
 				
 				ChatVO temp =chatList.get(i);
 				
-				if(temp.getChatDate().getDate()>lastStamp.getDate()) {
+				
+				if(temp.getChatDate().getTime()>lastStamp.getTime()) {
 					
 					
 					System.out.println("insert alert");
 					ChatVO alert = new ChatVO();
 					
-					chat.setChatId(-1);
-					chat.setUserId("admin");
-					chat.setChatState("alert");
-					chat.setChatContent("여기까지 읽으셨습니다.");
+					alert.setChatId(-1);
+					alert.setUserId("admin");
+					alert.setChatState("alert");
+					alert.setChatContent("여기까지 읽으셨습니다.");
 					
 					chatList.add(i-1,alert);
 					
@@ -181,7 +181,7 @@ public class ChatService {
 			}
 		}
 		
-		System.out.println(chatList);
+
 		
 		
 		chatInfo.setChatList(chatList);
@@ -475,22 +475,29 @@ public class ChatService {
 	
 	
 	
-	public boolean updateChatCnt(int chatRoomId) {
-		boolean flag= false;
+	public List<ChatVO> updateChatCnt(int chatRoomId, Search search) {
 		
-		flag = chatDao.updateChatCnt(chatRoomId);
 		
-		String subUrl= "/topic/chat/reload/"+chatRoomId;
+		
+		
+		chatDao.updateChatCnt(chatRoomId);
+		
+		System.out.println(search);
+		System.out.println(chatRoomId);
+		List<ChatVO> chatList = chatDao.findAllChat(chatRoomId, search);
+		
+		
+		String subUrl= "/topic/chat/update/"+chatRoomId;
 		
 
 		
 		
-		template.convertAndSend(subUrl,subUrl);
+		template.convertAndSend(subUrl,chatList);
 		
 		
 		
 		
-		return flag;
+		return chatList;
 	}
 	
 	

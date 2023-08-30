@@ -265,20 +265,21 @@ img {
 }
 
 .chat_list_wrap{
-    
+    position: relative;
     height: 70vh;
     overflow: auto;
     
 }
 .chat_list{
     height: auto;
+    margin-bottom: 10px;
     
     
 }
 
 li.chat{
 
-    min-height: 30px;
+    min-height: 60px;
     height: auto;
     clear:both;
 }
@@ -301,13 +302,18 @@ li.chat{
     word-break:break-all;
 
 }
+
+li.chat.chat_alert{
+    min-height: 30px;
+}
+
 .chat_alert .chat_con{
 
     width: 100%;
     max-width: 100%;
     background: rgba(0,0,0,0.1);
     display: block;
-    
+   
 
     
 }
@@ -333,6 +339,10 @@ li.chat{
 
 }
 
+.chat_cnt.cnt0{
+    visibility: hidden;
+}
+
 .chat_date{
 
 
@@ -341,7 +351,7 @@ li.chat{
 
 div.my_chat{
 
-    display: none;
+    visibility: hidden;
 
 }
 .chat:has(div.my_chat) .chat_con{
@@ -503,8 +513,8 @@ button:hover{
                                 
                                         <div class="chat_writer ${chat.userId}" >${chat.userId}</div>
                                         <div class="chat_con">${chat.chatContent}</div>
-                                        <div class="chat_state">
-                                            <div class="chat_cnt">${chat.chatCkCnt}</div>
+                                        <div class="chat_state ${chat.chatState}">
+                                            <div class="chat_cnt cnt${chat.chatCkCnt}">${chat.chatCkCnt}</div>
                                             <div class="chat_date"><fmt:formatDate value="${chat.chatDate}" pattern="a h:mm"/></div>
                                         </div>
                                     </li>        
@@ -576,9 +586,7 @@ button:hover{
             }
 
 
-            let focusTarget = $(".chat-1");
-
-
+            
 
             function ckOwn(){
 
@@ -603,7 +611,7 @@ button:hover{
                     console.log('Connected: ' + frame);
 
                     var subChat = '/topic/chat/room/'+roomId;
-                    var subReload = '/topic/chat/reload/'+roomId;
+                    var subReload = '/topic/chat/update/'+roomId;
             
                     stompClient.subscribe(subChat, function (data) {
 
@@ -620,13 +628,33 @@ button:hover{
 
                     stompClient.subscribe(subReload, function (data) {
 
-                        location.reload()
+
+                        let rcvChat = JSON.parse(data.body)
+
+                 
+
+                        for( i=0; i<rcvChat.length; i++){
+
+                            var rid = rcvChat[i].chatId;
+                            var rCnt = rcvChat[i].chatCkCnt;
+                            var rState = rcvChat[i].chatState;
+
+                            $(".chat"+rid+ " .chat_cnt").text(rCnt);
+                            $(".chat"+rid+ " .chat_content").text(rCnt);
+                            var k = $(".chat"+rid+ " chatState")
+                            k.removeClass();
+                            k.addClass("chatState");
+                            k.addClass(rState);
+
+
+                        }
+
+
+                        
                     });
 
-                    addSendBtnEvent();
-                    $(window).on("beforeunload", disconnect);
-                    focusScroll(focusTarget);
-
+                    
+                   
                 })
 
             }
@@ -654,9 +682,11 @@ button:hover{
             function sendChat() {
                 let inputText =$(".send_chat").val();
             
-                if(inputText.trim==="") return;
+            
 
+                if(inputText.trim.length===0) return;
 
+                $(".send_chat").val("");
                 newChat.chatContent=inputText;
                 
                 sendDate = JSON.stringify(newChat)
@@ -665,8 +695,10 @@ button:hover{
                 stompClient.send("/app/chat/message", {}, sendDate);
 
 
+                $(".send_chat").focus();
 
             }
+
 
 
             
@@ -679,6 +711,7 @@ button:hover{
                 
                 let chatWriter = rcvChat.userId;
                 let chatContent = rcvChat.chatContent;
+                let chatState = rcvChat.chatState;
              
        
 
@@ -692,7 +725,7 @@ button:hover{
 
 
                 let innerText =""
-                if(rcvChat.chatState==='alert'){
+                if(chatState==='alert'){
                     newChatEL.classList.add('chat_alert');
                     
                     innerText+='<div class="chat_con">'+chatContent+'</div>';
@@ -711,10 +744,10 @@ button:hover{
 
 
                     innerText+= 
-                                '		<div class="'+ chatWriter +'" >${chat.userId}</div>'
+                                '		<div class="'+ chatWriter +'" >'+ chatWriter+'</div>'
                                 + '		<div class="chat_con">'+ chatContent +'</div>'
-                                + '		<div class="chat_state">'
-                                + '			<div class="chat_cnt">'+rcvChat.chatCkCnt+'</div>'
+                                + '		<div class="chat_state '+ chatState+'">'
+                                + '			<div class="chat_cnt cnt'+rcvChat.chatCkCnt+'">'+rcvChat.chatCkCnt+'</div>'
                                 + '			<div class="chat_date">'+fmDate+'</div>'
                                 + '		</div>'
    
@@ -738,39 +771,47 @@ button:hover{
             function addSendBtnEvent(){
 
                 
-                $(".send_btn").click(
-                    sendChat
-                    
-                    
-                    );
+
+                $(".send_btn").click(function(){
+
+                    sendChat()
+
+                });
+
+         
                 $(".send_chat").on("keyup",function(key){
 
-                    console.log(key.keyCode===13)
+         
 
                     if(key.keyCode===13) {
-                        sendChat
+                        sendChat()
                     }
-            });
+                });
 
             }
 
-            function focusScroll(target){
+            function focusScroll(){
 
-                if(!target||target.innerText===undefined){
-                    
-                    target=$(".chat").last();
-                }
                 
-                console.log(target.innerText);
-                console.log($(".chat").last());
-                let offsetTop =target.offset().top;
-                offsetTop =target.offset().top;
-                console.log(target);
-                console.log(target.offset());
-                console.log(offsetTop);
+                let target =$(".chat-1");
+
+
+                if(target.length==0){
+                 
+
+                        target=$(".chat").last();
+                    }
+                    
+                
+
+            
+                let offsetTop =target.position().top;
+       
+                    
+            
            
                
-                $('.chat_list_wrap').animate({scrollTop: offsetTop}, 0);
+                $('.chat_list_wrap').scrollTop(offsetTop);
 
             }
 
@@ -792,10 +833,16 @@ button:hover{
 
                 ckOwn();
 
+
+                addSendBtnEvent();
+                    
+
+                focusScroll();
+
                 connect()
 
-                
-
+                $(window).on("beforeunload", disconnect);
+               
                 
 
 

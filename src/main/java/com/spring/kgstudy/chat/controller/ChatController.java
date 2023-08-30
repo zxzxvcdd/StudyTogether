@@ -57,6 +57,8 @@ public class ChatController {
 		
 //		String userId="user11";
 		user.setUserId(userId);
+		
+
 		Map<String,Object> resMap= chatService.getChatRoomInfo(user, search);
 		
 		model.addAttribute("resMap",resMap);
@@ -66,7 +68,7 @@ public class ChatController {
 		
 		//웹소켓 생성
 		
-		return flag?"/chat/chatRoom":req.getHeader("Referer");
+		return flag?"/chat/chatRoom":"redirect:"+req.getHeader("Referer");
 		
 		
 		
