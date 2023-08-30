@@ -482,8 +482,7 @@ public class ChatService {
 		
 		chatDao.updateChatCnt(chatRoomId);
 		
-		System.out.println(search);
-		System.out.println(chatRoomId);
+
 		List<ChatVO> chatList = chatDao.findAllChat(chatRoomId, search);
 		
 		
