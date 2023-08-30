@@ -1,7 +1,6 @@
 package com.spring.kgstudy.chat.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +30,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ChatService {
 
-
+	@Autowired
+	private SimpMessagingTemplate template;
+	
 	private final ChatDAO chatDao;
 	
 	@Value("${file.path}")
@@ -89,8 +90,22 @@ public class ChatService {
 		
 		Date now = new Date();
 		
+		
+		user = findOneChatUser(user);
 		String userId = user.getUserId();
 		int roomId = user.getChatRoomId();
+		
+		
+		
+		if(isRoomFull(roomId)) {
+			
+			setMsg(resMap, "방이 꽉 찼습니다.", false);
+			
+			return resMap;
+			
+		}
+		
+		
 		
 		ChatVO chat = insertUser(user);
 		
@@ -110,13 +125,18 @@ public class ChatService {
 		
 		Date lastStamp = user.getChatUserStamp();
 		
+		System.out.println(lastStamp);
+		System.out.println(user);
+		
 		if(lastStamp!=null && lastStamp.getDate()<=now.getDate()) {
+			
+			
+			
 			cal.setTime(user.getChatUserStamp());
 				
 			cal.add(Calendar.DATE, -7);
 				
 			search.setStartDate(cal.getTime());
-			resMap.put("lastStamp", lastStamp);
 			
 		}
 		
@@ -124,7 +144,8 @@ public class ChatService {
 		cal.add(Calendar.DATE,999);
 		user.setChatUserStamp(cal.getTime());
 		chatDao.updateChatUser(user);
-		chatDao.updateChatCnt(user.getChatRoomId());
+		
+		updateChatCnt(user.getChatRoomId());
 		
 		ChatInfoDTO chatInfo = chatDao.findOneRoom(user.getChatRoomId());
 		
@@ -132,6 +153,35 @@ public class ChatService {
 		
 		List<ChatUserVO> userList = chatDao.findAllChatUser(user);
 		
+		
+		System.out.println(lastStamp);
+		if(lastStamp!=null) {
+			for(int i=0; i<chatList.size();i++) {
+				
+				ChatVO temp =chatList.get(i);
+				
+				if(temp.getChatDate().getDate()>lastStamp.getDate()) {
+					
+					
+					System.out.println("insert alert");
+					ChatVO alert = new ChatVO();
+					
+					chat.setChatId(-1);
+					chat.setUserId("admin");
+					chat.setChatState("alert");
+					chat.setChatContent("여기까지 읽으셨습니다.");
+					
+					chatList.add(i-1,alert);
+					
+					break;
+					
+				}
+				
+				
+			}
+		}
+		
+		System.out.println(chatList);
 		
 		
 		chatInfo.setChatList(chatList);
@@ -142,7 +192,7 @@ public class ChatService {
 		
 
 		resMap.put("chatInfo", chatInfo);
-		
+		setMsg(resMap, "방에 입장합니다..", true);
 		
 		
 		
@@ -267,7 +317,6 @@ public class ChatService {
 		
 		
 
-		
 		if(chatDao.findOneChatUser(chatUser)==null) {
 		
 			chatUser.setRoomAuth("user");
@@ -278,7 +327,7 @@ public class ChatService {
 			ChatVO chat = new ChatVO();
 			
 			chat.setUserId("admin");
-			chat.setChatDate(new Date());
+		
 			chat.setChatRoomId(chatUser.getChatRoomId());
 			chat.setChatState("alert");
 			
@@ -293,21 +342,74 @@ public class ChatService {
 	}
 
 	
-	public boolean inviteUser(ChatUserVO chatUser) {
+	public String inviteUser(ChatUserVO chatUser) {
 		
 		
-		boolean flag= false;
 		
-		ChatVO chat =insertUser(chatUser);
+		String result = "";
 		
-		if(chat!=null) {
+		if(isRoomFull(chatUser.getChatRoomId())) {
 			
-			chat.setChatContent(chatUser.getUserId()+"님이 초대되었습니다.");
-			flag = insertChat(chat);
+			result= "방이 꽉찼습니다.";
+		}else {
+		
+		
+			ChatVO chat =insertUser(chatUser);
+			
+			if(chat!=null) {
+				
+				chat.setChatContent(chatUser.getUserId()+"님이 초대되었습니다.");
+				insertChat(chat);
+				
+				result="회원이 초대되었습니다.";
+				
+				
+			}else {
+				
+				result="이미 참여한 회원입니다.";
+			}
 			
 			
 		}
 		
+		return result;
+		
+		
+		
+	}
+	
+	
+	public boolean isRoomFull(int roomId) {
+		
+		
+		boolean flag = false; 
+		ChatRoomVO room = chatDao.findOneRoom(roomId);
+
+		int maxCnt = room.getChatRoomMax();
+		
+		int roomCnt = room.getChatRoomCnt();
+		
+		if(roomCnt >=maxCnt) {
+			flag= true;
+		}
+
+		return flag;
+		
+	}
+
+	public boolean insertChat(ChatVO chat) {
+		
+		boolean flag = false;
+		
+		
+		chat.setChatDate(new Date());
+		
+		flag= chatDao.insertChat(chat);
+		
+		System.out.println("insertChat : " + flag);
+		if(flag) {
+			sendChat(chat);
+		}
 		
 		return flag;
 		
@@ -315,20 +417,10 @@ public class ChatService {
 		
 	}
 	
-
-	public boolean insertChat(ChatVO chat) {
-		
-		boolean flag = false;
+	public ChatUserVO findOneChatUser(ChatUserVO user) {
 		
 		
-		flag= chatDao.insertChat(chat);
-		
-		
-		//web socket 검색
-		
-		
-		return flag;
-		
+		return chatDao.findOneChatUser(user);
 		
 		
 	}
@@ -388,6 +480,15 @@ public class ChatService {
 		
 		flag = chatDao.updateChatCnt(chatRoomId);
 		
+		String subUrl= "/topic/chat/reload/"+chatRoomId;
+		
+
+		
+		
+		template.convertAndSend(subUrl,subUrl);
+		
+		
+		
 		
 		return flag;
 	}
@@ -436,6 +537,23 @@ public class ChatService {
 		
 		return flag;
 		
+		
+		
+	}
+
+
+
+	public void sendChat(ChatVO chat) {
+		
+		
+		String subUrl= "/topic/chat/room/"+chat.getChatRoomId();
+		
+
+		
+		
+		template.convertAndSend(subUrl, chat);
+		
+
 		
 		
 	}	

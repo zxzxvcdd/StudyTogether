@@ -64,7 +64,7 @@
 
 	<select id="findOneRoom" resultType="com.spring.kgstudy.chat.dto.ChatInfoDTO" >
 
-		select * from chat_room_table where chat_room_id = #{chatRoomId}
+		select A.*, B.* from chat_room_table A ,(select count(*) chat_room_cnt from chat_user_table where chat_room_id= #{chatRoomId}) B where A.chat_room_id =#{chatRoomId}
 
 	</select>
 
@@ -142,13 +142,15 @@ values(#{chatRoomId}, #{userId}, #{roomAuth}, #{chatUserStamp})
 
 	<insert id="insertChat">
 	
-		<selectKey keyProperty="chatCkCnt" order="BEFORE" resultType="int">
-				select ((select count(*) from chat_user_table where chat_room_id =#{chatRoomId})-(select count(*) from chat_user_table where chat_room_id =#{chatRoomId} and chat_user_stamp > #{chatDate}) ) from dual 
+
+	
+		<selectKey keyProperty="chatId,chatCkCnt" order="BEFORE" resultType="com.spring.kgstudy.chat.vo.ChatVO">
+				select chat_seq.nextval chat_id ,((select count(*) from chat_user_table where chat_room_id =#{chatRoomId})-(select count(*) from chat_user_table where chat_room_id =#{chatRoomId} and chat_user_stamp > #{chatDate})) chat_ck_cnt from dual 
 		</selectKey>
 	
 	insert into chat_table
 	(chat_id, chat_room_id, user_id, chat_content, chat_date, chat_state, chat_ck_cnt, chat_file)
-values(chat_seq.nextval, #{chatRoomId}, #{userId}, #{chatContent}, #{chatDate}, #{chatState}, #{chatCkCnt}, #{chatFile} )
+values(#{chatId}, #{chatRoomId}, #{userId}, #{chatContent}, #{chatDate}, #{chatState}, #{chatCkCnt}, #{chatFile} )
 
 	</insert>
 

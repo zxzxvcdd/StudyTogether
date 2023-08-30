@@ -3,6 +3,7 @@ package com.spring.kgstudy.chat.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.kgstudy.chat.service.ChatService;
@@ -49,24 +49,24 @@ public class ChatController {
 	
 
 	@GetMapping("enterChatRoom")
-	public String enterChatRoom(Model model, Search search,HttpSession session, ChatUserVO user) {
+	public String enterChatRoom(Model model, Search search,HttpServletRequest req, ChatUserVO user) {
 		
+
 		
-	
-	
+		String userId= LoginUtil.getCurrentMemberAccount(req.getSession());
 		
-		
-//		String userId= LoginUtil.getCurrentMemberAccount(session);
-		
-		String userId="user11";
+//		String userId="user11";
 		user.setUserId(userId);
 		Map<String,Object> resMap= chatService.getChatRoomInfo(user, search);
 		
 		model.addAttribute("resMap",resMap);
 		
+		boolean flag = (boolean) resMap.get("flag");
+		
+		
 		//웹소켓 생성
 		
-		return "/chat/chatRoom";
+		return flag?"/chat/chatRoom":req.getHeader("Referer");
 		
 		
 		
@@ -79,8 +79,8 @@ public class ChatController {
 	
 	
 
-//		String userId = LoginUtil.getCurrentMemberAccount(session);
-		String userId="123";
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+//		String userId="123";
 		ChatUserVO chatUser = new ChatUserVO();
 		
 		chatUser.setChatRoomId(0);

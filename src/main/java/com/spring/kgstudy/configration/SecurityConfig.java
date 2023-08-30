@@ -21,14 +21,22 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        // 초기에 나오는 디폴트 로그인 화면 안뜨게 하기
-        http.csrf().disable() // csrf공격 방어토큰 자동 생성 해제
-                .authorizeRequests() //권한요청 범위 설정
-                .antMatchers("/member/**")
-                .permitAll() // /member로 시작하는 요청은 따로 권한 검증하지 말아라
-        ;
+//        // 초기에 나오는 디폴트 로그인 화면 안뜨게 하기
+//        http.csrf().disable() // csrf공격 방어토큰 자동 생성 해제
+//                .authorizeRequests() //권한요청 범위 설정
+//                .antMatchers("/member/**")
+//                .permitAll() // /member로 시작하는 요청은 따로 권한 검증하지 말아라
+//        ;
+        
+        http.cors().and().csrf().disable().authorizeRequests()
+        .antMatchers("/msgProc/info",
+        "/msgProc/**"
+        ).permitAll();
 
         return http.build();
     }
+    
+
+
 
 }

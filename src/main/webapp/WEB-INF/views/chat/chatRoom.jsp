@@ -11,12 +11,16 @@
 <meta charset="UTF-8">
 <title>review</title>
 
+<script src="${pageContext.request.contextPath}/resources/js/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stomp.min.js"></script>
 <!-- jquery -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
 
 
 
 <style>
+
+
 
 *{
     margin: 0;
@@ -27,16 +31,18 @@ li{
     list-style: none;
 }
 
-.html{
+html{
 
     width: 100%;
     height: 100vh;
 
+
 }
 
-.body{
+body{
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 .wrapper{
     
@@ -44,6 +50,7 @@ li{
     width: 100%;
     height: 100%;
     padding-top: 10vh;
+    padding-bottom: 15vh;
 
 
 }
@@ -79,8 +86,8 @@ section{
     
     z-index: 0;
  
-
-    height: 88vh;
+    box-sizing: border-box;
+    height: 90vh;
     background: #9bbbd4;
     
 
@@ -258,12 +265,21 @@ img {
 }
 
 .chat_list_wrap{
+    
+    height: 70vh;
     overflow: auto;
+    
+}
+.chat_list{
+    height: auto;
+    
     
 }
 
 li.chat{
 
+    min-height: 30px;
+    height: auto;
     clear:both;
 }
 
@@ -281,6 +297,8 @@ li.chat{
 
     margin-bottom: 10px;
     padding: 5px;
+
+    word-break:break-all;
 
 }
 .chat_alert .chat_con{
@@ -403,6 +421,10 @@ button:hover{
 
 
 }
+.side_wrap{
+
+    display: none;
+}
 
 </style>
 
@@ -462,7 +484,7 @@ button:hover{
 
             <section class="body_wrap">
 
-                <!-- ${resMap.chatInfo.chatList} -->
+        
 
                 <div class="chat_list_wrap">
                     <ul class="chat_list">
@@ -471,13 +493,13 @@ button:hover{
                             
                             <c:choose>
                                 <c:when test="${chat.chatState eq 'alert'||chat.userId eq 'admin'}">
-                                    <li class="chat chat_alert chat${status.index}">
+                                    <li class="chat chat_alert chat${chat.chatId}">
                                         <div class="chat_con">${chat.chatContent}</div>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
 
-                                    <li class="chat chat${status.index}">
+                                    <li class="chat chat${chat.chatId}">
                                 
                                         <div class="chat_writer ${chat.userId}" >${chat.userId}</div>
                                         <div class="chat_con">${chat.chatContent}</div>
@@ -497,11 +519,11 @@ button:hover{
 
                 <div class="send_data_wrap">
                     <div class="send_text_wrap">
-                        <input type="text" name="chatContent" class="send_chat">
+                        <input type="text" name="chatContent" class="send_chat" autofocus>
                     </div>
                     <div class="send_btn_wrap">
 
-                        <button type="button" class="send">
+                        <button type="button" class="send_btn">
                             전송
                         </button>
 
@@ -513,7 +535,7 @@ button:hover{
 
             <section class="side_wrap">
 
-                <!-- ${resMap.chatInfo.chatUserList} -->
+             
 
 
 
@@ -535,16 +557,253 @@ button:hover{
 
         <script>
 
+            let roomId="${chatInfo.chatRoomId}"
             
             let userId="${loginUser.user_id}";
-            userId="user11";
+            // userId="user11";
+
             console.log(userId);
+            
+            let formData=new FormData();
+
+
+            let newChat={
+                chatRoomId:roomId,
+                userId:userId,
+                chatContent:"",
+                chatState:"public",
+                files:formData
+            }
+
+
+            let focusTarget = $(".chat-1");
+
+
+
             function ckOwn(){
 
                 $("."+userId).addClass("my_chat");
             }
 
-            ckOwn();
+           
+
+
+
+
+
+  
+
+            function connect(){
+
+                var socket = new SockJS("/kgstudy/msgProc");
+                stompClient = Stomp.over(socket);
+
+                stompClient.connect({}, function(frame){
+
+                    console.log('Connected: ' + frame);
+
+                    var subChat = '/topic/chat/room/'+roomId;
+                    var subReload = '/topic/chat/reload/'+roomId;
+            
+                    stompClient.subscribe(subChat, function (data) {
+
+                        
+        
+                        let rcvChat = JSON.parse(data.body)
+
+                        console.log(rcvChat);
+
+
+                        displayChat(rcvChat);
+                    
+                    });
+
+                    stompClient.subscribe(subReload, function (data) {
+
+                        location.reload()
+                    });
+
+                    addSendBtnEvent();
+                    $(window).on("beforeunload", disconnect);
+                    focusScroll(focusTarget);
+
+                })
+
+            }
+
+
+            function disconnect() {
+
+                
+                event.preventDefault();
+
+                
+                sendDate = JSON.stringify(newChat)
+                stompClient.send("/app/chat/close", {}, sendDate);
+
+
+
+                if (stompClient !== null) {
+                    stompClient.disconnect();
+                }
+                
+                console.log("Disconnected");
+
+            }
+
+            function sendChat() {
+                let inputText =$(".send_chat").val();
+            
+                if(inputText.trim==="") return;
+
+
+                newChat.chatContent=inputText;
+                
+                sendDate = JSON.stringify(newChat)
+
+
+                stompClient.send("/app/chat/message", {}, sendDate);
+
+
+
+            }
+
+
+            
+
+            function displayChat(rcvChat) {
+                let newChatEL = document.createElement("li");
+                
+                newChatEL.classList.add('chat');
+                newChatEL.classList.add('chat'+rcvChat.chatId);
+                
+                let chatWriter = rcvChat.userId;
+                let chatContent = rcvChat.chatContent;
+             
+       
+
+                let chatCkCnt = rcvChat.chatCkCnt;
+                let chatDate = new Date(rcvChat.chatDate);
+                let hours = chatDate.getHours() % 12 ? chatDate.getHours() % 12 : 12;
+                let minutes = chatDate.getMinutes() < 10 ? '0' + chatDate.getMinutes() : chatDate.getMinutes();
+                let ampm = chatDate.getHours() >= 12 ? '오후 ' : '오전 ';
+
+                let fmDate =ampm +hours+":"+minutes;
+
+
+                let innerText =""
+                if(rcvChat.chatState==='alert'){
+                    newChatEL.classList.add('chat_alert');
+                    
+                    innerText+='<div class="chat_con">'+chatContent+'</div>';
+
+                }else{
+
+                    if(chatWriter===userId){
+                        
+                        
+                        chatWriter+=" my_chat";
+            
+                        
+                        
+                    }
+          
+
+
+                    innerText+= 
+                                '		<div class="'+ chatWriter +'" >${chat.userId}</div>'
+                                + '		<div class="chat_con">'+ chatContent +'</div>'
+                                + '		<div class="chat_state">'
+                                + '			<div class="chat_cnt">'+rcvChat.chatCkCnt+'</div>'
+                                + '			<div class="chat_date">'+fmDate+'</div>'
+                                + '		</div>'
+   
+
+
+
+                }
+
+                
+                newChatEL.innerHTML= innerText;
+
+                $(".chat_list").append(newChatEL);
+                
+
+                $(".chat_list_wrap").scrollTop($(".chat_list").height());
+
+
+            }
+
+
+            function addSendBtnEvent(){
+
+                
+                $(".send_btn").click(
+                    sendChat
+                    
+                    
+                    );
+                $(".send_chat").on("keyup",function(key){
+
+                    console.log(key.keyCode===13)
+
+                    if(key.keyCode===13) {
+                        sendChat
+                    }
+            });
+
+            }
+
+            function focusScroll(target){
+
+                if(!target||target.innerText===undefined){
+                    
+                    target=$(".chat").last();
+                }
+                
+                console.log(target.innerText);
+                console.log($(".chat").last());
+                let offsetTop =target.offset().top;
+                offsetTop =target.offset().top;
+                console.log(target);
+                console.log(target.offset());
+                console.log(offsetTop);
+           
+               
+                $('.chat_list_wrap').animate({scrollTop: offsetTop}, 0);
+
+            }
+
+
+            
+           
+  
+        
+        
+
+
+            //////////////////////////////////////////////////////////////
+            // 메인
+            $(function () {
+
+
+
+                
+
+                ckOwn();
+
+                connect()
+
+                
+
+                
+
+
+           
+            });
+
+
+            
 
         </script>
 

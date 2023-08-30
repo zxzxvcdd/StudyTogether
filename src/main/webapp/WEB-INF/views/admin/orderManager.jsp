@@ -207,9 +207,10 @@
 
     let url = "getMemberList.do";
 
-    let searchType = "${resMap.search.type}"
+
 	let orderState= "${resMap.search.grant}"
 
+	let searchType = "${resMap.search.type}"
 	
     if(searchType){
 
