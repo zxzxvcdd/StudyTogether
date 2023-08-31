@@ -650,7 +650,7 @@ font-size: 16px;
 overflow: auto;
 
 margin-top: 20px;
-height: 650px;
+height: 900px;
 
 
 }
