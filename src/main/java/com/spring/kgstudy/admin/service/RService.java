@@ -24,10 +24,11 @@ public class RService {
 
 			fileName = fileName.substring(0, 16);
 
-			c.voidEval("library(rJava)"); // Rserve에 R명령어 전송
+			 // Rserve에 R명령어 전송
+			c.voidEval("options(encoding = 'utf-8')");
 			c.eval("source('D:/RSudioFolder/kgStudy/mae.R')");
 
-			c.voidEval("options(encoding = 'utf-8')");
+			
 			c.voidEval("result <- updateSearch(" + year + ")");
 			c.voidEval("png(filename = '" + fileName + ".png', width = 800, height = 600)");
 			c.voidEval("print(makeMaeGraph())");
@@ -56,7 +57,7 @@ public class RService {
 
 			fileName = fileName.substring(0, 16);
 
-			c.voidEval("library(rJava)");
+			c.voidEval("options(encoding = 'utf-8')");
 
 			// R스크립트 경로
 			c.eval("source('D:/RSudioFolder/kgStudy/age.R')");
@@ -67,11 +68,6 @@ public class RService {
 				System.out.println(t);
 			}
 
-			c.voidEval("options(encoding = 'utf-8')");
-
-			c.voidEval("ageResult <- ageGraph()");
-
-			c.voidEval("result_df <- as.data.frame(ageResult)");
 
 			c.voidEval("png(filename = '" + fileName + ".png', width = 800, height = 600)");
 

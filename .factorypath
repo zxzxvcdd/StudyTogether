@@ -66,11 +66,7 @@
     <factorypathentry kind="VARJAR" id="ECLIPSE_HOME/plugins/org.apiguardian_1.1.0.v20190826-0900.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="JUNIT_HOME" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="ECLIPSE_HOME/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="EXTJAR" id="C:\Users\shinj\AppData\Local\R\win-library\4.3\rJava\jri\JRI.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="EXTJAR" id="C:\Users\shinj\AppData\Local\R\win-library\4.3\rJava\jri\JRIEngine.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="EXTJAR" id="C:\Users\shinj\AppData\Local\R\win-library\4.3\rJava\jri\REngine.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="EXTJAR" id="C:\Users\shinj\AppData\Local\R\win-library\4.3\Rserve\java\Rserve.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="PLUGIN" id="net.harawata.mybatipse" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\R\R-4.3.1\library\Rserve\java\REngine.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\R\R-4.3.1\library\Rserve\java\Rserve.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="PLUGIN" id="org.eclipselabs.stlipse" enabled="true" runInBatchMode="false"/>
 </factorypath>
