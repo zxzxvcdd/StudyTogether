@@ -17,7 +17,6 @@ public class RService {
 		RConnection c = null;
 
 		try {
-
 			c = new RConnection(); // Rserve에 연결
 
 			String uuid = UUID.randomUUID().toString();
@@ -25,38 +24,23 @@ public class RService {
 
 			fileName = fileName.substring(0, 16);
 
-			// System.out.println("RService : " + fileName);
-
 			c.voidEval("library(rJava)"); // Rserve에 R명령어 전송
-
 			c.eval("source('D:/RSudioFolder/kgStudy/mae.R')");
 
-			REXP result = null;
-			result = c.eval("ls()");
-			for (String t : result.asStrings()) {
-				System.out.println(t);
-			}
-
 			c.voidEval("options(encoding = 'utf-8')");
-
 			c.voidEval("result <- updateSearch(" + year + ")");
-
 			c.voidEval("png(filename = '" + fileName + ".png', width = 800, height = 600)");
-
 			c.voidEval("print(makeMaeGraph())");
-
 			c.voidEval("dev.off()");
-
 			c.close(); // 연결 종료
 
 			return fileName;
-
+			
 		} catch (RserveException e) {
 			e.printStackTrace();
 		}
 
 		return null;
-
 	}
 
 	public String ageGraph() throws REXPMismatchException {

@@ -104,7 +104,9 @@
 	      },
 	      eventClick: function(arg, successCallback, failureCallback) {
 
-	    	  var id = arg.event.id
+	    	  var id = arg.event.id;
+	    	  var userID = "${loginUser.user_id}"
+		    	console.log("userID : " + userID);
 	    	  console.log("아이디 : " + id);
 	    	  
 	    	  selectedEventId = id; // 클릭한 이벤트의 아이디를 변수에 저장
@@ -122,7 +124,15 @@
 	    			$("#title").val(data.title);
 	    			$("#content").val(data.content);
 	    			$("#start").val(data.start);
-	    			$("#end").val(data.end);
+	    			
+	    			// endDate 화면출력 (날짜 수정)
+	    			var endDate = data.end;
+	    			var endDate2 = new Date(endDate);
+	    			endDate2.setDate(endDate2.getDate() - 1);
+	    			var endDateStr2 = endDate2.toISOString().split('T')[0];
+	    			//console.log(endDateStr2);
+	    			$("#end").val(endDateStr2); //화면 출력 데이터
+	    			
 	    			
 	    			const id = parseInt(data.id, 10);
 	    			$("#id").val(id);
@@ -167,10 +177,15 @@
 	    	  //db연동시킬곳 => json데이터
 	    	  // ajax 처리로 데이터를 로딩 시킨다.
 	    	  
+	    	  var userID = "${loginUser.user_id}"
+	    	  console.log("userID : " + userID);
+	    	  
 	    	  $.ajax({
 	    		 type:"get",
 	    		 url:"${pageContext.request.contextPath}/calendar/data.do",
+	    		 data:{userID: userID},
 	    		dataType:"Json",
+	    		
 	    		success:function(data){
 	    			console.log("Received data:", data);
 	    			successCallback(data);
@@ -180,6 +195,7 @@
 	    			failureCallback(error);
 	    		}
 	    	  });
+	    	  
 	      }
 	    });
 
@@ -252,8 +268,10 @@ body {
 						<table class="table table-bordered">
 							<tr>
 								<td>이름</td>
-								<td colspan="2"><input type="text" class="form-control"
-									name="title" placeholder="일정이름을 적어주세요" /></td>
+								<td colspan="2">
+									<input type="text" class="form-control" name="title" placeholder="일정이름을 적어주세요" />
+									<input type="hidden" name="userID" id="userID" value="${loginUser.user_id}" />
+								</td>
 							</tr>
 
 							<tr>
@@ -324,8 +342,10 @@ body {
 						<table class="table table-bordered">
 							<tr>
 								<td>이름</td>
-								<td colspan="2"><input type="text" class="form-control"
-									name="title" id="title" /></td>
+								<td colspan="2">
+									<input type="text" class="form-control" name="title" id="title" />
+									<input type="hidden" name="userID" id="userID" value="${loginUser.user_id}" />
+								</td>
 							</tr>
 
 							<tr>
@@ -336,8 +356,9 @@ body {
 
 							<tr>
 								<td>종료일</td>
-								<td colspan="2"><input type="date"
-									class="form-control end_d" name="end" id="end" /></td>
+								<td colspan="2">
+									<input type="date" class="form-control end_d" name="end" id="end" />
+								</td>
 							</tr>
 
 							<!-- <tr>
@@ -368,11 +389,9 @@ body {
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							onclick="closeBtn();">취소</button>
-						<button type="submit" class="btn btn-default" data-dismiss="modal">수정</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							id="deleteEventButton">삭제</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeBtn();">취소</button>
+						<button type="submit" class="btn btn-default" data-dismiss="modal" onclick="onSubmitForm();">수정</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="deleteEventButton">삭제</button>
 					</div>
 				</form>
 			</div>
@@ -394,6 +413,23 @@ body {
             $("#colorPicker").val();
             //alert($("#colorPicker").val());
         });
+		
+		
+		//수정 및 삭제 폼 제출할때 종료일 날짜가 +1되도록 수정하기
+		function onSubmitForm() {
+		    // 종료일(end) 값을 가져오기
+		    let endDate = $("#end").val();
+		
+		    var endDate2 = new Date(endDate);
+		    endDate2.setDate(endDate2.getDate() + 1);
+		    var endDateStr = endDate2.toISOString().split('T')[0];
+		
+		    $("#end").val(endDateStr);
+		
+		    // 폼을 서버로 제출
+		    $("form").submit();
+		}
+
 		
 	</script>
 

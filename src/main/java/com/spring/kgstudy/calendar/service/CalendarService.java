@@ -17,8 +17,11 @@ public class CalendarService {
 
 	private final CalendarDAO dao;
 
-	public ArrayList<CalendarVO> getList() {
-		ArrayList<CalendarVO> list = dao.getList();
+	public ArrayList<CalendarVO> getList(String userID) {
+		
+		ArrayList<CalendarVO> list = new ArrayList<>();
+		
+		list = dao.getList(userID);
 		System.out.println(list);
 		return list;
 	}

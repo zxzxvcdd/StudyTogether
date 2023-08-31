@@ -28,5 +28,6 @@ public class CalendarVO {
 	private Date end;
 	
 	private String color;
+	private String userID;
 	
 }

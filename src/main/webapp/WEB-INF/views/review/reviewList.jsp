@@ -228,9 +228,8 @@ $(document).ready(function() {
 											<ul class="inner">
 												<li><a href="#"> <span> <%-- 이미지 경로################################## --%>
 															<%-- <img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;"> --%>
-															<img
-															src="/kgstudy/resources/fileUpload/${rvo.review_filename}"
-															style="width: 165px;">
+															<%-- <img src="/kgstudy/resources/fileUpload/${rvo.review_filename}" style="width: 165px;"> --%>
+															<img data-src="http://localhost:8080/kgstudy/resources/fileUpload/${rvo.review_filename}" width="165px;">
 													</span>
 												</a></li>
 											</ul>
@@ -329,6 +328,25 @@ $(document).ready(function() {
 			$(target).css("width", avgStar % 1 * 100 + "%");
 
 		})
+		
+		
+		// lazy loading
+		const images = document.querySelectorAll('[data-src]');
+		
+		const intersectionObserver = new IntersectionObserver((entries,observer)=>{
+		  entries.forEach(entry=>{
+		     if(!entry.isIntersecting) return;
+		    const src = entry.target.getAttribute('data-src');
+		    entry.target.src=src;
+		    observer.unobserve(entry.target);
+		  })
+		},{
+		    threshold:0.9,
+		  })
+		  
+		images.forEach(image=>{
+			  intersectionObserver.observe(image);
+			})
 	</script>
 
 

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
- <%@ include file="../include/static-header.jsp" %> 
+
 <meta charset="UTF-8">
 <title>review</title>
 
@@ -64,6 +64,7 @@ $(document).ready(function() {
 </script>
 
 </head>
+ <%@ include file="../include/static-header.jsp" %> 
 <body>
 
 	<%@include file="../include/header.jsp"%>
@@ -199,7 +200,9 @@ $(document).ready(function() {
 										<li>
 											<a href="#">
 												<span> <%-- 이미지 경로################################## --%>
-													<img src="/kgstudy/resources/fileUpload/${reviewList.review_filename}" style="width: 165px;">
+													<%-- <img src="/kgstudy/resources/fileUpload/${reviewList.review_filename}" style="width: 165px;"> --%>
+													<img data-src="http://localhost:8080/kgstudy/resources/fileUpload/${reviewList.review_filename}" style="width: 165px;">
+													
 												</span>
 											</a>
 										</li>
@@ -313,6 +316,27 @@ $(document).ready(function() {
 			$("#inputStar").val(parseFloat(value));
 			//alert($("#inputStar").val()); //별점 잘 들어가는지 테스트
 		}
+		
+		/* -------------------------------------------------- */
+		
+		// lazy loading
+		const images = document.querySelectorAll('[data-src]');
+		
+		const intersectionObserver = new IntersectionObserver((entries,observer)=>{
+		  entries.forEach(entry=>{
+		     if(!entry.isIntersecting) return;
+		    const src = entry.target.getAttribute('data-src');
+		    entry.target.src=src;
+		    observer.unobserve(entry.target);
+		  })
+		},{
+		    threshold:0.9,
+		  })
+		  
+		images.forEach(image=>{
+			  intersectionObserver.observe(image);
+			})
+		
 		
 	</script>
 

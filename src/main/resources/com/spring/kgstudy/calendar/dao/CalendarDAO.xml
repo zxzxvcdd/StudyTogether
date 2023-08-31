@@ -3,22 +3,25 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.kgstudy.calendar.dao.CalendarDAO">
 	
+	
 	<resultMap type="com.spring.kgstudy.calendar.vo.CalendarVO" id="CalendarVO">
-		<result property="id"	column="plan_id" />	 
+		<result property="id" column="plan_id" />
 		<result property="title" column="plan_title" />
 		<result property="content" column="plan_content" />
 		<result property="start" column="plan_start" />
-		<result property="end" 	column="plan_end" />
+		<result property="end" column="plan_end" />
 		<result property="color" column="plan_color" />
+		<result property="userID" column="user_id" />
 	</resultMap>
 	
 	<select id="getList" resultMap="CalendarVO">
-		select * from plan_table
+		select * from plan_table 
+		where user_id = #{userID}
 	</select>
 	
 	<insert id="insertCalen">
-		insert into plan_table (plan_id, plan_title, plan_content, plan_start, plan_end, plan_color)
-		values (plan_seq.NEXTVAL, #{title}, #{content}, #{start}, #{end}, #{color})
+		insert into plan_table (plan_id, plan_title, plan_content, plan_start, plan_end, plan_color, user_id)
+		values (plan_seq.NEXTVAL, #{title}, #{content}, #{start}, #{end}, #{color}, #{userID})
 	</insert>
 	
 	<select id="getOneData" resultMap="CalendarVO">
@@ -37,7 +40,8 @@
             plan_content = #{content},
             plan_start = #{start},
             plan_end = #{end},
-            plan_color = #{color}
+            plan_color = #{color},
+            user_id = #{userID}
         WHERE
             plan_id = #{id} 
 	</update>

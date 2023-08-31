@@ -30,9 +30,9 @@ public class CalendarController {
 	
 	@ResponseBody
 	@GetMapping(value = "/data.do", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CalendarVO> getList(Model model) throws Exception{
+	public List<CalendarVO> getList(Model model, @RequestParam("userID") String userID) throws Exception{
 		
-		List<CalendarVO> list = service.getList();
+		List<CalendarVO> list = service.getList(userID);
 		model.addAttribute("list", list);
 		
         return list;

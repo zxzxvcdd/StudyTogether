@@ -10,7 +10,7 @@ import com.spring.kgstudy.calendar.vo.CalendarVO;
 @Mapper
 public interface CalendarDAO {
 	
-	public ArrayList<CalendarVO> getList();
+	public ArrayList<CalendarVO> getList(String userID);
 	
 	public boolean insertCalen(CalendarVO vo);
 
