@@ -93,7 +93,7 @@ section{
 
 }
 
-.user_wrap{
+.side_wrap{
 
     display: none;
     position: fixed;
@@ -101,21 +101,212 @@ section{
     right: 0;
 
 
-    width: 100vw;
+
     height: 100vh;
 
     width: 100vw;
 
     background: rgba(0,0,0,0.1);
 
+    padding: 0;
+    padding-left: 30%;
 
+    z-index: 10;
+
+    
 }
 
-.user_wrap.show{
+.side_wrap.show{
     display:block;
+    
+}
+
+.side_con{
+
+    width: 100%;
+    background: #fff;
+    height: 100%;
+
+    z-index: 11;
+
+    padding: 10px;
+ 
+
+    border-left: 0.5px solid rgba(0,0,0,0.1);
 
 }
 
+
+.side_con .side_header{
+
+    font-weight: 700;
+    
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(0,0,0,0.4);
+    clear: both;
+}
+
+.side_con .side_close{
+    width: 20px;
+    height: 30px;
+    float: right;
+}
+button.side_close_btn{
+
+
+display: flex;
+align-items: center;
+
+margin: 0;
+padding: 0;
+text-align: center;
+padding-left: 4px;
+
+width: 20px;
+height: 20px;
+font-size: 20px;
+color: black;
+font-weight: lighter;
+
+border: 0.1px solid #000;
+background: rgba(16,16,16,0.01)
+
+
+}
+
+
+.side_con .side_header .side_title{
+    
+    font-size: 20px;
+   
+}
+
+.side_con .side_header .side_cnt{
+
+    font-size: 12px;
+
+}
+.side_con .side_header .side_date{
+
+    font-size: 12px;
+    color: #5F5F5F
+
+}
+
+
+
+.side_con .user_list_wrap{
+  
+    font-size: 16px;
+    overflow: auto;
+
+    margin-top: 20px;
+    height: 550px;
+   
+
+}
+
+.side_con .user_list_wrap .user_list_header{
+
+    font-weight: 700;
+    
+
+
+
+}
+
+.side_con .user_list_wrap .user_list{
+
+    
+    height: auto;
+
+}
+
+.side_con .user_list_wrap .user_list .chat_user{
+    
+
+    margin: 10px 0;
+
+    height: 30px;
+    
+}
+.side_con .user_list_wrap .user_list .chat_user >*{
+
+    display: inline-flex;
+}
+.side_con .user_list_wrap .user_list .chat_user .chat_user_auth{
+
+    
+    width: 20px;
+    height: 20px;
+
+   
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+
+}
+
+.side_con .user_list_wrap .user_list .chat_user .chat_user_auth.master{
+
+    background-image: url("/kgstudy/resources/img/chat/king.png");
+
+}
+
+.side_con .user_list_wrap .user_list .chat_user.my_chat{
+    
+    font-weight: 700;
+
+}
+
+
+.side_con .user_list_wrap .user_list .chat_user.my_chat .chat_user_my{
+
+
+    width: 20px;
+    height: 20px;
+
+   
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    background-image: url("/kgstudy/resources/img/chat/me.png");
+  
+
+}
+
+
+
+.side_con .user_list_wrap .user_list .invite_btn_wrap .invite_btn_tx{
+    font-weight: 700;
+    font-size: 16px;
+    display: inline-block;
+ 
+}
+.side_con .user_list_wrap .user_list .invite_btn_wrap button{
+
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: inline-block;
+
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    color: blue;
+    font-weight: lighter;
+
+    border: 0.1px solid #000;
+    background: rgba(16,16,16,0.01)
+
+}
 
 
 
@@ -308,7 +499,7 @@ li.chat.chat_alert{
 }
 
 .chat_alert .chat_con{
-
+    text-align: center;
     width: 100%;
     max-width: 100%;
     background: rgba(0,0,0,0.1);
@@ -377,10 +568,57 @@ div.my_chat{
     width: 100vw;
     height: 15vh;
     background: #fff;
+
+    clear: both;
+    
 }
 
 
+.send_data_wrap >*{
 
+    box-sizing: border-box;
+    
+
+}
+.send_data_wrap .send_text_wrap{
+    float: left;
+    width: 85%;
+    height: 100%;
+    padding: 2.5%;
+    
+
+}
+
+.send_data_wrap .send_text_wrap .send_chat{
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+}
+
+
+.send_data_wrap .send_btn_wrap{
+
+    float: right;
+    width: 15%;
+    height: 100%;
+
+}
+
+
+.send_data_wrap .send_btn_wrap button{
+    
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+
+
+
+}
 ::-webkit-scrollbar {
 
 box-sizing: border-box;
@@ -409,16 +647,19 @@ background: none;
 
 button{
     
-    margin-top: 10px;
+   
     font-size: 16px;
     letter-spacing: -.3px;
     overflow: hidden;
-    width: 50px;
-    padding: 8px 6px 7px;
+    width: 30px;
+    height: 30px;
+    padding: 5px ;
     border-radius: 6px;
     background-color: #ecf0f1;
     font-weight: 500;
-    color: #2f3640;
+  
+
+    border: 0.1px solid #000;
 
     cursor: pointer;
 
@@ -431,10 +672,196 @@ button:hover{
 
 
 }
-.side_wrap{
 
-    display: none;
+.invite_wrap{
+    position: fixed;
+
+    top:0;
+    left:0px;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    background: rgba(0,0,0,0.1);
+
+    display: none; 
+    z-index: 100;
+
 }
+
+.invite_wrap.show{
+
+display: block;
+}
+.invite_con{
+background: #fff;
+
+margin: 5%;
+width: 90%;
+height: 90%;
+clear: both;
+
+border: 0.5px solid rgba(0,0,0,0.1);
+
+border-radius: 5px;
+
+padding: 40px;
+
+overflow: auto;
+}
+
+
+.user_search{
+
+margin: 0 auto;
+width: 300px;
+margin-bottom: 20px;
+
+}
+.user_search input{
+
+border-bottom: 1px solid #000;
+}
+.user_search button{
+
+    width: 30px;
+    height: 30px;
+
+    font-size: 18px;
+
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+
+    border-radius: 6px;
+    background: rgba(16,16,16,0.01);
+    
+    color: #000;
+
+
+}
+
+.user_search button:hover{
+
+background-color: #f9ca24;
+color: #fff;
+
+
+}
+
+.playlist_wrap{
+width: 50%;
+height: 450px;
+float:left;
+
+}
+.playlist{
+
+border: 1px solid #000;
+padding: 20px;
+padding-left: 30px;
+
+
+height: 400px;
+overflow: auto;
+
+}
+
+.playlist ul{
+
+
+height: fit-content;
+
+}
+
+.playlist li{
+width: fit-content;
+
+list-style: none;
+border-bottom: 1px solid rgba(0,0,0,0.5);
+margin-bottom: 15px;
+
+cursor: pointer;
+
+}
+
+.playlist li *{
+
+cursor: pointer;
+}
+
+.invite_header_con{
+
+text-align: center;
+
+font-weight: 700;
+font-size: 26px;
+
+}
+.playlist_header{
+margin: 0 auto;
+text-align: center;
+width: fit-content;
+margin-bottom: 10px;
+
+}
+
+
+
+.fa.fa-search{
+
+    width: 20px;
+    height: 20px;
+
+    font-weight: 700;
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    background-image: url("/kgstudy/resources/img/chat/search.png");
+
+}
+.fa.fa-list{
+
+
+   
+width: 20px;
+height: 20px;
+
+font-weight: 700;
+border-radius: 50%;
+
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+
+background-image: url("/kgstudy/resources/img/chat/list.png");
+
+}
+
+.send_data_wrap
+.send_btn_wrap{
+
+
+}
+
+.btn_wrap{
+    width: 150px;
+    margin: 0 auto;
+}
+
+.btn_wrap button{
+
+    width: 60px;
+    margin-right: 10px;
+
+}
+
+
 
 </style>
 
@@ -468,10 +895,14 @@ button:hover{
 
                 <div class="header_btn_wrap">
                     <div class="search_btn_wrap">
-                        <button type="button" class="search_btn">검색</button>
+                        <button type="button" class="search_btn">
+                            <div class="fa fa-search"></div>
+                        </button>
                     </div>
                     <div class="user_btn_wrap">
-                        <button type="button" class="user_btn">목록</button>
+                        <button type="button" class="user_btn">
+                            <div class="fa fa-list"></div>
+                        </button>
                     </div>
                 </div>
                 
@@ -529,7 +960,7 @@ button:hover{
 
                 <div class="send_data_wrap">
                     <div class="send_text_wrap">
-                        <input type="text" name="chatContent" class="send_chat" autofocus>
+                        <textarea  name="chatContent" class="send_chat" spellcheck="false" autofocus></textarea>
                     </div>
                     <div class="send_btn_wrap">
 
@@ -544,25 +975,101 @@ button:hover{
             </section>
 
             <section class="side_wrap">
+                <div class="side_con">
+                    <div class="side_close"> 
 
-             
+                        <button type="button" class="side_close_btn">x</button>
+                    </div>
+                    <div class="side_header">
+
+                        <div class="side_title"> ${chatInfo.chatRoomTitle}</div>
+                        
+                        <div class="side_cnt"> ${chatInfo.chatRoomCnt}명 참여중</div>
+                        <div class="side_date"> 개설일 <fmt:formatDate value="${chatInfo.chatRoomDate}" pattern="yyyy.MM.dd"/></div>
+
+                    </div>
 
 
+                    
+                    <div class="user_list_wrap">
+                        
+                        <div class="user_list_header"> 대화 상대</div>
 
+                        <ul class="user_list">
+                   
+                            <c:forEach var="user" items="${chatInfo.chatUserList}" varStatus="status">
+                                <li class="chat_user ${user.userId}">
+                                    
+                                    <div class="chat_user_id">${user.userId}</div>
+                                    <div class="chat_user_auth ${user.roomAuth}"></div>
+                                    <div class="chat_user_my"></div>
 
+                                </li>
+                                
+                                
+                                
+                            </c:forEach>
+                            <li class=" invite_btn_wrap">
+                                <button type="button" class="invite_btn">+</button>
+                                <div class="invite_btn_tx">대화상대 초대</div>
+                            </li>
+                        </ul>
+                        
 
-
+                        
+                    </div>
+                </div>
+                
             </section>
 
             
 
-           
+          
 
             
 
 
         </div>
+        <div class="invite_wrap">
+            <div class="invite_con">
+                <div class="invite_header">
+                    <div class="invite_header_con">
+                        회원 초대
+                    </div>
+                </div>
+                <div class="user_search">
+                        <div class="form_input">
+                            <input class="user_filter" type="text">
+                            <button type="button" class="search-button"><div class="fa fa-search"></div></button>
+                        </div>
+                </div>
+                <div class="playlist_wrap">
+                    <div class="playlist_header">
+                        초대가능한 회원
+                    </div>
+                    <div class="user_list playlist">
+                        <ul>
+      
+                        </ul>
+                   </div>
+                </div>
+                <div class="playlist_wrap">
+                    <div class="playlist_header">
+                        초대할 회원
+                    </div>
+                    <div class="invite_list playlist">
+                        
+                        <ul>
 
+                        </ul>
+                    </div>
+                </div>
+                <div class="btn_wrap">
+                    <button type="button" class="btn_modal">확인</button>
+                    <button type="button" class="btn_modal_close">취소</button>
+                </div>
+            </div>
+        </div>
 
 
         <script>
@@ -611,7 +1118,8 @@ button:hover{
                     console.log('Connected: ' + frame);
 
                     var subChat = '/topic/chat/room/'+roomId;
-                    var subReload = '/topic/chat/update/'+roomId;
+                    var subUpChat = '/topic/update/chat/'+roomId;
+                    var subUpUser = '/topic/update/userList/'+roomId;
             
                     stompClient.subscribe(subChat, function (data) {
 
@@ -619,38 +1127,80 @@ button:hover{
         
                         let rcvChat = JSON.parse(data.body)
 
-                        console.log(rcvChat);
-
 
                         displayChat(rcvChat);
                     
                     });
 
-                    stompClient.subscribe(subReload, function (data) {
+                    stompClient.subscribe(subUpUser, function (data) {
 
 
                         let rcvChat = JSON.parse(data.body)
 
-                 
+                        console.log("user update")
+                        console.log(rcvChat.length)
 
+
+                        $(".chat_user").remove();
                         for( i=0; i<rcvChat.length; i++){
 
-                            var rid = rcvChat[i].chatId;
-                            var rCnt = rcvChat[i].chatCkCnt;
-                            var rState = rcvChat[i].chatState;
+                            
+                            var rUid = rcvChat[i].userId;
+                            var rAuth = rcvChat[i].roomAuth;
+                            
+                            var newUl = document.createElement("li");
 
-                            $(".chat"+rid+ " .chat_cnt").text(rCnt);
-                            $(".chat"+rid+ " .chat_content").text(rCnt);
-                            var k = $(".chat"+rid+ " chatState")
-                            k.removeClass();
-                            k.addClass("chatState");
-                            k.addClass(rState);
+
+                            newUl.classList.add("chat_user")
+                            newUl.classList.add(rUid);
+
+                            var inTag = "";
+
+                            inTag +=                
+                                        '<div class="chat_user_id">'+rUid+'</div>'
+                                    + '<div class="chat_user_auth '+rAuth+'"></div>'
+                                    + '<div class="chat_user_my"></div>';
+
+                            newUl.innerHTML=inTag;
+
+
+                            $(".user_list").append(newUl);
+                            
+                            ckOwn();
 
 
                         }
 
 
                         
+                    });
+                    stompClient.subscribe(subUpChat, function (data) {
+
+
+                                let rcvChat = JSON.parse(data.body)
+
+                        
+                                console.log("cnt update")
+                        
+
+                                for( i=0; i<rcvChat.length; i++){
+
+                                    var rid = rcvChat[i].chatId;
+                                    var rCnt = rcvChat[i].chatCkCnt;
+                                    var rState = rcvChat[i].chatState;
+
+                                    $(".chat"+rid+ " .chat_cnt").text(rCnt);
+                                    $(".chat"+rid+ " .chat_content").text(rCnt);
+                                    var k = $(".chat"+rid+ " chatState")
+                                    k.removeClass();
+                                    k.addClass("chatState");
+                                    k.addClass(rState);
+
+
+                                }
+
+
+
                     });
 
                     
@@ -663,7 +1213,12 @@ button:hover{
             function disconnect() {
 
                 
-                event.preventDefault();
+                $(window).on("beforeunload", function (e) {
+                    
+                    e.preventDefault();
+                    
+
+                alert("disconnect");
 
                 
                 sendDate = JSON.stringify(newChat)
@@ -674,8 +1229,11 @@ button:hover{
                 if (stompClient !== null) {
                     stompClient.disconnect();
                 }
-                
+
                 console.log("Disconnected");
+  
+              });
+             
 
             }
 
@@ -683,8 +1241,9 @@ button:hover{
                 let inputText =$(".send_chat").val();
             
             
+                
 
-                if(inputText.trim.length===0) return;
+                if(inputText.trim().length==0) return;
 
                 $(".send_chat").val("");
                 newChat.chatContent=inputText;
@@ -781,10 +1340,16 @@ button:hover{
          
                 $(".send_chat").on("keyup",function(key){
 
-         
-
+                    console.log(key.keyCode===13);
+                    
+                    
                     if(key.keyCode===13) {
-                        sendChat()
+                        
+                        key.preventDefault();
+                        if(!key.shiftKey){
+                            console.log(key.keyCode);
+                            sendChat()
+                        }
                     }
                 });
 
@@ -804,7 +1369,7 @@ button:hover{
                     
                 
 
-            
+                if(target.length!=0){
                 let offsetTop =target.position().top;
        
                     
@@ -812,12 +1377,193 @@ button:hover{
            
                
                 $('.chat_list_wrap').scrollTop(offsetTop);
-
+                }
             }
 
+            var inviteUserList = new Array();
 
             
+
+            function selectUser(){
+
+                console.log("select");
+                $("input:checkbox[name='userList']").change(function(){
            
+                    
+                    var $this = $(this);
+                    var targetId = $this.attr('id');
+                    var maxCnt = "${chatInfo.chatRoomMax}";
+
+                    var ckCnt = $("input:checkbox[name='userList']:checked").length;
+              
+
+                    if(ckCnt > maxCnt){
+
+                        alert("지정 된 최대 인원 수보다 많은 인원을 초대할 수 없습니다.\n최대 인원 수를 변경해 주세요.");
+                        $this.prop("checked",false);
+                        return;
+
+                    }
+
+                    if($this.is(":checked")){
+
+                        var li = document.createElement("li");
+                        
+                        li.innerText=$this.val();
+                        li.classList.add(targetId);
+
+
+                        $(".invite_list ul").append(li);
+
+                        $("."+targetId).click(function(){
+
+                            for(let i = 0; i < inviteUserList.length; i++) {
+                                
+                                if (array[i] === $this.val()) {
+                                    array.splice(i, 1);
+                                }
+                            }
+
+
+                            $(this).remove();
+                 
+
+                            $this.prop("checked",false);
+
+                        })
+
+                       
+
+                   
+
+                        inviteUserList.push($this.val());
+
+
+
+
+                    }else{
+
+
+                        
+                        for(let i = 0; i < inviteUserList.length; i++) {
+                            if (array[i] === $this.val()) {
+                                array.splice(i, 1);
+                            }
+                        }
+                        
+                        $("."+targetId).remove();
+
+                        
+                    }
+
+
+                })
+                }
+            
+            function addModal(){
+
+                $(".btn_modal_close").click(function(){
+
+                    $(".invite_wrap").toggleClass("show");
+                })
+            $(".btn_modal").click(function(){
+
+
+                let reqUrl = "inviteUser?chatRoomId="+roomId;
+
+                
+                
+                let inviteData = {
+                    "userList":inviteUserList
+                }
+               
+
+                console.log(inviteData)
+                $.ajax({
+                    url: reqUrl,
+                    type: "POST",
+                    data: inviteData,
+               
+                    success: function (data) {
+
+                        
+                        alert(data);
+
+                        $(".invite_wrap").toggleClass("show");
+                       
+                    }
+                });
+
+            })
+
+            $(".invite_btn").click(function(){
+
+
+                let reqUrl = "getAllMember?chatRoomId="+roomId;
+
+                $.ajax({
+                    url: reqUrl,
+                    type: "GET",
+                    data: "",
+
+                    success: function (data) {
+
+                        console.log(data);
+                        let userList = data;
+
+                        
+
+                  
+                        for(i=0;i<userList.length;i++){
+
+                            let memberEl = document.createElement("li");
+                            let memberHtml="";
+
+                            memberHtml+=
+
+                                "    <label for=user_"+i+" class='playlist-user'>   "
+                            +   "        <input id= user_"+i+" type='checkbox' name='userList' value="+userList[i].userId+" readonly> " 
+                            +    userList[i].userId
+                            +    "    </label> "
+
+                            memberEl.innerHTML=memberHtml;
+                            $(".user_list.playlist ul").append(memberEl);
+                        }
+                        
+                        selectUser();
+                        
+
+                    }
+                })
+                
+
+
+
+                $(".invite_wrap").toggleClass("show");
+            
+
+
+
+
+            })
+
+
+            $(".user_btn").click(function(){
+                $(".side_wrap").toggleClass("show");
+
+
+            })
+
+            $(".side_close_btn").click(function(){
+
+
+                $(".side_wrap").toggleClass("show");
+
+            })
+
+
+
+            }
   
         
         
@@ -827,23 +1573,29 @@ button:hover{
             // 메인
             $(function () {
 
+                var flag = "${resMap.flag}"
+            
+                if(flag==="false"){
+
+                    alert("${resMap.msg}");
+                    window.close();
 
 
-                
+                }
 
                 ckOwn();
 
 
                 addSendBtnEvent();
                     
+                connect();
+
+                disconnect();
 
                 focusScroll();
 
-                connect()
-
-                $(window).on("beforeunload", disconnect);
                
-                
+                addModal();
 
 
            

@@ -63,12 +63,12 @@ public class ChatController {
 		
 		model.addAttribute("resMap",resMap);
 		
-		boolean flag = (boolean) resMap.get("flag");
+		
 		
 		
 		//웹소켓 생성
 		
-		return flag?"/chat/chatRoom":"redirect:"+req.getHeader("Referer");
+		return "/chat/chatRoom";
 		
 		
 		
@@ -104,10 +104,10 @@ public class ChatController {
 	
 	
 	@PostMapping("createChatRoom")
-	public String createChatRoom(Model model,MultipartFile file, ChatRoomVO chatRoom, String[] userList) {
+	public String createChatRoom(Model model,MultipartFile file, ChatRoomVO chatRoom, String[] userList, HttpSession session) {
 		
 		
-		String userId= "admin";
+		String userId = LoginUtil.getCurrentMemberAccount(session);
 		chatRoom.setUserId(userId);
 		
 		

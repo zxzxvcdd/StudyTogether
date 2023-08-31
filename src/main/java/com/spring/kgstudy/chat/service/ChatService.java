@@ -264,12 +264,18 @@ public class ChatService {
 			
 			ChatVO chat = null;
 			
+			ChatUserVO chatUser = new ChatUserVO();
+			chatUser.setChatRoomId(chatRoom.getChatRoomId());
+			
+			chatUser.setUserId(chatRoom.getUserId());
+			chatUser.setRoomAuth("master");
+			insertUser(chatUser);
+			chatUser.setRoomAuth("user");
+			
+			
 			if(userList!=null&&userList.length>0) {
 				
-				ChatUserVO chatUser = new ChatUserVO();
-				chatUser.setChatRoomId(chatRoom.getChatRoomId());
-				
-
+		
 
 		        
 				for(String user : userList) {
@@ -486,7 +492,7 @@ public class ChatService {
 		List<ChatVO> chatList = chatDao.findAllChat(chatRoomId, search);
 		
 		
-		String subUrl= "/topic/chat/update/"+chatRoomId;
+		String subUrl= "/topic/update/chat/"+chatRoomId;
 		
 
 		
@@ -558,6 +564,27 @@ public class ChatService {
 		
 		
 		template.convertAndSend(subUrl, chat);
+		
+
+		
+		
+	}	
+	
+	public void sendUserList(ChatUserVO user) {
+		
+		
+		
+		List<ChatUserVO> userList = chatDao.findAllChatUser(user);
+		
+		
+		String subUrl= "/topic/update/userList/"+user.getChatRoomId();
+		
+
+		
+		
+		
+		
+		template.convertAndSend(subUrl, userList);
 		
 
 		

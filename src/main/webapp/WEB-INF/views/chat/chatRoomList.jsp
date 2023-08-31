@@ -638,7 +638,7 @@ em {
                     let roomTitle= $(this).data("title");
                     let roomId = $(this).data("id");
                    
-                    window.open("enterChatRoom?chatRoomId="+roomId,roomTitle,'width=450,height=700,scrollbars=yes,resizable=no');
+                    window.open("enterChatRoom?chatRoomId="+roomId,roomTitle,'width=450,height=720,scrollbars=yes,resizable=no');
 
 
                 })

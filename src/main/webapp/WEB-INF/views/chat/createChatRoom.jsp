@@ -418,7 +418,7 @@ color: #fff;
                                                 <c:forEach var="user" items="${userList}" varStatus="status">
                                                     <li>
                                                         <label for="user_${status.index}" class="playlist-user">
-                                                            <input id="user_${status.index}" type="checkbox" name="userList" value="${user.userId}">
+                                                            <input id="user_${status.index}" type="checkbox" name="userList" value="${user.userId}" readonly>
                                                             ${user.userId}
                                                         </label>
                                                     </li>

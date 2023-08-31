@@ -44,7 +44,7 @@ public class MessageController {
 		
 		user= chatService.findOneChatUser(user);
 		
-		System.out.println(user);
+		System.out.println(user+" 소켓 종료");
 		
 		user.setChatUserStamp(new Date());
 
