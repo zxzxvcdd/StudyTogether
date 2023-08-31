@@ -40,11 +40,11 @@ class ChatServiceTest {
 			chatRoom.setChatRoomDate(new Date());
 			chatRoom.setChatRoomComment("함께 공부해요"+j);
 			chatRoom.setChatRoomGoal("시험합격"+j);
-			chatRoom.setChatRoomImg(j+".jpg");
+			chatRoom.setChatRoomImg("/chat/defaultImg.jpg");
 			chatRoom.setChatRoomState("public");
 			chatRoom.setExitOpt(0);
 			chatRoom.setExitCk("Y");
-			chatRoom.setUserId("admin");
+			chatRoom.setUserId("user"+j*10);
 			List<String> users = new ArrayList<String>();
 			
 			for(int i=1; i<=10; i++) {
