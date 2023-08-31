@@ -47,7 +47,7 @@
 	  </bean>
 	
 	  <bean id="chartPath" class="java.lang.String">
-	    <constructor-arg value="C:\Users\shinj\git\KGStudy\src\main\webapp\resources\fileUpload\rGraph"/>
+	    <constructor-arg value="D:/Java_DB/project_workspace_kgStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/KGStudy/resources/fileUpload/rGraph"/>
 	  </bean>
 
 	<!-- MultipartResolver -->
