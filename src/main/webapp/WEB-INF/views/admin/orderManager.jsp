@@ -5,14 +5,10 @@
 
 <html>
 <head>
+<%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>주문
 관리페이지</title>
-
- <%@ include file="../include/static-header.jsp" %> 
-
-
-
 
 <!-- css 파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/orderManager.css?after">

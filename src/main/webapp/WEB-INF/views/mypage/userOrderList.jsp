@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
- <%@ include file="../include/static-header.jsp" %> 
+ 
 <meta charset="UTF-8">
 <title>review</title>
 
@@ -161,6 +161,7 @@
 
 
 </head>
+ <%@ include file="../include/static-header.jsp" %> 
 <body>
 
 	<%@include file="../include/header.jsp"%>

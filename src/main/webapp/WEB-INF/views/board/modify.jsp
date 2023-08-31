@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="../include/static-header.jsp" %> 
+
 <title>modify</title>
 <meta charset="utf-8">
 <!-- css 파일 -->
@@ -42,6 +42,7 @@
 	});
 </script>
 </head>
+<%@ include file="../include/static-header.jsp" %> 
 <body>
 <%@include file="../include/header.jsp"%>
 

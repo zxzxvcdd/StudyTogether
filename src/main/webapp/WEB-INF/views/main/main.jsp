@@ -84,7 +84,7 @@
 					<div class="content-courses">
 						<h3 class="c_h3">STUDY TOGETHER</h3>
 						<p class="c_p">편리하게 이용권 구매와<br>좌석 선택을 할 수 있는<br> 예약 시스템을 가지고 있습니다.</p>
-						<a href="#" class="btn_main">예약하기</a>
+						<a href="/kgstudy/seat/seat.do" class="btn_main">예약하기</a>
 					</div>
 				</div>
 				
@@ -130,7 +130,6 @@
 		
 	</section> <!-- home courses slider end -->
 	
-	<%@include file="../include/footer.jsp" %>
 	
 	<script>
 		let loginMsg = "${loginMsg}"; //로그인 성공 메세지

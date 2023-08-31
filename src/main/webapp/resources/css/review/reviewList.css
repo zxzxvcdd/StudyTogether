@@ -4,6 +4,10 @@ ol, ul {
 	list-style: none;
 }
 
+a {
+	text-decoration-line: none;
+}
+
 .review_name {
     width: 700px;
     border-radius: 20px;

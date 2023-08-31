@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
-  <%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>review</title>
 <!-- css 파일 -->
@@ -22,6 +21,8 @@
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<%@ include file="../include/static-header.jsp"%>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -227,9 +228,8 @@ $(document).ready(function() {
 											<ul class="inner">
 												<li><a href="#"> <span> <%-- 이미지 경로################################## --%>
 															<%-- <img src="${pageContext.request.contextPath}/resources/img/${reviewList.review_filename}" style="width: 165px;"> --%>
-															<img
-															src="/kgstudy/resources/fileUpload/${rvo.review_filename}"
-															style="width: 165px;">
+															<%-- <img src="/kgstudy/resources/fileUpload/${rvo.review_filename}" style="width: 165px;"> --%>
+															<img data-src="http://localhost:8080/kgstudy/resources/fileUpload/${rvo.review_filename}" width="165px;">
 													</span>
 												</a></li>
 											</ul>
@@ -328,6 +328,25 @@ $(document).ready(function() {
 			$(target).css("width", avgStar % 1 * 100 + "%");
 
 		})
+		
+		
+		// lazy loading
+		const images = document.querySelectorAll('[data-src]');
+		
+		const intersectionObserver = new IntersectionObserver((entries,observer)=>{
+		  entries.forEach(entry=>{
+		     if(!entry.isIntersecting) return;
+		    const src = entry.target.getAttribute('data-src');
+		    entry.target.src=src;
+		    observer.unobserve(entry.target);
+		  })
+		},{
+		    threshold:0.9,
+		  })
+		  
+		images.forEach(image=>{
+			  intersectionObserver.observe(image);
+			})
 	</script>
 
 

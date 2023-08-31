@@ -13,6 +13,7 @@ import com.spring.kgstudy.common.search.Search;
 import com.spring.kgstudy.member.vo.MemberDTO;
 import com.spring.kgstudy.store.dao.StoreDAO;
 
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -119,6 +120,9 @@ public class AdminService {
 		
 	}
 
+
+	
+	
 
 
 	

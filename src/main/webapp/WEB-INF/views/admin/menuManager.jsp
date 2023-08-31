@@ -6,6 +6,7 @@
 
 <html>
 <head>
+<%@ include file="../include/static-header.jsp" %> 
 <meta charset="UTF-8">
 <title>메뉴관리페이지</title>
 
@@ -19,10 +20,6 @@
 	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 	crossorigin="anonymous"
 	defer="defer"></script>
-
- <%@ include file="../include/static-header.jsp" %> 
-
-
 
 
 <!-- css 파일 -->

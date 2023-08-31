@@ -45,7 +45,10 @@
 	  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	 	 <property name="locations" value="classpath:/file.properties" />
 	  </bean>
-
+	
+	  <bean id="chartPath" class="java.lang.String">
+	    <constructor-arg value="D:/Java_DB/project_workspace_kgStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/KGStudy/resources/fileUpload/rGraph"/>
+	  </bean>
 
 	<!-- MultipartResolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

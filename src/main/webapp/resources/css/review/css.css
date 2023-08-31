@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+a {
+	text-decoration-line: none;
+}
+
 .star-rating {
   display: flex;
   flex-direction: row-reverse;
