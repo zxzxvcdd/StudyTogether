@@ -61,7 +61,7 @@ li{
     align-items: flex-end;
     margin-bottom: 10px;
 }
-.studis-header.title {
+.studies-header.title {
     display: flex;
     align-items: center;
     font-size: 22px;
@@ -70,7 +70,34 @@ li{
     line-height: 30px;
 }
 
+.header_btn_wrap button{
 
+       
+    font-size: 16px;
+    letter-spacing: -.3px;
+    overflow: hidden;
+    width: 100px;
+    height: 30px;
+
+    border-radius: 6px;
+    background-color: #ecf0f1;
+    font-weight: 500;
+  
+
+    border: 0.1px solid #000;
+
+    cursor: pointer;
+
+    
+}
+
+.header_btn_wrap button:hover{
+
+    background-color: #f9ca24;
+    color: #fff;
+
+
+}
 
 .search_wrap {
 	width: 100%;
@@ -463,6 +490,308 @@ em {
 .board_page a:first-child {
 	border-left: 1px solid #ddd;
 }
+
+
+
+
+
+
+
+
+
+
+
+.side_wrap{
+
+display: none;
+position: fixed;
+top:0;
+right: 0;
+
+
+
+height: 100vh;
+
+width: 100vw;
+
+background: rgba(0,0,0,0.1);
+
+padding: 0;
+padding-left: 80%;
+
+z-index: 10;
+
+
+}
+
+.side_wrap.show{
+display:block;
+
+}
+
+.side_con{
+
+width: 100%;
+background: #fff;
+height: 100%;
+
+z-index: 11;
+
+padding: 10px;
+
+
+border-left: 0.5px solid rgba(0,0,0,0.1);
+
+}
+
+
+.side_con .side_header{
+
+font-weight: 700;
+
+padding-bottom: 10px;
+border-bottom: 4px solid rgba(0,0,0,0.2);
+clear: both;
+}
+
+.side_con .side_close{
+width: 100%;
+height: 30px;
+clear:both;
+border-bottom: 4px solid rgba(0,0,0,0.2);
+margin-bottom: 10px;
+}
+
+.side_con .side_close>*{
+
+
+}
+
+div.exit_btn{
+
+float:left;
+
+width: 20px;
+height: 20px;
+
+cursor: pointer;
+
+}
+
+
+button.side_close_btn{
+
+
+    
+
+overflow: hidden;
+
+
+border-radius: 6px;
+
+cursor: pointer;
+
+
+float: right;
+display: block;
+
+
+
+
+width: 20px;
+height: 20px;
+
+line-height: 11px;
+
+font-size: 20px;
+color: black;
+font-weight: 400;
+
+border: 0.1px solid #000;
+background: rgba(16,16,16,0.01);
+
+
+
+
+}
+
+button.side_close_btn:hover{
+
+background-color: #f9ca24;
+color: #fff;
+
+
+}
+
+
+.side_con .side_header .side_title{
+
+font-size: 20px;
+
+}
+
+.side_con .side_header .side_cnt{
+
+font-size: 12px;
+
+}
+.side_con .side_header .side_date{
+
+font-size: 12px;
+color: #5F5F5F
+
+}
+
+
+
+.side_con .myChat_list_wrap{
+
+font-size: 16px;
+overflow: auto;
+
+margin-top: 20px;
+height: 650px;
+
+
+}
+
+.side_con .myChat_list_wrap .myChat_list_header{
+
+font-weight: 900;
+padding-bottom: 5px;
+border-bottom: 2px solid rgba(0,0,0,1);
+width: fit-content;
+margin-bottom: 10px;
+
+
+
+
+}
+
+.side_con .myChat_list_wrap .myChat_list{
+
+
+height: auto;
+
+}
+
+.myChat_list_wrap .myChat_list .myChat{
+
+
+margin-bottom: 15px;
+
+padding-left: 15px;
+padding-bottom: 5px;
+
+width: 90%;
+
+height: 100px;
+cursor: pointer;
+
+font-size: 20px;
+font-weight: 700;
+display: inline-flex;
+align-items: center;
+
+border-bottom: 3px solid rgba(0,0,0,0.2);
+
+
+}
+
+.side_con .myChat_list_wrap .myChat_list .myChat >*{
+
+line-height: 80px;
+height: 80px;
+margin: 0 5px;
+
+}
+.side_con .myChat_list_wrap .myChat_list .myChat_cnt{
+
+    font-size: 16px;
+    color: rgba(0,0,0,0.4);
+    margin: 0;
+
+    padding-top: 5px;
+
+}
+
+
+
+.side_con .myChat_list_wrap .myChat_list .myChat_banner{
+
+width: 80px;
+height: 80px;
+
+border-radius: 10px;
+overflow: hidden;
+
+
+}
+
+.side_con .myChat_list_wrap .myChat_list .myChat_banner img{
+    vertical-align: baseline;
+
+}
+
+.side_con .myChat_list_wrap .myChat_list .chat_user.my_chat{
+
+font-weight: 700;
+
+}
+
+
+.side_con .myChat_list_wrap .myChat_list .chat_user.my_chat .chat_user_my{
+
+
+width: 20px;
+height: 20px;
+
+
+border-radius: 50%;
+
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+
+background-image: url("/kgstudy/resources/img/chat/me.png");
+
+
+}
+
+
+
+.side_con .myChat_list_wrap .myChat_list .invite_btn_wrap .invite_btn_tx{
+font-weight: 700;
+font-size: 16px;
+display: inline-block;
+
+}
+.side_con .myChat_list_wrap .myChat_list .invite_btn_wrap button{
+
+margin: 0;
+padding: 0;
+text-align: center;
+display: inline-block;
+
+line-height: 30px;
+width: 30px;
+height: 30px;
+font-size: 30px;
+color: blue;
+font-weight: lighter;
+
+border: 0.1px solid #000;
+background: rgba(16,16,16,0.01)
+
+}
+
+
+
+
+
+
+
+
 </style>
 
 </head>
@@ -476,8 +805,12 @@ em {
             <div class="studies-contents">
                 <div class="studies-header">
                     <div class="studies-header-title-wrap">
-                        <div class="studis-header title">
+                        <div class="studies-header title">
                             공개 스터디
+                        </div>
+                        <div class="header_btn_wrap">
+                            <button type="button" class="create_chat_btn">스터디 생성</button>
+                            <button type="button" class="my_chat_btn">내 스터디 목록</button>
                         </div>
                     </div>
                     <div class="studies-header-search">
@@ -592,6 +925,47 @@ em {
         </div>
 
 
+        <section class="side_wrap">
+            <div class="side_con">
+                <div class="side_close"> 
+                     <button type="button" class="side_close_btn">x</button>
+                </div>
+        
+
+                
+                <div class="myChat_list_wrap">
+                    
+                    <div class="myChat_list_header"> 나의 채팅방</div>
+
+                    <ul class="myChat_list">
+               
+                        <c:forEach var="myChat" items="${resMap.myChat.chatRoomList}" varStatus="status">
+                            <li class="myChat" data-title="${myChat.chatRoomTitle}" data-id="${myChat.chatRoomId}">
+                                
+                                <div class="myChat_banner"><img
+                                    src="/kgstudy/resources/fileUpload${myChat.chatRoomImg}"
+                                        alt="study-img" class="study-item-img"></div>
+                                <div class="myChat_title">${myChat.chatRoomTitle}</div>
+                                <div class="myChat_cnt">
+                                    <span class="study-item-info-personnel present">${myChat.chatRoomCnt}</span> 
+                                    <span class="study-item-info-personnel maximum">${myChat.chatRoomMax}</span>
+                                </div>
+
+                            </li>
+                            
+                            
+                            
+                        </c:forEach>
+         
+                    </ul>
+                    
+
+                    
+                </div>
+            </div>
+            
+        </section>
+
 
 
 
@@ -643,11 +1017,47 @@ em {
 
                 })
 
+                $(".myChat").click(function(){
+
+                let roomTitle= $(this).data("title");
+                let roomId = $(this).data("id");
+
+                window.open("enterChatRoom?chatRoomId="+roomId,roomTitle,'width=450,height=720,scrollbars=yes,resizable=no');
+
+
+                })
+
 
             }
 
             enterChatRoom();
+
+            function createChat(){
+
+                $(".create_chat_btn").click(function(){
+
+
+                    window.location="createChatRoom";
+
+                })
+            }
+            createChat()
             
+            $(".my_chat_btn").click(function () {
+                    $(".side_wrap").toggleClass("show");
+
+
+                })
+
+            $(".side_close_btn").click(function () {
+
+
+                $(".side_wrap").toggleClass("show");
+
+            })
+
+
+
 
 
         </script>

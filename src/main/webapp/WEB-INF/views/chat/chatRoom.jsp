@@ -142,18 +142,38 @@ section{
     font-weight: 700;
     
     padding-bottom: 10px;
-    border-bottom: 2px solid rgba(0,0,0,0.4);
+    border-bottom: 4px solid rgba(0,0,0,0.2);
     clear: both;
 }
 
 .side_con .side_close{
-    width: 20px;
+    width: 100%;
     height: 30px;
-    float: right;
+    clear:both;
+    border-bottom: 4px solid rgba(0,0,0,0.2);
+    margin-bottom: 10px;
 }
+
+.side_con .side_close>*{
+
+    
+}
+
+div.exit_btn{
+
+    float:left;
+
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+
+}
+
+
 button.side_close_btn{
 
-
+float: right;
 display: flex;
 align-items: center;
 
@@ -201,14 +221,17 @@ background: rgba(16,16,16,0.01)
     overflow: auto;
 
     margin-top: 20px;
-    height: 550px;
+    height: 650px;
    
 
 }
 
 .side_con .user_list_wrap .user_list_header{
 
-    font-weight: 700;
+    font-weight: 900;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(0,0,0,1);
+    width: fit-content;
     
 
 
@@ -224,12 +247,17 @@ background: rgba(16,16,16,0.01)
 
 .side_con .user_list_wrap .user_list .chat_user{
     
+ 
+    margin: 15px 0;
+    
+    padding-left: 15px;
 
-    margin: 10px 0;
+    width: fit-content;
 
     height: 30px;
     
 }
+
 .side_con .user_list_wrap .user_list .chat_user >*{
 
     display: inline-flex;
@@ -237,20 +265,23 @@ background: rgba(16,16,16,0.01)
 .side_con .user_list_wrap .user_list .chat_user .chat_user_auth{
 
     
-    width: 20px;
-    height: 20px;
 
-   
-    border-radius: 50%;
 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+
 
 
 }
 
 .side_con .user_list_wrap .user_list .chat_user .chat_user_auth.master{
+
+    width: 20px;
+    height: 20px;
+
+   
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 
     background-image: url("/kgstudy/resources/img/chat/king.png");
 
@@ -978,6 +1009,8 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
                 <div class="side_con">
                     <div class="side_close"> 
 
+
+                        <div class="exit_btn"><img class="exit_img" src="/kgstudy/resources/img/chat/exit.png"/></div>
                         <button type="button" class="side_close_btn">x</button>
                     </div>
                     <div class="side_header">
@@ -1074,62 +1107,62 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
         <script>
 
-            let roomId="${chatInfo.chatRoomId}"
-            
-            let userId="${loginUser.user_id}";
+            let roomId = "${chatInfo.chatRoomId}"
+
+            let userId = "${loginUser.user_id}";
             // userId="user11";
 
             console.log(userId);
-            
-            let formData=new FormData();
+
+            let formData = new FormData();
 
 
-            let newChat={
-                chatRoomId:roomId,
-                userId:userId,
-                chatContent:"",
-                chatState:"public",
-                files:formData
+            let newChat = {
+                chatRoomId: roomId,
+                userId: userId,
+                chatContent: "",
+                chatState: "public",
+                files: formData
             }
 
 
-            
 
-            function ckOwn(){
 
-                $("."+userId).addClass("my_chat");
+            function ckOwn() {
+
+                $("." + userId).addClass("my_chat");
             }
 
-           
 
 
 
 
 
-  
 
-            function connect(){
+
+
+            function connect() {
 
                 var socket = new SockJS("/kgstudy/msgProc");
                 stompClient = Stomp.over(socket);
 
-                stompClient.connect({}, function(frame){
+                stompClient.connect({}, function (frame) {
 
                     console.log('Connected: ' + frame);
 
-                    var subChat = '/topic/chat/room/'+roomId;
-                    var subUpChat = '/topic/update/chat/'+roomId;
-                    var subUpUser = '/topic/update/userList/'+roomId;
-            
+                    var subChat = '/topic/chat/room/' + roomId;
+                    var subUpChat = '/topic/update/chat/' + roomId;
+                    var subUpUser = '/topic/update/userList/' + roomId;
+
                     stompClient.subscribe(subChat, function (data) {
 
-                        
-        
+
+
                         let rcvChat = JSON.parse(data.body)
 
 
                         displayChat(rcvChat);
-                    
+
                     });
 
                     stompClient.subscribe(subUpUser, function (data) {
@@ -1142,12 +1175,12 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
 
                         $(".chat_user").remove();
-                        for( i=0; i<rcvChat.length; i++){
+                        for (i = 0; i < rcvChat.length; i++) {
 
-                            
+
                             var rUid = rcvChat[i].userId;
                             var rAuth = rcvChat[i].roomAuth;
-                            
+
                             var newUl = document.createElement("li");
 
 
@@ -1156,55 +1189,55 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
                             var inTag = "";
 
-                            inTag +=                
-                                        '<div class="chat_user_id">'+rUid+'</div>'
-                                    + '<div class="chat_user_auth '+rAuth+'"></div>'
-                                    + '<div class="chat_user_my"></div>';
+                            inTag +=
+                                '<div class="chat_user_id">' + rUid + '</div>'
+                                + '<div class="chat_user_auth ' + rAuth + '"></div>'
+                                + '<div class="chat_user_my"></div>';
 
-                            newUl.innerHTML=inTag;
+                            newUl.innerHTML = inTag;
 
 
                             $(".user_list").append(newUl);
-                            
+
                             ckOwn();
 
 
                         }
 
 
-                        
+
                     });
                     stompClient.subscribe(subUpChat, function (data) {
 
 
-                                let rcvChat = JSON.parse(data.body)
-
-                        
-                                console.log("cnt update")
-                        
-
-                                for( i=0; i<rcvChat.length; i++){
-
-                                    var rid = rcvChat[i].chatId;
-                                    var rCnt = rcvChat[i].chatCkCnt;
-                                    var rState = rcvChat[i].chatState;
-
-                                    $(".chat"+rid+ " .chat_cnt").text(rCnt);
-                                    $(".chat"+rid+ " .chat_content").text(rCnt);
-                                    var k = $(".chat"+rid+ " chatState")
-                                    k.removeClass();
-                                    k.addClass("chatState");
-                                    k.addClass(rState);
+                        let rcvChat = JSON.parse(data.body)
 
 
-                                }
+                        console.log("cnt update")
+
+
+                        for (i = 0; i < rcvChat.length; i++) {
+
+                            var rid = rcvChat[i].chatId;
+                            var rCnt = rcvChat[i].chatCkCnt;
+                            var rState = rcvChat[i].chatState;
+
+                            $(".chat" + rid + " .chat_cnt").text(rCnt);
+                            $(".chat" + rid + " .chat_content").text(rCnt);
+                            var k = $(".chat" + rid + " chatState")
+                            k.removeClass();
+                            k.addClass("chatState");
+                            k.addClass(rState);
+
+
+                        }
 
 
 
                     });
 
-                    
-                   
+
+
                 })
 
             }
@@ -1212,42 +1245,42 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
             function disconnect() {
 
-                
+
                 $(window).on("beforeunload", function (e) {
-                    
+
                     e.preventDefault();
-                    
-
-                alert("disconnect");
-
-                
-                sendDate = JSON.stringify(newChat)
-                stompClient.send("/app/chat/close", {}, sendDate);
 
 
+                    alert("disconnect");
 
-                if (stompClient !== null) {
-                    stompClient.disconnect();
-                }
 
-                console.log("Disconnected");
-  
-              });
-             
+                    sendDate = JSON.stringify(newChat)
+                    stompClient.send("/app/chat/close", {}, sendDate);
+
+
+
+                    if (stompClient !== null) {
+                        stompClient.disconnect();
+                    }
+
+                    console.log("Disconnected");
+
+                });
+
 
             }
 
             function sendChat() {
-                let inputText =$(".send_chat").val();
-            
-            
-                
+                let inputText = $(".send_chat").val();
 
-                if(inputText.trim().length==0) return;
+
+
+
+                if (inputText.trim().length == 0) return;
 
                 $(".send_chat").val("");
-                newChat.chatContent=inputText;
-                
+                newChat.chatContent = inputText;
+
                 sendDate = JSON.stringify(newChat)
 
 
@@ -1260,19 +1293,19 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
 
 
-            
+
 
             function displayChat(rcvChat) {
                 let newChatEL = document.createElement("li");
-                
+
                 newChatEL.classList.add('chat');
-                newChatEL.classList.add('chat'+rcvChat.chatId);
-                
+                newChatEL.classList.add('chat' + rcvChat.chatId);
+
                 let chatWriter = rcvChat.userId;
                 let chatContent = rcvChat.chatContent;
                 let chatState = rcvChat.chatState;
-             
-       
+
+
 
                 let chatCkCnt = rcvChat.chatCkCnt;
                 let chatDate = new Date(rcvChat.chatDate);
@@ -1280,46 +1313,46 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
                 let minutes = chatDate.getMinutes() < 10 ? '0' + chatDate.getMinutes() : chatDate.getMinutes();
                 let ampm = chatDate.getHours() >= 12 ? '오후 ' : '오전 ';
 
-                let fmDate =ampm +hours+":"+minutes;
+                let fmDate = ampm + hours + ":" + minutes;
 
 
-                let innerText =""
-                if(chatState==='alert'){
+                let innerText = ""
+                if (chatState === 'alert') {
                     newChatEL.classList.add('chat_alert');
-                    
-                    innerText+='<div class="chat_con">'+chatContent+'</div>';
 
-                }else{
+                    innerText += '<div class="chat_con">' + chatContent + '</div>';
 
-                    if(chatWriter===userId){
-                        
-                        
-                        chatWriter+=" my_chat";
-            
-                        
-                        
+                } else {
+
+                    if (chatWriter === userId) {
+
+
+                        chatWriter += " my_chat";
+
+
+
                     }
-          
 
 
-                    innerText+= 
-                                '		<div class="'+ chatWriter +'" >'+ chatWriter+'</div>'
-                                + '		<div class="chat_con">'+ chatContent +'</div>'
-                                + '		<div class="chat_state '+ chatState+'">'
-                                + '			<div class="chat_cnt cnt'+rcvChat.chatCkCnt+'">'+rcvChat.chatCkCnt+'</div>'
-                                + '			<div class="chat_date">'+fmDate+'</div>'
-                                + '		</div>'
-   
+
+                    innerText +=
+                        '		<div class="' + chatWriter + '" >' + chatWriter + '</div>'
+                        + '		<div class="chat_con">' + chatContent + '</div>'
+                        + '		<div class="chat_state ' + chatState + '">'
+                        + '			<div class="chat_cnt cnt' + rcvChat.chatCkCnt + '">' + rcvChat.chatCkCnt + '</div>'
+                        + '			<div class="chat_date">' + fmDate + '</div>'
+                        + '		</div>'
+
 
 
 
                 }
 
-                
-                newChatEL.innerHTML= innerText;
+
+                newChatEL.innerHTML = innerText;
 
                 $(".chat_list").append(newChatEL);
-                
+
 
                 $(".chat_list_wrap").scrollTop($(".chat_list").height());
 
@@ -1327,26 +1360,26 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
             }
 
 
-            function addSendBtnEvent(){
+            function addSendBtnEvent() {
 
-                
 
-                $(".send_btn").click(function(){
+
+                $(".send_btn").click(function () {
 
                     sendChat()
 
                 });
 
-         
-                $(".send_chat").on("keyup",function(key){
 
-                    console.log(key.keyCode===13);
-                    
-                    
-                    if(key.keyCode===13) {
-                        
+                $(".send_chat").on("keyup", function (key) {
+
+                    console.log(key.keyCode === 13);
+
+
+                    if (key.keyCode === 13) {
+
                         key.preventDefault();
-                        if(!key.shiftKey){
+                        if (!key.shiftKey) {
                             console.log(key.keyCode);
                             sendChat()
                         }
@@ -1355,70 +1388,70 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
             }
 
-            function focusScroll(){
-
-                
-                let target =$(".chat-1");
+            function focusScroll() {
 
 
-                if(target.length==0){
-                 
+                let target = $(".chat-1");
 
-                        target=$(".chat").last();
-                    }
-                    
-                
 
-                if(target.length!=0){
-                let offsetTop =target.position().top;
-       
-                    
-            
-           
-               
-                $('.chat_list_wrap').scrollTop(offsetTop);
+                if (target.length == 0) {
+
+
+                    target = $(".chat").last();
+                }
+
+
+
+                if (target.length != 0) {
+                    let offsetTop = target.position().top;
+
+
+
+
+
+                    $('.chat_list_wrap').scrollTop(offsetTop);
                 }
             }
 
             var inviteUserList = new Array();
 
-            
 
-            function selectUser(){
+
+            function selectUser() {
 
                 console.log("select");
-                $("input:checkbox[name='userList']").change(function(){
-           
-                    
+                $("input:checkbox[name='userList']").change(function () {
+
+
                     var $this = $(this);
                     var targetId = $this.attr('id');
                     var maxCnt = "${chatInfo.chatRoomMax}";
 
                     var ckCnt = $("input:checkbox[name='userList']:checked").length;
-              
 
-                    if(ckCnt > maxCnt){
+
+                    if (ckCnt > maxCnt) {
 
                         alert("지정 된 최대 인원 수보다 많은 인원을 초대할 수 없습니다.\n최대 인원 수를 변경해 주세요.");
-                        $this.prop("checked",false);
+                        $this.prop("checked", false);
                         return;
 
                     }
 
-                    if($this.is(":checked")){
+                    if ($this.is(":checked")) {
 
                         var li = document.createElement("li");
-                        
-                        li.innerText=$this.val();
+
+                        li.innerText = $this.val();
                         li.classList.add(targetId);
 
 
                         $(".invite_list ul").append(li);
 
-                        $("."+targetId).click(function(){
+                        $("." + targetId).click(function () {
 
-                            for(let i = 0; i < inviteUserList.length; i++) {
-                                
+                            for (let i = 0; i < inviteUserList.length; i++) {
+
                                 if (array[i] === $this.val()) {
                                     array.splice(i, 1);
                                 }
@@ -1426,147 +1459,161 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
 
                             $(this).remove();
-                 
 
-                            $this.prop("checked",false);
+
+                            $this.prop("checked", false);
 
                         })
 
-                       
 
-                   
+
+
 
                         inviteUserList.push($this.val());
 
 
 
 
-                    }else{
+                    } else {
 
 
-                        
-                        for(let i = 0; i < inviteUserList.length; i++) {
+
+                        for (let i = 0; i < inviteUserList.length; i++) {
                             if (array[i] === $this.val()) {
                                 array.splice(i, 1);
                             }
                         }
-                        
-                        $("."+targetId).remove();
 
-                        
+                        $("." + targetId).remove();
+
+
                     }
 
 
                 })
-                }
-            
-            function addModal(){
+            }
 
-                $(".btn_modal_close").click(function(){
+            function addModal() {
+
+                $(".btn_modal_close").click(function () {
 
                     $(".invite_wrap").toggleClass("show");
                 })
-            $(".btn_modal").click(function(){
+                $(".btn_modal").click(function () {
 
 
-                let reqUrl = "inviteUser?chatRoomId="+roomId;
+                    let reqUrl = "inviteUser?chatRoomId=" + roomId;
 
-                
-                
-                let inviteData = {
-                    "userList":inviteUserList
-                }
-               
 
-                console.log(inviteData)
-                $.ajax({
-                    url: reqUrl,
-                    type: "POST",
-                    data: inviteData,
-               
-                    success: function (data) {
 
-                        
-                        alert(data);
-
-                        $(".invite_wrap").toggleClass("show");
-                       
+                    let inviteData = {
+                        "userList": inviteUserList
                     }
-                });
-
-            })
-
-            $(".invite_btn").click(function(){
 
 
-                let reqUrl = "getAllMember?chatRoomId="+roomId;
+                    console.log(inviteData)
+                    $.ajax({
+                        url: reqUrl,
+                        type: "POST",
+                        data: inviteData,
 
-                $.ajax({
-                    url: reqUrl,
-                    type: "GET",
-                    data: "",
+                        success: function (data) {
 
-                    success: function (data) {
 
-                        console.log(data);
-                        let userList = data;
+                            alert(data);
 
-                        
+                            $(".invite_wrap").toggleClass("show");
 
-                  
-                        for(i=0;i<userList.length;i++){
-
-                            let memberEl = document.createElement("li");
-                            let memberHtml="";
-
-                            memberHtml+=
-
-                                "    <label for=user_"+i+" class='playlist-user'>   "
-                            +   "        <input id= user_"+i+" type='checkbox' name='userList' value="+userList[i].userId+" readonly> " 
-                            +    userList[i].userId
-                            +    "    </label> "
-
-                            memberEl.innerHTML=memberHtml;
-                            $(".user_list.playlist ul").append(memberEl);
                         }
+                    });
+
+                })
+
+                $(".invite_btn").click(function () {
+
+
+                    let reqUrl = "getAllMember?chatRoomId=" + roomId;
+
+                    $.ajax({
+                        url: reqUrl,
+                        type: "GET",
+                        data: "",
+
+                        success: function (data) {
+
+                            console.log(data);
+                            let userList = data;
+
+
+
+
+                            for (i = 0; i < userList.length; i++) {
+
+                                let memberEl = document.createElement("li");
+                                let memberHtml = "";
+
+                                memberHtml +=
+
+                                    "    <label for=user_" + i + " class='playlist-user'>   "
+                                    + "        <input id= user_" + i + " type='checkbox' name='userList' value=" + userList[i].userId + " readonly> "
+                                    + userList[i].userId
+                                    + "    </label> "
+
+                                memberEl.innerHTML = memberHtml;
+                                $(".user_list.playlist ul").append(memberEl);
+                            }
+
+                            selectUser();
+                            $(".invite_wrap").toggleClass("show");
+
+                        }
+                    })
+                })
+
+                $(".exit_btn").click(function () {
+                    
+                    if (confirm("방을 나가시겠습니까?")) {
+
+                        let reqUrl = "exitChatRoom?chatRoomId="+roomId;
                         
-                        selectUser();
-                        
+                        $.ajax({
+                            url: reqUrl,
+                            type: "GET",
+                            success: function (data) {
+
+
+                                if(data==="success"){
+                                    window.close();
+                                }else{
+                                    alert("퇴장 실패");
+                                }
+                            }
+                        });
 
                     }
+
+
                 })
-                
+
+                $(".user_btn").click(function () {
+                    $(".side_wrap").toggleClass("show");
 
 
+                })
 
-                $(".invite_wrap").toggleClass("show");
-            
-
-
+                $(".side_close_btn").click(function () {
 
 
-            })
+                    $(".side_wrap").toggleClass("show");
 
-
-            $(".user_btn").click(function(){
-                $(".side_wrap").toggleClass("show");
-
-
-            })
-
-            $(".side_close_btn").click(function(){
-
-
-                $(".side_wrap").toggleClass("show");
-
-            })
+                })
 
 
 
             }
-  
-        
-        
+
+
+
 
 
             //////////////////////////////////////////////////////////////
@@ -1574,8 +1621,8 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
             $(function () {
 
                 var flag = "${resMap.flag}"
-            
-                if(flag==="false"){
+
+                if (flag === "false") {
 
                     alert("${resMap.msg}");
                     window.close();
@@ -1587,22 +1634,22 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
 
 
                 addSendBtnEvent();
-                    
+
                 connect();
 
                 disconnect();
 
                 focusScroll();
 
-               
+
                 addModal();
 
 
-           
+
             });
 
 
-            
+
 
         </script>
 

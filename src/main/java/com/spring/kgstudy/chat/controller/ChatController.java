@@ -31,12 +31,22 @@ public class ChatController {
 	private final ChatService chatService;
 	
 	@GetMapping("getAllChatRoom")
-	public String getAllChatRoom(Model model, Search search) {
+	public String getAllChatRoom(Model model, Search search,HttpSession session) {
+		
+		String userId = LoginUtil.getCurrentMemberAccount(session);
 		
 		
 		search.setAmount(20);
 		Map<String,Object> resMap= chatService.getAllChatRoom(search);
 		
+		
+		search.setType("user");
+		search.setKeyword(userId);
+		search.setAmount(9999);
+		
+		Map<String,Object> myChat= chatService.getAllChatRoom(search);
+		System.out.println(myChat);
+		resMap.put("myChat", myChat);
 		
 		model.addAttribute("resMap",resMap);
 		

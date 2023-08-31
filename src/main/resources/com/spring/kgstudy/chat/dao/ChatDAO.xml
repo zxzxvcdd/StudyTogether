@@ -4,7 +4,7 @@
 
 
 	<sql id="searchRoom">
-		<if test="type == 'user'">WHERE A.user_id = #{keyword}</if>
+		<if test="type == 'user'">WHERE A.chat_room_id in (select chat_room_id from chat_user_table WHERE user_id =#{keyword})</if>
 		<if test="type == 'title'">WHERE A.chat_room_title like '%'||#{keyword}||''</if>
 		<if test="type == 'goal'">WHERE A.chat_room_goal like '%'||#{keyword}||'</if>
 		<if test="type == 'category'">WHERE A.chat_room_goal like '%'||#{keyword}||'</if>

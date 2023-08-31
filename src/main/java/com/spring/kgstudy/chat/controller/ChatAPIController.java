@@ -56,9 +56,9 @@ public class ChatAPIController {
 		ChatVO chat = new ChatVO();
 
 		
+		
 
-
-		String inviteMsg = "";
+		String inviteMsg = userId+"님이 ";
 		if (userList != null && userList.length > 0) {
 
 			for(String invite : userList) {
@@ -68,15 +68,16 @@ public class ChatAPIController {
 				chat = service.insertUser(chatUser);
 				if (chat != null) {
 
-					inviteMsg += invite + "님, ";
+					inviteMsg += invite + ", ";
 
 				} else {
 
 				}
 
 			}
-
-			inviteMsg += "이 초대되었습니다.";
+			
+			inviteMsg = inviteMsg.substring(0, inviteMsg.length()-2);
+			inviteMsg += "님을 초대하였습니다.";
 
 			chat.setChatContent(inviteMsg);
 			service.insertChat(chat);
@@ -90,4 +91,48 @@ public class ChatAPIController {
 		
 	}
 
+	
+	
+	@GetMapping("exitChatRoom")
+	public String exitChatRoom(ChatUserVO user,HttpSession session) {
+		
+		
+		String userId = LoginUtil.getCurrentMemberAccount(session);
+
+		user.setUserId(userId);
+		
+		if(service.deleteChatUser(user)) {
+			
+			ChatVO chat = new ChatVO();
+			
+			chat.setChatDate(new Date());
+			chat.setChatContent(userId+"님이 퇴장하였습니다.");
+			chat.setChatRoomId(user.getChatRoomId());
+			chat.setChatState("alert");
+			chat.setUserId("admin");
+			
+			service.insertChat(chat);
+			
+			return "success";
+			
+		}else{
+			
+			return "fali";
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }

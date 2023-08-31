@@ -96,22 +96,25 @@ public class ChatService {
 		int roomId = user.getChatRoomId();
 		
 		
-		
-		if(isRoomFull(roomId)) {
-			
-			setMsg(resMap, "방이 꽉 찼습니다.", false);
-			
-			return resMap;
-			
-		}
-		
+
 		
 		
 		ChatVO chat = insertUser(user);
 		user = findOneChatUser(user);
 		
+		
+
+		
+		
 		if(chat!=null) {
 			
+			if(isRoomFull(roomId)) {
+				
+				setMsg(resMap, "방이 꽉 찼습니다.", false);
+				
+				return resMap;
+				
+			}
 			
 			chat.setChatContent(userId+"님이 입장하였습니다.");
 	
@@ -560,6 +563,7 @@ public class ChatService {
 		
 		String subUrl= "/topic/chat/room/"+chat.getChatRoomId();
 		
+		System.out.println(chat);
 
 		
 		

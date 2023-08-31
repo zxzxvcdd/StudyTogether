@@ -161,6 +161,8 @@
     font-weight: 500;
     color: #2f3640;
 
+    cursor: pointer;
+
 }
 
 button:hover{
@@ -210,6 +212,9 @@ button:hover{
 .user_search input{
 
     border-bottom: 1px solid #000;
+}
+button{
+    cursor: pointer;
 }
 .user_search button{
 
