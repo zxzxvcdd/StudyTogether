@@ -22,47 +22,6 @@ function mover() {
 	m.innerText = "(퇴실하겠습니까?)";
 	m.style.color = "#ff7979";
 }
-function checkout() {
-
-
-	if (confirm("퇴실하시겠습니까?")) {
-
-		var reservId = "${reservId}";
-
-		console.log(reservId);
-
-		var reqUrl = "/kgstudy/seat/seatCheckOut.do?reservationId=" + reservId;
-
-
-		$.ajax({
-			url: reqUrl,
-			type: "POST",
-
-
-			success: function (data) {
-
-				console.log(data);
-				let msg = data;
-				if (msg) {
-
-					if (msg === "success") {
-
-						alert("퇴실완료");
-						location.reload();
-
-
-					}
-
-
-				}
-			}
-
-		})
-
-
-	}
-
-}
 
 
 function mout() {

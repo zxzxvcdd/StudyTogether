@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.rosuda.REngine.REXPMismatchException;
 import org.springframework.stereotype.Controller;
@@ -132,6 +131,7 @@ public class AdminController {
 	@GetMapping("addMenu.do")
 	public String addMenu(Model model, MenuVO menu) {
 
+		System.out.println(menu);
 		String msg = "메뉴 추가 실패";
 		if (menuService.insertMenu(menu)) {
 
@@ -153,7 +153,7 @@ public class AdminController {
 		return "redirect:/admin/getMenuList.do";
 	}
 
-	@GetMapping("updateMneu.do")
+	@GetMapping("updateMenu.do")
 	public String updateMenu(Model model, MenuVO menu) {
 
 		String msg = "메뉴 수정 실패";
@@ -168,8 +168,11 @@ public class AdminController {
 	}
 
 	@GetMapping("orderList.do")
-	public String getOrderList(Model model, Search search) {
+	public String getOrderList(Model model, Search search, HttpServletRequest req) {
 
+		req.getParameterNames().asIterator().forEachRemaining(key -> System.out.println(key));
+		
+		System.out.println(search);
 		Map<String, Object> resMap = orderService.getOrderList(search);
 
 		resMap.put("search", search);

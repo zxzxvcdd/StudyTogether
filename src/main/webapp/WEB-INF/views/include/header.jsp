@@ -56,3 +56,50 @@
 		</div>
 		
 	</header>
+	
+	<script>
+
+	var reservId = "${reservId}";
+	console.log(reservId);
+	function checkout() {
+
+		
+		if (confirm("퇴실하시겠습니까?")) {
+
+			
+
+			
+
+			var reqUrl = "/kgstudy/seat/seatCheckOut.do?reservationId=" + reservId;
+
+
+			$.ajax({
+				url: reqUrl,
+				type: "POST",
+
+
+				success: function (data) {
+
+					console.log(data);
+					let msg = data;
+					if (msg) {
+
+						if (msg === "success") {
+
+							alert("퇴실완료");
+							location.reload();
+
+
+						}
+
+
+					}
+				}
+
+			})
+
+
+		}
+
+	}
+	</script>

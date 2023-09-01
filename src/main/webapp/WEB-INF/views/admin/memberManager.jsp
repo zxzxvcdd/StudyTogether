@@ -185,11 +185,17 @@
     let url = "getMemberList.do";
 
     let searchType = "${resMap.search.type}"
-
+	let grant = "${resMap.search.grant}"
+	console.log(grant)
     if(searchType){
 
         $("option[value="+searchType+"]").attr("selected","selected");
 
+
+    }
+    if(grant){
+
+        $("input:radio[name ='grant']:input[value='"+grant+"']").attr("checked","true") 
 
     }
 	

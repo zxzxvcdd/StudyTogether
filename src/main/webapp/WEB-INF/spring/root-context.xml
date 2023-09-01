@@ -42,10 +42,12 @@
 
 
 	<!--  파일업로드 디렉토리 설정 -->
-	  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<!-- 	  <bean id="filePath" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	 	 <property name="locations" value="classpath:/file.properties" />
+	  </bean> -->
+	  <bean id="filePath" class="java.lang.String">
+	    <constructor-arg value="D:/Java_DB/project_workspace_kgStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/KGStudy/resources/fileUpload"/>
 	  </bean>
-	
 	  <bean id="chartPath" class="java.lang.String">
 	    <constructor-arg value="D:/Java_DB/project_workspace_kgStudy/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/KGStudy/resources/fileUpload/rGraph"/>
 	  </bean>

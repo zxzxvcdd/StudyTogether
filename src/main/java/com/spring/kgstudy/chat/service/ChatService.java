@@ -35,8 +35,8 @@ public class ChatService {
 	
 	private final ChatDAO chatDao;
 	
-	@Value("${file.path}")
-	private String uploadPath;  
+
+	private String uploadPath ="D:\\Java_DB\\project_workspace_kgStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\KGStudy\\resources\\fileUpload\\";  
 	
 	public List<ChatUserVO> getAllMember(ChatUserVO chatUser){
 		
@@ -240,7 +240,7 @@ public class ChatService {
 		
         String newFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
-        
+        System.out.println("path:" +uploadPath);
         File f = new File(uploadPath + newPath, newFileName);
 
         

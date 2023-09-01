@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -33,7 +35,7 @@ public class ReviewService {
 
 	
 
-	@Value("${file.path}")  //properties에 있는 uploadPath값 가져오기
+	@Resource(name="filePath")
 	private String uploadPath;  
 	
 	// 리뷰 전체 보기

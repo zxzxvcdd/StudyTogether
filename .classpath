@@ -64,12 +64,12 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/R/R-4.3.1/library/Rserve/java/REngine.jar">
+	<classpathentry kind="lib" path="C:/Users/shinj/AppData/Local/R/win-library/4.3/Rserve/java/REngine.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/R/R-4.3.1/library/Rserve/java/Rserve.jar">
+	<classpathentry kind="lib" path="C:/Users/shinj/AppData/Local/R/win-library/4.3/Rserve/java/Rserve.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

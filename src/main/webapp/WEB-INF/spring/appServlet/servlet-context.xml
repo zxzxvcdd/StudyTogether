@@ -46,6 +46,7 @@
             <!-- <mapping path="/reviewListView.do"/> 테스트용 -->
             <mapping path="/userStudyChartView.do"/>
             <mapping path="/order/passOrder.do"/>
+            <mapping path="/calendar/*"/>
             <mapping path="/chat/*"/>
             <beans:ref bean="authenticationInterceptor"/>
         </interceptor>

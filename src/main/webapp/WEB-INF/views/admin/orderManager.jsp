@@ -57,7 +57,7 @@
 										<div class="input_select_wrap input_wrap2">
 											<select name="type">
 
-                                                <option value="id">아이디</option>
+                                                <option value="user">아이디</option>
                                                 <option value="order">주문번호</option>
                                                 <option value="name">주문명</option>
                                                 <option value="date">주문날짜</option>

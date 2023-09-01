@@ -40,13 +40,15 @@ public class ChatController {
 		Map<String,Object> resMap= chatService.getAllChatRoom(search);
 		
 		
-		search.setType("user");
-		search.setKeyword(userId);
-		search.setAmount(9999);
+		Search s2= new Search();
+		s2.setType("user");
+		s2.setKeyword(userId);
+		s2.setAmount(9999);
 		
-		Map<String,Object> myChat= chatService.getAllChatRoom(search);
+		Map<String,Object> myChat= chatService.getAllChatRoom(s2);
 		System.out.println(myChat);
 		resMap.put("myChat", myChat);
+		
 		
 		model.addAttribute("resMap",resMap);
 		

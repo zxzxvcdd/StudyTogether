@@ -28,6 +28,9 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>
 <style>
+ul, li {
+    list-style: none;
+}
 	h1{
 		font-weight:700;
 	}
@@ -37,6 +40,13 @@
 	nav.navbar a{
 		text-decoration:none;
 	}
+	
+	#chart_show a {
+    display: block;
+    font-size: 2rem;
+    color: #fff;
+    margin: 2rem 0;
+}
 
 </style>
 
@@ -181,7 +191,7 @@
 					이용권 시간: <input type="text" class="modify-pass" name="passTime"><br>
 					<div class="modal-footer">
 						
-						<div class="btn btn-primary btn-modi">수정</div>
+						<div class="btn btn-primary btn-modify">수정</div>
 						<div class="btn btn-primary btn_close" data-dismiss="modal">취소</div>
 					
 					</div>
@@ -241,14 +251,14 @@
 
 
 				const $newPass = $(".new-pass");
-				let menuId = "menuId="+ $newPass.eq(0).val()
-				let menuName = "menuName="+ $newPass.eq(1).val()
-				let menuPrice = "menuPrice="+ $newPass.eq(2).val()
-				let menuType = "menuType="+ $newPass.eq(3).val()
-				let menuTime = "menuTime="+ $newPass.eq(4).val()
+			
+				let menuName = "menuName="+ $newPass.eq(0).val()
+				let passPrice = "passPrice="+ $newPass.eq(1).val()
+				let passType = "passType="+ $newPass.eq(2).val()
+				let passTime = "passTime="+ $newPass.eq(3).val()
+				
 
-
-				location.href="addMenu.do?"+menuId+"&"+menuName+"&"+menuPrice+"&"+MenuType+"&"+menuTime;
+				location.href="addMenu.do?"+menuName+"&"+passPrice+"&"+passType+"&"+passTime;
 
 
 			})
@@ -272,9 +282,9 @@
 				
 				$(".modify-pass").eq(0).val(menuId);
 				$(".modify-pass").eq(1).val(menuName);
-				$(".modify-pass").eq(2).val(menuPrice);
-				$(".modify-pass option[value="+passTime+"]").attr("selected","selected");
-				$(".modify-pass").eq(4).val(passType);
+				$(".modify-pass").eq(2).val((menuPrice.replace(",","")).substr(0, menuPrice.length-2));
+				$(".modify-pass option[value="+passType+"]").attr("selected","selected");
+				$(".modify-pass").eq(4).val(passTime.substr(0, passTime.length-1));
 
 
 
@@ -288,12 +298,13 @@
 
 				let menuId = "menuId="+ $updateList.eq(0).val()
 				let menuName = "menuName="+ $updateList.eq(1).val()
-				let menuPrice = "menuPrice="+ $updateList.eq(2).val()
-				let menuType = "menuType="+ $updateList.eq(3).val()
-				let menuTime = "menuTime="+ $updateList.eq(4).val()
+				let menuPrice = "passPrice="+ $updateList.eq(2).val()
+				let menuType = "passType="+ $updateList.eq(3).val()
+				let menuTime = "passTime="+ $updateList.eq(4).val()
 
-				location.href="updateMenu.do?"+menuId+"&"+menuName+"&"+menuPrice+"&"+MenuType+"&"+menuTime;
-				
+				location.href="updateMenu.do?"+menuId+"&"+menuName+"&"+menuPrice+"&"+menuType+"&"+menuTime;
+
+
 				
 				})
 			
