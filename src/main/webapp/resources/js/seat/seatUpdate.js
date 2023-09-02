@@ -1,30 +1,38 @@
 function createSeat(i) {
 
-    let newBox = document.createElement("div"); +i
+    let newBox = document.createElement("div"); 
 
 
     newBox.classList.add("box");
 
-    newBox.classList.add("box" + i);
-    if ("${loginUser.user_id}" === seatList[i].userId && seatList[i].seatType == 'N') {
-        newBox.classList.add("myseat");
-    }
 
-    newBox.setAttribute("data-id", seatList[i].seatId);
-    newBox.setAttribute("data-name", seatList[i].seatName);
-    newBox.setAttribute("data-type", seatList[i].seatType);
+	console.log(i);
+	console.log(index);
+
+    newBox.classList.add("box" + i);
+    
+    let ts = seatList.get(i);
+
+
+    newBox.setAttribute("data-id", ts.seatId);
+    newBox.setAttribute("data-name", ts.seatName);
+    newBox.setAttribute("data-type", ts.seatType);
 
     newBox.setAttribute("data-index", i);
     newBox.innerText = newSeat.seatName;
 
     $(".seat_list").append(newBox);
 
-    $(".box" + i).css("top", seatList[i].y + "px");
-    $(".box" + i).css("left", seatList[i].x + "px");
+    $(".box" + i).css("top", ts.y + "px");
+    $(".box" + i).css("left", ts.x + "px");
 
     refreshTypeClass(".box" + i)
-    addDbClickEvent(".box" + i);
+    
+
     addMoveEvent(".box" + i);
+    addDbClickEvent(".box" + i);
+  
+    
 
 
 }
@@ -76,9 +84,10 @@ function addMoveEvent(newBox) {
 
             let targetIndex = $(newBox).data("index");
 
+            let ts = seatList.get(targetIndex);
 
-            seatList[targetIndex].x = offsetLeft;
-            seatList[targetIndex].y = offsetTop;
+            ts.x = offsetLeft;
+            ts.y = offsetTop;
 
         }
 
@@ -91,10 +100,12 @@ function addMoveEvent(newBox) {
 function updateSeat() {
 
 
+    let postArr =Array.from(seatList.values())
 
-    let postData = JSON.stringify(seatList);
+    let postData = JSON.stringify(postArr);
 
     var reqUrl = "updateSeat.do";
+
 
     $.ajax({
         url: reqUrl,
@@ -104,7 +115,7 @@ function updateSeat() {
         success: function (data) {
 
 
-            console.log(data);
+            
 
             let resMap = data
 
@@ -189,9 +200,10 @@ function changeState() {
     console.log($(targetSeat).data("type"));
     console.log($(targetSeat));
 
+    let ts = seatList.get(targetIndex);
 
-    seatList[targetIndex].seatType = changeType;
-    console.log(seatList[targetIndex].seatType);
+    ts.seatType = changeType;
+
     refreshTypeClass(targetSeat);
 
 }
@@ -230,8 +242,8 @@ function addNewModalEvent() {
 
 
         index++;
-        seatList.push(newSeat);
-        createSeat(index - 1)
+        seatList.set(index,newSeat);
+        createSeat(index)
         $(".modal-new").toggleClass("show");
 
     })
@@ -267,9 +279,10 @@ function delSeat() {
                     let targetIndex = $(targetSeat).data("index");
 
                     $(targetSeat).remove();
-                    seatList.splice(targetIndex, 1);
-                    index--;
-
+                    seatList.delete(targetIndex);
+                   
+                    
+                
                 }
 
 

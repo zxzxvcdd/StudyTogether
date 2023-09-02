@@ -160,7 +160,7 @@
 
 
 
-                                        const seatList = new Array();
+                                        const seatList = new Map();
                                         let newSeat;
                                         <c:forEach var="vo" items="${seat}" varStatus="status">
                                             
@@ -174,13 +174,14 @@
                                                 
 
                                                 index++;
-                                                seatList.push(newSeat);
+                                                seatList.set(index,newSeat)
 
-                                                createSeat(index-1);
+                                                createSeat(index);
                                             
                                         </c:forEach>
-                                        let storeId= seatList[0].storeId;
-                                        
+
+                                        let storeId= "${seat[0].storeId}"
+                                   
                                     
                                        
 
