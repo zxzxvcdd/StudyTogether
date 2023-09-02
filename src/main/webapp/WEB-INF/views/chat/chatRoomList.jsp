@@ -9,7 +9,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
 <%@ include file="../include/static-header.jsp" %>
 <meta charset="UTF-8">
-<title>review</title>
+<title>공개 스터디</title>
 
 <!-- jquery -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.0.min.js"></script>

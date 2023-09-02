@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,8 +36,8 @@ public class ChatService {
 	
 	private final ChatDAO chatDao;
 	
-
-	private String uploadPath ="D:\\Java_DB\\project_workspace_kgStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\KGStudy\\resources\\fileUpload\\";  
+	@Resource
+	private String uploadPath;  
 	
 	public List<ChatUserVO> getAllMember(ChatUserVO chatUser){
 		
@@ -94,19 +95,11 @@ public class ChatService {
 
 		String userId = user.getUserId();
 		int roomId = user.getChatRoomId();
-		
-		
-
-		
-		
-		ChatVO chat = insertUser(user);
-		user = findOneChatUser(user);
-		
+		ChatVO chat= null;
 		
 
-		
-		
-		if(chat!=null) {
+		if(chatDao.findOneChatUser(user)==null) {
+			
 			
 			if(isRoomFull(roomId)) {
 				
@@ -116,6 +109,24 @@ public class ChatService {
 				
 			}
 			
+			
+			
+		
+			
+			user.setRoomAuth("user");
+			chat = insertUser(user);
+		
+		
+			
+		
+		
+
+		
+		}
+		
+		if(chat!=null) {
+			
+		
 			chat.setChatContent(userId+"님이 입장하였습니다.");
 	
 			
@@ -125,6 +136,8 @@ public class ChatService {
 			
 		}
 		
+		
+		user = findOneChatUser(user);
 		
 		Date lastStamp = user.getChatUserStamp();
 		
@@ -156,7 +169,8 @@ public class ChatService {
 		
 		List<ChatUserVO> userList = chatDao.findAllChatUser(user);
 		
-
+		
+		System.out.println(lastStamp);
 		if(lastStamp!=null) {
 			for(int i=0; i<chatList.size();i++) {
 				
@@ -324,28 +338,23 @@ public class ChatService {
 	
 	public ChatVO insertUser(ChatUserVO chatUser) {
 		
-		
 
-		if(chatDao.findOneChatUser(chatUser)==null) {
-		
-			chatUser.setRoomAuth("user");
+
 		
 		
-			if(!chatDao.insertChatUser(chatUser)) return null;
-			
-			ChatVO chat = new ChatVO();
-			
-			chat.setUserId("admin");
+		if(!chatDao.insertChatUser(chatUser)) return null;
 		
-			chat.setChatRoomId(chatUser.getChatRoomId());
-			chat.setChatState("alert");
-			
-			return chat;
-			
 		
-		}
+		ChatVO chat = new ChatVO();
 		
-		return null;
+		chat.setUserId("admin");
+	
+		chat.setChatRoomId(chatUser.getChatRoomId());
+		chat.setChatState("alert");
+		
+		return chat;
+		
+		
 
 		
 	}
@@ -363,6 +372,9 @@ public class ChatService {
 		}else {
 		
 		
+			if(chatDao.findOneChatUser(chatUser)!=null)result="이미 참여한 회원입니다.";
+				
+			chatUser.setRoomAuth("user");
 			ChatVO chat =insertUser(chatUser);
 			
 			if(chat!=null) {
@@ -373,11 +385,7 @@ public class ChatService {
 				result="회원이 초대되었습니다.";
 				
 				
-			}else {
-				
-				result="이미 참여한 회원입니다.";
 			}
-			
 			
 		}
 		

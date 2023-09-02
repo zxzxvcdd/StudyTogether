@@ -9,7 +9,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
 
 <meta charset="UTF-8">
-<title>review</title>
+<title>스터디 룸</title>
 
 <script src="${pageContext.request.contextPath}/resources/js/sockjs.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stomp.min.js"></script>
@@ -1108,7 +1108,8 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
         <script>
 
             let roomId = "${chatInfo.chatRoomId}"
-
+            let roomMax= "${chatInfo.chatRoomMax}"
+            let roomCnt= "${chatInfo.chatRoomCnt}"
             let userId = "${loginUser.user_id}";
             // userId="user11";
 
@@ -1501,6 +1502,13 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
                 })
                 $(".btn_modal").click(function () {
 
+         
+                    if(inviteUserList.length+parseInt(roomCnt)>roomMax){
+                        
+                        alert("최대 인원수 보다 많은 인원은 초대할 수 없습니다.");
+                        return;
+                    
+                    }
 
                     let reqUrl = "inviteUser?chatRoomId=" + roomId;
 
@@ -1532,6 +1540,7 @@ background-image: url("/kgstudy/resources/img/chat/list.png");
                 $(".invite_btn").click(function () {
 
 
+                    
                     let reqUrl = "getAllMember?chatRoomId=" + roomId;
 
                     $.ajax({

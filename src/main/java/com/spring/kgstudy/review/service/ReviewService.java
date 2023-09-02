@@ -35,7 +35,7 @@ public class ReviewService {
 
 	
 
-	@Resource(name="filePath")
+	@Resource(name="uploadPath")
 	private String uploadPath;  
 	
 	// 리뷰 전체 보기
