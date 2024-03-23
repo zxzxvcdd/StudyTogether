@@ -8,6 +8,8 @@
 
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/98054214-d35f-4df8-9ecb-a6881e5b327e)
 
+![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/73bf2201-96b4-48db-b178-727f89faad37)
+
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/ac7947bf-afc3-47a9-a2b9-ec08a16a7972)
 
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/0f885a27-6003-4626-b558-498c106586d0)
@@ -17,3 +19,7 @@
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/c8db66a9-105c-4f01-9b4b-e17aabaaba59)
 
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/3563c58d-a14c-4621-a74a-44f7a5752845)
+
+![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/4b22e591-afd1-4080-8922-825b10f4270f)
+
+![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/f658fe03-1a71-4a7a-80e1-02a451f4c9da)
