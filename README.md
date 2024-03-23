@@ -8,9 +8,9 @@
 
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/98054214-d35f-4df8-9ecb-a6881e5b327e)
 
-![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/73bf2201-96b4-48db-b178-727f89faad37)
-
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/ac7947bf-afc3-47a9-a2b9-ec08a16a7972)
+
+![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/faa3bddb-f705-4500-b95f-36cbec607d9a)
 
 ![image](https://github.com/zxzxvcdd/StudyTogether/assets/102417746/0f885a27-6003-4626-b558-498c106586d0)
 
